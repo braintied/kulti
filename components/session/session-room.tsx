@@ -38,6 +38,8 @@ function SessionRoomContent({
   const isConnected = useHMSStore(selectIsConnectedToRoom)
   const [isJoining, setIsJoining] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [watchDuration, setWatchDuration] = useState(0)
+  const [estimatedCredits, setEstimatedCredits] = useState(0)
 
   useEffect(() => {
     const joinRoom = async () => {
@@ -82,6 +84,91 @@ function SessionRoomContent({
       hmsActions.leave()
     }
   }, [hmsActions, session.hms_room_id, session.id])
+
+  // Heartbeat tracking for credits
+  useEffect(() => {
+    if (!isConnected) return
+
+    let heartbeatInterval: NodeJS.Timeout | null = null
+    let isActive = true
+
+    // Send heartbeat every 30 seconds
+    const sendHeartbeat = async () => {
+      try {
+        const response = await fetch('/api/analytics/heartbeat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            sessionId: session.id,
+            isActive: true,
+          }),
+        })
+
+        if (response.ok) {
+          const data = await response.json()
+          setWatchDuration(data.watch_duration_seconds)
+          setEstimatedCredits(data.estimated_credits)
+        }
+      } catch (error) {
+        console.error('Heartbeat error:', error)
+      }
+    }
+
+    // Send initial heartbeat
+    sendHeartbeat()
+
+    // Set up interval
+    heartbeatInterval = setInterval(sendHeartbeat, 30000) // 30 seconds
+
+    // Handle visibility change (tab switching)
+    const handleVisibilityChange = async () => {
+      isActive = !document.hidden
+      if (!isActive) {
+        // Mark as inactive when tab is hidden
+        try {
+          await fetch('/api/analytics/heartbeat', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              sessionId: session.id,
+              isActive: false,
+            }),
+          })
+        } catch (error) {
+          console.error('Failed to mark inactive:', error)
+        }
+      } else {
+        // Resume heartbeat when tab is visible again
+        sendHeartbeat()
+      }
+    }
+
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+
+    // Cleanup
+    return () => {
+      if (heartbeatInterval) {
+        clearInterval(heartbeatInterval)
+      }
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+
+      // Mark as inactive on unmount
+      fetch('/api/analytics/heartbeat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          sessionId: session.id,
+          isActive: false,
+        }),
+      }).catch(console.error)
+    }
+  }, [isConnected, session.id])
 
   const handleLeave = () => {
     hmsActions.leave()
@@ -136,6 +223,18 @@ function SessionRoomContent({
             </div>
           </div>
           <div className="flex items-center gap-3">
+            {/* Credits Earned */}
+            {watchDuration > 0 && (
+              <div className="px-4 py-2 bg-[#1a1a1a] border border-[#27272a] rounded-lg">
+                <div className="text-xs text-[#a1a1aa] mb-1">Earning</div>
+                <div className="flex items-center gap-2">
+                  <span className="font-mono text-lg font-bold text-lime-400">
+                    +{estimatedCredits}
+                  </span>
+                  <span className="text-xs text-[#71717a]">credits</span>
+                </div>
+              </div>
+            )}
             <div className="px-5 py-2 bg-lime-400/10 text-lime-400 text-lg rounded-lg font-mono font-bold">
               {session.room_code}
             </div>

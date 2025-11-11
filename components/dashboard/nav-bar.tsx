@@ -6,7 +6,8 @@ import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { createClient } from "@/lib/supabase/client"
 import { Profile } from "@/types/database"
-import { LogOut, User } from "lucide-react"
+import { LogOut, User, Coins } from "lucide-react"
+import { formatCredits } from "@/lib/credits/config"
 
 interface NavBarProps {
   profile: Profile
@@ -16,6 +17,51 @@ export function NavBar({ profile }: NavBarProps) {
   const router = useRouter()
   const [showMenu, setShowMenu] = useState(false)
   const [showCursor, setShowCursor] = useState(true)
+  const [credits, setCredits] = useState<number>(0)
+  const [loading, setLoading] = useState(true)
+
+  // Fetch credit balance
+  useEffect(() => {
+    const fetchCredits = async () => {
+      try {
+        const response = await fetch('/api/credits/balance')
+        if (response.ok) {
+          const data = await response.json()
+          setCredits(data.credits_balance || 0)
+        }
+      } catch (error) {
+        console.error('Failed to fetch credits:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchCredits()
+
+    // Set up real-time subscription for balance updates
+    const supabase = createClient()
+    const channel = supabase
+      .channel('credit_updates')
+      .on(
+        'postgres_changes',
+        {
+          event: 'UPDATE',
+          schema: 'public',
+          table: 'profiles',
+          filter: `id=eq.${profile.id}`,
+        },
+        (payload: any) => {
+          if (payload.new.credits_balance !== undefined) {
+            setCredits(payload.new.credits_balance)
+          }
+        }
+      )
+      .subscribe()
+
+    return () => {
+      channel.unsubscribe()
+    }
+  }, [profile.id])
 
   useEffect(() => {
     const cursorInterval = setInterval(() => {
@@ -53,6 +99,17 @@ export function NavBar({ profile }: NavBarProps) {
 
           {/* Right Side */}
           <div className="flex items-center gap-4">
+            {/* Credits Display */}
+            <Link
+              href="/dashboard/credits"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#1a1a1a] border border-[#27272a] hover:border-lime-400 transition-colors"
+            >
+              <Coins className="w-5 h-5 text-lime-400" />
+              <span className="font-mono font-bold text-lime-400">
+                {loading ? '...' : formatCredits(credits)}
+              </span>
+            </Link>
+
             <button
               onClick={() => router.push("/dashboard?create=true")}
               className="hidden md:block bg-lime-400 hover:bg-lime-500 text-black font-bold text-base px-8 py-3 rounded-lg transition-colors duration-300"
