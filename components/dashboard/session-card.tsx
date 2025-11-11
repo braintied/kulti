@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Session, Profile } from "@/types/database"
-import { Users, Clock } from "lucide-react"
+import { Users, Clock, Star } from "lucide-react"
 import { formatTime } from "@/lib/utils"
 
 interface SessionCardProps {
@@ -9,16 +9,28 @@ interface SessionCardProps {
     host: Profile
     participants?: { count: number }[]
   }
+  currentUserId?: string
 }
 
-export function SessionCard({ session }: SessionCardProps) {
+export function SessionCard({ session, currentUserId }: SessionCardProps) {
   const participantCount = session.participants?.[0]?.count || 0
+  const isBoosted = session.boosted_until && new Date(session.boosted_until) > new Date()
 
   return (
-    <div className="group border border-[#27272a] rounded-2xl p-8 bg-[#1a1a1a]/50 backdrop-blur-sm hover:border-lime-400 hover:-translate-y-1 transition-all duration-300 animate-fade-in">
+    <div className={`relative group border rounded-2xl p-8 bg-[#1a1a1a]/50 backdrop-blur-sm hover:border-lime-400 hover:-translate-y-1 transition-all duration-300 animate-fade-in ${
+      isBoosted ? "border-lime-400/50" : "border-[#27272a]"
+    }`}>
+      {/* Featured Badge */}
+      {isBoosted && (
+        <div className="absolute top-4 right-4 flex items-center gap-1 px-3 py-1 bg-lime-400 text-black text-xs font-bold rounded-full">
+          <Star className="w-3 h-3 fill-current" />
+          FEATURED
+        </div>
+      )}
+
       <div className="space-y-5">
         {/* Title */}
-        <h3 className="text-2xl font-bold font-mono line-clamp-1 group-hover:text-lime-400 transition-colors">
+        <h3 className="text-2xl font-bold font-mono line-clamp-1 group-hover:text-lime-400 transition-colors pr-24">
           {session.title}
         </h3>
 

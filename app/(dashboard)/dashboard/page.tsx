@@ -12,12 +12,20 @@ export default function DashboardPage() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const [sessions, setSessions] = useState<any[]>([])
+  const [userId, setUserId] = useState<string>("")
   const [loading, setLoading] = useState(true)
   const showCreate = searchParams.get("create") === "true"
 
   useEffect(() => {
     const fetchSessions = async () => {
       const supabase = createClient()
+
+      // Get current user
+      const { data: { user } } = await supabase.auth.getUser()
+      if (user) {
+        setUserId(user.id)
+      }
+
       const { data } = await supabase
         .from("sessions")
         .select(`
@@ -77,7 +85,7 @@ export default function DashboardPage() {
         {sessions && sessions.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {sessions.map((session) => (
-              <SessionCard key={session.id} session={session} />
+              <SessionCard key={session.id} session={session} currentUserId={userId} />
             ))}
           </div>
         ) : (
