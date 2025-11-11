@@ -333,13 +333,21 @@ export async function incrementChatCount(sessionId: string, userId: string): Pro
     row_id: `session_id=${sessionId},user_id=${userId}`,
   })
 
-  // Also increment session total
-  await supabase
+  // Also increment session total - fetch current value and increment
+  const { data: session } = await supabase
     .from('sessions')
-    .update({
-      total_chat_messages: supabase.sql`total_chat_messages + 1`,
-    })
+    .select('total_chat_messages')
     .eq('id', sessionId)
+    .single()
+
+  if (session) {
+    await supabase
+      .from('sessions')
+      .update({
+        total_chat_messages: (session.total_chat_messages || 0) + 1,
+      })
+      .eq('id', sessionId)
+  }
 }
 
 /**
@@ -348,11 +356,21 @@ export async function incrementChatCount(sessionId: string, userId: string): Pro
 export async function incrementHelpedCount(sessionId: string, userId: string): Promise<void> {
   const supabase = await createClient()
 
-  await supabase
+  // Fetch current count and increment
+  const { data: participant } = await supabase
     .from('session_participants')
-    .update({
-      helped_others_count: supabase.sql`helped_others_count + 1`,
-    })
+    .select('helped_others_count')
     .eq('session_id', sessionId)
     .eq('user_id', userId)
+    .single()
+
+  if (participant) {
+    await supabase
+      .from('session_participants')
+      .update({
+        helped_others_count: (participant.helped_others_count || 0) + 1,
+      })
+      .eq('session_id', sessionId)
+      .eq('user_id', userId)
+  }
 }
