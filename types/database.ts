@@ -11,6 +11,10 @@ export type Profile = {
   total_credits_earned?: number
   total_credits_spent?: number
   credits_updated_at?: string
+  badges?: any[]
+  current_streak?: number
+  longest_streak?: number
+  last_active_date?: string
 }
 
 export type Session = {
