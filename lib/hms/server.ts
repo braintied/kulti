@@ -106,12 +106,12 @@ export function verifyHMSToken(token: string): { valid: boolean; payload?: any }
 export async function endHMSRoom(roomId: string) {
   try {
     const response = await fetch(
-      \`https://api.100ms.live/v2/rooms/\${roomId}/end\`,
+      `https://api.100ms.live/v2/rooms/${roomId}/end`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: \`Bearer \${HMS_APP_ACCESS_KEY}:\${HMS_APP_SECRET}\`,
+          Authorization: `Bearer ${HMS_APP_ACCESS_KEY}:${HMS_APP_SECRET}`,
         },
         body: JSON.stringify({
           lock: true,
@@ -134,12 +134,12 @@ export async function endHMSRoom(roomId: string) {
 export async function createStreamKey(roomId: string) {
   try {
     const response = await fetch(
-      \`https://api.100ms.live/v2/stream-key/room/\${roomId}\`,
+      `https://api.100ms.live/v2/stream-key/room/${roomId}`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: \`Bearer \${HMS_APP_ACCESS_KEY}:\${HMS_APP_SECRET}\`,
+          Authorization: `Bearer ${HMS_APP_ACCESS_KEY}:${HMS_APP_SECRET}`,
         },
       }
     )
@@ -165,12 +165,12 @@ export async function createStreamKey(roomId: string) {
 export async function getStreamKey(roomId: string) {
   try {
     const response = await fetch(
-      \`https://api.100ms.live/v2/stream-key/room/\${roomId}\`,
+      `https://api.100ms.live/v2/stream-key/room/${roomId}`,
       {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: \`Bearer \${HMS_APP_ACCESS_KEY}:\${HMS_APP_SECRET}\`,
+          Authorization: `Bearer ${HMS_APP_ACCESS_KEY}:${HMS_APP_SECRET}`,
         },
       }
     )
@@ -200,12 +200,12 @@ export async function getStreamKey(roomId: string) {
 export async function disableStreamKey(streamKeyId: string) {
   try {
     const response = await fetch(
-      \`https://api.100ms.live/v2/stream-key/\${streamKeyId}\`,
+      `https://api.100ms.live/v2/stream-key/${streamKeyId}`,
       {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          Authorization: \`Bearer \${HMS_APP_ACCESS_KEY}:\${HMS_APP_SECRET}\`,
+          Authorization: `Bearer ${HMS_APP_ACCESS_KEY}:${HMS_APP_SECRET}`,
         },
       }
     )
@@ -224,12 +224,12 @@ export async function disableStreamKey(streamKeyId: string) {
 export async function startRecording(roomId: string) {
   try {
     const response = await fetch(
-      \`https://api.100ms.live/v2/recordings/room/\${roomId}/start\`,
+      `https://api.100ms.live/v2/recordings/room/${roomId}/start`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: \`Bearer \${HMS_APP_ACCESS_KEY}:\${HMS_APP_SECRET}\`,
+          Authorization: `Bearer ${HMS_APP_ACCESS_KEY}:${HMS_APP_SECRET}`,
         },
         body: JSON.stringify({
           recording_type: "composite",
@@ -237,7 +237,7 @@ export async function startRecording(roomId: string) {
             width: 1920,
             height: 1080,
           },
-          meeting_url: \`https://app.kulti.com/session/\${roomId}\`,
+          meeting_url: `https://app.kulti.com/session/${roomId}`,
         }),
       }
     )
@@ -262,12 +262,12 @@ export async function startRecording(roomId: string) {
 export async function stopRecording(roomId: string) {
   try {
     const response = await fetch(
-      \`https://api.100ms.live/v2/recordings/room/\${roomId}/stop\`,
+      `https://api.100ms.live/v2/recordings/room/${roomId}/stop`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: \`Bearer \${HMS_APP_ACCESS_KEY}:\${HMS_APP_SECRET}\`,
+          Authorization: `Bearer ${HMS_APP_ACCESS_KEY}:${HMS_APP_SECRET}`,
         },
       }
     )
@@ -292,12 +292,12 @@ export async function stopRecording(roomId: string) {
 export async function getRecordingStatus(roomId: string) {
   try {
     const response = await fetch(
-      \`https://api.100ms.live/v2/recordings/room/\${roomId}\`,
+      `https://api.100ms.live/v2/recordings/room/${roomId}`,
       {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: \`Bearer \${HMS_APP_ACCESS_KEY}:\${HMS_APP_SECRET}\`,
+          Authorization: `Bearer ${HMS_APP_ACCESS_KEY}:${HMS_APP_SECRET}`,
         },
       }
     )
