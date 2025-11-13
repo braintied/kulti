@@ -1,0 +1,153 @@
+Complete Frontend Buildout Plan - Kulti
+
+ Overview
+
+ - 11 existing pages, ~60 components, 41 API endpoints
+ - Focus: Integration of built-but-disconnected features + missing critical pages
+ - Parallelization: 5 concurrent workstreams
+
+ Phase 1: Integration & Quick Wins (HIGH IMPACT - 1-2 days)
+
+ Workstream A: Session Room Integration
+
+ Agent: frontend-react-expert
+ - Integrate chat-sidebar-enhanced into session-room.tsx (replace old chat)
+ - Add presenter-invite-modal to session header
+ - Add ai-chat-sidebar (conditional on AI module enabled)
+ - Wire up message threading, upvotes, pinning
+ - Files: components/session/session-room.tsx
+ - Estimated: 4 hours
+
+ Workstream B: Community Topic Voting UI
+
+ Agent: frontend-react-expert
+ - Add upvote buttons to topic-feed component
+ - Create topic-creation-modal component
+ - Create topic-detail-modal component
+ - Implement "Stream This Topic" button workflow (calls
+ /api/community/topics/[topicId]/stream)
+ - Add status filters (proposed/planned/in-progress/completed)
+ - Files: components/community/topic-feed.tsx + new modals
+ - Estimated: 6 hours
+
+ Phase 2: Critical Missing Features (REQUIRED FOR BETA - 3-4 days)
+
+ Workstream C: Notification System
+
+ Agent: fullstack-typescript-expert
+ 1. Database migration: notifications table
+ 2. API endpoints: GET/POST /api/notifications, PATCH
+ /api/notifications/[id]/read
+ 3. NotificationBell component (navbar)
+ 4. NotificationCenter dropdown
+ 5. Real-time subscription via Supabase
+ 6. Notification types: tips, badges, matches, topic streams
+ - Files: New migration + components/notifications/* + app/api/notifications/*
+ - Estimated: 2 days
+
+ Workstream D: Admin Dashboard
+
+ Agent: fullstack-typescript-expert
+ 1. Pages: /admin, /admin/users, /admin/rooms, /admin/sessions
+ 2. Components: admin-sidebar, user-management-table, room-creation-form,
+ session-moderation-panel
+ 3. API endpoints: GET/PATCH /api/admin/users/[id], POST
+ /api/admin/community/rooms
+ 4. Permissions check middleware
+ - Files: app/(dashboard)/admin/* + components/admin/* + app/api/admin/*
+ - Estimated: 3 days
+
+ Workstream E: Settings Pages
+
+ Agent: frontend-react-expert
+ 1. Pages: /settings, /settings/account, /settings/privacy,
+ /settings/notifications
+ 2. Components: settings-layout, account-settings-form, privacy-settings-form,
+ notification-preferences-form
+ 3. API endpoints: PATCH /api/settings/profile, DELETE /api/settings/account
+ 4. Password change, email change flows
+ - Files: app/(dashboard)/settings/* + components/settings/* + app/api/settings/*
+ - Estimated: 2 days
+
+ Phase 3: Enhanced Features (POST-BETA - 2-3 days)
+
+ Workstream F: Search Functionality
+
+ Agent: frontend-react-expert
+ 1. Search bar in navbar (global)
+ 2. Search results page /search
+ 3. API endpoint: GET /api/search?q=...&type=...
+ 4. Search filters: users, sessions, topics, rooms
+ 5. Recent searches (local storage)
+ - Files: components/dashboard/search-bar.tsx + app/(dashboard)/search/page.tsx +
+  app/api/search/*
+ - Estimated: 1.5 days
+
+ Workstream G: Enhanced Onboarding
+
+ Agent: apple-ux-designer → frontend-react-expert
+ 1. Welcome tour component (react-joyride or similar)
+ 2. Feature introduction modals
+ 3. Tutorial mode for first session
+ 4. Achievement celebration animations
+ - Files: components/onboarding/*
+ - Estimated: 2 days
+
+ Phase 4: Future Features (OPTIONAL - 5-7 days)
+
+ Workstream H: Job Board System (IF PLANNED)
+
+ Agent: fullstack-typescript-expert + apple-ux-designer
+ 1. Database migrations: job_posts, job_applications, job_milestones, job_escrow
+ 2. API endpoints: Full CRUD for jobs, applications, payments
+ 3. Pages: /jobs, /jobs/[id], /jobs/post, /jobs/my-jobs
+ 4. Components: job-card, job-detail, application-form, milestone-tracker
+ 5. Integration with credits system (25% escrow)
+ 6. Work session integration (watch live)
+ - Files: Complete new feature (estimate: 5-7 days)
+
+ Workstream I: Analytics Dashboard
+
+ Agent: frontend-react-expert
+ 1. Page: /analytics
+ 2. Components: stats-overview, session-analytics-chart, revenue-chart
+ 3. API endpoint: GET /api/analytics/stats
+ - Estimated: 1 day
+
+ Parallel Execution Strategy
+
+ Week 1 (Days 1-2):
+ - Run Workstreams A + B in parallel (both frontend-only)
+ - Then run Workstreams C + D + E in parallel (3 agents)
+
+ Week 2 (Days 3-5):
+ - Run Workstreams F + G in parallel
+ - Optional: Start Workstream H if job board is confirmed
+
+ Dependency Graph
+
+ Independent (can run in parallel):
+ - A (Session Integration)
+ - B (Topic Voting)
+ - C (Notifications)
+ - D (Admin Dashboard)
+ - E (Settings)
+
+ Dependent (need A+B+C done first):
+ - F (Search) - needs all features complete to search them
+ - G (Onboarding) - needs features complete to tour them
+
+ Future:
+ - H (Job Board) - independent, can start anytime
+ - I (Analytics) - needs session/credits data flowing
+
+ Success Criteria
+
+ ✅ All features in database have UI components
+ ✅ No orphaned API endpoints without UI
+ ✅ All integration TODOs from IMPLEMENTATION_SUMMARY.md resolved
+ ✅ Admin can manage platform (users, rooms, sessions)
+ ✅ Users can configure settings and receive notifications
+ ✅ Session room has full feature parity (AI, threads, guests)
+ ✅ Community topics are fully interactive with streaming integration
+╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌

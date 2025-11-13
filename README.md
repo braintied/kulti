@@ -107,6 +107,67 @@ Text: #ffffff (white)
 
 ---
 
+## 📚 Design System
+
+The Kulti platform uses a comprehensive design system for consistency and quality. All UI components follow established patterns:
+
+- **Color Palette**: Dark theme with lime-400 accents (user-facing) and purple (admin)
+- **Typography**: JetBrains Mono for headers, Inter for body text
+- **Component Patterns**: Cards, buttons, forms, modals, and more
+- **Accessibility**: WCAG AA compliance with min-height requirements
+- **Responsive Design**: Mobile-first with breakpoints at sm, md, lg, xl
+
+See `/Docs/DESIGN_SYSTEM.md` for complete design guidelines and code examples.
+
+---
+
+## 🎓 Help Center
+
+The Help page (`/help`) provides users with:
+- FAQ and common troubleshooting
+- Platform features overview
+- Tips for getting started with sessions
+- Contact and support information
+
+---
+
+## 🚨 Error Handling
+
+Kulti includes comprehensive error handling:
+- User-friendly error pages for 404, 500, and other errors
+- Error boundaries for React component failures
+- Database and API error logging
+- Graceful fallbacks for failed operations
+- Clear error messages for user feedback
+
+---
+
+## ✅ Completed Features
+
+### AI Integration
+- **AI User Selection**: Users can select AI modules to enable during sessions
+- **AI Chat**: Anthropic Claude API integration for session-based conversations
+- **AI Permissions**: Per-session AI module permission management
+
+### Notifications
+- **Topic Notifications**: Users receive notifications for new messages in subscribed topics
+- **Real-time Updates**: WebSocket-based notification system
+- **Notification Management**: Mark as read, delete, and notification preferences
+
+### Core Features
+- Phone/SMS authentication system
+- Multi-person video sessions with 100ms
+- Screen sharing with turn-based control
+- Session recording and playback
+- Real-time chat and messaging
+- User profiles and matchmaking
+- Community rooms and discussion topics
+- Credit system with tipping support
+- Invite code system
+- Admin dashboard for platform management
+
+---
+
 ## 🎬 Getting Started
 
 Ready to build? Check out:
@@ -116,5 +177,5 @@ Ready to build? Check out:
 
 ---
 
-**Built with ❤️ and Claude Code**  
+**Built with ❤️ and Claude Code**
 **Launching December 2025**
