@@ -83,7 +83,8 @@
       "Bash(fi)",
       "Bash(done)",
       "Bash(npm run lint:fix:*)",
-      "Bash(./migrate-console-logs.sh)"
+      "Bash(./migrate-console-logs.sh)",
+      "Bash(npm test:*)"
     ],
     "deny": [],
     "ask": []

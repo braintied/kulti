@@ -3,8 +3,16 @@ import { createClient } from "@/lib/supabase/server"
 import { createStreamKey } from "@/lib/hms/server"
 import { logger } from "@/lib/logger"
 
+const MAX_REQUEST_SIZE = 1024 * 10 // 10KB
+
 export async function POST(request: NextRequest) {
   try {
+    // Check request size to prevent DoS attacks
+    const bodyText = await request.text()
+    if (bodyText.length > MAX_REQUEST_SIZE) {
+      return NextResponse.json({ error: "Request too large" }, { status: 413 })
+    }
+
     const supabase = await createClient()
     const {
       data: { user },
@@ -14,7 +22,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
-    const body = await request.json()
+    const body = JSON.parse(bodyText)
     const { sessionId } = body
 
     if (!sessionId) {

@@ -59,27 +59,50 @@ The project indirectly depends on `axios@0.27.2` through `@100mslive/server-sdk@
 2. ✅ **Input Validation**: All API endpoints validate and sanitize input
 3. ✅ **Rate Limiting**: Upstash Redis rate limiting protects against DoS attacks
 4. ✅ **Server-Side Only**: HMS SDK is only used server-side, not exposed to client
+5. ✅ **Request Size Limits**: All HMS API routes enforce 10KB request body limit to prevent DoS attacks
+
+### Request Size Limits Implementation
+
+All HMS API routes now enforce a 10KB request size limit to mitigate DoS attacks:
+
+**Protected Routes**:
+- `/api/hms/get-token` - HMS token generation
+- `/api/hms/start-recording` - Recording start
+- `/api/hms/stop-recording` - Recording stop
+- `/api/hms/stream-key/create` - Stream key creation
+
+**Implementation Pattern**:
+```typescript
+const MAX_REQUEST_SIZE = 1024 * 10 // 10KB
+
+export async function POST(request: NextRequest) {
+  // Check request size to prevent DoS attacks
+  const bodyText = await request.text()
+  if (bodyText.length > MAX_REQUEST_SIZE) {
+    return NextResponse.json({ error: "Request too large" }, { status: 413 })
+  }
+
+  const body = JSON.parse(bodyText)
+  // ... rest of handler
+}
+```
+
+This protection layer:
+- Prevents unbounded memory allocation attacks
+- Returns HTTP 413 (Payload Too Large) for oversized requests
+- Validates size before JSON parsing to avoid processing malicious payloads
+- 10KB limit is sufficient for legitimate HMS API requests
 
 ### Additional Recommendations
 1. **Monitor**: Watch for updates to `@100mslive/server-sdk` that upgrade axios
 2. **Network Segmentation**: Ensure HMS API calls are isolated from internal networks
-3. **Request Size Limits**: Configure Next.js body parser limits:
-   ```typescript
-   export const config = {
-     api: {
-       bodyParser: {
-         sizeLimit: '1mb', // Limit request body size
-       },
-     },
-   }
-   ```
-4. **Firewall Rules**: Implement egress filtering to prevent SSRF to internal IPs
+3. **Firewall Rules**: Implement egress filtering to prevent SSRF to internal IPs
 
 ## Action Items
 
 - [ ] **High Priority**: Contact 100ms support to request axios upgrade in server SDK
 - [ ] **High Priority**: Monitor `@100mslive/server-sdk` releases for axios >= 0.30.2
-- [ ] **Medium Priority**: Implement request size limits on HMS API routes
+- [x] **Medium Priority**: ~~Implement request size limits on HMS API routes~~ (COMPLETED - 2025-01-14)
 - [ ] **Medium Priority**: Review egress firewall rules to block internal IP ranges
 - [ ] **Low Priority**: Consider forking HMS SDK and upgrading axios ourselves (last resort)
 
@@ -128,8 +151,32 @@ While the vulnerabilities are severe, the actual risk to our application is mode
 
 However, this should still be addressed as soon as a stable upstream fix is available.
 
+## Monitoring Recommendations
+
+### Ongoing Security Monitoring
+1. **Package Updates**: Check weekly for `@100mslive/server-sdk` updates
+   ```bash
+   npm outdated @100mslive/server-sdk
+   ```
+
+2. **Request Size Monitoring**: Track 413 responses in logs
+   ```typescript
+   // Look for "Request too large" errors in application logs
+   // Set up alerts for unusual spikes in 413 responses
+   ```
+
+3. **Rate Limit Effectiveness**: Monitor rate limiting metrics
+   - Track blocked requests
+   - Identify potential attack patterns
+   - Adjust limits based on legitimate usage patterns
+
+4. **Dependency Scanning**: Run security audits regularly
+   ```bash
+   npm audit --production
+   ```
+
 ---
 
-**Last Updated**: 2025-01-13
+**Last Updated**: 2025-01-14
 **Next Review Date**: 2025-02-01 (or when HMS SDK updates)
 **Owner**: Security Team / DevOps

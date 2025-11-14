@@ -13,10 +13,18 @@ import { logger } from "@/lib/logger"
  */
 const HLS_THRESHOLD = parseInt(process.env.HLS_THRESHOLD || "100", 10)
 
+const MAX_REQUEST_SIZE = 1024 * 10 // 10KB
+
 export async function POST(request: NextRequest) {
   try {
+    // Check request size to prevent DoS attacks
+    const bodyText = await request.text()
+    if (bodyText.length > MAX_REQUEST_SIZE) {
+      return NextResponse.json({ error: "Request too large" }, { status: 413 })
+    }
+
     const supabase = await createClient()
-    const body = await request.json()
+    const body = JSON.parse(bodyText)
     const { roomId, sessionId, role: requestedRole, userId, isGuest } = body
 
     if (!roomId || !sessionId) {
