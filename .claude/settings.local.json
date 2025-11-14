@@ -89,7 +89,13 @@
       "Bash(npx playwright install:*)",
       "Bash(k6 version:*)",
       "Bash(npm run test:*)",
-      "Bash(npx playwright test:*)"
+      "Bash(npx playwright test:*)",
+      "Bash(wc:*)",
+      "Bash(/Users/galenoakes/Development/kulti/Docs/SENTRY_PRODUCTION_SETUP.md )",
+      "Bash(/Users/galenoakes/Development/kulti/Docs/ADDITIONAL_SERVICES_SETUP.md )",
+      "Bash(/Users/galenoakes/Development/kulti/Docs/WEBHOOK_TESTING.md )",
+      "Bash(/Users/galenoakes/Development/kulti/Docs/MONITORING_OBSERVABILITY.md)",
+      "Bash(npm run test:e2e:*)"
     ],
     "deny": [],
     "ask": []

@@ -236,6 +236,60 @@ Ready to build? Check out:
 
 ## 📖 Documentation
 
+### Launch Documentation (December 2025)
+
+**Critical Launch Resources:**
+- `/Docs/LAUNCH_RUNBOOK.md` - Complete launch day procedures
+  - Pre-launch checklist (day before)
+  - Launch day timeline (T-2 hours to T+24 hours)
+  - Deployment steps with verification
+  - Smoke test procedures
+  - Rollback procedures
+  - Team roles and responsibilities
+  - Communication templates
+
+- `/Docs/INCIDENT_RESPONSE_PLAN.md` - Production incident management
+  - Severity levels (P0-P3) with SLAs
+  - Response procedures by severity
+  - Escalation paths and contacts
+  - Common incidents and solutions
+  - War room procedures
+  - On-call procedures
+
+- `/Docs/POST_LAUNCH_MONITORING.md` - Post-launch monitoring strategy
+  - First 24 hours continuous monitoring
+  - First week daily reviews
+  - First month weekly reviews
+  - Key metrics dashboard
+  - Alert configuration
+  - Health check procedures
+  - Escalation and support procedures
+
+- `/Docs/STATUS_PAGE_SETUP.md` - Status page configuration and management
+  - Service selection and configuration
+  - Component definitions
+  - Incident update procedures
+  - Maintenance window handling
+  - Subscriber notifications
+  - Crisis communication guidelines
+
+- `/Docs/MAINTENANCE_PROCEDURES.md` - Ongoing maintenance procedures
+  - Scheduled maintenance planning
+  - Database maintenance (backups, optimization, migration)
+  - Dependency updates (security, minor, major)
+  - Log retention policies
+  - Backup rotation strategy
+  - Maintenance runbook template
+
+- `/Docs/TEAM_ONBOARDING.md` - Team member onboarding guide
+  - Developer setup procedures
+  - Production access request process
+  - Security training requirements
+  - Operations training and alert interpretation
+  - Incident response procedures
+  - Knowledge base and troubleshooting
+  - Complete onboarding checklist
+
 ### Technical Documentation
 - `/Docs/SECURITY_HARDENING.md` - Security best practices
 - `/Docs/MONITORING_SETUP.md` - Sentry and performance monitoring
