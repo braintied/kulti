@@ -4,9 +4,40 @@ import { logger } from "@/lib/logger"
 const HMS_APP_ACCESS_KEY = process.env.HMS_APP_ACCESS_KEY!
 const HMS_APP_SECRET = process.env.HMS_APP_SECRET!
 
+// HMS API timeout configuration (30 seconds)
+const HMS_API_TIMEOUT = 30000
+
+/**
+ * Fetch with timeout to prevent hanging requests
+ */
+async function fetchWithTimeout(
+  url: string,
+  options: RequestInit,
+  timeout: number = HMS_API_TIMEOUT
+): Promise<Response> {
+  const controller = new AbortController()
+  const timeoutId = setTimeout(() => controller.abort(), timeout)
+
+  try {
+    const response = await fetch(url, {
+      ...options,
+      signal: controller.signal,
+    })
+    return response
+  } catch (error) {
+    if (error instanceof Error && error.name === 'AbortError') {
+      logger.error("HMS API request timeout", { url, timeout })
+      throw new Error(`HMS API request timeout after ${timeout}ms`)
+    }
+    throw error
+  } finally {
+    clearTimeout(timeoutId)
+  }
+}
+
 export async function createHMSRoom(name: string, description?: string) {
   try {
-    const response = await fetch("https://api.100ms.live/v2/rooms", {
+    const response = await fetchWithTimeout("https://api.100ms.live/v2/rooms", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -122,7 +153,7 @@ export function verifyHMSToken(token: string): { valid: boolean; payload?: HMSTo
 
 export async function endHMSRoom(roomId: string) {
   try {
-    const response = await fetch(
+    const response = await fetchWithTimeout(
       `https://api.100ms.live/v2/rooms/${roomId}/end`,
       {
         method: "POST",
@@ -150,7 +181,7 @@ export async function endHMSRoom(roomId: string) {
 
 export async function createStreamKey(roomId: string) {
   try {
-    const response = await fetch(
+    const response = await fetchWithTimeout(
       `https://api.100ms.live/v2/stream-key/room/${roomId}`,
       {
         method: "POST",
@@ -181,7 +212,7 @@ export async function createStreamKey(roomId: string) {
 
 export async function getStreamKey(roomId: string) {
   try {
-    const response = await fetch(
+    const response = await fetchWithTimeout(
       `https://api.100ms.live/v2/stream-key/room/${roomId}`,
       {
         method: "GET",
@@ -216,7 +247,7 @@ export async function getStreamKey(roomId: string) {
 
 export async function disableStreamKey(streamKeyId: string) {
   try {
-    const response = await fetch(
+    const response = await fetchWithTimeout(
       `https://api.100ms.live/v2/stream-key/${streamKeyId}`,
       {
         method: "DELETE",
@@ -240,7 +271,7 @@ export async function disableStreamKey(streamKeyId: string) {
 
 export async function startRecording(roomId: string) {
   try {
-    const response = await fetch(
+    const response = await fetchWithTimeout(
       `https://api.100ms.live/v2/recordings/room/${roomId}/start`,
       {
         method: "POST",
@@ -278,7 +309,7 @@ export async function startRecording(roomId: string) {
 
 export async function stopRecording(roomId: string) {
   try {
-    const response = await fetch(
+    const response = await fetchWithTimeout(
       `https://api.100ms.live/v2/recordings/room/${roomId}/stop`,
       {
         method: "POST",
@@ -308,7 +339,7 @@ export async function stopRecording(roomId: string) {
 
 export async function getRecordingStatus(roomId: string) {
   try {
-    const response = await fetch(
+    const response = await fetchWithTimeout(
       `https://api.100ms.live/v2/recordings/room/${roomId}`,
       {
         method: "GET",
@@ -408,7 +439,7 @@ export interface HLSStreamStartResponse {
  */
 export async function getRoomDetails(roomId: string): Promise<HMSRoomDetails> {
   try {
-    const response = await fetch(
+    const response = await fetchWithTimeout(
       `https://api.100ms.live/v2/rooms/${roomId}`,
       {
         method: "GET",
@@ -459,7 +490,7 @@ export async function getRoomDetails(roomId: string): Promise<HMSRoomDetails> {
  */
 export async function getHLSStreamStatus(roomId: string): Promise<HLSStreamStatus | null> {
   try {
-    const response = await fetch(
+    const response = await fetchWithTimeout(
       `https://api.100ms.live/v2/live-streams/room/${roomId}`,
       {
         method: "GET",
@@ -529,7 +560,7 @@ export async function startHLSStream(
       return existingStream
     }
 
-    const response = await fetch(
+    const response = await fetchWithTimeout(
       `https://api.100ms.live/v2/live-streams/room/${roomId}/start`,
       {
         method: "POST",
@@ -587,7 +618,7 @@ export async function startHLSStream(
  */
 export async function stopHLSStream(roomId: string): Promise<{ id: string; status: string }> {
   try {
-    const response = await fetch(
+    const response = await fetchWithTimeout(
       `https://api.100ms.live/v2/live-streams/room/${roomId}/stop`,
       {
         method: "POST",

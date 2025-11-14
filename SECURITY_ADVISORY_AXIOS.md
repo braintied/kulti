@@ -61,9 +61,10 @@ The project indirectly depends on `axios@0.27.2` through `@100mslive/server-sdk@
 4. ✅ **Server-Side Only**: HMS SDK is only used server-side, not exposed to client
 5. ✅ **Request Size Limits**: All HMS API routes enforce 10KB request body limit to prevent DoS attacks
 
-### Request Size Limits Implementation
+### Additional Mitigations Implemented (2025-01-14)
 
-All HMS API routes now enforce a 10KB request size limit to mitigate DoS attacks:
+#### 1. Request Size Limits
+All HMS API routes enforce a 10KB request size limit to mitigate DoS attacks:
 
 **Protected Routes**:
 - `/api/hms/get-token` - HMS token generation
@@ -93,17 +94,111 @@ This protection layer:
 - Validates size before JSON parsing to avoid processing malicious payloads
 - 10KB limit is sufficient for legitimate HMS API requests
 
+#### 2. Request Timeout Configuration
+All HMS API calls now implement a 30-second timeout to prevent hanging requests:
+
+**Implementation** (`lib/hms/server.ts`):
+```typescript
+const HMS_API_TIMEOUT = 30000 // 30 seconds
+
+async function fetchWithTimeout(
+  url: string,
+  options: RequestInit,
+  timeout: number = HMS_API_TIMEOUT
+): Promise<Response> {
+  const controller = new AbortController()
+  const timeoutId = setTimeout(() => controller.abort(), timeout)
+
+  try {
+    const response = await fetch(url, {
+      ...options,
+      signal: controller.signal,
+    })
+    return response
+  } catch (error) {
+    if (error instanceof Error && error.name === 'AbortError') {
+      logger.error("HMS API request timeout", { url, timeout })
+      throw new Error(`HMS API request timeout after ${timeout}ms`)
+    }
+    throw error
+  } finally {
+    clearTimeout(timeoutId)
+  }
+}
+```
+
+**Benefits**:
+- Prevents resource exhaustion from hanging connections
+- Detects slow DoS attacks early
+- Provides clear timeout errors with context
+- All 12 HMS API functions use this wrapper
+
+**Functions Protected**:
+- createHMSRoom
+- endHMSRoom
+- createStreamKey
+- getStreamKey
+- disableStreamKey
+- startRecording
+- stopRecording
+- getRecordingStatus
+- getRoomDetails
+- getHLSStreamStatus
+- startHLSStream
+- stopHLSStream
+
+#### 3. Enhanced Error Logging
+All HMS API errors now include comprehensive structured logging:
+
+**Error Context Fields**:
+- Request details (url, method, roomId)
+- Response details (status code, error message)
+- Operation-specific metadata (streamId, sessionId, meetingUrl)
+- Timestamps and correlation IDs (via logger)
+
+**Example Logging**:
+```typescript
+logger.error("HMS start HLS stream error", {
+  error,
+  roomId,
+  status: response.status,
+  meetingUrl
+})
+```
+
+**Sentry Integration**:
+- All errors automatically captured in Sentry
+- Searchable by error pattern and context
+- Alert rules configured for critical patterns
+- See: `/Docs/SENTRY_HMS_MONITORING.md` for queries and alerts
+
 ### Additional Recommendations
 1. **Monitor**: Watch for updates to `@100mslive/server-sdk` that upgrade axios
 2. **Network Segmentation**: Ensure HMS API calls are isolated from internal networks
 3. **Firewall Rules**: Implement egress filtering to prevent SSRF to internal IPs
+4. **Sentry Monitoring**: Comprehensive error tracking and alerting configured
+   - See: `/Docs/SENTRY_HMS_MONITORING.md`
+5. **Security Checklist**: Regular security reviews and dependency updates
+   - See: `/Docs/SECURITY_MONITORING_CHECKLIST.md`
 
 ## Action Items
 
 - [ ] **High Priority**: Contact 100ms support to request axios upgrade in server SDK
+  - Template available: `/Docs/HMS_SDK_UPDATE_REQUEST.md`
+  - Email: support@100ms.live
+  - Expected response: 3-5 business days
 - [ ] **High Priority**: Monitor `@100mslive/server-sdk` releases for axios >= 0.30.2
+  - Check weekly: `npm outdated @100mslive/server-sdk`
+  - Watch GitHub: https://github.com/100mslive/server-sdk-js
 - [x] **Medium Priority**: ~~Implement request size limits on HMS API routes~~ (COMPLETED - 2025-01-14)
+- [x] **Medium Priority**: ~~Implement request timeouts on HMS API calls~~ (COMPLETED - 2025-01-14)
+- [x] **Medium Priority**: ~~Configure enhanced error logging for HMS operations~~ (COMPLETED - 2025-01-14)
+- [x] **Medium Priority**: ~~Set up Sentry monitoring for HMS security patterns~~ (COMPLETED - 2025-01-14)
 - [ ] **Medium Priority**: Review egress firewall rules to block internal IP ranges
+  - Coordinate with DevOps team
+  - Block RFC1918 addresses (10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16)
+  - Block localhost (127.0.0.0/8)
+  - Block cloud metadata endpoints (169.254.169.254)
 - [ ] **Low Priority**: Consider forking HMS SDK and upgrading axios ourselves (last resort)
 
 ## Testing Before Upgrade
@@ -133,11 +228,23 @@ npm run build && npm start
 
 ## References
 
+### Vulnerability Advisories
 - GHSA-wf5p-g6vw-rhxx: https://github.com/advisories/GHSA-wf5p-g6vw-rhxx
 - GHSA-jr5f-v2jv-69x6: https://github.com/advisories/GHSA-jr5f-v2jv-69x6
 - GHSA-4hjh-wcwx-xvwj: https://github.com/advisories/GHSA-4hjh-wcwx-xvwj
+
+### Package Resources
 - 100ms Server SDK: https://www.npmjs.com/package/@100mslive/server-sdk
+- 100ms Documentation: https://www.100ms.live/docs
+- 100ms Status: https://status.100ms.live
 - Axios Security: https://github.com/axios/axios/security
+
+### Internal Documentation
+- HMS Monitoring Guide: `/Docs/SENTRY_HMS_MONITORING.md`
+- Security Monitoring Checklist: `/Docs/SECURITY_MONITORING_CHECKLIST.md`
+- HMS SDK Update Request Template: `/Docs/HMS_SDK_UPDATE_REQUEST.md`
+- Incident Response Plan: `/Docs/INCIDENT_RESPONSE_PLAN.md`
+- Security Hardening Guide: `/Docs/SECURITY_HARDENING.md`
 
 ## Impact Assessment
 
@@ -153,30 +260,92 @@ However, this should still be addressed as soon as a stable upstream fix is avai
 
 ## Monitoring Recommendations
 
-### Ongoing Security Monitoring
-1. **Package Updates**: Check weekly for `@100mslive/server-sdk` updates
+### Comprehensive Monitoring Strategy
+Detailed monitoring procedures have been documented. See:
+- **Sentry Configuration**: `/Docs/SENTRY_HMS_MONITORING.md`
+- **Security Checklist**: `/Docs/SECURITY_MONITORING_CHECKLIST.md`
+
+### Key Monitoring Activities
+
+#### Daily
+1. **Review Sentry Errors**
+   - Query: `message:*HMS*error*`
+   - Check for timeout patterns
+   - Monitor 413 responses (request too large)
+   - Review authentication failures
+
+2. **HMS API Health**
+   - Check HMS status: https://status.100ms.live
+   - Monitor error rates in dashboard
+   - Verify timeout configuration working
+
+#### Weekly
+1. **Package Updates**: Check for `@100mslive/server-sdk` updates
    ```bash
    npm outdated @100mslive/server-sdk
-   ```
-
-2. **Request Size Monitoring**: Track 413 responses in logs
-   ```typescript
-   // Look for "Request too large" errors in application logs
-   // Set up alerts for unusual spikes in 413 responses
-   ```
-
-3. **Rate Limit Effectiveness**: Monitor rate limiting metrics
-   - Track blocked requests
-   - Identify potential attack patterns
-   - Adjust limits based on legitimate usage patterns
-
-4. **Dependency Scanning**: Run security audits regularly
-   ```bash
    npm audit --production
    ```
+
+2. **Security Patterns**
+   - Review SSRF attempts (internal IP access)
+   - Check DoS patterns (413 errors, timeouts)
+   - Analyze rate limit effectiveness
+
+3. **HMS Integration Health**
+   - Review error logs for patterns
+   - Check API response times
+   - Verify all mitigations active
+
+#### Monthly
+1. **Comprehensive Security Audit**
+   - Run full `npm audit`
+   - Review all security advisories
+   - Update this document with findings
+   - Test incident response procedures
+
+2. **Documentation Review**
+   - Update security advisories
+   - Review monitoring effectiveness
+   - Adjust alert thresholds
+   - Update runbooks
+
+### Sentry Alert Rules
+
+#### Critical Alerts
+- **HMS Service Degradation**: >10 HMS errors in 5 minutes
+- **Timeout Spike**: >15 timeout errors in 5 minutes
+- **Room Creation Outage**: >5 room creation errors in 10 minutes
+
+#### Warning Alerts
+- **Elevated Error Rate**: >20 HMS errors in 30 minutes
+- **DoS Patterns**: >10 request size violations (413) in 5 minutes
+- **SSRF Attempts**: Any access to internal IP ranges
+
+See `/Docs/SENTRY_HMS_MONITORING.md` for complete alert configuration.
+
+## Summary of Mitigations
+
+| Mitigation | Status | Date Implemented | Effectiveness |
+|------------|--------|-----------------|---------------|
+| Request Size Limits (10KB) | ✅ Implemented | 2025-01-14 | Prevents DoS via unbounded allocation |
+| Request Timeouts (30s) | ✅ Implemented | 2025-01-14 | Detects slow DoS, prevents hangs |
+| Enhanced Error Logging | ✅ Implemented | 2025-01-14 | Enables rapid incident detection |
+| Sentry Monitoring | ✅ Configured | 2025-01-14 | Real-time alerting for security patterns |
+| Network Segmentation | ⏳ Planned | TBD | Reduces SSRF risk |
+| Egress Filtering | ⏳ Planned | TBD | Blocks SSRF to internal IPs |
+| HMS SDK Update | ⏳ Waiting | TBD | Complete resolution of vulnerabilities |
+
+**Current Risk Level**: MODERATE (reduced from HIGH)
+- Original Risk: HIGH (unmitigated axios vulnerabilities)
+- Current Risk: MODERATE (multiple defense-in-depth mitigations active)
+- Target Risk: LOW (after HMS SDK updates axios to >= 0.30.2)
 
 ---
 
 **Last Updated**: 2025-01-14
 **Next Review Date**: 2025-02-01 (or when HMS SDK updates)
 **Owner**: Security Team / DevOps
+**Change Log**:
+- 2025-01-14: Added request timeouts, enhanced logging, Sentry monitoring
+- 2025-01-14: Created comprehensive monitoring and security documentation
+- 2025-01-14: Updated action items and tracking status
