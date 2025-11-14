@@ -5,10 +5,10 @@ import { logger } from '@/lib/logger'
 
 export async function POST(request: NextRequest) {
   return withRateLimit(request, RateLimiters.inviteValidation(), async () => {
-    try {
-      const body = await request.json()
-      const { code } = body
+    const body = await request.json()
+    const { code } = body
 
+    try {
       if (!code) {
         return NextResponse.json({ error: 'Code is required' }, { status: 400 })
       }

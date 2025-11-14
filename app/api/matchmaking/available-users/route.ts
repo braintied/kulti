@@ -7,6 +7,30 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 
+interface CompatibleUser {
+  user_id: string
+  username: string
+  display_name: string
+  avatar_url: string | null
+  skills: string[]
+  interests: string[]
+  experience_level: string
+  match_score: number
+  shared_skills: string[]
+  shared_interests: string[]
+}
+
+interface UserPresence {
+  user_id: string
+  current_session_id: string | null
+  last_seen: string
+}
+
+interface ProfileData {
+  matchmaking_enabled: boolean
+  profile_completed: boolean
+}
+
 export async function GET(request: NextRequest) {
   try {
     const supabase = await createClient()
@@ -28,7 +52,7 @@ export async function GET(request: NextRequest) {
       .from('profiles')
       .select('matchmaking_enabled, profile_completed')
       .eq('id', user.id)
-      .single()
+      .single<ProfileData>()
 
     if (profileError) {
       return NextResponse.json(
@@ -55,13 +79,13 @@ export async function GET(request: NextRequest) {
     }
 
     // Get compatible users
-    const { data: compatibleUsers, error: usersError } = await supabase.rpc(
-      'get_compatible_users',
-      {
+    const { data, error: usersError } = await supabase
+      .rpc('get_compatible_users', {
         p_user_id: user.id,
         p_limit: Math.max(limit, 50), // Allow up to 50
-      }
-    )
+      })
+
+    const compatibleUsers = data as CompatibleUser[] | null
 
     if (usersError) {
       console.error('Get compatible users error:', usersError)
@@ -73,23 +97,24 @@ export async function GET(request: NextRequest) {
 
     // Filter by minimum match score if specified
     const filteredUsers = (compatibleUsers || []).filter(
-      (u: any) => u.match_score >= minMatchScore
+      (u) => u.match_score >= minMatchScore
     )
 
     // Get presence info for these users
-    const userIds = filteredUsers.map((u: any) => u.user_id)
+    const userIds = filteredUsers.map((u) => u.user_id)
     const { data: presenceData } = await supabase
       .from('user_presence')
       .select('user_id, current_session_id, last_seen')
       .in('user_id', userIds)
+      .returns<UserPresence[]>()
 
     // Create presence map
     const presenceMap = new Map(
-      presenceData?.map((p: any) => [p.user_id, p]) || []
+      presenceData?.map((p) => [p.user_id, p]) || []
     )
 
     // Combine user data with presence
-    const usersWithPresence = filteredUsers.map((u: any) => ({
+    const usersWithPresence = filteredUsers.map((u) => ({
       id: u.user_id,
       username: u.username,
       displayName: u.display_name,

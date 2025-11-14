@@ -14,8 +14,9 @@ export async function GET(
   const authError = await requireModerator(request)
   if (authError) return authError
 
+  const { id } = await context.params
+
   try {
-    const { id } = await context.params
     const analytics = await getInviteAnalytics(id)
 
     if (!analytics) {
@@ -39,8 +40,9 @@ export async function PATCH(
   const authError = await requireModerator(request)
   if (authError) return authError
 
+  const { id } = await context.params
+
   try {
-    const { id } = await context.params
     const body = await request.json()
     const { action } = body
 

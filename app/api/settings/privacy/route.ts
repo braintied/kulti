@@ -1,6 +1,28 @@
 import { createClient } from "@/lib/supabase/server"
 import { NextResponse } from "next/server"
 
+interface PrivacySettings {
+  profile_visibility: 'public' | 'friends' | 'private'
+  show_online_status: boolean
+  session_visibility: 'public' | 'invite' | 'private'
+  show_credit_balance: boolean
+}
+
+interface PrivacyUpdateRequest {
+  profile_visibility?: 'public' | 'friends' | 'private'
+  show_online_status?: boolean
+  matchmaking_available?: boolean
+  session_visibility?: 'public' | 'invite' | 'private'
+  show_credit_balance?: boolean
+}
+
+interface PrivacyUpdateData {
+  profile_visibility?: 'public' | 'friends' | 'private'
+  show_online_status?: boolean
+  session_visibility?: 'public' | 'invite' | 'private'
+  show_credit_balance?: boolean
+}
+
 export async function GET(request: Request) {
   try {
     const supabase = await createClient()
@@ -19,7 +41,7 @@ export async function GET(request: Request) {
         "profile_visibility, show_online_status, session_visibility, show_credit_balance"
       )
       .eq("id", user.id)
-      .single()
+      .single<PrivacySettings>()
 
     if (error) {
       console.error("Privacy settings fetch error:", error)
@@ -61,7 +83,7 @@ export async function PATCH(request: Request) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
-    const body = await request.json()
+    const body: PrivacyUpdateRequest = await request.json()
     const {
       profile_visibility,
       show_online_status,
@@ -70,7 +92,7 @@ export async function PATCH(request: Request) {
       show_credit_balance,
     } = body
 
-    const updateData: any = {}
+    const updateData: PrivacyUpdateData = {}
 
     if (profile_visibility !== undefined) {
       if (!["public", "friends", "private"].includes(profile_visibility)) {

@@ -1,5 +1,21 @@
 import { createClient } from "@/lib/supabase/server"
 import { NextResponse } from "next/server"
+import type { Profile } from "@/types/database"
+
+interface ExportData {
+  export_date: string
+  user_id: string
+  email: string | undefined
+  profile?: Profile
+  sessions_hosted?: Array<Record<string, unknown>>
+  session_participation?: Array<Record<string, unknown>>
+  credit_transactions?: Array<Record<string, unknown>>
+  messages?: Array<Record<string, unknown>>
+  ai_messages?: Array<Record<string, unknown>>
+  notifications?: Array<Record<string, unknown>>
+  matchmaking_history?: Array<Record<string, unknown>>
+  presence?: Record<string, unknown>
+}
 
 export async function POST(request: Request) {
   try {
@@ -14,7 +30,7 @@ export async function POST(request: Request) {
     }
 
     // Gather all user data
-    const exportData: any = {
+    const exportData: ExportData = {
       export_date: new Date().toISOString(),
       user_id: user.id,
       email: user.email,

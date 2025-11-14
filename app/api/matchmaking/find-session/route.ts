@@ -19,6 +19,41 @@ interface FindSessionRequest {
   createIfNoMatch?: boolean
 }
 
+interface MatchmakingSession {
+  session_id: string
+  room_code: string
+  title: string
+  description: string | null
+  host_id: string
+  host_name: string
+  participant_count: number
+  max_presenters: number
+  tags: string[]
+  match_score: number
+}
+
+interface CompatibleUser {
+  user_id: string
+  username: string
+  display_name: string
+  avatar_url: string | null
+  skills: string[]
+  interests: string[]
+  experience_level: string
+  match_score: number
+  shared_skills: string[]
+  shared_interests: string[]
+}
+
+interface UserProfile {
+  username: string
+  display_name: string
+  skills: string[]
+  interests: string[]
+  experience_level: string
+  matchmaking_enabled: boolean
+}
+
 export async function POST(request: NextRequest) {
   try {
     const supabase = await createClient()
@@ -50,7 +85,7 @@ export async function POST(request: NextRequest) {
       .from('profiles')
       .select('username, display_name, skills, interests, experience_level, matchmaking_enabled')
       .eq('id', user.id)
-      .single()
+      .single<UserProfile>()
 
     if (profileError || !profile) {
       return NextResponse.json(
@@ -67,13 +102,13 @@ export async function POST(request: NextRequest) {
     }
 
     // Step 1: Try to find existing joinable sessions
-    const { data: existingSessions, error: sessionsError } = await supabase.rpc(
-      'find_joinable_matchmaking_sessions',
-      {
+    const { data, error: sessionsError } = await supabase
+      .rpc('find_joinable_matchmaking_sessions', {
         p_user_id: user.id,
         p_limit: 5,
-      }
-    )
+      })
+
+    const existingSessions = data as MatchmakingSession[] | null
 
     if (sessionsError) {
       console.error('Find sessions error:', sessionsError)
@@ -98,7 +133,7 @@ export async function POST(request: NextRequest) {
           tags: bestMatch.tags,
           matchScore: bestMatch.match_score,
         },
-        alternativeSessions: existingSessions.slice(1).map((s: any) => ({
+        alternativeSessions: existingSessions.slice(1).map((s) => ({
           id: s.session_id,
           roomCode: s.room_code,
           title: s.title,
@@ -112,13 +147,13 @@ export async function POST(request: NextRequest) {
 
     // Step 2: If no existing sessions and createIfNoMatch is false, return compatible users
     if (!createIfNoMatch) {
-      const { data: compatibleUsers, error: usersError } = await supabase.rpc(
-        'get_compatible_users',
-        {
+      const { data, error: usersError } = await supabase
+        .rpc('get_compatible_users', {
           p_user_id: user.id,
           p_limit: 10,
-        }
-      )
+        })
+
+      const compatibleUsers = data as CompatibleUser[] | null
 
       if (usersError) {
         console.error('Get compatible users error:', usersError)
@@ -135,13 +170,13 @@ export async function POST(request: NextRequest) {
     }
 
     // Step 3: Create new matched session
-    const { data: compatibleUsers, error: usersError } = await supabase.rpc(
-      'get_compatible_users',
-      {
+    const { data: compatibleData, error: usersError } = await supabase
+      .rpc('get_compatible_users', {
         p_user_id: user.id,
         p_limit: Math.min(maxPresenters - 1, 5),
-      }
-    )
+      })
+
+    const compatibleUsers = compatibleData as CompatibleUser[] | null
 
     if (usersError) {
       console.error('Get compatible users error:', usersError)
@@ -168,7 +203,7 @@ export async function POST(request: NextRequest) {
     const sessionTitle = `${intentLabels[sessionIntent]}: ${sessionTags.slice(0, 2).join(' & ')}`
 
     // Build description
-    const matchedUserNames = compatibleUsers?.slice(0, 2).map((u: any) => u.display_name || u.username) || []
+    const matchedUserNames = compatibleUsers?.slice(0, 2).map((u) => u.display_name || u.username) || []
     const sessionDescription = matchedUserNames.length > 0
       ? `Matched session with ${matchedUserNames.join(', ')} and others interested in ${sessionTags.slice(0, 2).join(', ')}`
       : `Session for ${sessionTags.slice(0, 2).join(', ')}`
@@ -262,7 +297,7 @@ export async function POST(request: NextRequest) {
             maxPresenters: newSession.max_presenters,
             minParticipants: newSession.min_participants,
           },
-          matchedUsers: compatibleUsers?.slice(0, 5).map((u: any) => ({
+          matchedUsers: compatibleUsers?.slice(0, 5).map((u) => ({
             id: u.user_id,
             username: u.username,
             displayName: u.display_name,

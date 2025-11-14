@@ -26,11 +26,11 @@ export async function POST(request: NextRequest) {
 
     // Apply rate limiting
     return withRateLimit(request, RateLimiters.creditsTipping(user.id), async () => {
-      try {
+      // Parse request body at the top level to make variables available in catch block
+      const body = await request.json()
+      const { recipientId, amount, message, sessionId } = body
 
-    // Parse request body
-    const body = await request.json()
-    const { recipientId, amount, message, sessionId } = body
+      try {
 
     // Validation
     if (!recipientId || !amount) {

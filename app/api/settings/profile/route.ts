@@ -1,6 +1,18 @@
 import { createClient } from "@/lib/supabase/server"
 import { NextResponse } from "next/server"
 
+interface ProfileUpdateRequest {
+  display_name?: string
+  bio?: string
+  avatar_url?: string
+}
+
+interface ProfileUpdateData {
+  display_name?: string
+  bio?: string | null
+  avatar_url?: string
+}
+
 export async function PATCH(request: Request) {
   try {
     const supabase = await createClient()
@@ -13,10 +25,10 @@ export async function PATCH(request: Request) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
-    const body = await request.json()
+    const body: ProfileUpdateRequest = await request.json()
     const { display_name, bio, avatar_url } = body
 
-    const updateData: any = {}
+    const updateData: ProfileUpdateData = {}
 
     if (display_name !== undefined) {
       if (!display_name.trim()) {
