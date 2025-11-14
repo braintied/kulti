@@ -3,8 +3,6 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import { createClient } from "@/lib/supabase/client"
 import { Profile } from "@/types/database"
 import { LogOut, User, Coins, Settings, Search, HelpCircle, Ticket } from "lucide-react"
 import { formatCredits } from "@/lib/credits/config"
@@ -44,7 +42,7 @@ export function NavBar({ profile }: NavBarProps) {
           setCredits(data.credits_balance || 0)
         }
       } catch (error) {
-        logger.error('Failed to fetch credits:', error)
+        logger.error('Failed to fetch credits:', { error })
       } finally {
         setLoading(false)
       }

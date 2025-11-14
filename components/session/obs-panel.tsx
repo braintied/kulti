@@ -34,7 +34,7 @@ export function OBSPanel({ sessionId, isHost }: OBSPanelProps) {
         setRtmpUrl(data.rtmpUrl)
       }
     } catch (error) {
-      logger.error("Failed to fetch stream key:", error)
+      logger.error("Failed to fetch stream key:", { error })
     } finally {
       setLoading(false)
     }
@@ -57,7 +57,7 @@ export function OBSPanel({ sessionId, isHost }: OBSPanelProps) {
         setRtmpUrl(data.rtmpUrl)
       }
     } catch (error) {
-      logger.error("Failed to create stream key:", error)
+      logger.error("Failed to create stream key:", { error })
     } finally {
       setCreating(false)
     }

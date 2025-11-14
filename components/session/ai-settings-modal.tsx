@@ -71,7 +71,7 @@ export function AISettingsModal({
       onUpdate()
       onClose()
     } catch (error) {
-      logger.error('Failed to save AI settings:', error)
+      logger.error('Failed to save AI settings:', { error })
       setError('Failed to save settings')
     } finally {
       setSaving(false)

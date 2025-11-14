@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 
-const scrollToWaitlist = () => {
+const _scrollToWaitlist = () => {
   const waitlistSection = document.getElementById("waitlist")
   if (waitlistSection) {
     waitlistSection.scrollIntoView({ behavior: "smooth", block: "start" })
@@ -13,7 +13,7 @@ const scrollToWaitlist = () => {
 
 export function LandingNav() {
   const [showCursor, setShowCursor] = useState(true)
-  const router = useRouter()
+  const _router = useRouter()
 
   useEffect(() => {
     const cursorInterval = setInterval(() => {

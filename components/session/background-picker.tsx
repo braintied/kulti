@@ -30,8 +30,8 @@ export function BackgroundPicker({
   onClose,
   virtualBgPlugin,
 }: BackgroundPickerProps) {
-  const hmsActions = useHMSActions()
-  const localPeer = useHMSStore(selectLocalPeer)
+  const _hmsActions = useHMSActions()
+  const _localPeer = useHMSStore(selectLocalPeer)
   const [selectedBackground, setSelectedBackground] = useState<string>("none")
   const [customImage, setCustomImage] = useState<string | null>(null)
   const [isApplying, setIsApplying] = useState(false)

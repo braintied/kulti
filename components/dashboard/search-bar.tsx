@@ -98,7 +98,7 @@ export function SearchBar({ className = "" }: SearchBarProps) {
         setSuggestions(allResults)
       }
     } catch (error) {
-      logger.error('Search error:', error)
+      logger.error('Search error:', { error })
     } finally {
       setLoading(false)
     }

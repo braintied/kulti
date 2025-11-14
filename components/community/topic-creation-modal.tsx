@@ -79,7 +79,7 @@ export function TopicCreationModal({
       onTopicCreated?.()
       onClose()
     } catch (error) {
-      logger.error("Failed to create topic:", error)
+      logger.error("Failed to create topic:", { error })
       setError(error instanceof Error ? error.message : "Failed to create topic. Please try again.")
     } finally {
       setIsSubmitting(false)

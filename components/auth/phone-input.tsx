@@ -5,7 +5,7 @@ import { ChevronDown } from 'lucide-react'
 
 interface PhoneInputProps {
   value: string
-  onChange: (value: string) => void
+  onChange: (_value: string) => void
   error?: string
   disabled?: boolean
   placeholder?: string

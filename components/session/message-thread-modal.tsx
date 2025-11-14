@@ -68,7 +68,7 @@ export function MessageThreadModal({
         setError('Failed to load thread')
       }
     } catch (error) {
-      logger.error('Fetch thread error:', error)
+      logger.error('Fetch thread error:', { error })
       setError('Failed to load thread')
     } finally {
       setLoading(false)
@@ -99,7 +99,7 @@ export function MessageThreadModal({
         setError('Failed to send reply')
       }
     } catch (error) {
-      logger.error('Send reply error:', error)
+      logger.error('Send reply error:', { error })
       setError('Failed to send reply')
     } finally {
       setSending(false)
@@ -113,7 +113,7 @@ export function MessageThreadModal({
       })
       fetchThread() // Refresh to show updated counts
     } catch (error) {
-      logger.error('Upvote error:', error)
+      logger.error('Upvote error:', { error })
     }
   }
 

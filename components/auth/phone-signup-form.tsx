@@ -43,7 +43,7 @@ interface PhoneSignupFormProps {
 }
 
 export function PhoneSignupForm({ initialInviteCode }: PhoneSignupFormProps = {}) {
-  const router = useRouter()
+  const _router = useRouter()
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1)
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
@@ -97,7 +97,7 @@ export function PhoneSignupForm({ initialInviteCode }: PhoneSignupFormProps = {}
   }, [initialInviteCode, step1Form])
 
   // Helper function to clear existing intervals
-  const clearTimers = () => {
+  const _clearTimers = () => {
     if (cooldownIntervalRef.current) {
       clearInterval(cooldownIntervalRef.current)
       cooldownIntervalRef.current = null

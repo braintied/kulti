@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 
-const scrollToWaitlist = () => {
+const _scrollToWaitlist = () => {
   const waitlistSection = document.getElementById("waitlist")
   if (waitlistSection) {
     waitlistSection.scrollIntoView({ behavior: "smooth", block: "start" })

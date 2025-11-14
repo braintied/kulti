@@ -50,7 +50,7 @@ export const DeleteAccountModal = ({
         setError(data.error || "Failed to delete account")
       }
     } catch (error) {
-      logger.error("Account deletion error:", error)
+      logger.error("Account deletion error:", { error })
       setError("An error occurred. Please try again.")
     } finally {
       setLoading(false)

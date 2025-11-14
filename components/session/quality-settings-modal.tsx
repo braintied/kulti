@@ -12,7 +12,7 @@ import { logger } from '@/lib/logger'
 /**
  * Navigator with Connection API
  */
-interface NavigatorWithConnection extends Navigator {
+interface _NavigatorWithConnection extends Navigator {
   connection?: {
     effectiveType?: string
     type?: string
@@ -87,7 +87,7 @@ export function QualitySettingsModal({ isOpen, onClose, onApply }: QualitySettin
         const parsed = JSON.parse(saved) as VideoQualitySettings
         setSettings(parsed)
       } catch (error) {
-        logger.error("Failed to load quality settings:", error)
+        logger.error("Failed to load quality settings:", { error })
       }
     }
   }, [])
@@ -97,7 +97,7 @@ export function QualitySettingsModal({ isOpen, onClose, onApply }: QualitySettin
 
   useEffect(() => {
     if ("connection" in navigator) {
-      const conn = (navigator as NavigatorWithConnection).connection
+      const conn = (navigator as _NavigatorWithConnection).connection
       const type = conn?.effectiveType || conn?.type
 
       if (type === "4g") setConnectionType("4g")
@@ -388,7 +388,7 @@ export function getSavedQualitySettings(): VideoQualitySettings | null {
     try {
       return JSON.parse(saved) as VideoQualitySettings
     } catch (error) {
-      logger.error("Failed to load quality settings:", error)
+      logger.error("Failed to load quality settings:", { error })
       return null
     }
   }

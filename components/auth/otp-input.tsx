@@ -5,10 +5,10 @@ import { useRef, useState, useEffect, KeyboardEvent, ClipboardEvent } from 'reac
 interface OTPInputProps {
   length?: number
   value: string
-  onChange: (value: string) => void
+  onChange: (_value: string) => void
   disabled?: boolean
   error?: string
-  onComplete?: (value: string) => void
+  onComplete?: (_value: string) => void
 }
 
 export function OTPInput({

@@ -31,7 +31,7 @@ export function HLSViewer({ streamUrl, sessionId, onError }: HLSViewerProps) {
           setViewerCount(data.count || 0)
         }
       } catch (error) {
-        logger.error("Failed to fetch viewer count:", error)
+        logger.error("Failed to fetch viewer count:", { error })
       }
     }
 

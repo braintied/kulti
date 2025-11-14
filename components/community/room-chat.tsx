@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { Send, Reply, Smile, MoreVertical, Pencil, Trash2 } from "lucide-react"
+import { MessageSquare } from "lucide-react"
 import { MessageWithReactions, MessageThread } from "@/lib/community/types"
 import { sendMessage, reactToMessage, getMessageThread } from "@/lib/community"
 import { formatDistanceToNow } from "date-fns"
@@ -58,7 +58,7 @@ export function RoomChat({
       setMessageText("")
       setReplyingTo(null)
     } catch (error) {
-      logger.error("Failed to send message:", error)
+      logger.error("Failed to send message:", { error })
       alert("Failed to send message. Please try again.")
     } finally {
       setIsSending(false)
@@ -165,7 +165,7 @@ function MessageItem({
   const [thread, setThread] = useState<MessageThread[]>([])
   const [loadingThread, setLoadingThread] = useState(false)
 
-  const isOwnMessage = message.user_id === currentUserId
+  const _isOwnMessage = message.user_id === currentUserId
   const hasReactions = Object.keys(message.reactions || {}).length > 0
 
   const handleReact = async (emoji: string) => {
@@ -173,7 +173,7 @@ function MessageItem({
       await reactToMessage(roomId, message.id, emoji)
       setShowEmojiPicker(false)
     } catch (error) {
-      logger.error("Failed to react:", error)
+      logger.error("Failed to react:", { error })
     }
   }
 
@@ -192,7 +192,7 @@ function MessageItem({
       setThread(loadedThread)
       setShowThread(true)
     } catch (error) {
-      logger.error("Failed to load thread:", error)
+      logger.error("Failed to load thread:", { error })
     } finally {
       setLoadingThread(false)
     }

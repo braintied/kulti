@@ -22,7 +22,7 @@ import { logger } from '@/lib/logger'
 interface TopicFeedProps {
   roomId: string
   topics: TopicWithCreator[]
-  currentUserId: string
+  _currentUserId: string
   isHost?: boolean
   onTopicCreated?: () => void
 }
@@ -59,7 +59,7 @@ export function TopicFeed({
     filter === "all" ? topics : topics.filter((t) => t.status === filter)
 
   const handleTopicClick = (topic: TopicWithCreator) => {
-    setSelectedTopic(topic)
+    setSelectedTopic(_topic)
     setShowDetailModal(true)
   }
 
@@ -126,7 +126,7 @@ export function TopicFeed({
         </div>
       ) : (
         <div className="space-y-3">
-          {filteredTopics.map((topic) => (
+          {filteredTopics.map((_topic) => (
             <TopicCard
               key={topic.id}
               topic={topic}
@@ -164,7 +164,7 @@ export function TopicFeed({
 
 interface TopicCardProps {
   topic: TopicWithCreator
-  currentUserId: string
+  _currentUserId: string
   isHost: boolean
   onClick: (topic: TopicWithCreator) => void
 }
@@ -186,7 +186,7 @@ function TopicCard({ topic, currentUserId, isHost, onClick }: TopicCardProps) {
       setVotes(result.newCount)
       setHasVoted(result.upvoted)
     } catch (error) {
-      logger.error("Failed to vote:", error)
+      logger.error("Failed to vote:", { error })
       alert("Failed to vote. Please try again.")
     } finally {
       setIsVoting(false)
@@ -209,7 +209,7 @@ function TopicCard({ topic, currentUserId, isHost, onClick }: TopicCardProps) {
       // Redirect to the new session
       router.push(`/session/${result.roomCode}`)
     } catch (error) {
-      logger.error("Failed to create stream:", error)
+      logger.error("Failed to create stream:", { error })
       alert("Failed to create stream. Please try again.")
     } finally {
       setIsStreaming(false)
@@ -221,7 +221,7 @@ function TopicCard({ topic, currentUserId, isHost, onClick }: TopicCardProps) {
 
   return (
     <div
-      onClick={() => onClick(topic)}
+      onClick={() => onClick(_topic)}
       className="bg-[#1a1a1a] border border-[#27272a] rounded-xl p-6 hover:border-[#3f3f46] transition-colors cursor-pointer"
     >
       <div className="flex gap-4">

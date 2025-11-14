@@ -27,7 +27,7 @@ export function MyInviteCodes({ userId }: MyInviteCodesProps) {
 
     if (!hasShownWelcome && !loading && invites.length > 0) {
       // Show fun creative toast notification
-      toast((t) => (
+      toast((_t) => (
         <div className="flex items-start gap-3 max-w-md">
           <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-lime-400 to-green-500 flex items-center justify-center">
             <Gift className="w-6 h-6 text-black" />
@@ -66,7 +66,7 @@ export function MyInviteCodes({ userId }: MyInviteCodesProps) {
         setInvites(data)
       }
     } catch (error) {
-      logger.error('Failed to fetch my codes:', error)
+      logger.error('Failed to fetch my codes:', { error })
     } finally {
       setLoading(false)
     }

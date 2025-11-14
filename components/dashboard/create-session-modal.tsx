@@ -6,10 +6,9 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { toast } from "react-hot-toast"
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { X, Loader2 } from "lucide-react"
+import { X, Upload, Loader2 } from "lucide-react"
 import { logger } from '@/lib/logger'
 
 const createSessionSchema = z.object({
@@ -46,7 +45,7 @@ export function CreateSessionModal({ onClose }: CreateSessionModalProps) {
   })
 
   const isPublic = watch("isPublic")
-  const enableOBS = watch("enableOBS")
+  const _enableOBS = watch("enableOBS")
 
   const onSubmit = async (data: CreateSessionFormData) => {
     try {

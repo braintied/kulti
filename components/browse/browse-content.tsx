@@ -45,7 +45,7 @@ export function BrowseContent({ sessions, currentUserId, isLoading = false }: Br
     // Apply sorting
     filtered = [...filtered].sort((a, b) => {
       switch (sortBy) {
-        case "featured":
+        case "featured": {
           // Boosted sessions first
           const aIsBoosted = a.boosted_until && new Date(a.boosted_until) > new Date()
           const bIsBoosted = b.boosted_until && new Date(b.boosted_until) > new Date()
@@ -57,6 +57,7 @@ export function BrowseContent({ sessions, currentUserId, isLoading = false }: Br
           }
           // Then by created date
           return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        }
 
         case "newest":
           return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()

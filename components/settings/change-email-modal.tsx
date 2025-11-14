@@ -55,7 +55,7 @@ export const ChangeEmailModal = ({
         setError(data.error || "Failed to change email")
       }
     } catch (error) {
-      logger.error("Email change error:", error)
+      logger.error("Email change error:", { error })
       setError("An error occurred. Please try again.")
     } finally {
       setLoading(false)

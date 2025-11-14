@@ -17,6 +17,39 @@ interface SessionCardProps {
   currentUserId?: string
 }
 
+export function SessionCardSkeleton() {
+  return (
+    <div className="relative border rounded-2xl p-8 bg-[#1a1a1a]/50 backdrop-blur-sm border-[#27272a] animate-pulse">
+      <div className="space-y-5">
+        {/* Title skeleton */}
+        <div className="h-8 bg-[#27272a] rounded w-3/4"></div>
+
+        {/* Description skeleton */}
+        <div className="space-y-2">
+          <div className="h-4 bg-[#27272a] rounded w-full"></div>
+          <div className="h-4 bg-[#27272a] rounded w-2/3"></div>
+        </div>
+
+        {/* Host Info skeleton */}
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded-full bg-[#27272a]"></div>
+          <div className="h-4 bg-[#27272a] rounded w-24"></div>
+        </div>
+
+        {/* Meta Info skeleton */}
+        <div className="flex items-center gap-5">
+          <div className="h-4 bg-[#27272a] rounded w-20"></div>
+          <div className="h-4 bg-[#27272a] rounded w-16"></div>
+          <div className="h-6 bg-[#27272a] rounded w-12"></div>
+        </div>
+
+        {/* Action button skeleton */}
+        <div className="h-14 bg-[#27272a] rounded-xl w-full"></div>
+      </div>
+    </div>
+  )
+}
+
 export function SessionCard({ session, currentUserId }: SessionCardProps) {
   const participantCount = session.participants?.[0]?.count || 0
   const isBoosted = session.boosted_until && new Date(session.boosted_until) > new Date()
@@ -40,7 +73,7 @@ export function SessionCard({ session, currentUserId }: SessionCardProps) {
         setCurrentBalance(data.credits_balance || 0)
       }
     } catch (error) {
-      logger.error('Failed to fetch balance:', error)
+      logger.error('Failed to fetch balance:', { error })
     }
   }
 

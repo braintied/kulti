@@ -56,7 +56,7 @@ export function BoostSessionModal({
         }
       }
     } catch (error) {
-      logger.error('Boost error:', error)
+      logger.error('Boost error:', { error })
       alert('Failed to boost session. Please try again.')
     } finally {
       setLoading(false)

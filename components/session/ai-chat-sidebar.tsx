@@ -79,7 +79,7 @@ export function AIChatSidebar({
           setMessages(data.messages || [])
         }
       } catch (error) {
-        logger.error("Failed to fetch AI messages:", error)
+        logger.error("Failed to fetch AI messages:", { error })
       }
     }
 
@@ -180,7 +180,7 @@ export function AIChatSidebar({
         onBalanceUpdate()
       }
     } catch (error) {
-      logger.error('Failed to send AI message:', error)
+      logger.error('Failed to send AI message:', { error })
       const errorMessage = 'Failed to send message. Please check your connection and try again.'
       setError(errorMessage)
       toast.error(errorMessage)

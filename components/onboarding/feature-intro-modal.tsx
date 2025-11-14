@@ -40,7 +40,7 @@ export const FeatureIntroModal = ({
       try {
         localStorage.setItem(`feature-intro-${featureName}`, "seen")
       } catch (error) {
-        logger.error("Failed to save feature intro preference:", error)
+        logger.error("Failed to save feature intro preference:", { error })
       }
     }
     onClose()

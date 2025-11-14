@@ -129,7 +129,7 @@ export function CreditsMilestones({ userId }: CreditsMilestonesProps) {
           setStats(data.stats)
         }
       } catch (error) {
-        logger.error("Failed to fetch milestones:", error)
+        logger.error("Failed to fetch milestones:", { error })
       } finally {
         setLoading(false)
       }

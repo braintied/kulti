@@ -1,13 +1,12 @@
 "use client"
 
 import { useState, useMemo } from "react"
-import { Search, Users, MessageSquare, Hash, TrendingUp } from "lucide-react"
 import { RoomWithMembership, RoomCategory } from "@/lib/community/types"
 import Link from "next/link"
 
 interface RoomBrowserProps {
   rooms: RoomWithMembership[]
-  currentUserId: string
+  _currentUserId: string
 }
 
 const CATEGORY_ICONS: Record<RoomCategory, string> = {

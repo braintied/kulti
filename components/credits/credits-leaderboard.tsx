@@ -33,7 +33,7 @@ export function CreditsLeaderboard({ currentUserId }: CreditsLeaderboardProps) {
           setCurrentUserRank(data.current_user_rank)
         }
       } catch (error) {
-        logger.error("Failed to fetch leaderboard:", error)
+        logger.error("Failed to fetch leaderboard:", { error })
       } finally {
         setLoading(false)
       }

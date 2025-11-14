@@ -33,7 +33,7 @@ export function CreditsOverview({ userId }: CreditsOverviewProps) {
           setStats(data.stats)
         }
       } catch (error) {
-        logger.error("Failed to fetch stats:", error)
+        logger.error("Failed to fetch stats:", { error })
       } finally {
         setLoading(false)
       }

@@ -36,14 +36,14 @@ export function EditProfileModal({
         .eq("id", profile.id)
 
       if (error) {
-        logger.error("Update error:", error)
+        logger.error("Update error:", { error })
         alert("Failed to update profile")
       } else {
         // Refresh the page to show updated data
         window.location.reload()
       }
     } catch (error) {
-      logger.error("Save error:", error)
+      logger.error("Save error:", { error })
       alert("Failed to save changes")
     } finally {
       setLoading(false)
