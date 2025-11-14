@@ -6,6 +6,7 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { logger } from '@/lib/logger'
 
 export async function POST(
   request: NextRequest,
@@ -39,7 +40,7 @@ export async function POST(
     })
 
     if (error) {
-      console.error('Toggle pin error:', error)
+      logger.error('Toggle pin error:', { error: error })
       if (error.message.includes('Only host')) {
         return NextResponse.json(
           { error: 'Only host can pin messages' },
@@ -61,7 +62,7 @@ export async function POST(
       pinnedAt: result.pinned_at,
     })
   } catch (error) {
-    console.error('Pin API error:', error)
+    logger.error('Pin API error:', { error: error })
     return NextResponse.json(
       { error: 'Failed to process pin' },
       { status: 500 }

@@ -8,6 +8,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { updateHeartbeat, markInactive } from '@/lib/analytics/session-tracking'
+import { logger } from '@/lib/logger'
 
 export async function POST(request: NextRequest) {
   try {
@@ -58,7 +59,7 @@ export async function POST(request: NextRequest) {
       timestamp: new Date().toISOString(),
     })
   } catch (error) {
-    console.error('Heartbeat error:', error)
+    logger.error('Heartbeat error:', { error: error })
     return NextResponse.json(
       { error: 'Failed to update heartbeat', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }

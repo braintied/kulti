@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createClient } from "@/lib/supabase/server"
+import { logger } from '@/lib/logger'
 
 /**
  * GET /api/community/topics/[topicId]/comments
@@ -59,7 +60,7 @@ export async function GET(
       .order("created_at", { ascending: true })
 
     if (error) {
-      console.error("Error fetching comments:", error)
+      logger.error('Error fetching comments:', { error: error })
       return NextResponse.json(
         { error: "Failed to fetch comments" },
         { status: 500 }
@@ -68,10 +69,7 @@ export async function GET(
 
     return NextResponse.json({ comments })
   } catch (error) {
-    console.error(
-      "Error in GET /api/community/topics/[topicId]/comments:",
-      error
-    )
+    logger.error('Error in GET /api/community/topics/[topicId]/comments:', { error: error })
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }
@@ -159,7 +157,7 @@ export async function POST(
       .single()
 
     if (commentError) {
-      console.error("Error creating comment:", commentError)
+      logger.error('Error creating comment:', { error: commentError })
       return NextResponse.json(
         { error: "Failed to create comment" },
         { status: 500 }
@@ -168,10 +166,7 @@ export async function POST(
 
     return NextResponse.json({ comment })
   } catch (error) {
-    console.error(
-      "Error in POST /api/community/topics/[topicId]/comments:",
-      error
-    )
+    logger.error('Error in POST /api/community/topics/[topicId]/comments:', { error: error })
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

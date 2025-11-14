@@ -6,6 +6,7 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { logger } from '@/lib/logger'
 
 interface RouteContext {
   params: Promise<{
@@ -112,7 +113,11 @@ export async function PUT(
         .single()
 
       if (createError || !newSession) {
-        console.error('Create session error:', createError)
+        logger.error('Failed to create session from accepted suggestion', {
+          error: createError,
+          userId: user.id,
+          suggestionId: id
+        })
         return NextResponse.json(
           { error: 'Failed to create session' },
           { status: 500 }
@@ -138,7 +143,11 @@ export async function PUT(
         .eq('id', id)
 
       if (updateError) {
-        console.error('Update suggestion error:', updateError)
+        logger.warn('Failed to update suggestion with session ID', {
+          error: updateError,
+          suggestionId: id,
+          sessionId: newSession.id
+        })
         // Don't fail, session is created
       }
 
@@ -167,7 +176,11 @@ export async function PUT(
       .eq('id', id)
 
     if (updateError) {
-      console.error('Update suggestion error:', updateError)
+      logger.error('Failed to update suggestion status', {
+        error: updateError,
+        suggestionId: id,
+        status
+      })
       return NextResponse.json(
         { error: 'Failed to update suggestion' },
         { status: 500 }
@@ -179,7 +192,7 @@ export async function PUT(
       status,
     })
   } catch (error) {
-    console.error('Update suggestion error:', error)
+    logger.error('Update suggestion failed', { error })
     return NextResponse.json(
       { error: 'Failed to update suggestion' },
       { status: 500 }

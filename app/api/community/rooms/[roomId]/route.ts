@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createClient } from "@/lib/supabase/server"
+import { logger } from "@/lib/logger"
 
 /**
  * GET /api/community/rooms/[roomId]
@@ -48,7 +49,10 @@ export async function GET(
       },
     })
   } catch (error) {
-    console.error("Error in GET /api/community/rooms/[roomId]:", error)
+    logger.error("Get room details failed", {
+      error,
+      roomId: (await params).roomId
+    })
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

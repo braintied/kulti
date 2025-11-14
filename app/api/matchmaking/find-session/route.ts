@@ -9,6 +9,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { createNotification } from '@/lib/notifications/service'
 import { withRateLimit, RateLimiters } from '@/lib/rate-limit'
+import { logger } from '@/lib/logger'
 
 interface FindSessionRequest {
   category?: string
@@ -111,7 +112,10 @@ export async function POST(request: NextRequest) {
     const existingSessions = data as MatchmakingSession[] | null
 
     if (sessionsError) {
-      console.error('Find sessions error:', sessionsError)
+      logger.warn('Failed to find existing matchmaking sessions', {
+        error: sessionsError,
+        userId: user.id
+      })
       // Continue to create new session if this fails
     }
 
@@ -156,7 +160,10 @@ export async function POST(request: NextRequest) {
       const compatibleUsers = data as CompatibleUser[] | null
 
       if (usersError) {
-        console.error('Get compatible users error:', usersError)
+        logger.error('Failed to get compatible users for matchmaking', {
+          error: usersError,
+          userId: user.id
+        })
         return NextResponse.json(
           { error: 'Failed to find compatible users' },
           { status: 500 }
@@ -179,7 +186,11 @@ export async function POST(request: NextRequest) {
     const compatibleUsers = compatibleData as CompatibleUser[] | null
 
     if (usersError) {
-      console.error('Get compatible users error:', usersError)
+      logger.error('Failed to get compatible users for session creation', {
+        error: usersError,
+        userId: user.id,
+        maxPresenters
+      })
       return NextResponse.json(
         { error: 'Failed to find compatible users' },
         { status: 500 }
@@ -229,7 +240,12 @@ export async function POST(request: NextRequest) {
       .single()
 
     if (createError || !newSession) {
-      console.error('Create session error:', createError)
+      logger.error('Failed to create matchmaking session', {
+        error: createError,
+        userId: user.id,
+        sessionIntent,
+        tags: sessionTags
+      })
       return NextResponse.json(
         { error: 'Failed to create session' },
         { status: 500 }
@@ -246,7 +262,11 @@ export async function POST(request: NextRequest) {
       })
 
     if (participantError) {
-      console.error('Add participant error:', participantError)
+      logger.warn('Failed to add host as participant to matchmaking session', {
+        error: participantError,
+        sessionId: newSession.id,
+        userId: user.id
+      })
       // Don't fail the request, session is still created
     }
 
@@ -277,7 +297,11 @@ export async function POST(request: NextRequest) {
             }
           })
         } catch (notifError) {
-          console.error('Failed to send match notification:', notifError)
+          logger.warn('Failed to send match notification', {
+            error: notifError,
+            recipientId: compatibleUser.user_id,
+            sessionId: newSession.id
+          })
           // Continue with other notifications
         }
       }
@@ -308,7 +332,10 @@ export async function POST(request: NextRequest) {
           })) || [],
         })
       } catch (innerError) {
-        console.error('Find session error:', innerError)
+        logger.error('Find session failed', {
+          error: innerError,
+          userId: user.id
+        })
         return NextResponse.json(
           { error: 'Failed to find or create session' },
           { status: 500 }
@@ -316,7 +343,7 @@ export async function POST(request: NextRequest) {
       }
     })
   } catch (error) {
-    console.error('Find session authentication error:', error)
+    logger.error('Find session authentication failed', { error })
     return NextResponse.json(
       { error: 'Authentication failed' },
       { status: 401 }

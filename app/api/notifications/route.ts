@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { NextRequest, NextResponse } from 'next/server'
+import { logger } from '@/lib/logger'
 
 export async function GET(request: NextRequest) {
   try {
@@ -30,7 +31,12 @@ export async function GET(request: NextRequest) {
       .range(offset, offset + limit - 1)
 
     if (error) {
-      console.error('Error fetching notifications:', error)
+      logger.error('Failed to fetch notifications', {
+        error,
+        userId: user.id,
+        limit,
+        offset
+      })
       return NextResponse.json({ error: error.message }, { status: 500 })
     }
 
@@ -46,7 +52,7 @@ export async function GET(request: NextRequest) {
       unreadCount: unreadCount || 0
     })
   } catch (error) {
-    console.error('Error in notifications GET:', error)
+    logger.error('Get notifications failed', { error })
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
@@ -94,13 +100,18 @@ export async function POST(request: NextRequest) {
       .single()
 
     if (error) {
-      console.error('Error creating notification:', error)
+      logger.error('Failed to create notification', {
+        error,
+        userId: user.id,
+        type,
+        title
+      })
       return NextResponse.json({ error: error.message }, { status: 500 })
     }
 
     return NextResponse.json({ notification }, { status: 201 })
   } catch (error) {
-    console.error('Error in notifications POST:', error)
+    logger.error('Create notification failed', { error })
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

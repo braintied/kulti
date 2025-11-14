@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server"
 import { NextResponse } from "next/server"
+import { logger } from '@/lib/logger'
 
 interface PrivacySettings {
   profile_visibility: 'public' | 'friends' | 'private'
@@ -44,7 +45,7 @@ export async function GET(request: Request) {
       .single<PrivacySettings>()
 
     if (error) {
-      console.error("Privacy settings fetch error:", error)
+      logger.error('Privacy settings fetch error:', { error: error })
       return NextResponse.json(
         { error: "Failed to fetch privacy settings" },
         { status: 500 }
@@ -63,7 +64,7 @@ export async function GET(request: Request) {
       matchmaking_available: presenceData?.available_for_matching ?? true,
     })
   } catch (error) {
-    console.error("Privacy settings fetch error:", error)
+    logger.error('Privacy settings fetch error:', { error: error })
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }
@@ -129,7 +130,7 @@ export async function PATCH(request: Request) {
       .eq("id", user.id)
 
     if (profileError) {
-      console.error("Privacy settings update error:", profileError)
+      logger.error('Privacy settings update error:', { error: profileError })
       return NextResponse.json(
         { error: "Failed to update privacy settings" },
         { status: 500 }
@@ -150,13 +151,13 @@ export async function PATCH(request: Request) {
         )
 
       if (presenceError) {
-        console.error("Presence update error:", presenceError)
+        logger.error('Presence update error:', { error: presenceError })
       }
     }
 
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error("Privacy settings update error:", error)
+    logger.error('Privacy settings update error:', { error: error })
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

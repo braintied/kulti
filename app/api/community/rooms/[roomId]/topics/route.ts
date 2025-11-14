@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createClient } from "@/lib/supabase/server"
+import { logger } from '@/lib/logger'
 
 /**
  * GET /api/community/rooms/[roomId]/topics
@@ -47,7 +48,7 @@ export async function GET(
     })
 
     if (error) {
-      console.error("Error fetching topics:", error)
+      logger.error('Error fetching topics:', { error: error })
       return NextResponse.json(
         { error: "Failed to fetch topics" },
         { status: 500 }
@@ -56,10 +57,7 @@ export async function GET(
 
     return NextResponse.json({ topics })
   } catch (error) {
-    console.error(
-      "Error in GET /api/community/rooms/[roomId]/topics:",
-      error
-    )
+    logger.error('Error in GET /api/community/rooms/[roomId]/topics:', { error: error })
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }
@@ -138,7 +136,7 @@ export async function POST(
       .single()
 
     if (topicError) {
-      console.error("Error creating topic:", topicError)
+      logger.error('Error creating topic:', { error: topicError })
       return NextResponse.json(
         { error: "Failed to create topic" },
         { status: 500 }
@@ -147,10 +145,7 @@ export async function POST(
 
     return NextResponse.json({ topic })
   } catch (error) {
-    console.error(
-      "Error in POST /api/community/rooms/[roomId]/topics:",
-      error
-    )
+    logger.error('Error in POST /api/community/rooms/[roomId]/topics:', { error: error })
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

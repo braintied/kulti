@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createClient } from "@/lib/supabase/server"
+import { logger } from "@/lib/logger"
 
 /**
  * GET /api/community/rooms
@@ -22,7 +23,10 @@ export async function GET(request: NextRequest) {
     })
 
     if (error) {
-      console.error("Error fetching rooms:", error)
+      logger.error("Failed to fetch community rooms", {
+        error,
+        userId: user.id
+      })
       return NextResponse.json(
         { error: "Failed to fetch rooms" },
         { status: 500 }
@@ -31,7 +35,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ rooms })
   } catch (error) {
-    console.error("Error in GET /api/community/rooms:", error)
+    logger.error("Get community rooms failed", { error })
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

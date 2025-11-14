@@ -7,6 +7,7 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { logger } from '@/lib/logger'
 
 export async function POST(request: NextRequest) {
   try {
@@ -30,7 +31,7 @@ export async function POST(request: NextRequest) {
     })
 
     if (error) {
-      console.error('Update presence error:', error)
+      logger.error('Update presence error:', { error: error })
       return NextResponse.json(
         { error: 'Failed to update presence' },
         { status: 500 }
@@ -43,7 +44,7 @@ export async function POST(request: NextRequest) {
       sessionId,
     })
   } catch (error) {
-    console.error('Update presence error:', error)
+    logger.error('Update presence error:', { error: error })
     return NextResponse.json(
       { error: 'Failed to update presence' },
       { status: 500 }
@@ -85,7 +86,7 @@ export async function GET(request: NextRequest) {
         })
       }
 
-      console.error('Get presence error:', error)
+      logger.error('Get presence error:', { error: error })
       return NextResponse.json(
         { error: 'Failed to get presence' },
         { status: 500 }
@@ -99,7 +100,7 @@ export async function GET(request: NextRequest) {
       lastSeen: presence.last_seen,
     })
   } catch (error) {
-    console.error('Get presence error:', error)
+    logger.error('Get presence error:', { error: error })
     return NextResponse.json(
       { error: 'Failed to get presence' },
       { status: 500 }

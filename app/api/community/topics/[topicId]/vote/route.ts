@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createClient } from "@/lib/supabase/server"
+import { logger } from '@/lib/logger'
 
 /**
  * POST /api/community/topics/[topicId]/vote
@@ -53,7 +54,7 @@ export async function POST(
     })
 
     if (error) {
-      console.error("Error toggling vote:", error)
+      logger.error('Error toggling vote:', { error: error })
       return NextResponse.json(
         { error: "Failed to toggle vote" },
         { status: 500 }
@@ -68,7 +69,7 @@ export async function POST(
       newCount: result?.new_count,
     })
   } catch (error) {
-    console.error("Error in POST /api/community/topics/[topicId]/vote:", error)
+    logger.error('Error in POST /api/community/topics/[topicId]/vote:', { error: error })
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

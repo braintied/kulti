@@ -7,6 +7,7 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { logger } from '@/lib/logger'
 
 export async function GET(request: NextRequest) {
   try {
@@ -29,7 +30,10 @@ export async function GET(request: NextRequest) {
       .order('created_at', { ascending: false })
 
     if (suggestionsError) {
-      console.error('Get suggestions error:', suggestionsError)
+      logger.error('Failed to get matchmaking suggestions', {
+        error: suggestionsError,
+        userId: user.id
+      })
       return NextResponse.json(
         { error: 'Failed to get suggestions' },
         { status: 500 }
@@ -53,7 +57,11 @@ export async function GET(request: NextRequest) {
       .in('id', uniqueUserIds)
 
     if (usersError) {
-      console.error('Get users error:', usersError)
+      logger.error('Failed to get user details for suggestions', {
+        error: usersError,
+        userId: user.id,
+        userIds: uniqueUserIds
+      })
       return NextResponse.json(
         { error: 'Failed to get user details' },
         { status: 500 }
@@ -95,7 +103,7 @@ export async function GET(request: NextRequest) {
       count: enrichedSuggestions.length,
     })
   } catch (error) {
-    console.error('Get suggestions error:', error)
+    logger.error('Get suggestions failed', { error })
     return NextResponse.json(
       { error: 'Failed to get suggestions' },
       { status: 500 }
@@ -159,7 +167,11 @@ export async function POST(request: NextRequest) {
     )
 
     if (generateError) {
-      console.error('Generate suggestion error:', generateError)
+      logger.error('Failed to generate matchmaking suggestion', {
+        error: generateError,
+        userId: user.id,
+        minMatches
+      })
       return NextResponse.json(
         { error: 'Failed to generate suggestion' },
         { status: 500 }
@@ -182,7 +194,11 @@ export async function POST(request: NextRequest) {
       .single()
 
     if (fetchError || !suggestion) {
-      console.error('Fetch suggestion error:', fetchError)
+      logger.error('Failed to fetch created suggestion', {
+        error: fetchError,
+        suggestionId,
+        userId: user.id
+      })
       return NextResponse.json(
         { error: 'Failed to fetch created suggestion' },
         { status: 500 }
@@ -196,7 +212,11 @@ export async function POST(request: NextRequest) {
       .in('id', suggestion.suggested_users)
 
     if (usersError) {
-      console.error('Get users error:', usersError)
+      logger.error('Failed to get user details for created suggestion', {
+        error: usersError,
+        suggestionId,
+        suggestedUsers: suggestion.suggested_users
+      })
       return NextResponse.json(
         { error: 'Failed to get user details' },
         { status: 500 }
@@ -223,7 +243,7 @@ export async function POST(request: NextRequest) {
       },
     })
   } catch (error) {
-    console.error('Generate suggestion error:', error)
+    logger.error('Generate suggestion failed', { error })
     return NextResponse.json(
       { error: 'Failed to generate suggestion' },
       { status: 500 }

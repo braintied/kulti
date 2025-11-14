@@ -48,7 +48,7 @@ export async function GET(
     //     totalCount += hlsStatus.viewer_count
     //   }
     // } catch (error) {
-    //   console.error("Error fetching viewer count:", error)
+    //   logger.error('Error fetching viewer count:', { error: error })
     // }
 
     return NextResponse.json({

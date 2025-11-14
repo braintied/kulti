@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server"
 import { NextResponse } from "next/server"
+import { logger } from '@/lib/logger'
 
 export async function POST(request: Request) {
   try {
@@ -42,7 +43,7 @@ export async function POST(request: Request) {
     })
 
     if (updateError) {
-      console.error("Email update error:", updateError)
+      logger.error('Email update error:', { error: updateError })
       return NextResponse.json(
         { error: updateError.message || "Failed to update email" },
         { status: 500 }
@@ -54,7 +55,7 @@ export async function POST(request: Request) {
       message: "Verification email sent to new address",
     })
   } catch (error) {
-    console.error("Email update error:", error)
+    logger.error('Email update error:', { error: error })
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

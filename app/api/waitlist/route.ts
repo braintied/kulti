@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createClient } from "@/lib/supabase/server"
+import { logger } from '@/lib/logger'
 
 export async function POST(request: NextRequest) {
   try {
@@ -40,7 +41,7 @@ export async function POST(request: NextRequest) {
     })
 
   } catch (error) {
-    console.error("Waitlist error:", error)
+    logger.error('Waitlist error:', { error: error })
     return NextResponse.json(
       { error: "Failed to join waitlist" },
       { status: 500 }

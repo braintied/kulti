@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server"
 import { NextResponse } from "next/server"
+import { logger } from '@/lib/logger'
 
 export async function DELETE(request: Request) {
   try {
@@ -50,7 +51,7 @@ export async function DELETE(request: Request) {
       .eq("id", user.id)
 
     if (profileError) {
-      console.error("Profile deletion error:", profileError)
+      logger.error('Profile deletion error:', { error: profileError })
       return NextResponse.json(
         { error: "Failed to delete profile" },
         { status: 500 }
@@ -63,7 +64,7 @@ export async function DELETE(request: Request) {
     )
 
     if (deleteError) {
-      console.error("User deletion error:", deleteError)
+      logger.error('User deletion error:', { error: deleteError })
       // Profile is already deleted, but user account remains
       // This is an acceptable failure state
       return NextResponse.json(
@@ -77,7 +78,7 @@ export async function DELETE(request: Request) {
       message: "Account deleted successfully",
     })
   } catch (error) {
-    console.error("Account deletion error:", error)
+    logger.error('Account deletion error:', { error: error })
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

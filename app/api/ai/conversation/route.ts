@@ -6,6 +6,7 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { logger } from '@/lib/logger'
 
 export async function GET(request: NextRequest) {
   try {
@@ -81,7 +82,7 @@ export async function GET(request: NextRequest) {
       total_messages: messages?.length || 0,
     })
   } catch (error) {
-    console.error('Get AI conversation error:', error)
+    logger.error('Get AI conversation error:', { error: error })
     return NextResponse.json(
       { error: 'Failed to get AI conversation' },
       { status: 500 }

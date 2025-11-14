@@ -7,6 +7,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { withRateLimit, RateLimiters } from '@/lib/rate-limit'
+import { logger } from '@/lib/logger'
 
 export async function GET(request: NextRequest) {
   try {
@@ -27,7 +28,7 @@ export async function GET(request: NextRequest) {
       .single()
 
     if (error) {
-      console.error('Get matchmaking profile error:', error)
+      logger.error('Get matchmaking profile error:', { error: error })
       return NextResponse.json(
         { error: 'Failed to get profile' },
         { status: 500 }
@@ -43,7 +44,7 @@ export async function GET(request: NextRequest) {
       profileCompleted: profile.profile_completed ?? false,
     })
   } catch (error) {
-    console.error('Get matchmaking profile error:', error)
+    logger.error('Get matchmaking profile error:', { error: error })
     return NextResponse.json(
       { error: 'Failed to get profile' },
       { status: 500 }
@@ -107,7 +108,7 @@ export async function PUT(request: NextRequest) {
       .single()
 
     if (error) {
-      console.error('Update matchmaking profile error:', error)
+      logger.error('Update matchmaking profile error:', { error: error })
       return NextResponse.json(
         { error: 'Failed to update profile' },
         { status: 500 }
@@ -126,7 +127,7 @@ export async function PUT(request: NextRequest) {
           },
         })
       } catch (innerError) {
-        console.error('Update matchmaking profile error:', innerError)
+        logger.error('Update matchmaking profile error:', { error: innerError })
         return NextResponse.json(
           { error: 'Failed to update profile' },
           { status: 500 }
@@ -134,7 +135,7 @@ export async function PUT(request: NextRequest) {
       }
     })
   } catch (error) {
-    console.error('Update matchmaking profile authentication error:', error)
+    logger.error('Update matchmaking profile authentication error:', { error: error })
     return NextResponse.json(
       { error: 'Authentication failed' },
       { status: 401 }

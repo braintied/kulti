@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server"
 import { NextResponse } from "next/server"
+import { logger } from '@/lib/logger'
 
 interface ProfileUpdateRequest {
   display_name?: string
@@ -54,7 +55,7 @@ export async function PATCH(request: Request) {
       .eq("id", user.id)
 
     if (error) {
-      console.error("Profile update error:", error)
+      logger.error('Profile update error:', { error: error })
       return NextResponse.json(
         { error: "Failed to update profile" },
         { status: 500 }
@@ -63,7 +64,7 @@ export async function PATCH(request: Request) {
 
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error("Profile update error:", error)
+    logger.error('Profile update error:', { error: error })
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

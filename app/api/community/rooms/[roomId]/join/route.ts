@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createClient } from "@/lib/supabase/server"
+import { logger } from "@/lib/logger"
 
 /**
  * POST /api/community/rooms/[roomId]/join
@@ -53,7 +54,11 @@ export async function POST(
     })
 
     if (joinError) {
-      console.error("Error joining room:", joinError)
+      logger.error("Failed to join community room", {
+        error: joinError,
+        roomId,
+        userId: user.id
+      })
       return NextResponse.json(
         { error: "Failed to join room" },
         { status: 500 }
@@ -62,7 +67,7 @@ export async function POST(
 
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error("Error in POST /api/community/rooms/[roomId]/join:", error)
+    logger.error("Join community room failed", { error })
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }
@@ -97,7 +102,11 @@ export async function DELETE(
     })
 
     if (leaveError) {
-      console.error("Error leaving room:", leaveError)
+      logger.error("Failed to leave community room", {
+        error: leaveError,
+        roomId,
+        userId: user.id
+      })
       return NextResponse.json(
         { error: "Failed to leave room" },
         { status: 500 }
@@ -106,10 +115,7 @@ export async function DELETE(
 
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error(
-      "Error in DELETE /api/community/rooms/[roomId]/join:",
-      error
-    )
+    logger.error("Leave community room failed", { error })
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

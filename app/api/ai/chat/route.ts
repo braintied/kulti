@@ -16,6 +16,7 @@ import {
 } from '@/lib/ai'
 import { deductCredits } from '@/lib/credits'
 import { withRateLimit, RateLimiters } from '@/lib/rate-limit'
+import { logger } from '@/lib/logger'
 
 const AI_MESSAGE_COST = 5 // Base cost in credits
 
@@ -80,7 +81,7 @@ export async function POST(request: NextRequest) {
     )
 
     if (convError || !conversationId) {
-      console.error('Failed to get conversation:', convError)
+      logger.error('Failed to get conversation:', { error: convError })
       return NextResponse.json(
         { error: 'Failed to get AI conversation' },
         { status: 500 }
@@ -217,7 +218,7 @@ export async function POST(request: NextRequest) {
           new_balance: deductResult.new_balance,
         })
       } catch (innerError) {
-        console.error('AI chat error:', innerError)
+        logger.error('AI chat error:', { error: innerError })
         return NextResponse.json(
           { error: 'Failed to process AI chat' },
           { status: 500 }
@@ -225,7 +226,7 @@ export async function POST(request: NextRequest) {
       }
     })
   } catch (error) {
-    console.error('AI chat authentication error:', error)
+    logger.error('AI chat authentication error:', { error: error })
     return NextResponse.json(
       { error: 'Authentication failed' },
       { status: 401 }

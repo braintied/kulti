@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createClient } from "@/lib/supabase/server"
+import { logger } from '@/lib/logger'
 
 /**
  * POST /api/community/rooms/[roomId]/messages/[messageId]/reactions
@@ -63,7 +64,7 @@ export async function POST(
           .eq("emoji", emoji)
 
         if (deleteError) {
-          console.error("Error removing reaction:", deleteError)
+          logger.error('Error removing reaction:', { error: deleteError })
           return NextResponse.json(
             { error: "Failed to remove reaction" },
             { status: 500 }
@@ -73,7 +74,7 @@ export async function POST(
         return NextResponse.json({ success: true, action: "removed" })
       }
 
-      console.error("Error adding reaction:", reactionError)
+      logger.error('Error adding reaction:', { error: reactionError })
       return NextResponse.json(
         { error: "Failed to add reaction" },
         { status: 500 }
@@ -82,10 +83,7 @@ export async function POST(
 
     return NextResponse.json({ success: true, action: "added" })
   } catch (error) {
-    console.error(
-      "Error in POST /api/community/rooms/[roomId]/messages/[messageId]/reactions:",
-      error
-    )
+    logger.error('Error in POST /api/community/rooms/[roomId]/messages/[messageId]/reactions:', { error: error })
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

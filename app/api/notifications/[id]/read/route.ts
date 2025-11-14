@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { NextRequest, NextResponse } from 'next/server'
+import { logger } from '@/lib/logger'
 
 export async function PATCH(
   request: NextRequest,
@@ -30,7 +31,11 @@ export async function PATCH(
       .single()
 
     if (error) {
-      console.error('Error marking notification as read:', error)
+      logger.error('Failed to mark notification as read', {
+        error,
+        notificationId,
+        userId: user.id
+      })
       return NextResponse.json({ error: error.message }, { status: 500 })
     }
 
@@ -43,7 +48,7 @@ export async function PATCH(
 
     return NextResponse.json({ notification })
   } catch (error) {
-    console.error('Error in notification read PATCH:', error)
+    logger.error('Mark notification read failed', { error })
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server"
 import { NextResponse } from "next/server"
+import { logger } from '@/lib/logger'
 
 export async function GET(request: Request) {
   try {
@@ -20,7 +21,7 @@ export async function GET(request: Request) {
       .single()
 
     if (error) {
-      console.error("Notification preferences fetch error:", error)
+      logger.error('Notification preferences fetch error:', { error: error })
       return NextResponse.json(
         { error: "Failed to fetch notification preferences" },
         { status: 500 }
@@ -29,7 +30,7 @@ export async function GET(request: Request) {
 
     return NextResponse.json(data.notification_preferences || {})
   } catch (error) {
-    console.error("Notification preferences fetch error:", error)
+    logger.error('Notification preferences fetch error:', { error: error })
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }
@@ -83,7 +84,7 @@ export async function PATCH(request: Request) {
       .eq("id", user.id)
 
     if (error) {
-      console.error("Notification preferences update error:", error)
+      logger.error('Notification preferences update error:', { error: error })
       return NextResponse.json(
         { error: "Failed to update notification preferences" },
         { status: 500 }
@@ -92,7 +93,7 @@ export async function PATCH(request: Request) {
 
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error("Notification preferences update error:", error)
+    logger.error('Notification preferences update error:', { error: error })
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

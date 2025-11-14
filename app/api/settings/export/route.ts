@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server"
 import { NextResponse } from "next/server"
 import type { Profile } from "@/types/database"
+import { logger } from '@/lib/logger'
 
 interface ExportData {
   export_date: string
@@ -144,7 +145,7 @@ export async function POST(request: Request) {
       },
     })
   } catch (error) {
-    console.error("Data export error:", error)
+    logger.error('Data export error:', { error: error })
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

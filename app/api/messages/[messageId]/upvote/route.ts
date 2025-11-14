@@ -6,6 +6,7 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { logger } from '@/lib/logger'
 
 export async function POST(
   request: NextRequest,
@@ -30,7 +31,7 @@ export async function POST(
     })
 
     if (error) {
-      console.error('Toggle upvote error:', error)
+      logger.error('Toggle upvote error:', { error: error })
       return NextResponse.json(
         { error: 'Failed to toggle upvote' },
         { status: 500 }
@@ -46,7 +47,7 @@ export async function POST(
       newCount: result.new_count,
     })
   } catch (error) {
-    console.error('Upvote API error:', error)
+    logger.error('Upvote API error:', { error: error })
     return NextResponse.json(
       { error: 'Failed to process upvote' },
       { status: 500 }

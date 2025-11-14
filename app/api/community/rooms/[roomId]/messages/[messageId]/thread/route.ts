@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createClient } from "@/lib/supabase/server"
+import { logger } from '@/lib/logger'
 
 /**
  * GET /api/community/rooms/[roomId]/messages/[messageId]/thread
@@ -42,7 +43,7 @@ export async function GET(
     })
 
     if (error) {
-      console.error("Error fetching thread:", error)
+      logger.error('Error fetching thread:', { error: error })
       return NextResponse.json(
         { error: "Failed to fetch thread" },
         { status: 500 }
@@ -51,10 +52,7 @@ export async function GET(
 
     return NextResponse.json({ thread })
   } catch (error) {
-    console.error(
-      "Error in GET /api/community/rooms/[roomId]/messages/[messageId]/thread:",
-      error
-    )
+    logger.error('Error in GET /api/community/rooms/[roomId]/messages/[messageId]/thread:', { error: error })
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

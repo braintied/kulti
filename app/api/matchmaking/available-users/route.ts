@@ -6,6 +6,7 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { logger } from '@/lib/logger'
 
 interface CompatibleUser {
   user_id: string
@@ -88,7 +89,11 @@ export async function GET(request: NextRequest) {
     const compatibleUsers = data as CompatibleUser[] | null
 
     if (usersError) {
-      console.error('Get compatible users error:', usersError)
+      logger.error('Failed to get compatible users', {
+        error: usersError,
+        userId: user.id,
+        limit
+      })
       return NextResponse.json(
         { error: 'Failed to get compatible users' },
         { status: 500 }
@@ -136,7 +141,7 @@ export async function GET(request: NextRequest) {
       total: usersWithPresence.length,
     })
   } catch (error) {
-    console.error('Available users error:', error)
+    logger.error('Available users request failed', { error })
     return NextResponse.json(
       { error: 'Failed to get available users' },
       { status: 500 }

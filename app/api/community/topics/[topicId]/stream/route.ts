@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server"
 import { createHMSRoom } from "@/lib/hms/server"
 import { generateRoomCode } from "@/lib/utils"
 import { notifyTopicStreamStarted } from "@/lib/notifications/service"
+import { logger } from '@/lib/logger'
 
 /**
  * POST /api/community/topics/[topicId]/stream
@@ -83,7 +84,7 @@ export async function POST(
       .single()
 
     if (sessionError) {
-      console.error("Session creation error:", sessionError)
+      logger.error('Session creation error:', { error: sessionError })
       return NextResponse.json(
         { error: "Failed to create session" },
         { status: 500 }
@@ -137,7 +138,7 @@ export async function POST(
           // Notifications sent successfully
         })
         .catch((error) => {
-          console.error("Error sending topic stream notifications:", error)
+          logger.error('Error sending topic stream notifications:', { error: error })
           // Don't fail the stream creation if notifications fail
         })
     }
@@ -149,10 +150,7 @@ export async function POST(
       engagedUsers: engagedUsers || [],
     })
   } catch (error) {
-    console.error(
-      "Error in POST /api/community/topics/[topicId]/stream:",
-      error
-    )
+    logger.error('Error in POST /api/community/topics/[topicId]/stream:', { error: error })
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

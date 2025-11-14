@@ -7,6 +7,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { notifyMessageReply } from '@/lib/notifications/service'
+import { logger } from '@/lib/logger'
 
 /**
  * GET - Get thread for a message (parent + replies)
@@ -34,7 +35,7 @@ export async function GET(
     })
 
     if (error) {
-      console.error('Get thread error:', error)
+      logger.error('Get thread error:', { error: error })
       return NextResponse.json(
         { error: 'Failed to get message thread' },
         { status: 500 }
@@ -46,7 +47,7 @@ export async function GET(
       total: messages?.length || 0,
     })
   } catch (error) {
-    console.error('Get replies API error:', error)
+    logger.error('Get replies API error:', { error: error })
     return NextResponse.json(
       { error: 'Failed to get replies' },
       { status: 500 }
@@ -105,7 +106,7 @@ export async function POST(
     })
 
     if (error) {
-      console.error('Create reply error:', error)
+      logger.error('Create reply error:', { error: error })
       return NextResponse.json(
         { error: 'Failed to create reply' },
         { status: 500 }
@@ -148,7 +149,7 @@ export async function POST(
           messagePreview
         )
       } catch (notifError) {
-        console.error('Failed to send message reply notification:', notifError)
+        logger.error('Failed to send message reply notification:', { error: notifError })
         // Don't fail the request if notification fails
       }
     }
@@ -166,7 +167,7 @@ export async function POST(
       },
     })
   } catch (error) {
-    console.error('Create reply API error:', error)
+    logger.error('Create reply API error:', { error: error })
     return NextResponse.json(
       { error: 'Failed to create reply' },
       { status: 500 }
