@@ -60,7 +60,7 @@ export async function sendToClaude(
       stopReason: response.stop_reason || 'end_turn',
     }
   } catch (error) {
-    logger.error('Claude API error:', error)
+    logger.error('Claude API error:', { error })
     throw new Error('Failed to get response from Claude')
   }
 }

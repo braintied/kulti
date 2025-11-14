@@ -55,7 +55,7 @@ export const OnboardingProvider = ({ children }: { children: ReactNode }) => {
         setProgress(parsedProgress)
         setIsNewUser(false)
       } catch (error) {
-        logger.error('Failed to parse onboarding progress:', error)
+        logger.error('Failed to parse onboarding progress:', { error })
         setIsNewUser(true)
       }
     } else {

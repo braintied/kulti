@@ -13,7 +13,7 @@ export const useFeatureIntro = (featureName: string) => {
       const seen = localStorage.getItem(key)
       setShowIntro(seen !== "seen")
     } catch (error) {
-      logger.error("Failed to check feature intro status:", error)
+      logger.error("Failed to check feature intro status:", { error })
       setShowIntro(false)
     } finally {
       setIsLoaded(true)

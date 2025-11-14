@@ -63,7 +63,7 @@ export function useTokenRefresh({
           icon: '🔄',
         })
       } catch (error) {
-        logger.error('Token refresh failed:', error)
+        logger.error('Token refresh failed:', { error })
         toast.error('Failed to refresh session. Please rejoin if connection is lost.', {
           duration: 5000,
         })

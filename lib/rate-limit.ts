@@ -197,7 +197,7 @@ export async function applyRateLimit(
     return { allowed: true }
   } catch (error) {
     // If rate limiting fails, allow the request but log the error
-    logger.error('Rate limiting error:', error)
+    logger.error('Rate limiting error:', { error })
     return { allowed: true }
   }
 }

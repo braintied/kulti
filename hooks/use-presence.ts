@@ -34,7 +34,7 @@ export function usePresence({
         }),
       })
     } catch (error) {
-      logger.error('Failed to update presence:', error)
+      logger.error('Failed to update presence:', { error })
     }
   }, [])
 

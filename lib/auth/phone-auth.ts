@@ -76,7 +76,7 @@ export async function sendPhoneOTP(phone: string): Promise<PhoneAuthResult> {
     })
 
     if (error) {
-      logger.error('Send OTP error:', error)
+      logger.error('Send OTP error:', { error })
       return {
         success: false,
         error: error.message || 'Failed to send verification code',
@@ -85,7 +85,7 @@ export async function sendPhoneOTP(phone: string): Promise<PhoneAuthResult> {
 
     return { success: true, data }
   } catch (error) {
-    logger.error('Send OTP error:', error)
+    logger.error('Send OTP error:', { error })
     return {
       success: false,
       error: error instanceof Error ? error.message : 'Failed to send verification code',
@@ -111,7 +111,7 @@ export async function verifyPhoneOTP(
     })
 
     if (error) {
-      logger.error('Verify OTP error:', error)
+      logger.error('Verify OTP error:', { error })
       return {
         success: false,
         error: error.message || 'Invalid or expired verification code',
@@ -127,7 +127,7 @@ export async function verifyPhoneOTP(
 
     return { success: true, data }
   } catch (error) {
-    logger.error('Verify OTP error:', error)
+    logger.error('Verify OTP error:', { error })
     return {
       success: false,
       error: error instanceof Error ? error.message : 'Failed to verify code',
@@ -189,7 +189,7 @@ export async function completePhoneSignup(params: {
 
     return { success: true }
   } catch (error) {
-    logger.error('Complete signup error:', error)
+    logger.error('Complete signup error:', { error })
     return {
       success: false,
       error: error instanceof Error ? error.message : 'Failed to complete signup',

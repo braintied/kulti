@@ -37,7 +37,7 @@ export async function apiFetch<T = any>(
       status: response.status,
     }
   } catch (error) {
-    logger.error('API fetch error:', error)
+    logger.error('API fetch error:', { error })
     return {
       error: error instanceof Error ? error.message : 'Network error',
       ok: false,
