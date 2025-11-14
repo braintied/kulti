@@ -8,6 +8,16 @@ import { Slider } from "@/components/ui/slider"
 import { Settings, Wifi, Video, Gauge, Save } from "lucide-react"
 import { toast } from "react-hot-toast"
 
+/**
+ * Navigator with Connection API
+ */
+interface NavigatorWithConnection extends Navigator {
+  connection?: {
+    effectiveType?: string
+    type?: string
+  }
+}
+
 interface QualitySettingsModalProps {
   isOpen: boolean
   onClose: () => void
@@ -86,7 +96,7 @@ export function QualitySettingsModal({ isOpen, onClose, onApply }: QualitySettin
 
   useEffect(() => {
     if ("connection" in navigator) {
-      const conn = (navigator as any).connection
+      const conn = (navigator as NavigatorWithConnection).connection
       const type = conn?.effectiveType || conn?.type
 
       if (type === "4g") setConnectionType("4g")

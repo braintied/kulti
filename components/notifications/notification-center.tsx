@@ -13,6 +13,13 @@ import {
   Bell
 } from 'lucide-react'
 import { formatDistanceToNow } from 'date-fns'
+import { Notification as NotificationDB } from '@/types/database'
+import { Notification as NotificationService } from '@/lib/notifications/service'
+
+/**
+ * Notification item type (from service, compatible with database)
+ */
+type NotificationItem = NotificationService | NotificationDB
 
 interface NotificationCenterProps {
   onClose: () => void
@@ -44,7 +51,7 @@ export default function NotificationCenter({ onClose }: NotificationCenterProps)
     }
   }
 
-  const handleNotificationClick = async (notification: any) => {
+  const handleNotificationClick = async (notification: NotificationItem) => {
     // Mark as read
     if (!notification.read) {
       await markAsRead(notification.id)

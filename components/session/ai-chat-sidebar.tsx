@@ -9,6 +9,26 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
 import { vscDarkPlus } from "react-syntax-highlighter/dist/cjs/styles/prism"
 import { type AIPermissions, getNoAccessReason } from "@/lib/session"
 
+/**
+ * AI Message Payload interface
+ */
+interface AIMessagePayload {
+  conversation_id: string
+  [key: string]: unknown
+}
+
+/**
+ * Code Component Props for ReactMarkdown
+ */
+type CodeComponentProps = React.ClassAttributes<HTMLElement> &
+  React.HTMLAttributes<HTMLElement> & {
+    inline?: boolean
+    node?: unknown
+  }
+
+/**
+ * AI Chat Sidebar Props interface
+ */
 interface AIChatSidebarProps {
   sessionId: string
   userId: string
@@ -79,7 +99,7 @@ export function AIChatSidebar({
         async (payload) => {
           // Fetch the complete message with user info
           const { data } = await supabase.rpc('get_ai_conversation_history', {
-            p_conversation_id: (payload.new as any).conversation_id,
+            p_conversation_id: (payload.new as AIMessagePayload).conversation_id,
             p_limit: 1,
           })
 
@@ -251,11 +271,12 @@ export function AIChatSidebar({
                 <div className="prose prose-invert prose-sm max-w-none">
                   <ReactMarkdown
                     components={{
-                      code({ node, inline, className, children, ...props }: any) {
+                      code({ node, inline, className, children, ...props }: CodeComponentProps) {
                         const match = /language-(\w+)/.exec(className || '')
                         return !inline && match ? (
                           <SyntaxHighlighter
-                            style={vscDarkPlus as any}
+                            // @ts-expect-error - vscDarkPlus type is compatible but typed differently
+                            style={vscDarkPlus}
                             language={match[1]}
                             PreTag="div"
                             {...props}

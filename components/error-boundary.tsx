@@ -2,16 +2,29 @@
 
 import { Component, ReactNode } from 'react'
 
+/**
+ * React ErrorInfo type
+ */
+interface ErrorInfo {
+  componentStack?: string
+}
+
+/**
+ * Props interface
+ */
 interface Props {
   children: ReactNode
   fallback?: ReactNode
-  onError?: (error: Error, errorInfo: any) => void
+  onError?: (error: Error, errorInfo: ErrorInfo) => void
 }
 
+/**
+ * State interface
+ */
 interface State {
   hasError: boolean
   error?: Error
-  errorInfo?: any
+  errorInfo?: ErrorInfo
 }
 
 export class ErrorBoundary extends Component<Props, State> {
@@ -24,7 +37,7 @@ export class ErrorBoundary extends Component<Props, State> {
     return { hasError: true, error }
   }
 
-  componentDidCatch(error: Error, errorInfo: any) {
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     this.setState({ errorInfo })
 
     // Log to console in development

@@ -5,6 +5,24 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Button } from "@/components/ui/button"
 import { CheckCircle, XCircle, AlertCircle, Wifi, Activity, MonitorPlay, Chrome } from "lucide-react"
 
+/**
+ * Navigator with Connection API
+ */
+interface NavigatorWithConnection extends Navigator {
+  connection?: {
+    effectiveType?: string
+    type?: string
+  }
+}
+
+/**
+ * Window with WebRTC prefixes
+ */
+interface WindowWithWebRTC extends Window {
+  webkitRTCPeerConnection?: typeof RTCPeerConnection
+  mozRTCPeerConnection?: typeof RTCPeerConnection
+}
+
 interface DiagnosticsModalProps {
   isOpen: boolean
   onClose: () => void
@@ -112,8 +130,8 @@ export function DiagnosticsModal({ isOpen, onClose, onContinue }: DiagnosticsMod
     )
     const hasRTCPeerConnection = !!(
       window.RTCPeerConnection ||
-      (window as any).webkitRTCPeerConnection ||
-      (window as any).mozRTCPeerConnection
+      (window as WindowWithWebRTC).webkitRTCPeerConnection ||
+      (window as WindowWithWebRTC).mozRTCPeerConnection
     )
 
     if (hasGetUserMedia && hasRTCPeerConnection) {

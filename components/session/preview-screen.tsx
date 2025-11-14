@@ -17,6 +17,14 @@ import { DiagnosticsModal } from "./diagnostics-modal"
 import { QualitySettingsModal } from "./quality-settings-modal"
 import { toast } from "react-hot-toast"
 
+/**
+ * HMS Error with Code interface
+ */
+interface HMSErrorWithCode {
+  code: number
+  message: string
+}
+
 export interface PreviewScreenProps {
   sessionId: string
   roomId: string
@@ -104,7 +112,7 @@ export function PreviewScreen({ sessionId, roomId, onJoin, onCancel }: PreviewSc
   // Handle device errors
   const handleDeviceError = (error: unknown) => {
     if (error && typeof error === 'object' && 'code' in error) {
-      const code = (error as any).code
+      const code = (error as HMSErrorWithCode).code
 
       if (code === 3008 || code === 3001) {
         setDeviceError({
@@ -121,7 +129,7 @@ export function PreviewScreen({ sessionId, roomId, onJoin, onCancel }: PreviewSc
       } else {
         setDeviceError({
           type: "unknown",
-          message: (error as any).message || "Failed to initialize preview",
+          message: (error as HMSErrorWithCode).message || "Failed to initialize preview",
           details: "Please check your device settings and try again.",
         })
       }
@@ -225,7 +233,7 @@ export function PreviewScreen({ sessionId, roomId, onJoin, onCancel }: PreviewSc
         }
 
         // Use selected audio output device if available
-        const audioElement = testAudioRef.current as any
+        const audioElement = testAudioRef.current as HTMLAudioElement & { setSinkId?: (sinkId: string) => Promise<void> }
         if (selectedDeviceIDs.audioOutput && audioElement.setSinkId) {
           audioElement.setSinkId(selectedDeviceIDs.audioOutput)
         }
@@ -279,7 +287,8 @@ export function PreviewScreen({ sessionId, roomId, onJoin, onCancel }: PreviewSc
   // Device selection handlers
   const handleVideoDeviceChange = async (deviceId: string) => {
     try {
-      await updateDevice({ deviceType: 'videoInput' as any, deviceId })
+      // @ts-expect-error - HMS DeviceType enum compatibility
+      await updateDevice({ deviceType: 'videoInput', deviceId })
       toast.success("Camera updated")
     } catch (error) {
       console.error("Failed to update video device:", error)
@@ -289,7 +298,8 @@ export function PreviewScreen({ sessionId, roomId, onJoin, onCancel }: PreviewSc
 
   const handleAudioInputChange = async (deviceId: string) => {
     try {
-      await updateDevice({ deviceType: 'audioInput' as any, deviceId })
+      // @ts-expect-error - HMS DeviceType enum compatibility
+      await updateDevice({ deviceType: 'audioInput', deviceId })
       toast.success("Microphone updated")
     } catch (error) {
       console.error("Failed to update audio input:", error)
@@ -299,7 +309,8 @@ export function PreviewScreen({ sessionId, roomId, onJoin, onCancel }: PreviewSc
 
   const handleAudioOutputChange = async (deviceId: string) => {
     try {
-      await updateDevice({ deviceType: 'audioOutput' as any, deviceId })
+      // @ts-expect-error - HMS DeviceType enum compatibility
+      await updateDevice({ deviceType: 'audioOutput', deviceId })
       toast.success("Speaker updated")
     } catch (error) {
       console.error("Failed to update audio output:", error)

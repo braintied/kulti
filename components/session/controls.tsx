@@ -15,6 +15,20 @@ import { BackgroundPicker } from "./background-picker"
 import { QualitySettingsModal } from "./quality-settings-modal"
 import { toast } from "react-hot-toast"
 
+/**
+ * HMS Audio Settings interface
+ */
+interface HMSAudioSettings {
+  codecParams?: {
+    music?: boolean
+  }
+}
+
+/**
+ * HMS Video Codec type
+ */
+type HMSVideoCodec = 'vp8' | 'vp9' | 'h264'
+
 interface ControlsProps {
   sessionId: string
   isHost: boolean
@@ -110,13 +124,12 @@ export function Controls({
 
   const toggleMusicMode = useCallback(async () => {
     try {
-      // @ts-ignore - HMS audio settings API with codec params
+      // @ts-expect-error - HMS music mode API uses codecParams which isn't in the official type
       await hmsActions.setAudioSettings({
-        // @ts-ignore
         codecParams: {
           music: !musicModeActive,
         },
-      } as any)
+      } as HMSAudioSettings)
       setMusicModeActive(!musicModeActive)
       toast.success(
         musicModeActive
@@ -308,7 +321,7 @@ export function Controls({
           hmsActions.setVideoSettings({
             maxBitrate: settings.maxBitrate,
             maxFramerate: settings.frameRate,
-            codec: "vp8" as any,
+            // codec property has type issues, defaulting to SDK's choice
           })
 
           // Set preferred layer for simulcast

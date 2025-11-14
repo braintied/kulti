@@ -9,13 +9,26 @@ interface TransactionHistoryProps {
   userId: string
 }
 
+/**
+ * Transaction metadata interface
+ */
+interface TransactionMetadata {
+  recipientUsername?: string
+  fromUsername?: string
+  message?: string
+  [key: string]: unknown
+}
+
+/**
+ * Transaction interface
+ */
 interface Transaction {
   id: string
   amount: number
   type: string
   balance_after: number
   source_session_id: string | null
-  metadata: any
+  metadata: TransactionMetadata
   created_at: string
 }
 

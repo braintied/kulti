@@ -3,12 +3,23 @@
 import { useState } from 'react'
 import { X } from 'lucide-react'
 
+/**
+ * Invite metadata interface
+ */
+interface InviteMetadata {
+  note?: string
+  [key: string]: unknown
+}
+
+/**
+ * Create Invite Modal Props interface
+ */
 interface CreateInviteModalProps {
   onClose: () => void
   onCreate: (params: {
     maxUses: number
     expiresAt: string | null
-    metadata: Record<string, any>
+    metadata: InviteMetadata
   }) => Promise<void>
 }
 

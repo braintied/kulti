@@ -9,24 +9,61 @@ import {
 import { Button } from "@/components/ui/button"
 import { Activity, ChevronDown, ChevronUp } from "lucide-react"
 
+/**
+ * HMS Stats State interface
+ */
+interface HMSStatsState {
+  peer?: Record<string, HMSPeerStats>
+  track?: Record<string, HMSTrackStats>
+}
+
+/**
+ * HMS Track with ID interface
+ */
+interface HMSTrackWithId {
+  id: string
+}
+
+/**
+ * HMS Peer Statistics interface
+ */
+interface HMSPeerStats {
+  availableBandwidth?: number
+}
+
+/**
+ * HMS Track Statistics interface
+ */
+interface HMSTrackStats {
+  bitrate?: number
+  framesPerSecond?: number
+  resolution?: {
+    width: number
+    height: number
+  }
+  packetsLost?: number
+  jitter?: number
+  roundTripTime?: number
+}
+
 export function StatsPanel() {
   const [isExpanded, setIsExpanded] = useState(false)
   const localPeer = useHMSStore(selectLocalPeer)
-  // Get all stats using a generic selector
-  const stats = useHMSStatsStore((state: any) => state)
+  // Get all stats using a generic selector (let TypeScript infer the type)
+  const stats = useHMSStatsStore((state) => state)
 
   // Get local peer stats - HMS stats structure has changed
-  const localPeerStats = localPeer?.id && stats ? (stats as any).peer?.[localPeer.id] : null
+  const localPeerStats = localPeer?.id && stats ? (stats as unknown as HMSStatsState).peer?.[localPeer.id] : null
   const localVideoTrack = localPeer?.videoTrack
   const localAudioTrack = localPeer?.audioTrack
 
   // Video track stats - access track ID properly
-  const videoTrackId = typeof localVideoTrack === 'string' ? localVideoTrack : (localVideoTrack as any)?.id
-  const videoStats = videoTrackId && stats ? (stats as any).track?.[videoTrackId] : null
+  const videoTrackId = typeof localVideoTrack === 'string' ? localVideoTrack : (localVideoTrack as unknown as HMSTrackWithId)?.id
+  const videoStats = videoTrackId && stats ? (stats as unknown as HMSStatsState).track?.[videoTrackId] : null
 
   // Audio track stats - access track ID properly
-  const audioTrackId = typeof localAudioTrack === 'string' ? localAudioTrack : (localAudioTrack as any)?.id
-  const audioStats = audioTrackId && stats ? (stats as any).track?.[audioTrackId] : null
+  const audioTrackId = typeof localAudioTrack === 'string' ? localAudioTrack : (localAudioTrack as unknown as HMSTrackWithId)?.id
+  const audioStats = audioTrackId && stats ? (stats as unknown as HMSStatsState).track?.[audioTrackId] : null
 
   // Format numbers for display
   const formatBitrate = (bps: number | undefined) => {

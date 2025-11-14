@@ -11,6 +11,16 @@ import { formatCredits } from "@/lib/credits/config"
 import NotificationBell from "@/components/notifications/notification-bell"
 import { SearchBar } from "@/components/dashboard/search-bar"
 
+/**
+ * Supabase realtime payload interface
+ */
+interface SupabasePayload {
+  new: {
+    credits_balance?: number
+    [key: string]: unknown
+  }
+}
+
 interface NavBarProps {
   profile: Profile
 }
@@ -53,7 +63,7 @@ export function NavBar({ profile }: NavBarProps) {
           table: 'profiles',
           filter: `id=eq.${profile.id}`,
         },
-        (payload: any) => {
+        (payload: SupabasePayload) => {
           if (payload.new.credits_balance !== undefined) {
             setCredits(payload.new.credits_balance)
           }

@@ -5,6 +5,20 @@ import { useVideo, useHMSStore, selectPeerAudioByID, selectIsPeerAudioEnabled } 
 import type { HMSPeer } from "@100mslive/react-sdk"
 import { Mic, MicOff, User, Wifi, WifiOff } from "lucide-react"
 
+/**
+ * HMS Track with ID interface
+ */
+interface HMSTrackWithId {
+  id: string
+}
+
+/**
+ * HMS Audio with Level interface
+ */
+interface HMSAudioWithLevel {
+  audioLevel?: number
+}
+
 interface VideoTileProps {
   peer: HMSPeer
   isLocal?: boolean
@@ -16,7 +30,7 @@ export const VideoTile = memo(function VideoTile({ peer, isLocal, isScreenShare,
   // Memoize track ID calculation
   const trackId = useMemo(() => {
     return isScreenShare
-      ? (peer.auxiliaryTracks[0] as any)?.id
+      ? (peer.auxiliaryTracks[0] as unknown as HMSTrackWithId)?.id
       : peer.videoTrack as string | undefined
   }, [isScreenShare, peer.auxiliaryTracks, peer.videoTrack])
 
@@ -42,7 +56,7 @@ export const VideoTile = memo(function VideoTile({ peer, isLocal, isScreenShare,
 
     const interval = setInterval(() => {
       // HMS audio level is accessed via the audioLevel property, not volume
-      const level = (peerAudio as any)?.audioLevel || 0
+      const level = (peerAudio as HMSAudioWithLevel)?.audioLevel || 0
       // Normalize to 0-100 range and smooth it
       setAudioLevel(Math.min(100, level * 100))
     }, 100)

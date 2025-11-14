@@ -33,7 +33,7 @@ export function ChatSidebar({ sessionId, userId }: ChatSidebarProps) {
         .order("created_at", { ascending: true })
 
       if (data) {
-        setMessages(data as any)
+        setMessages(data as (Message & { profile?: Profile })[])
       }
     }
 
@@ -59,7 +59,7 @@ export function ChatSidebar({ sessionId, userId }: ChatSidebarProps) {
 
           setMessages((prev) => [
             ...prev,
-            { ...payload.new, profile } as any,
+            { ...(payload.new as Message), profile: profile || undefined } as Message & { profile?: Profile },
           ])
         }
       )

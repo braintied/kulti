@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import { X, Bot, Users, User, Check } from "lucide-react"
 import {
   type AIPermissions,
@@ -85,7 +85,7 @@ export function AISettingsModal({
 
   if (!isOpen) return null
 
-  const modes: { value: AIAccessMode; icon: any; recommended?: boolean }[] = [
+  const modes: { value: AIAccessMode; icon: React.ComponentType<{ className?: string }>; recommended?: boolean }[] = [
     { value: 'host_only', icon: User },
     { value: 'presenters', icon: Users, recommended: true },
     { value: 'manual', icon: Check },
