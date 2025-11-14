@@ -244,12 +244,18 @@ Ready to build? Check out:
 - `/Docs/DESIGN_SYSTEM.md` - UI/UX design guidelines
 
 ### Deployment Documentation
-- `/Docs/PRODUCTION_DEPLOYMENT.md` - Deployment guide
-- `/Docs/PRODUCTION_RUNBOOK.md` - Day-to-day operations
-- `/Docs/PRODUCTION_READINESS_REPORT.md` - Production readiness status
-- `/Docs/PRE_PRODUCTION_CHECKLIST.md` - Pre-launch checklist
+- `/Docs/VERCEL_PRODUCTION_SETUP.md` - Step-by-step Vercel deployment guide
+- `/Docs/SUPABASE_PRODUCTION_SETUP.md` - Step-by-step Supabase configuration
+- `/Docs/ENV_VARIABLES_CHECKLIST.md` - Complete environment variables reference
+- `/Docs/DATABASE_SEEDING.md` - Initial data and seed scripts
+- `/Docs/PRODUCTION_DEPLOYMENT_CHECKLIST.md` - Comprehensive pre-launch checklist (200+ items)
+- `/Docs/PRODUCTION_DEPLOYMENT.md` - Deployment architecture overview
+- `/Docs/PRODUCTION_RUNBOOK.md` - Day-to-day operations guide
+- `/Docs/PRODUCTION_READINESS_REPORT.md` - Production readiness assessment
+- `/Docs/PRE_PRODUCTION_CHECKLIST.md` - Final verification checklist
 
 ### Security
+- `/Docs/SECURITY_HARDENING.md` - Security best practices and hardening measures
 - `/SECURITY_ADVISORY_AXIOS.md` - Known vulnerabilities and mitigations
 
 ---
