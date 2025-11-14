@@ -2,7 +2,7 @@
  * Tests for HMS server integration
  */
 
-// Set up environment variables BEFORE importing modules
+// Set up environment variables BEFORE any imports
 process.env.HMS_APP_ACCESS_KEY = 'test-access-key'
 process.env.HMS_APP_SECRET = 'test-secret-key'
 process.env.NEXT_PUBLIC_APP_URL = 'https://app.kulti.com'
@@ -39,7 +39,6 @@ global.fetch = jest.fn()
 // Constants for testing
 const HMS_APP_ACCESS_KEY = 'test-access-key'
 const HMS_APP_SECRET = 'test-secret-key'
-const NEXT_PUBLIC_APP_URL = 'https://app.kulti.com'
 
 describe('HMS Server Integration', () => {
   beforeEach(() => {
@@ -99,7 +98,14 @@ describe('HMS Server Integration', () => {
 
     it('should generate token with correct payload', () => {
       const result = generateHMSToken('room-123', 'user-456', 'presenter')
-      const decoded = jwt.verify(result.token, HMS_APP_SECRET) as any
+      const decoded = jwt.verify(result.token, HMS_APP_SECRET) as jwt.JwtPayload & {
+        room_id: string;
+        user_id: string;
+        role: string;
+        access_key: string;
+        type: string;
+        version: number;
+      }
 
       expect(decoded.room_id).toBe('room-123')
       expect(decoded.user_id).toBe('user-456')
@@ -111,19 +117,21 @@ describe('HMS Server Integration', () => {
 
     it('should default to viewer role', () => {
       const result = generateHMSToken('room-123', 'user-456')
-      const decoded = jwt.verify(result.token, HMS_APP_SECRET) as any
+      const decoded = jwt.verify(result.token, HMS_APP_SECRET) as jwt.JwtPayload & {
+        role: string;
+      }
 
       expect(decoded.role).toBe('viewer')
     })
 
     it('should set 2 hour expiration', () => {
-      const beforeTime = Date.now()
+      const beforeTime = Math.floor(Date.now() / 1000) * 1000 // Round down to nearest second
       const result = generateHMSToken('room-123', 'user-456')
-      const afterTime = Date.now()
+      const afterTime = Math.ceil(Date.now() / 1000) * 1000 // Round up to nearest second
 
       const twoHours = 2 * 60 * 60 * 1000
       expect(result.expiresAt).toBeGreaterThanOrEqual(beforeTime + twoHours)
-      expect(result.expiresAt).toBeLessThanOrEqual(afterTime + twoHours + 1000)
+      expect(result.expiresAt).toBeLessThanOrEqual(afterTime + twoHours)
     })
   })
 

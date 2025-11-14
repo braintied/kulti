@@ -78,13 +78,10 @@ export function generateHMSToken(
     iat: now,
     nbf: now,
     exp: now + expiresIn,
-    jti: `${userId}-${Date.now()}`,
   }
 
   const token = jwt.sign(payload, HMS_APP_SECRET, {
     algorithm: "HS256",
-    expiresIn: "2h",
-    jwtid: `${userId}-${Date.now()}`,
   })
 
   return {

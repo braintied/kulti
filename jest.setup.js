@@ -1,6 +1,11 @@
 // jest.setup.js
 import '@testing-library/jest-dom'
 
+// Set up environment variables for HMS tests
+process.env.HMS_APP_ACCESS_KEY = process.env.HMS_APP_ACCESS_KEY || 'test-access-key'
+process.env.HMS_APP_SECRET = process.env.HMS_APP_SECRET || 'test-secret-key'
+process.env.NEXT_PUBLIC_APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://app.kulti.com'
+
 // Mock Next.js router
 jest.mock('next/navigation', () => ({
   useRouter: () => ({

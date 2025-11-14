@@ -403,13 +403,15 @@ describe('Credit Service', () => {
 
       const executeQuery = Promise.resolve({ data: [], error: null })
 
+      // Track eq calls after range
+      const rangeEqMock = jest.fn().mockReturnValue(executeQuery)
+
       const chainableMethods = {
         select: jest.fn().mockReturnThis(),
         eq: jest.fn().mockReturnThis(),
         order: jest.fn().mockReturnThis(),
         range: jest.fn().mockReturnValue({
-          ...executeQuery,
-          eq: jest.fn().mockReturnValue(executeQuery),
+          eq: rangeEqMock, // This eq is called AFTER range
         }),
       }
 
@@ -421,9 +423,10 @@ describe('Credit Service', () => {
         type: 'earned_hosting',
       })
 
-      // Check that eq was called with the type filter
+      // Check that eq was called with user_id before range
       expect(chainableMethods.eq).toHaveBeenCalledWith('user_id', 'user-1')
-      expect(chainableMethods.eq).toHaveBeenCalledWith('type', 'earned_hosting')
+      // Check that eq was called with type filter AFTER range
+      expect(rangeEqMock).toHaveBeenCalledWith('type', 'earned_hosting')
     })
   })
 
