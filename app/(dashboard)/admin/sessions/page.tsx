@@ -1,8 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { formatDistanceToNow, formatDuration, intervalToDuration } from 'date-fns'
 import { Search, Star } from 'lucide-react'
+import { intervalToDuration, formatDuration } from 'date-fns'
 import { logger } from '@/lib/logger'
 
 interface Session {

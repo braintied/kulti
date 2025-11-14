@@ -13,7 +13,7 @@ interface ErrorProps {
 const ErrorPage = ({ error, reset }: ErrorProps) => {
   useEffect(() => {
     // Log error to error reporting service
-    logger.error("Application error:", error);
+    logger.error("Application error:", { error });
   }, [error]);
 
   const isDevelopment = process.env.NODE_ENV === "development";

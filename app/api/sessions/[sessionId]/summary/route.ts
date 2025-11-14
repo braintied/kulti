@@ -7,7 +7,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import {
-  calculateViewerCredits,
   calculateHostCredits,
 } from '@/lib/analytics/session-tracking'
 import { MILESTONES } from '@/lib/credits/config'

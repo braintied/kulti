@@ -4,8 +4,7 @@ import { useEffect, useState, Suspense } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
 import dynamic from "next/dynamic"
 import { createClient } from "@/lib/supabase/client"
-import { SessionCard } from "@/components/dashboard/session-card"
-import { SessionCardSkeleton, LoadingSkeleton } from "@/components/ui/loading-skeleton"
+import { SessionCard, SessionCardSkeleton } from "@/components/dashboard/session-card"
 import { usePresence } from "@/hooks/use-presence"
 import { useOnboarding } from "@/contexts/onboarding-context"
 import { Sparkles, Users } from "lucide-react"
@@ -150,7 +149,7 @@ function DashboardContent() {
         toast.error("Failed to update profile. Please try again.")
       }
     } catch (error) {
-      logger.error('Profile update error:', error)
+      logger.error('Profile update error', { error })
       toast.error("Failed to update profile. Please try again.")
     }
   }

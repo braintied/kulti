@@ -13,7 +13,6 @@ import {
 import { RoomChat } from "@/components/community/room-chat"
 import { TopicFeed } from "@/components/community/topic-feed"
 import {
-  getRoom,
   getRooms,
   joinRoom,
   leaveRoom,
@@ -40,7 +39,7 @@ export default function RoomPage({ params }: PageProps) {
   const [activeTab, setActiveTab] = useState<"chat" | "topics">("chat")
   const [isLoading, setIsLoading] = useState(true)
   const [isJoining, setIsJoining] = useState(false)
-  const [currentUserId, setCurrentUserId] = useState<string>("")
+  const [currentUserId] = useState<string>("")
 
   // Load room data
   useEffect(() => {
@@ -262,7 +261,7 @@ export default function RoomPage({ params }: PageProps) {
             <TopicFeed
               roomId={room.id}
               topics={topics}
-              currentUserId={currentUserId}
+              _currentUserId={currentUserId}
               onTopicCreated={loadRoomData}
             />
           </div>

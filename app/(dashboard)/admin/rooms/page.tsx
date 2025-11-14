@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 import type { RoomFormData } from '@/components/admin/room-creation-form'
-import { Plus, Pencil, Trash, Archive } from 'lucide-react'
+import { Plus, Trash, Archive } from 'lucide-react'
 import { formatDistanceToNow } from 'date-fns'
 import { logger } from '@/lib/logger'
 
@@ -50,23 +50,19 @@ export default function RoomsPage() {
   }
 
   async function createRoom(formData: RoomFormData) {
-    try {
-      const response = await fetch('/api/admin/rooms', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      })
+    const response = await fetch('/api/admin/rooms', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    })
 
-      if (!response.ok) {
-        throw new Error('Failed to create room')
-      }
-
-      const newRoom = await response.json()
-      setRooms([...rooms, newRoom])
-      setShowCreateModal(false)
-    } catch (error) {
-      throw error
+    if (!response.ok) {
+      throw new Error('Failed to create room')
     }
+
+    const newRoom = await response.json()
+    setRooms([...rooms, newRoom])
+    setShowCreateModal(false)
   }
 
   async function archiveRoom(roomId: string) {

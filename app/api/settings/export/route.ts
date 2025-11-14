@@ -18,7 +18,7 @@ interface ExportData {
   presence?: Record<string, unknown>
 }
 
-export async function POST(request: Request) {
+export async function POST(_request: Request) {
   try {
     const supabase = await createClient()
 

@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Stop recording via HMS API
-    const recordingData = await stopRecording(session.hms_room_id)
+    await stopRecording(session.hms_room_id)
 
     // Update recording record in database
     const { data: recording, error: recordingError } = await supabase

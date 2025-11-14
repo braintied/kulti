@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState, Suspense } from "react"
-import { useSearchParams, useRouter } from "next/navigation"
+import { useSearchParams } from "next/navigation"
 import { Search, User, Video, MessageSquare, Users, ArrowUpCircle } from "lucide-react"
 import Link from "next/link"
 import { logger } from '@/lib/logger'
@@ -32,7 +32,6 @@ type FilterType = 'all' | 'users' | 'sessions' | 'topics' | 'rooms'
 
 function SearchResultsContent() {
   const searchParams = useSearchParams()
-  const router = useRouter()
   const query = searchParams.get('q') || ''
   const [activeFilter, setActiveFilter] = useState<FilterType>('all')
   const [results, setResults] = useState<SearchResponse | null>(null)
@@ -54,7 +53,7 @@ function SearchResultsContent() {
           setResults(data)
         }
       } catch (error) {
-        logger.error('Search error:', error)
+        logger.error('Search error:', { error })
       } finally {
         setLoading(false)
       }

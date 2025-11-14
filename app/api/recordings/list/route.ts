@@ -58,7 +58,7 @@ export async function GET(request: NextRequest) {
       query = query.eq("status", status)
     }
 
-    const { data: recordings, error, count } = await query
+    const { data: recordings, error } = await query
 
     if (error) {
       logger.error("Failed to fetch recordings", { userId: user.id, error })

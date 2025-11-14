@@ -78,7 +78,7 @@ export async function POST(request: NextRequest) {
       try {
         const supabase = await createClient()
 
-        const { data, error } = await supabase.auth.signInWithOtp({
+        const { error } = await supabase.auth.signInWithOtp({
           phone: formatted,
           options: {
             channel: 'sms',

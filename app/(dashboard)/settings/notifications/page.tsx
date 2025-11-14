@@ -75,7 +75,7 @@ export default function NotificationSettingsPage() {
         alert("Failed to save notification preferences")
       }
     } catch (error) {
-      logger.error("Save error:", error)
+      logger.error("Save error:", { error })
       alert("Failed to save changes")
     } finally {
       setSaving(false)

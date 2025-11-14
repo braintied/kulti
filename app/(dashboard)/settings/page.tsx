@@ -80,7 +80,7 @@ export default function AccountSettingsPage() {
         alert("Failed to update profile")
       }
     } catch (error) {
-      logger.error("Save error:", error)
+      logger.error("Save error:", { error })
       alert("Failed to save changes")
     } finally {
       setSaving(false)
@@ -109,7 +109,7 @@ export default function AccountSettingsPage() {
         alert("Failed to export data")
       }
     } catch (error) {
-      logger.error("Export error:", error)
+      logger.error("Export error:", { error })
       alert("Failed to export data")
     } finally {
       setExportingData(false)

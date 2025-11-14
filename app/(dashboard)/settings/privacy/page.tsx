@@ -85,7 +85,7 @@ export default function PrivacySettingsPage() {
         alert("Failed to save privacy settings")
       }
     } catch (error) {
-      logger.error("Save error:", error)
+      logger.error("Save error:", { error })
       alert("Failed to save changes")
     } finally {
       setSaving(false)

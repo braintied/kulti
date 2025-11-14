@@ -1,6 +1,5 @@
 'use client'
 
-import { StatsCard } from '@/components/admin/stats-card'
 import {
   BarChart3,
   Users,

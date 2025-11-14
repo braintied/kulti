@@ -3,7 +3,7 @@ import { createClient } from '@/lib/supabase/server'
 import { getUserInvites } from '@/lib/invites/service'
 import { logger } from '@/lib/logger'
 
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     const supabase = await createClient()
     const {

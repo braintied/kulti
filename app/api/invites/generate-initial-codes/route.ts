@@ -6,7 +6,7 @@ import { logger } from '@/lib/logger'
  * Generate initial 5 invite codes for current user
  * This is a one-time operation for users who signed up before auto-generation was implemented
  */
-export async function POST(request: NextRequest) {
+export async function POST(_request: NextRequest) {
   try {
     const supabase = await createClient()
     const {
