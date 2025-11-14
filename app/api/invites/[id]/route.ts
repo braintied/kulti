@@ -5,6 +5,7 @@ import {
   deactivateInvite,
   reactivateInvite,
 } from '@/lib/invites/service'
+import { logger } from '@/lib/logger'
 
 export async function GET(
   request: NextRequest,
@@ -23,7 +24,7 @@ export async function GET(
 
     return NextResponse.json(analytics)
   } catch (error) {
-    console.error('Get invite analytics error:', error)
+    logger.error('Get invite analytics error', { error, inviteId: id })
     return NextResponse.json(
       { error: 'Failed to get invite analytics' },
       { status: 500 }
@@ -62,7 +63,7 @@ export async function PATCH(
 
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error('Update invite error:', error)
+    logger.error('Update invite error', { error, inviteId: id })
     return NextResponse.json(
       { error: 'Failed to update invite' },
       { status: 500 }

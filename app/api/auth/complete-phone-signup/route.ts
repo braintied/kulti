@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createClient } from "@/lib/supabase/server"
 import { withRateLimit, RateLimiters } from "@/lib/rate-limit"
+import { logger } from "@/lib/logger"
 
 export async function POST(request: NextRequest) {
   return withRateLimit(request, RateLimiters.authAttempts(), async () => {
@@ -32,7 +33,7 @@ export async function POST(request: NextRequest) {
       })
 
       if (emailError) {
-        console.error('Update email error:', emailError)
+        logger.error('Update email error', { error: emailError, userId })
         return NextResponse.json(
           { error: emailError.message || 'Failed to add email to account' },
           { status: 500 }
@@ -45,7 +46,7 @@ export async function POST(request: NextRequest) {
       })
 
       if (passwordError) {
-        console.error('Update password error:', passwordError)
+        logger.error('Update password error', { error: passwordError, userId })
         return NextResponse.json(
           { error: passwordError.message || 'Failed to set password' },
           { status: 500 }
@@ -56,7 +57,7 @@ export async function POST(request: NextRequest) {
       const { data: { session: refreshedSession }, error: refreshError } = await supabase.auth.refreshSession()
 
       if (refreshError) {
-        console.error('Refresh session error:', refreshError)
+        logger.error('Refresh session error', { error: refreshError, userId })
         return NextResponse.json(
           { error: refreshError.message || 'Failed to refresh session' },
           { status: 500 }
@@ -64,7 +65,7 @@ export async function POST(request: NextRequest) {
       }
 
       if (!refreshedSession) {
-        console.error('No session after refresh')
+        logger.error('No session after refresh', { userId })
         return NextResponse.json(
           { error: 'Session lost after credential update' },
           { status: 500 }
@@ -99,7 +100,7 @@ export async function POST(request: NextRequest) {
         )
 
       if (profileError) {
-        console.error("Profile upsert error:", profileError)
+        logger.error('Profile upsert error', { error: profileError, userId, username })
         return NextResponse.json(
           { error: `Failed to save profile: ${profileError.message}` },
           { status: 500 }
@@ -118,7 +119,7 @@ export async function POST(request: NextRequest) {
       })
 
       if (inviteError) {
-        console.error("Use invite code error:", inviteError)
+        logger.error('Use invite code error', { error: inviteError, userId, inviteCode })
 
         // Handle race conditions gracefully
         if (inviteError.message?.includes('lock_not_available')) {
@@ -132,10 +133,10 @@ export async function POST(request: NextRequest) {
           // User already used this code - this is actually okay for retry scenarios
         } else {
           // Other invite errors should not block signup completion
-          console.error('Non-critical invite code error, continuing signup:', inviteError)
+          logger.error('Non-critical invite code error, continuing signup', { error: inviteError, userId })
         }
       } else if (inviteResult && !inviteResult.success) {
-        console.error("Invite code validation failed:", inviteResult.error)
+        logger.error('Invite code validation failed', { error: inviteResult.error, userId, inviteCode })
 
         // If they already used the code, that's fine (idempotency)
         if (!inviteResult.error?.includes('already used')) {
@@ -151,7 +152,7 @@ export async function POST(request: NextRequest) {
 
       return NextResponse.json({ success: true })
     } catch (error) {
-      console.error("Complete phone signup error:", error)
+      logger.error('Complete phone signup error', { error })
       return NextResponse.json(
         { error: "Failed to complete signup" },
         { status: 500 }

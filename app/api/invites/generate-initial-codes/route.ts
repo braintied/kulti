@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { logger } from '@/lib/logger'
 
 /**
  * Generate initial 5 invite codes for current user
@@ -22,7 +23,7 @@ export async function POST(request: NextRequest) {
     })
 
     if (error) {
-      console.error('Generate initial codes error:', error)
+      logger.error('Generate initial codes error', { error, userId: user.id })
 
       // If function doesn't exist, return helpful error
       if (error.message?.includes('function') && error.message?.includes('does not exist')) {
@@ -52,7 +53,7 @@ export async function POST(request: NextRequest) {
       message: `Successfully generated ${data?.length || 0} invite codes`,
     })
   } catch (error) {
-    console.error('Generate initial codes error:', error)
+    logger.error('Generate initial codes error', { error })
     return NextResponse.json(
       { error: 'Failed to generate codes' },
       { status: 500 }

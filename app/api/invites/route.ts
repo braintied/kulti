@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { requireModerator } from '@/lib/admin/permissions-server'
 import { createInviteCode, getAllInvites } from '@/lib/invites/service'
+import { logger } from '@/lib/logger'
 
 export async function GET(request: NextRequest) {
   const authError = await requireModerator(request)
@@ -16,7 +17,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(invites)
   } catch (error) {
-    console.error('Get invites error:', error)
+    logger.error('Get invites error', { error })
     return NextResponse.json(
       { error: 'Failed to get invites' },
       { status: 500 }
@@ -40,7 +41,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(result, { status: 201 })
   } catch (error) {
-    console.error('Create invite error:', error)
+    logger.error('Create invite error', { error })
     return NextResponse.json(
       { error: 'Failed to create invite code' },
       { status: 500 }

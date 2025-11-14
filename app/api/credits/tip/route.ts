@@ -9,6 +9,7 @@ import { createClient } from '@/lib/supabase/server'
 import { tipUser } from '@/lib/credits/service'
 import { notifyTipReceived } from '@/lib/notifications/service'
 import { withRateLimit, RateLimiters } from '@/lib/rate-limit'
+import { logger } from '@/lib/logger'
 
 export async function POST(request: NextRequest) {
   try {
@@ -107,7 +108,7 @@ export async function POST(request: NextRequest) {
         user.id
       )
     } catch (notifError) {
-      console.error('Failed to send tip notification:', notifError)
+      logger.error('Failed to send tip notification', { error: notifError, recipientId, senderId: user.id })
       // Don't fail the request if notification fails
     }
 
@@ -119,7 +120,7 @@ export async function POST(request: NextRequest) {
           recipient_display_name: recipient.display_name,
         })
       } catch (innerError) {
-        console.error('Tip error:', innerError)
+        logger.error('Tip error', { error: innerError, recipientId, senderId: user.id })
         return NextResponse.json(
           {
             error: 'Failed to send tip',
@@ -130,7 +131,7 @@ export async function POST(request: NextRequest) {
       }
     })
   } catch (error) {
-    console.error('Tip authentication error:', error)
+    logger.error('Tip authentication error', { error })
     return NextResponse.json(
       { error: 'Authentication failed' },
       { status: 401 }

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { validateInviteCode } from '@/lib/invites/service'
 import { withRateLimit, RateLimiters } from '@/lib/rate-limit'
+import { logger } from '@/lib/logger'
 
 export async function POST(request: NextRequest) {
   return withRateLimit(request, RateLimiters.inviteValidation(), async () => {
@@ -16,7 +17,7 @@ export async function POST(request: NextRequest) {
 
       return NextResponse.json(result)
     } catch (error) {
-      console.error('Validate invite error:', error)
+      logger.error('Validate invite error', { error, code })
       return NextResponse.json(
         { error: 'Failed to validate invite' },
         { status: 500 }

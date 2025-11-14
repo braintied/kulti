@@ -3,11 +3,23 @@ import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 import { NextRequest } from 'next/server'
 import { requireAdmin } from '@/lib/admin/permissions-server'
+import type { UserRole } from '@/types/database'
+import { logger } from '@/lib/logger'
 
 interface RouteParams {
   params: Promise<{
     id: string
   }>
+}
+
+interface UserUpdateRequest {
+  role?: UserRole
+  is_approved?: boolean
+}
+
+interface ProfileUpdateData {
+  role?: UserRole
+  is_approved?: boolean
 }
 
 export async function PATCH(request: NextRequest, { params }: RouteParams) {
@@ -18,10 +30,10 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
   const { id } = await params
 
   try {
-    const body = await request.json()
+    const body: UserUpdateRequest = await request.json()
     const { role, is_approved } = body
 
-    const updateData: any = {}
+    const updateData: ProfileUpdateData = {}
     if (role) updateData.role = role
     if (typeof is_approved === 'boolean') updateData.is_approved = is_approved
 
@@ -36,7 +48,7 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
 
     return NextResponse.json(data)
   } catch (error) {
-    console.error('Failed to update user:', error)
+    logger.error('Failed to update user', { error, userId: id })
     return NextResponse.json(
       { error: 'Failed to update user' },
       { status: 500 }
@@ -62,7 +74,7 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
 
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error('Failed to delete user:', error)
+    logger.error('Failed to delete user', { error, userId: id })
     return NextResponse.json(
       { error: 'Failed to delete user' },
       { status: 500 }

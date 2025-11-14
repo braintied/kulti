@@ -3,6 +3,7 @@ import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 import { NextRequest } from 'next/server'
 import { requireAdmin } from '@/lib/admin/permissions-server'
+import { logger } from '@/lib/logger'
 
 export async function POST(request: NextRequest) {
   const authError = await requireAdmin(request)
@@ -62,7 +63,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(room)
   } catch (error) {
-    console.error('Failed to create room:', error)
+    logger.error('Failed to create room', { error })
     return NextResponse.json(
       { error: 'Failed to create room' },
       { status: 500 }

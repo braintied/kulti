@@ -4,6 +4,34 @@ import { NextResponse } from 'next/server'
 import { NextRequest } from 'next/server'
 import { requireAdmin } from '@/lib/admin/permissions-server'
 import { formatDistanceToNow } from 'date-fns'
+import { logger } from '@/lib/logger'
+
+interface ActivityItem {
+  id: string
+  type: 'user_joined' | 'session_started' | 'room_created'
+  message: string
+  timestamp: string
+  created_at: string
+}
+
+interface RecentUser {
+  username: string
+  created_at: string
+}
+
+interface RecentSession {
+  id: string
+  title: string
+  created_at: string
+  host?: {
+    username: string
+  } | null
+}
+
+interface RecentRoom {
+  name: string
+  created_at: string
+}
 
 export async function GET(request: NextRequest) {
   const authError = await requireAdmin(request)
@@ -12,7 +40,7 @@ export async function GET(request: NextRequest) {
   const supabase = createRouteHandlerClient({ cookies })
 
   try {
-    const activity: any[] = []
+    const activity: ActivityItem[] = []
 
     // Recent user signups
     const { data: recentUsers } = await supabase
@@ -20,6 +48,7 @@ export async function GET(request: NextRequest) {
       .select('username, created_at')
       .order('created_at', { ascending: false })
       .limit(5)
+      .returns<RecentUser[]>()
 
     recentUsers?.forEach((user) => {
       activity.push({
@@ -39,8 +68,9 @@ export async function GET(request: NextRequest) {
       .select('id, title, created_at, host:profiles!sessions_host_id_fkey(username)')
       .order('created_at', { ascending: false })
       .limit(5)
+      .returns<RecentSession[]>()
 
-    recentSessions?.forEach((session: any) => {
+    recentSessions?.forEach((session) => {
       activity.push({
         id: `session_${session.id}`,
         type: 'session_started',
@@ -58,6 +88,7 @@ export async function GET(request: NextRequest) {
       .select('name, created_at')
       .order('created_at', { ascending: false })
       .limit(5)
+      .returns<RecentRoom[]>()
 
     recentRooms?.forEach((room) => {
       activity.push({
@@ -76,7 +107,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(activity.slice(0, 10))
   } catch (error) {
-    console.error('Failed to fetch activity:', error)
+    logger.error('Failed to fetch activity', { error })
     return NextResponse.json(
       { error: 'Failed to fetch activity' },
       { status: 500 }

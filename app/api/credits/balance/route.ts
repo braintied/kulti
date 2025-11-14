@@ -7,6 +7,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { getBalance, getUserStats } from '@/lib/credits'
+import { logger } from '@/lib/logger'
 
 export async function GET(request: NextRequest) {
   try {
@@ -48,7 +49,7 @@ export async function GET(request: NextRequest) {
       stats,
     })
   } catch (error) {
-    console.error('Get balance error:', error)
+    logger.error('Get balance error', { error })
     return NextResponse.json(
       { error: 'Failed to get balance' },
       { status: 500 }

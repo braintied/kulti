@@ -7,6 +7,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { getTransactions } from '@/lib/credits'
+import { logger } from '@/lib/logger'
 
 export async function GET(request: NextRequest) {
   try {
@@ -44,7 +45,7 @@ export async function GET(request: NextRequest) {
       offset,
     })
   } catch (error) {
-    console.error('Get transactions error:', error)
+    logger.error('Get transactions error', { error })
     return NextResponse.json(
       { error: 'Failed to get transactions' },
       { status: 500 }

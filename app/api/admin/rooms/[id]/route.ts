@@ -3,11 +3,30 @@ import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 import { NextRequest } from 'next/server'
 import { requireAdmin } from '@/lib/admin/permissions-server'
+import { logger } from '@/lib/logger'
 
 interface RouteParams {
   params: Promise<{
     id: string
   }>
+}
+
+interface RoomUpdateRequest {
+  name?: string
+  description?: string
+  category?: string
+  icon_emoji?: string
+  tags?: string[]
+  archived?: boolean
+}
+
+interface RoomUpdateData {
+  name?: string
+  description?: string | null
+  category?: string
+  icon_emoji?: string
+  tags?: string[]
+  archived_at?: string | null
 }
 
 export async function PATCH(request: NextRequest, { params }: RouteParams) {
@@ -18,10 +37,10 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
   const { id } = await params
 
   try {
-    const body = await request.json()
+    const body: RoomUpdateRequest = await request.json()
     const { name, description, category, icon_emoji, tags, archived } = body
 
-    const updateData: any = {}
+    const updateData: RoomUpdateData = {}
     if (name) updateData.name = name
     if (description !== undefined) updateData.description = description
     if (category) updateData.category = category
@@ -42,7 +61,7 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
 
     return NextResponse.json(data)
   } catch (error) {
-    console.error('Failed to update room:', error)
+    logger.error('Failed to update room', { error, roomId: id })
     return NextResponse.json(
       { error: 'Failed to update room' },
       { status: 500 }
@@ -67,7 +86,7 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
 
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error('Failed to delete room:', error)
+    logger.error('Failed to delete room', { error, roomId: id })
     return NextResponse.json(
       { error: 'Failed to delete room' },
       { status: 500 }

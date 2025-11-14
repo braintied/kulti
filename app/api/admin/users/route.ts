@@ -3,6 +3,7 @@ import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 import { NextRequest } from 'next/server'
 import { requireAdmin } from '@/lib/admin/permissions-server'
+import { logger } from '@/lib/logger'
 
 export async function GET(request: NextRequest) {
   const authError = await requireAdmin(request)
@@ -26,7 +27,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(users || [])
   } catch (error) {
-    console.error('Failed to fetch users:', error)
+    logger.error('Failed to fetch users', { error })
     return NextResponse.json(
       { error: 'Failed to fetch users' },
       { status: 500 }
