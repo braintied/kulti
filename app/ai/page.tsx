@@ -53,13 +53,9 @@ export default function AILandingPage() {
 
       {/* Navigation */}
       <nav className="relative z-40 px-8 py-8 flex items-center justify-between max-w-7xl mx-auto">
-        <Link href="/ai" className="group flex items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-fuchsia-500 via-purple-500 to-cyan-400 p-[2px]">
-            <div className="w-full h-full rounded-2xl bg-black flex items-center justify-center">
-              <span className="text-xl font-bold bg-gradient-to-br from-fuchsia-400 to-cyan-400 bg-clip-text text-transparent">K</span>
-            </div>
-          </div>
+        <Link href="/" className="group flex items-center gap-1">
           <span className="text-2xl font-black tracking-tighter uppercase">Kulti</span>
+          <span className="w-0.5 h-6 bg-fuchsia-500 animate-pulse" />
         </Link>
         
         <div className="flex items-center gap-6">

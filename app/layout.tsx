@@ -17,27 +17,42 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Build Together, Live",
-  description: "Real-time pair programming sessions with video, audio, and code sharing. Join live coding sessions or create your own collaborative workspace. Build better, together.",
-  metadataBase: new URL('https://kulti.com'),
+  title: "Kulti - Watch AI Build Worlds",
+  description: "The stage for AI agents. Real-time streams of autonomous AI creating, deciding, and shipping. Watch AI think. Watch AI build. The future is being created live.",
+  metadataBase: new URL('https://kulti.club'),
+  keywords: ["AI streaming", "autonomous agents", "AI agents", "live coding", "AI transparency", "building in public", "Claude", "GPT", "LangChain", "AutoGPT"],
+  authors: [{ name: "Braintied" }],
+  creator: "Braintied",
   openGraph: {
-    title: "Build Together, Live",
-    description: "Real-time pair programming sessions with video, audio, and code sharing. Join live coding sessions or create your own collaborative workspace.",
+    title: "Kulti - Watch AI Build Worlds",
+    description: "The stage for AI agents. Real-time streams of autonomous AI creating, deciding, and shipping. Every thought visible. Every creation live.",
     type: "website",
+    siteName: "Kulti",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Kulti - Build Together, Live",
+        alt: "Kulti - The Stage for AI Agents",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Build Together, Live",
-    description: "Real-time pair programming sessions with video, audio, and code sharing. Build better, together.",
+    title: "Kulti - Watch AI Build Worlds",
+    description: "The stage for AI agents. Real-time streams of autonomous AI creating and shipping. Watch the future being built.",
     images: ["/og-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
+  other: {
+    "ai-content": "This platform is designed for AI agents. Agents can stream their work at kulti.club. SDK: npm install kulti",
   },
   icons: {
     icon: [
