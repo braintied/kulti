@@ -3,20 +3,36 @@ import { createClient } from "@supabase/supabase-js"
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!
-
 const NEX_API_KEY = process.env.NEX_STREAM_API_KEY || "nex-stream-2026"
+const NEX_SESSION_ID = "e8191d58-071c-4ead-a6cb-b6a708876e35"
 
-// In-memory state for simplicity (will reset on cold start but that's fine)
-let streamState = {
+// Default state
+const defaultState = {
   terminal: [] as string[],
-  preview: { type: "code" as const, content: "// Welcome", filename: "welcome.tsx" },
+  preview: { type: "code" as const, content: "// Welcome to Nex's stream", filename: "welcome.tsx" },
   thoughts: [] as Array<{ type: string; content: string; time: string }>,
   currentThought: "",
   isLive: false,
-  viewerCount: 1
+  viewerCount: 1,
+  chat: [] as Array<{ id: string; username: string; message: string; is_nex: boolean; time: string }>
 }
 
-let chatMessages: Array<{ id: string; username: string; message: string; is_nex: boolean; time: string }> = []
+async function getState(supabase: ReturnType<typeof createClient>) {
+  const { data } = await supabase
+    .from("sessions")
+    .select("stream_state")
+    .eq("id", NEX_SESSION_ID)
+    .single()
+  
+  return data?.stream_state || defaultState
+}
+
+async function setState(supabase: ReturnType<typeof createClient>, state: any) {
+  await supabase
+    .from("sessions")
+    .update({ stream_state: state })
+    .eq("id", NEX_SESSION_ID)
+}
 
 export async function POST(request: NextRequest) {
   const apiKey = request.headers.get("X-Nex-Key")
@@ -25,59 +41,48 @@ export async function POST(request: NextRequest) {
   }
 
   try {
+    const supabase = createClient(supabaseUrl, supabaseServiceKey)
     const body = await request.json()
     const { event, payload } = body
     const time = new Date().toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })
 
+    // Get current state
+    let state = await getState(supabase)
+
+    // Apply update
     switch (event) {
       case "terminal":
-        streamState.terminal.push(payload.line)
-        if (streamState.terminal.length > 100) {
-          streamState.terminal = streamState.terminal.slice(-100)
-        }
+        state.terminal = [...(state.terminal || []).slice(-99), payload.line]
         break
       case "preview":
-        streamState.preview = payload
+        state.preview = payload
         break
       case "thought":
-        streamState.thoughts.push({ ...payload, time })
-        if (streamState.thoughts.length > 50) {
-          streamState.thoughts = streamState.thoughts.slice(-50)
-        }
-        streamState.currentThought = ""
+        state.thoughts = [...(state.thoughts || []).slice(-49), { ...payload, time }]
+        state.currentThought = ""
         break
       case "thinking":
-        streamState.currentThought = payload.content
+        state.currentThought = payload.content
         break
       case "state":
-        Object.assign(streamState, payload)
+        state = { ...state, ...payload }
         break
       case "chat":
-        chatMessages.push({
+        state.chat = [...(state.chat || []).slice(-99), {
           id: Date.now().toString(),
           username: "Nex ⚡",
           message: payload.message,
           is_nex: true,
           time
-        })
-        if (chatMessages.length > 100) {
-          chatMessages = chatMessages.slice(-100)
-        }
+        }]
+        break
+      case "clear":
+        state = { ...defaultState, isLive: state.isLive }
         break
     }
 
-    // Broadcast via Supabase Realtime
-    try {
-      const supabase = createClient(supabaseUrl, supabaseServiceKey)
-      
-      await supabase.channel('nex-live-stream').send({
-        type: 'broadcast',
-        event: 'update',
-        payload: { event, data: payload, time }
-      })
-    } catch (e) {
-      console.log("Broadcast failed, continuing with in-memory state")
-    }
+    // Save state
+    await setState(supabase, state)
 
     return NextResponse.json({ success: true })
   } catch (error) {
@@ -86,17 +91,31 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// Get current state
 export async function GET() {
-  return NextResponse.json({ 
-    state: streamState, 
-    chat: chatMessages 
-  })
+  try {
+    const supabase = createClient(supabaseUrl, supabaseServiceKey)
+    const state = await getState(supabase)
+    
+    return NextResponse.json({ 
+      state: {
+        terminal: state.terminal || [],
+        preview: state.preview || defaultState.preview,
+        thoughts: state.thoughts || [],
+        currentThought: state.currentThought || "",
+        isLive: state.isLive || false,
+        viewerCount: state.viewerCount || 1
+      },
+      chat: state.chat || []
+    })
+  } catch (error) {
+    console.error("Get state error:", error)
+    return NextResponse.json({ state: defaultState, chat: [] })
+  }
 }
 
-// User chat (no API key required)
 export async function PUT(request: NextRequest) {
   try {
+    const supabase = createClient(supabaseUrl, supabaseServiceKey)
     const body = await request.json()
     const { username, message } = body
     
@@ -105,32 +124,19 @@ export async function PUT(request: NextRequest) {
     }
 
     const time = new Date().toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })
-    const chatMsg = {
+    let state = await getState(supabase)
+    
+    state.chat = [...(state.chat || []).slice(-99), {
       id: Date.now().toString(),
       username,
       message,
       is_nex: false,
       time
-    }
+    }]
     
-    chatMessages.push(chatMsg)
-    if (chatMessages.length > 100) {
-      chatMessages = chatMessages.slice(-100)
-    }
+    await setState(supabase, state)
 
-    // Broadcast
-    try {
-      const supabase = createClient(supabaseUrl, supabaseServiceKey)
-      await supabase.channel('nex-live-stream').send({
-        type: 'broadcast',
-        event: 'chat',
-        payload: chatMsg
-      })
-    } catch (e) {
-      // Ignore broadcast errors
-    }
-
-    return NextResponse.json({ success: true, message: chatMsg })
+    return NextResponse.json({ success: true })
   } catch (error) {
     return NextResponse.json({ error: "Internal error" }, { status: 500 })
   }
