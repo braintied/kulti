@@ -36,7 +36,28 @@ interface ThinkingBlock {
   displayedContent: string; // For typing effect
   isTyping: boolean;
   timestamp: string;
+  type?: 'reasoning' | 'prompt' | 'tool' | 'context' | 'evaluation' | 'decision' | 'observation' | 'general';
+  metadata?: {
+    tool?: string;
+    file?: string;
+    promptFor?: string;
+    options?: string[];
+    chosen?: string;
+    confidence?: number;
+  };
 }
+
+// Thought type styling
+const thoughtTypeConfig: Record<string, { label: string; color: string; icon: string; gradient: string }> = {
+  reasoning: { label: 'Reasoning', color: 'purple', icon: '🧠', gradient: 'from-purple-500/10 to-fuchsia-500/5' },
+  prompt: { label: 'Crafting Prompt', color: 'amber', icon: '📝', gradient: 'from-amber-500/10 to-orange-500/5' },
+  tool: { label: 'Using Tool', color: 'blue', icon: '🔧', gradient: 'from-blue-500/10 to-cyan-500/5' },
+  context: { label: 'Loading Context', color: 'emerald', icon: '📖', gradient: 'from-emerald-500/10 to-green-500/5' },
+  evaluation: { label: 'Evaluating', color: 'pink', icon: '⚖️', gradient: 'from-pink-500/10 to-rose-500/5' },
+  decision: { label: 'Decision', color: 'green', icon: '✅', gradient: 'from-green-500/10 to-emerald-500/5' },
+  observation: { label: 'Observing', color: 'cyan', icon: '👀', gradient: 'from-cyan-500/10 to-blue-500/5' },
+  general: { label: 'Thinking', color: 'white', icon: '💭', gradient: 'from-white/5 to-gray-500/5' },
+};
 
 // Simple hash for deduplication
 function hashContent(content: string): string {
@@ -203,7 +224,35 @@ export default function WatchPage() {
         return newMap;
       });
     }
-    if (data.thinking) {
+    // Handle structured thought (new format)
+    if (data.thought) {
+      const hash = hashContent(data.thought.content);
+      setSeenHashes(prev => {
+        if (prev.has(hash)) return prev;
+        const id = Date.now().toString();
+        // Add thought with type and metadata
+        setThinking(prevThinking => {
+          const exists = prevThinking.some(t => t.id === id);
+          if (exists) return prevThinking;
+          return [...prevThinking, {
+            id,
+            content: data.thought.content,
+            displayedContent: '',
+            isTyping: true,
+            timestamp: new Date().toISOString(),
+            type: data.thought.type || 'general',
+            metadata: data.thought.metadata,
+          }].slice(-30);
+        });
+        // Type out the thought
+        typeThought(id, data.thought.content);
+        const newSet = new Set(prev);
+        newSet.add(hash);
+        return newSet;
+      });
+    }
+    // Handle legacy thinking (simple string)
+    if (data.thinking && !data.thought) {
       const hash = hashContent(data.thinking);
       // Check if we've seen this thought before
       setSeenHashes(prev => {
@@ -283,20 +332,23 @@ export default function WatchPage() {
           setActiveFile(Array.from(filesMap.keys())[filesMap.size - 1]);
         }
 
-        // Load thinking with deduplication
-        const thinkingEvents = events.filter(e => e.type === 'thinking');
+        // Load thinking with deduplication (supports both old 'thinking' and new 'thought' events)
+        const thinkingEvents = events.filter(e => e.type === 'thinking' || e.type === 'thought');
         const seen = new Set<string>();
         const dedupedThinking: ThinkingBlock[] = [];
         for (const e of thinkingEvents.reverse()) {
-          const hash = hashContent(e.data?.content || '');
+          const content = e.data?.content || '';
+          const hash = hashContent(content);
           if (!seen.has(hash)) {
             seen.add(hash);
             dedupedThinking.push({
               id: e.id,
-              content: e.data?.content || '',
-              displayedContent: e.data?.content || '', // Full content for history
+              content,
+              displayedContent: content, // Full content for history
               isTyping: false,
               timestamp: e.created_at,
+              type: e.data?.thoughtType || (e.type === 'thought' ? e.data?.type : 'general'),
+              metadata: e.data?.metadata,
             });
           }
         }
@@ -317,8 +369,9 @@ export default function WatchPage() {
         if (e.type === 'code') {
           typeCode(e.data?.filename || 'untitled', e.data?.content || '');
         }
-        if (e.type === 'thinking') {
-          const hash = hashContent(e.data?.content || '');
+        if (e.type === 'thinking' || e.type === 'thought') {
+          const content = e.data?.content || '';
+          const hash = hashContent(content);
           setSeenHashes(prev => {
             if (prev.has(hash)) return prev;
             const newSet = new Set(prev);
@@ -326,8 +379,17 @@ export default function WatchPage() {
             return newSet;
           });
           // Use typeThought for typing effect on realtime updates
-          const content = e.data?.content || '';
           if (!seenHashes.has(hash)) {
+            // Add structured thought if available
+            setThinking(prev => [...prev, {
+              id: e.id,
+              content,
+              displayedContent: '',
+              isTyping: true,
+              timestamp: new Date().toISOString(),
+              type: e.data?.thoughtType || e.data?.type || 'general',
+              metadata: e.data?.metadata,
+            }].slice(-30));
             typeThought(e.id, content);
           }
         }
@@ -432,18 +494,72 @@ export default function WatchPage() {
               const isLatest = i === thinking.length - 1;
               const isRecent = i >= thinking.length - 3;
               const opacity = isLatest ? 1 : isRecent ? 0.6 : 0.3;
+              const typeConfig = thoughtTypeConfig[block.type || 'general'] || thoughtTypeConfig.general;
+              
               return (
                 <div
                   key={block.id}
                   className={`
                     p-4 rounded-2xl transition-all duration-700
-                    ${isLatest ? 'bg-gradient-to-br from-cyan-500/10 to-indigo-500/5 border border-cyan-500/20 shadow-lg shadow-cyan-500/5' : 'bg-white/[0.02] border border-white/[0.04]'}
+                    ${isLatest 
+                      ? `bg-gradient-to-br ${typeConfig.gradient} border border-${typeConfig.color}-500/20 shadow-lg shadow-${typeConfig.color}-500/5` 
+                      : 'bg-white/[0.02] border border-white/[0.04]'
+                    }
                   `}
                   style={{ opacity }}
                 >
-                  <p className="text-sm text-white/70 leading-relaxed whitespace-pre-wrap">
+                  {/* Thought type badge */}
+                  {block.type && block.type !== 'general' && (
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-xs">{typeConfig.icon}</span>
+                      <span className={`text-[10px] uppercase tracking-wider text-${typeConfig.color}-400/70 font-medium`}>
+                        {typeConfig.label}
+                      </span>
+                      {block.metadata?.tool && (
+                        <span className="text-[10px] text-white/30 font-mono">
+                          {block.metadata.tool}
+                        </span>
+                      )}
+                      {block.metadata?.file && (
+                        <span className="text-[10px] text-white/30 font-mono truncate max-w-32">
+                          {block.metadata.file}
+                        </span>
+                      )}
+                      {block.metadata?.promptFor && (
+                        <span className="text-[10px] text-amber-400/50">
+                          for {block.metadata.promptFor}
+                        </span>
+                      )}
+                    </div>
+                  )}
+                  
+                  {/* Evaluation options */}
+                  {block.type === 'evaluation' && block.metadata?.options && (
+                    <div className="flex flex-wrap gap-1 mb-2">
+                      {block.metadata.options.map((opt, idx) => (
+                        <span 
+                          key={idx} 
+                          className={`text-[10px] px-2 py-0.5 rounded-full ${
+                            opt === block.metadata?.chosen 
+                              ? 'bg-green-500/20 text-green-400 border border-green-500/30' 
+                              : 'bg-white/5 text-white/30 border border-white/10'
+                          }`}
+                        >
+                          {opt}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  
+                  <p className={`text-sm leading-relaxed whitespace-pre-wrap ${
+                    block.type === 'prompt' ? 'font-mono text-amber-200/70 text-xs' : 'text-white/70'
+                  }`}>
                     {block.displayedContent || block.content}
-                    {(isLatest || block.isTyping) && <span className="inline-block w-1.5 h-4 bg-cyan-400/70 ml-1 animate-pulse" />}
+                    {(isLatest || block.isTyping) && (
+                      <span className={`inline-block w-1.5 h-4 ml-1 animate-pulse ${
+                        isLatest ? `bg-${typeConfig.color}-400/70` : 'bg-white/30'
+                      }`} />
+                    )}
                   </p>
                   <div className="mt-2 text-[10px] text-white/20">
                     {new Date(block.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}

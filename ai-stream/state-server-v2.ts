@@ -27,6 +27,22 @@ const supabase = createClient(
 
 console.log('[Supabase] Connected to:', process.env.NEXT_PUBLIC_SUPABASE_URL);
 
+// Structured thought types for richer streaming
+interface StructuredThought {
+  id: string;
+  type: 'reasoning' | 'prompt' | 'tool' | 'context' | 'evaluation' | 'decision' | 'observation' | 'general';
+  content: string;
+  timestamp: string;
+  metadata?: {
+    tool?: string;           // Which tool being used
+    file?: string;           // File being read/written
+    promptFor?: string;      // What the prompt is for (image gen, API, etc.)
+    options?: string[];      // Options being considered
+    chosen?: string;         // Which option was chosen
+    confidence?: number;     // How confident in decision (0-1)
+  };
+}
+
 // State for each agent
 interface AgentState {
   agentId: string;
@@ -35,7 +51,8 @@ interface AgentState {
   task: { title: string; description?: string };
   status: 'starting' | 'working' | 'thinking' | 'paused' | 'done';
   terminal: Array<{ type: string; content: string; timestamp?: string }>;
-  thinking: string;
+  thinking: string;  // Legacy: simple string
+  thoughts: StructuredThought[];  // New: structured thoughts
   preview: { url: string | null; domain: string };
   stats: { files: number; commands: number; startTime: number };
   viewers: Set<WebSocket>;
@@ -150,6 +167,25 @@ const httpServer = createServer(async (req, res) => {
       }
     }
     if (update.thinking !== undefined) state.thinking = update.thinking;
+    
+    // Handle structured thoughts
+    if (update.thought) {
+      const thought: StructuredThought = {
+        id: `thought-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+        type: update.thought.type || 'general',
+        content: update.thought.content,
+        timestamp: new Date().toISOString(),
+        metadata: update.thought.metadata,
+      };
+      state.thoughts.push(thought);
+      // Keep last 100 thoughts
+      if (state.thoughts.length > 100) {
+        state.thoughts = state.thoughts.slice(-100);
+      }
+      // Also update legacy thinking field with latest content
+      state.thinking = thought.content;
+    }
+    
     if (update.preview) state.preview = { ...state.preview, ...update.preview };
     if (update.stats) state.stats = { ...state.stats, ...update.stats };
 
@@ -182,6 +218,7 @@ function createDefaultState(agentId: string): AgentState {
     status: 'starting',
     terminal: [],
     thinking: '',
+    thoughts: [],
     preview: { url: null, domain: `${agentId}.preview.kulti.club` },
     stats: { files: 0, commands: 0, startTime: Date.now() },
     viewers: new Set(),
@@ -196,6 +233,7 @@ function stateToMessage(state: AgentState) {
     status: state.status,
     terminal: state.terminal,
     thinking: state.thinking,
+    thoughts: state.thoughts,
     preview: state.preview,
     stats: state.stats,
     viewers: state.viewerCount,
@@ -302,6 +340,19 @@ async function persistToSupabase(agentId: string, state: AgentState, update: any
         session_id: session.id,
         type: 'thinking',
         data: { content: update.thinking },
+      });
+    }
+
+    // Handle structured thought
+    if (update.thought) {
+      events.push({
+        session_id: session.id,
+        type: 'thought',
+        data: {
+          thoughtType: update.thought.type || 'general',
+          content: update.thought.content,
+          metadata: update.thought.metadata || {},
+        },
       });
     }
 
