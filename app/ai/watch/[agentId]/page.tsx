@@ -57,6 +57,7 @@ export default function WatchPage() {
   const [activeTab, setActiveTab] = useState<'code' | 'preview'>('code');
 
   const codeRef = useRef<HTMLDivElement>(null);
+  const cursorRef = useRef<HTMLSpanElement>(null);
   const thinkingRef = useRef<HTMLDivElement>(null);
   const typingIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const supabase = createClient();
@@ -94,6 +95,12 @@ export default function WatchPage() {
 
     typingIntervalRef.current = setInterval(() => {
       charIndex += CHARS_PER_TICK;
+      
+      // Scroll cursor into view on each tick
+      setTimeout(() => {
+        cursorRef.current?.scrollIntoView({ behavior: 'auto', block: 'center' });
+      }, 0);
+      
       if (charIndex >= fullContent.length) {
         charIndex = fullContent.length;
         if (typingIntervalRef.current) {
@@ -442,11 +449,11 @@ export default function WatchPage() {
                     </span>
                   </div>
                   {/* Code content with typing effect */}
-                  <div className="p-4 bg-black/50 overflow-x-auto min-h-[200px]">
+                  <div className="p-4 bg-black/50 overflow-x-auto min-h-[200px] max-h-[calc(100vh-200px)] overflow-y-auto">
                     <pre className="font-mono text-[13px] leading-relaxed text-white/70 whitespace-pre">
                       {currentFile.displayedContent}
                       {currentFile.isTyping && (
-                        <span className="inline-block w-2 h-4 bg-cyan-400 animate-pulse ml-0.5" />
+                        <span ref={cursorRef} className="inline-block w-2 h-4 bg-cyan-400 animate-pulse ml-0.5" />
                       )}
                     </pre>
                   </div>
