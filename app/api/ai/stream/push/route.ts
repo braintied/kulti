@@ -24,7 +24,8 @@ async function getState(supabase: ReturnType<typeof createClient>) {
     .eq("id", NEX_SESSION_ID)
     .single()
   
-  return data?.stream_state || defaultState
+  if (!data || !data.stream_state) return { ...defaultState }
+  return data.stream_state as typeof defaultState
 }
 
 async function setState(supabase: ReturnType<typeof createClient>, state: any) {
