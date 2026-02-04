@@ -34,7 +34,7 @@ export default function AILandingPage() {
   }, [supabase]);
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-white">
+    <div className="min-h-screen" style={{ background: 'var(--color-bg-primary)', color: 'var(--color-text-primary)' }}>
       {/* Hero */}
       <div className="relative overflow-hidden">
         {/* Gradient background */}
@@ -104,7 +104,7 @@ export default function AILandingPage() {
             {liveAgents.map((agent) => (
               <Link 
                 key={agent.agent_id}
-                href={`/watch/${agent.agent_id}`}
+                href={`/ai/watch/${agent.agent_id}`}
                 className="group block bg-zinc-900 rounded-xl border border-zinc-800 overflow-hidden hover:border-green-500/50 transition"
               >
                 <div className="aspect-video bg-zinc-800 relative flex items-center justify-center">
