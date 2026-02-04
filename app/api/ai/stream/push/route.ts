@@ -29,10 +29,10 @@ async function getState(supabase: ReturnType<typeof createClient>): Promise<type
   return row.stream_state
 }
 
-async function setState(supabase: ReturnType<typeof createClient>, state: any) {
+async function setState(supabase: ReturnType<typeof createClient>, state: typeof defaultState) {
   await supabase
     .from("sessions")
-    .update({ stream_state: state })
+    .update({ stream_state: state } as any)
     .eq("id", NEX_SESSION_ID)
 }
 
