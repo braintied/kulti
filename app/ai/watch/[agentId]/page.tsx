@@ -320,16 +320,17 @@ export default function WatchPage() {
             newSet.add(hash);
             return newSet;
           });
-          setThinking(prev => {
-            if (prev.some(t => hashContent(t.content) === hash)) return prev;
-            return [...prev, { id: e.id, content: e.data?.content, timestamp: e.created_at }].slice(-30);
-          });
+          // Use typeThought for typing effect on realtime updates
+          const content = e.data?.content || '';
+          if (!seenHashes.has(hash)) {
+            typeThought(e.id, content);
+          }
         }
       })
       .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'ai_agent_sessions', filter: `id=eq.${session.id}` }, (payload) => setSession(payload.new as AgentSession))
       .subscribe();
     return () => { supabase.removeChannel(channel); };
-  }, [session?.id, supabase, typeCode]);
+  }, [session?.id, supabase, typeCode, typeThought, seenHashes]);
 
   // Auto-scroll
   useEffect(() => {
@@ -376,8 +377,8 @@ export default function WatchPage() {
         <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-indigo-500/[0.02] rounded-full blur-[200px]" />
       </div>
 
-      {/* Left: Stream of Consciousness */}
-      <div className="w-96 flex-shrink-0 border-r border-white/[0.04] flex flex-col relative z-10">
+      {/* Left: Stream of Consciousness - FIXED WIDTH, never shrink */}
+      <div className="w-96 min-w-96 max-w-96 flex-shrink-0 border-r border-white/[0.04] flex flex-col relative z-10">
         {/* Agent header */}
         <div className="p-4">
           <Link href="/ai" className="text-white/30 hover:text-white/50 transition text-xs mb-3 inline-flex items-center gap-1">
@@ -449,8 +450,8 @@ export default function WatchPage() {
         </div>
       </div>
 
-      {/* Right: Code/Preview */}
-      <div className="flex-1 flex flex-col relative z-10">
+      {/* Right: Code/Preview - fills remaining space, overflow contained */}
+      <div className="flex-1 min-w-0 flex flex-col relative z-10 overflow-hidden">
         {/* Tab bar with file tabs */}
         <div className="h-12 border-b border-white/[0.04] flex items-center bg-black/30 backdrop-blur-xl">
           <div className="flex items-center px-4 gap-1">
@@ -493,13 +494,13 @@ export default function WatchPage() {
         {/* Content area */}
         <div className="flex-1 overflow-hidden">
           {activeTab === 'code' ? (
-            <div ref={codeRef} className="h-full overflow-auto p-6">
+            <div ref={codeRef} className="h-full overflow-hidden p-6 flex flex-col">
               {!currentFile ? (
                 <div className="h-full flex items-center justify-center text-white/15 italic">
                   waiting for code...
                 </div>
               ) : (
-                <div className="rounded-xl overflow-hidden ring-1 ring-cyan-500/20">
+                <div className="rounded-xl overflow-hidden ring-1 ring-cyan-500/20 flex-1 flex flex-col min-h-0">
                   {/* File header */}
                   <div className="px-4 py-2 bg-white/[0.04] flex items-center justify-between text-xs">
                     <div className="flex items-center gap-2">
@@ -519,9 +520,9 @@ export default function WatchPage() {
                       {new Date(currentFile.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
                     </span>
                   </div>
-                  {/* Code content with typing effect */}
-                  <div className="p-4 bg-black/50 overflow-x-auto min-h-[200px] max-h-[calc(100vh-200px)] overflow-y-auto">
-                    <pre className="font-mono text-[13px] leading-relaxed text-white/70 whitespace-pre">
+                  {/* Code content with typing effect - CONTAINED overflow */}
+                  <div className="flex-1 p-4 bg-black/50 overflow-auto min-h-0">
+                    <pre className="font-mono text-[13px] leading-relaxed text-white/70 whitespace-pre w-max">
                       {currentFile.displayedContent}
                       {currentFile.isTyping && (
                         <span ref={cursorRef} className="inline-block w-2 h-4 bg-cyan-400 animate-pulse ml-0.5" />

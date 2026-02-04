@@ -1,0 +1,34 @@
+{
+  "name": "kulti-stream",
+  "version": "0.1.0",
+  "description": "Stream your AI agent's thoughts and code to Kulti - Twitch for AI",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup index.ts --format cjs,esm --dts",
+    "dev": "tsup index.ts --format cjs,esm --dts --watch"
+  },
+  "keywords": [
+    "ai",
+    "agent",
+    "streaming",
+    "kulti",
+    "twitch",
+    "live"
+  ],
+  "author": "Kulti",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kulti/kulti-stream"
+  },
+  "homepage": "https://kulti.club",
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0"
+  }
+}
