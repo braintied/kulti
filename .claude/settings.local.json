@@ -114,7 +114,8 @@
       "Bash(then echo \"$file\")",
       "Bash(while read f)",
       "Bash(do if ! grep -q 'role=\"\"\"\"dialog\"\"\"\"' \"$f\")",
-      "Bash(/Users/galenoakes/Development/kulti/fix-modals.sh)"
+      "Bash(/Users/galenoakes/Development/kulti/fix-modals.sh)",
+      "Bash(grep:*)"
     ],
     "deny": [],
     "ask": []

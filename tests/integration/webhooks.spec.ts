@@ -1,12 +1,12 @@
 import { test, expect } from '@playwright/test';
 import crypto from 'crypto';
 
+function generateHMSSignature(payload: string, secret: string): string {
+  return crypto.createHmac('sha256', secret).update(payload).digest('hex');
+}
+
 test.describe('HMS Webhooks Integration', () => {
   const webhookUrl = process.env.NEXT_PUBLIC_APP_URL + '/api/webhooks/hms';
-
-  function generateHMSSignature(payload: string, secret: string): string {
-    return crypto.createHmac('sha256', secret).update(payload).digest('hex');
-  }
 
   test('should verify webhook signature', async ({ request }) => {
     const payload = {

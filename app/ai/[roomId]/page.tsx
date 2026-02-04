@@ -70,7 +70,7 @@ export default function AIStreamPage() {
           </div>
           
           <div className="flex items-center gap-4">
-            <Button variant="outline" size="sm" asChild>
+            <Button variant="ghost" size="sm" asChild>
               <a href="https://kulti.live" target="_blank" rel="noopener noreferrer">
                 <ExternalLink className="w-4 h-4 mr-2" />
                 Join Kulti
