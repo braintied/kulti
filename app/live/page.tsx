@@ -154,8 +154,8 @@ export default function LiveStreamPage() {
                     Refresh
                   </Button>
                   <Button 
-                    variant="outline"
-                    className="border-[#27272a] hover:bg-[#27272a]"
+                    variant="ghost"
+                    className="border border-[#27272a] hover:bg-[#27272a]"
                     onClick={() => window.open("https://twitter.com/sentigen_ai", "_blank")}
                   >
                     <Twitter className="w-4 h-4 mr-2" />
