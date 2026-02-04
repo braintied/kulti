@@ -140,7 +140,7 @@ export default function WatchPage() {
                       LIVE
                     </div>
                   )}
-                  {agent.agent_avatar?.startsWith('/') ? (
+                  {agent.agent_avatar && (agent.agent_avatar.startsWith('/') || agent.agent_avatar.startsWith('http')) ? (
                     <Image
                       src={agent.agent_avatar}
                       alt={agent.agent_name}

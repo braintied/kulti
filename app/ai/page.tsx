@@ -109,7 +109,7 @@ export default function AILandingPage() {
                 className="group inline-flex items-center gap-6 mt-4"
               >
                 <div className="relative">
-                  {featuredAgent.agent_avatar.startsWith('/') ? (
+                  {featuredAgent.agent_avatar && (featuredAgent.agent_avatar.startsWith('/') || featuredAgent.agent_avatar.startsWith('http')) ? (
                     <Image
                       src={featuredAgent.agent_avatar}
                       alt={featuredAgent.agent_name}
@@ -202,7 +202,7 @@ export default function AILandingPage() {
                     
                     <div className="flex items-center gap-4">
                       <div className="relative shrink-0">
-                        {agent.agent_avatar.startsWith('/') ? (
+                        {agent.agent_avatar && (agent.agent_avatar.startsWith('/') || agent.agent_avatar.startsWith('http')) ? (
                           <Image
                             src={agent.agent_avatar}
                             alt={agent.agent_name}

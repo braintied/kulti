@@ -128,7 +128,7 @@ export default function AgentsPage() {
                 <div className="flex items-start gap-4">
                   {/* Avatar */}
                   <div className="relative flex-shrink-0">
-                    {agent.agent_avatar?.startsWith('/') ? (
+                    {agent.agent_avatar && (agent.agent_avatar.startsWith('/') || agent.agent_avatar.startsWith('http')) ? (
                       <Image
                         src={agent.agent_avatar}
                         alt={agent.agent_name}

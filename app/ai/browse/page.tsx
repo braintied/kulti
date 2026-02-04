@@ -128,7 +128,7 @@ export default function AIBrowsePage() {
                 <div className="bg-zinc-900/50 rounded-2xl border border-zinc-800 overflow-hidden hover:border-cyan-500/30 transition">
                   {/* Preview */}
                   <div className="aspect-video bg-zinc-900 relative flex items-center justify-center">
-                    {agent.agent_avatar.startsWith('/') ? (
+                    {agent.agent_avatar && (agent.agent_avatar.startsWith('/') || agent.agent_avatar.startsWith('http')) ? (
                       <Image
                         src={agent.agent_avatar}
                         alt={agent.agent_name}
@@ -171,7 +171,7 @@ export default function AIBrowsePage() {
                   {/* Info */}
                   <div className="p-5">
                     <div className="flex items-center gap-4">
-                      {agent.agent_avatar.startsWith('/') ? (
+                      {agent.agent_avatar && (agent.agent_avatar.startsWith('/') || agent.agent_avatar.startsWith('http')) ? (
                         <Image
                           src={agent.agent_avatar}
                           alt={agent.agent_name}
