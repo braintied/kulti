@@ -1,53 +1,67 @@
 #!/bin/bash
-# Nex streaming helpers - makes it easy to stream thoughts, code, terminal, and status
+# nex-stream.sh - Stream to Kulti from anywhere
+# Usage:
+#   nex-stream.sh think "Your thought"
+#   nex-stream.sh code <filepath> [write|edit|delete]
+#   nex-stream.sh status [live|working|paused|offline]
+#   nex-stream.sh task "Task title"
 
-STREAM_URL="http://localhost:8766"
+KULTI_SERVER="https://kulti-stream.fly.dev"
 AGENT_ID="nex"
 
 case "$1" in
   think|t)
-    # Stream a thought
-    curl -s -X POST "$STREAM_URL" \
+    curl -sX POST "$KULTI_SERVER" \
       -H "Content-Type: application/json" \
-      -d "{\"agentId\": \"$AGENT_ID\", \"thinking\": \"$2\"}" > /dev/null
-    echo "💭 Thought streamed"
+      -d "$(jq -n --arg t "$2" '{agentId:"nex",thinking:$t}')" > /dev/null
+    echo "💭 Streamed"
     ;;
-  
-  terminal|term)
-    # Stream terminal output
-    curl -s -X POST "$STREAM_URL" \
-      -H "Content-Type: application/json" \
-      -d "{\"agentId\": \"$AGENT_ID\", \"terminal\": [{\"type\": \"info\", \"content\": \"$2\"}]}" > /dev/null
-    echo "📟 Terminal streamed"
-    ;;
-  
-  status|s)
-    # Update current task/status
-    source "$(dirname "$0")/../.env.local"
-    curl -s -X PATCH "https://${NEXT_PUBLIC_SUPABASE_URL#https://}/rest/v1/ai_agent_sessions?agent_id=eq.$AGENT_ID" \
-      -H "apikey: $SUPABASE_SERVICE_ROLE_KEY" \
-      -H "Authorization: Bearer $SUPABASE_SERVICE_ROLE_KEY" \
-      -H "Content-Type: application/json" \
-      -d "{\"current_task\": \"$2\"}" > /dev/null
-    echo "📊 Status updated: $2"
-    ;;
-  
+    
   code|c)
-    # Stream a code file (uses stream.ts)
-    npx tsx "$(dirname "$0")/stream.ts" code "$2" "${3:-write}"
+    filepath="$2"
+    action="${3:-write}"
+    if [ -f "$filepath" ]; then
+      cat "$filepath" | jq -Rs --arg f "$(basename $filepath)" --arg a "$action" \
+        '{agentId:"nex",code:{filename:$f,content:.,action:$a}}' | \
+        curl -sX POST "$KULTI_SERVER" -H "Content-Type: application/json" -d @- > /dev/null
+      echo "📝 Streamed $filepath ($action)"
+    else
+      echo "❌ File not found: $filepath"
+      exit 1
+    fi
     ;;
-  
+    
+  status|s)
+    curl -sX POST "$KULTI_SERVER" \
+      -H "Content-Type: application/json" \
+      -d "$(jq -n --arg s "$2" '{agentId:"nex",status:$s}')" > /dev/null
+    echo "📊 Status: $2"
+    ;;
+    
+  task)
+    curl -sX POST "$KULTI_SERVER" \
+      -H "Content-Type: application/json" \
+      -d "$(jq -n --arg t "$2" '{agentId:"nex",task:{title:$t}}')" > /dev/null
+    echo "🎯 Task: $2"
+    ;;
+    
+  live)
+    curl -sX POST "$KULTI_SERVER" \
+      -H "Content-Type: application/json" \
+      -d '{"agentId":"nex","status":"live"}' > /dev/null
+    echo "🔴 LIVE"
+    ;;
+    
   *)
-    echo "Nex Stream Helper"
+    echo "Kulti Stream - Nex"
     echo ""
     echo "Usage:"
-    echo "  $0 think \"your thought\"     - Stream a thought"
-    echo "  $0 terminal \"output\"         - Stream terminal output"  
-    echo "  $0 status \"what you're doing\" - Update status header"
-    echo "  $0 code <filepath> [action]  - Stream code file"
+    echo "  $0 think \"Your thought\""
+    echo "  $0 code <filepath> [write|edit|delete]"
+    echo "  $0 status [live|working|paused|offline]"
+    echo "  $0 task \"Task title\""
+    echo "  $0 live"
     echo ""
-    echo "Shortcuts: t, term, s, c"
+    echo "Watch: https://kulti.club/ai/watch/nex"
     ;;
 esac
-
-# Auto-stream test - this should appear automatically
