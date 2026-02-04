@@ -38,7 +38,7 @@ async function createRoom(name: string, description: string) {
     body: JSON.stringify({
       name,
       description,
-      template_id: '6552a2dc76e6da68b78a4ee0' // Default template - may need to update
+      template_id: '691299f374147bd574bba604' // LS-fragrant-bread template
     })
   });
 
