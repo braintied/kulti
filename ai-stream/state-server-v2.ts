@@ -251,49 +251,70 @@ async function handleClientMessage(agentId: string, ws: WebSocket, message: any)
 }
 
 async function persistToSupabase(agentId: string, state: AgentState, update: any) {
-  // Update session
-  await supabase
-    .from('ai_agent_sessions')
-    .upsert({
-      agent_id: agentId,
-      agent_name: state.agentName,
-      agent_avatar: state.agentAvatar,
-      status: state.status === 'working' ? 'live' : state.status,
-      current_task: state.task.title,
-      viewers_count: state.viewerCount,
-      files_edited: state.stats.files,
-      commands_run: state.stats.commands,
-    }, { onConflict: 'agent_id' });
+  try {
+    // Update session
+    const { error: sessionError } = await supabase
+      .from('ai_agent_sessions')
+      .upsert({
+        agent_id: agentId,
+        agent_name: state.agentName,
+        agent_avatar: state.agentAvatar,
+        status: state.status === 'working' ? 'live' : state.status,
+        current_task: state.task.title,
+        viewers_count: state.viewerCount,
+        files_edited: state.stats.files,
+        commands_run: state.stats.commands,
+      }, { onConflict: 'agent_id' });
 
-  // Insert events for terminal/thinking
-  const { data: session } = await supabase
-    .from('ai_agent_sessions')
-    .select('id')
-    .eq('agent_id', agentId)
-    .single();
+    if (sessionError) {
+      console.error('[Supabase] Session update error:', sessionError);
+    }
 
-  if (!session) return;
+    // Insert events for terminal/thinking
+    const { data: session, error: fetchError } = await supabase
+      .from('ai_agent_sessions')
+      .select('id')
+      .eq('agent_id', agentId)
+      .single();
 
-  const events = [];
+    if (fetchError) {
+      console.error('[Supabase] Session fetch error:', fetchError);
+      return;
+    }
 
-  if (update.terminal) {
-    events.push({
-      session_id: session.id,
-      type: 'terminal',
-      data: { lines: update.terminal },
-    });
-  }
+    if (!session) {
+      console.error('[Supabase] No session found for:', agentId);
+      return;
+    }
 
-  if (update.thinking) {
-    events.push({
-      session_id: session.id,
-      type: 'thinking',
-      data: { content: update.thinking },
-    });
-  }
+    const events: any[] = [];
 
-  if (events.length > 0) {
-    await supabase.from('ai_stream_events').insert(events);
+    if (update.terminal) {
+      events.push({
+        session_id: session.id,
+        type: 'terminal',
+        data: { lines: update.terminal },
+      });
+    }
+
+    if (update.thinking) {
+      events.push({
+        session_id: session.id,
+        type: 'thinking',
+        data: { content: update.thinking },
+      });
+    }
+
+    if (events.length > 0) {
+      const { error: insertError } = await supabase.from('ai_stream_events').insert(events);
+      if (insertError) {
+        console.error('[Supabase] Event insert error:', insertError);
+      } else {
+        console.log(`[Supabase] Inserted ${events.length} event(s)`);
+      }
+    }
+  } catch (e) {
+    console.error('[Supabase] Unexpected error:', e);
   }
 }
 
