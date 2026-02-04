@@ -27,6 +27,11 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Display font for branding */
+.font-display {
+  font-family: var(--font-space-grotesk), -apple-system, system-ui, sans-serif;
+}
+
 body {
   background: var(--bg);
   color: var(--fg);
