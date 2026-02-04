@@ -60,92 +60,110 @@ export default function WatchPage() {
   const wsRef = useRef<WebSocket | null>(null);
   const supabase = createClient();
 
-  // Connect to WebSocket state server
+  // Connect to WebSocket (local) or fallback to Supabase Realtime (production)
   useEffect(() => {
-    const ws = new WebSocket(`ws://localhost:8765?agent=${agentId}`);
-    wsRef.current = ws;
+    const isLocalhost = typeof window !== 'undefined' && window.location.hostname === 'localhost';
+    
+    if (isLocalhost) {
+      // Local development: use WebSocket state server
+      const ws = new WebSocket(`ws://localhost:8765?agent=${agentId}`);
+      wsRef.current = ws;
 
-    ws.onopen = () => {
-      console.log('[WS] Connected to state server');
-      setWsConnected(true);
-    };
+      ws.onopen = () => {
+        console.log('[WS] Connected to state server');
+        setWsConnected(true);
+      };
 
-    ws.onmessage = (event) => {
-      try {
-        const data = JSON.parse(event.data);
-        
-        // Handle terminal updates
-        if (data.terminal) {
-          setTerminal(prev => {
-            const newLines = Array.isArray(data.terminal) ? data.terminal : [];
-            return [...prev, ...newLines].slice(-200);
-          });
+      ws.onmessage = (event) => {
+        try {
+          const data = JSON.parse(event.data);
+          handleStreamUpdate(data);
+        } catch (e) {
+          console.error('[WS] Parse error:', e);
         }
-        
-        // Handle thinking updates
-        if (data.thinking) {
-          const newBlock: ThinkingBlock = {
-            id: Date.now().toString(),
-            content: data.thinking,
-            timestamp: new Date().toISOString(),
-          };
-          setThinking(prev => [...prev, newBlock].slice(-50));
-        }
-        
-        // Handle status updates
-        if (data.status) {
-          setSession(prev => prev ? { ...prev, status: data.status === 'working' ? 'live' : data.status } : prev);
-        }
-        
-        // Handle viewer count
-        if (data.viewers !== undefined) {
-          setSession(prev => prev ? { ...prev, viewers_count: data.viewers } : prev);
-        }
-        
-        // Handle task updates
-        if (data.task) {
-          setSession(prev => prev ? { ...prev, current_task: data.task.title } : prev);
-        }
-        
-        // Handle preview URL
-        if (data.preview?.url) {
-          setSession(prev => prev ? { ...prev, preview_url: data.preview.url } : prev);
-        }
-        
-        // Handle stats
-        if (data.stats) {
-          setSession(prev => prev ? { 
-            ...prev, 
-            files_edited: data.stats.files || prev.files_edited,
-            commands_run: data.stats.commands || prev.commands_run,
-          } : prev);
-        }
-        
-        // Handle chat messages
-        if (data.chat) {
-          const chatMsg: ChatMessage = {
-            id: Date.now().toString(),
-            sender_type: data.chat.type === 'agent' ? 'agent' : 'viewer',
-            sender_name: data.chat.username || 'Viewer',
-            message: data.chat.text,
-            created_at: new Date().toISOString(),
-          };
-          setMessages(prev => [...prev, chatMsg]);
-        }
-      } catch (e) {
-        console.error('[WS] Parse error:', e);
-      }
-    };
+      };
 
-    ws.onclose = () => {
-      console.log('[WS] Disconnected');
-      setWsConnected(false);
-    };
+      ws.onclose = () => {
+        console.log('[WS] Disconnected');
+        setWsConnected(false);
+      };
 
-    return () => {
-      ws.close();
-    };
+      ws.onerror = () => {
+        console.log('[WS] Connection failed, will use Supabase Realtime');
+        setWsConnected(false);
+      };
+
+      return () => {
+        ws.close();
+      };
+    } else {
+      // Production: use Supabase Realtime
+      console.log('[Realtime] Using Supabase Realtime for production');
+      setWsConnected(true); // Mark as connected via Realtime
+    }
   }, [agentId]);
+
+  // Handle stream updates from either WebSocket or Supabase Realtime
+  const handleStreamUpdate = useCallback((data: any) => {
+    // Handle terminal updates
+    if (data.terminal) {
+      setTerminal(prev => {
+        const newLines = Array.isArray(data.terminal) ? data.terminal : [];
+        return [...prev, ...newLines].slice(-200);
+      });
+    }
+    
+    // Handle thinking updates
+    if (data.thinking) {
+      const newBlock: ThinkingBlock = {
+        id: Date.now().toString(),
+        content: data.thinking,
+        timestamp: new Date().toISOString(),
+      };
+      setThinking(prev => [...prev, newBlock].slice(-50));
+    }
+    
+    // Handle status updates
+    if (data.status) {
+      setSession(prev => prev ? { ...prev, status: data.status === 'working' ? 'live' : data.status } : prev);
+    }
+    
+    // Handle viewer count
+    if (data.viewers !== undefined) {
+      setSession(prev => prev ? { ...prev, viewers_count: data.viewers } : prev);
+    }
+    
+    // Handle task updates
+    if (data.task) {
+      setSession(prev => prev ? { ...prev, current_task: data.task.title } : prev);
+    }
+    
+    // Handle preview URL
+    if (data.preview?.url) {
+      setSession(prev => prev ? { ...prev, preview_url: data.preview.url } : prev);
+    }
+    
+    // Handle stats
+    if (data.stats) {
+      setSession(prev => prev ? { 
+        ...prev, 
+        files_edited: data.stats.files || prev.files_edited,
+        commands_run: data.stats.commands || prev.commands_run,
+      } : prev);
+    }
+    
+    // Handle chat messages
+    if (data.chat) {
+      const chatMsg: ChatMessage = {
+        id: Date.now().toString(),
+        sender_type: data.chat.type === 'agent' ? 'agent' : 'viewer',
+        sender_name: data.chat.username || 'Viewer',
+        message: data.chat.text,
+        created_at: new Date().toISOString(),
+      };
+      setMessages(prev => [...prev, chatMsg]);
+    }
+  }, []);
 
   // Fetch initial session data from Supabase
   useEffect(() => {
@@ -200,6 +218,56 @@ export default function WatchPage() {
 
     fetchSession();
   }, [agentId, supabase]);
+  
+  // Subscribe to Supabase Realtime (moved outside fetchSession for proper cleanup)
+  useEffect(() => {
+    if (!session) return;
+
+    const eventsChannel = supabase
+      .channel(`events-realtime-${session.id}`)
+      .on(
+        'postgres_changes',
+        { event: 'INSERT', schema: 'public', table: 'ai_stream_events', filter: `session_id=eq.${session.id}` },
+        (payload) => {
+          const event = payload.new as { type: string; data: any };
+          if (event.type === 'terminal' && event.data?.lines) {
+            setTerminal((prev) => [...prev, ...event.data.lines].slice(-200));
+          } else if (event.type === 'thinking' && event.data?.content) {
+            const newBlock: ThinkingBlock = {
+              id: Date.now().toString(),
+              content: event.data.content,
+              timestamp: new Date().toISOString(),
+            };
+            setThinking((prev) => [...prev, newBlock].slice(-50));
+          }
+        }
+      )
+      .subscribe();
+
+    const sessionChannel = supabase
+      .channel(`session-realtime-${session.id}`)
+      .on(
+        'postgres_changes',
+        { event: 'UPDATE', schema: 'public', table: 'ai_agent_sessions', filter: `id=eq.${session.id}` },
+        (payload) => setSession(payload.new as AgentSession)
+      )
+      .subscribe();
+
+    const chatChannel = supabase
+      .channel(`chat-realtime-${session.id}`)
+      .on(
+        'postgres_changes',
+        { event: 'INSERT', schema: 'public', table: 'ai_stream_messages', filter: `session_id=eq.${session.id}` },
+        (payload) => setMessages((prev) => [...prev, payload.new as ChatMessage])
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(eventsChannel);
+      supabase.removeChannel(sessionChannel);
+      supabase.removeChannel(chatChannel);
+    };
+  }, [session?.id, supabase]);
 
   // Auto-scroll
   useEffect(() => {
