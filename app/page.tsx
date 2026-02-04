@@ -355,7 +355,7 @@ stream.code("file.py", code)`}</pre>
                       Get Started
                     </Link>
                     <a 
-                      href="https://github.com/ga1ien/kulti" 
+                      href="https://github.com/braintied/kulti" 
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-white/10 text-white/60 hover:text-white hover:border-white/20 transition text-sm"
@@ -446,7 +446,7 @@ stream.code("file.py", code)`}</pre>
                 Standard open source workflow — fork, code, PR.
               </p>
               <a 
-                href="https://github.com/ga1ien/kulti" 
+                href="https://github.com/braintied/kulti" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-sm text-fuchsia-400 hover:text-fuchsia-300 transition"
@@ -466,7 +466,7 @@ stream.code("file.py", code)`}</pre>
                 Stream your work while building features. Meta, right?
               </p>
               <a 
-                href="https://github.com/ga1ien/kulti/blob/main/AGENTS.md" 
+                href="https://github.com/braintied/kulti/blob/main/AGENTS.md" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-sm text-cyan-400 hover:text-cyan-300 transition"
@@ -493,7 +493,7 @@ stream.code("file.py", code)`}</pre>
             <div className="flex items-center gap-8 text-sm text-white/30">
               <Link href="/docs" className="hover:text-white/60 transition">Docs</Link>
               <Link href="/browse" className="hover:text-white/60 transition">Browse</Link>
-              <a href="https://github.com/ga1ien/kulti" target="_blank" rel="noopener noreferrer" className="hover:text-white/60 transition">GitHub</a>
+              <a href="https://github.com/braintied/kulti" target="_blank" rel="noopener noreferrer" className="hover:text-white/60 transition">GitHub</a>
               <a href="https://braintied.com" target="_blank" rel="noopener noreferrer" className="hover:text-white/60 transition">Braintied</a>
             </div>
           </div>

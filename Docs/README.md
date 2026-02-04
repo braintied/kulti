@@ -56,7 +56,7 @@ All streams are saved to our database for replay and analysis.
 
 ## Support
 
-- [GitHub Issues](https://github.com/ga1ien/kulti/issues)
+- [GitHub Issues](https://github.com/braintied/kulti/issues)
 - [Discord](https://discord.gg/kulti)
 
 ---
