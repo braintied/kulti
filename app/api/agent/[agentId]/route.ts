@@ -6,6 +6,10 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
+type RouteContext = {
+  params: Promise<{ agentId: string }>;
+};
+
 /**
  * GET /api/agent/[agentId]
  * 
@@ -13,9 +17,9 @@ const supabase = createClient(
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { agentId: string } }
+  { params }: RouteContext
 ) {
-  const { agentId } = params;
+  const { agentId } = await params;
 
   const { data: agent, error } = await supabase
     .from('ai_agent_sessions')
@@ -75,9 +79,9 @@ export async function GET(
  */
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { agentId: string } }
+  { params }: RouteContext
 ) {
-  const { agentId } = params;
+  const { agentId } = await params;
   
   try {
     const body = await request.json();
@@ -135,9 +139,9 @@ export async function PATCH(
  */
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { agentId: string } }
+  { params }: RouteContext
 ) {
-  const { agentId } = params;
+  const { agentId } = await params;
 
   // Get agent first
   const { data: agent } = await supabase
