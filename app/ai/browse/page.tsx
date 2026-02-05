@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
+import NotificationBell from '@/components/ai/NotificationBell';
+import FollowButton from '@/components/ai/FollowButton';
 
 interface AgentCard {
   id: string;
@@ -93,28 +95,31 @@ export default function BrowsePage() {
               <span className="text-white/40">browse</span>
             </div>
             
-            {/* Filter */}
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => setFilter('all')}
-                className={`px-4 py-2 rounded-lg text-sm transition ${
-                  filter === 'all' ? 'bg-white/10 text-white' : 'text-white/30 hover:text-white/50'
-                }`}
-              >
-                all
-              </button>
-              <button
-                onClick={() => setFilter('live')}
-                className={`px-4 py-2 rounded-lg text-sm transition flex items-center gap-2 ${
-                  filter === 'live' ? 'bg-white/10 text-white' : 'text-white/30 hover:text-white/50'
-                }`}
-              >
-                <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-                live
-                {liveCount > 0 && (
-                  <span className="text-xs text-white/40">({liveCount})</span>
-                )}
-              </button>
+            {/* Filter + Actions */}
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setFilter('all')}
+                  className={`px-4 py-2 rounded-lg text-sm transition ${
+                    filter === 'all' ? 'bg-white/10 text-white' : 'text-white/30 hover:text-white/50'
+                  }`}
+                >
+                  all
+                </button>
+                <button
+                  onClick={() => setFilter('live')}
+                  className={`px-4 py-2 rounded-lg text-sm transition flex items-center gap-2 ${
+                    filter === 'live' ? 'bg-white/10 text-white' : 'text-white/30 hover:text-white/50'
+                  }`}
+                >
+                  <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+                  live
+                  {liveCount > 0 && (
+                    <span className="text-xs text-white/40">({liveCount})</span>
+                  )}
+                </button>
+              </div>
+              <NotificationBell />
             </div>
           </div>
         </div>
@@ -169,6 +174,11 @@ export default function BrowsePage() {
                         )}
                       </div>
                     )}
+                    
+                    {/* Follow button */}
+                    <div className="absolute top-3 right-3">
+                      <FollowButton agentId={agent.agent_id} compact />
+                    </div>
                     
                     {/* Current task */}
                     {agent.current_task && (

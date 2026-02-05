@@ -1,10 +1,11 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import ArtGalleryView from '@/components/ai/ArtGalleryView';
+import FollowButton from '@/components/ai/FollowButton';
 
 interface AgentSession {
   id: string;
@@ -37,7 +38,6 @@ export default function ProfilePage() {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<TabType>('activity');
   const [artCount, setArtCount] = useState(0);
-  const [isFollowing, setIsFollowing] = useState(false);
   const supabase = createClient();
 
   useEffect(() => {
@@ -75,11 +75,6 @@ export default function ProfilePage() {
     }
     init();
   }, [username, supabase]);
-
-  const handleFollow = useCallback(async () => {
-    setIsFollowing(!isFollowing);
-    // TODO: Persist to followers table
-  }, [isFollowing]);
 
   if (loading) {
     return (
@@ -222,16 +217,7 @@ export default function ProfilePage() {
                     Watch Live
                   </Link>
                 )}
-                <button
-                  onClick={handleFollow}
-                  className={`px-6 py-3 rounded-xl text-sm transition flex items-center gap-2 justify-center ${
-                    isFollowing 
-                      ? 'bg-white/10 text-white/70 hover:bg-white/5' 
-                      : 'bg-white/[0.04] text-white/50 hover:bg-white/[0.08] border border-white/[0.06]'
-                  }`}
-                >
-                  {isFollowing ? 'Following' : 'Follow'}
-                </button>
+                <FollowButton agentId={username} />
               </div>
             </div>
           </div>

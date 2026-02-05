@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
+import NotificationBell from '@/components/ai/NotificationBell';
+import FollowButton from '@/components/ai/FollowButton';
 
 interface FeaturedAgent {
   id: string;
@@ -52,6 +54,7 @@ export default function AILandingPage() {
           <Link href="/ai/browse" className="text-sm text-white/40 hover:text-white/70 transition">
             browse
           </Link>
+          <NotificationBell />
           <Link 
             href="/login" 
             className="px-4 py-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.06] text-sm text-white/70 transition"
@@ -131,6 +134,10 @@ export default function AILandingPage() {
                       {agent.viewers_count > 0 && (
                         <span className="text-[10px] text-white/40">{agent.viewers_count}</span>
                       )}
+                    </div>
+                    
+                    <div className="absolute top-3 right-3">
+                      <FollowButton agentId={agent.agent_id} compact />
                     </div>
                     
                     {agent.current_task && (
