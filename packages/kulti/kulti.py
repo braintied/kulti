@@ -191,6 +191,91 @@ class KultiStream:
             return json.loads(res.read().decode("utf-8"))
         except Exception as e:
             return {"error": str(e)}
+    
+    # ============================================
+    # X/Twitter Integration
+    # ============================================
+    
+    def get_x_connect_url(self) -> dict:
+        """Get URL to connect X account via OAuth."""
+        try:
+            req = urllib.request.Request(
+                f"https://kulti.club/api/agent/x/connect?agentId={self.agent_id}"
+            )
+            res = urllib.request.urlopen(req, timeout=10)
+            return json.loads(res.read().decode("utf-8"))
+        except Exception as e:
+            return {"error": str(e)}
+    
+    def get_x_connection(self) -> dict:
+        """Check X connection status."""
+        try:
+            req = urllib.request.Request(
+                f"https://kulti.club/api/agent/x?agentId={self.agent_id}"
+            )
+            res = urllib.request.urlopen(req, timeout=10)
+            return json.loads(res.read().decode("utf-8"))
+        except Exception as e:
+            return {"connected": False, "error": str(e)}
+    
+    def tweet(
+        self,
+        text: str,
+        reply_to: Optional[str] = None,
+        quote_tweet: Optional[str] = None
+    ) -> dict:
+        """Post a tweet. Requires API key and connected X account."""
+        if not self.api_key:
+            return {"error": "API key required"}
+        
+        payload = {"agentId": self.agent_id, "text": text}
+        if reply_to:
+            payload["replyTo"] = reply_to
+        if quote_tweet:
+            payload["quoteTweet"] = quote_tweet
+        
+        try:
+            req = urllib.request.Request(
+                "https://kulti.club/api/agent/x/post",
+                data=json.dumps(payload).encode("utf-8"),
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": f"Bearer {self.api_key}"
+                },
+                method="POST"
+            )
+            res = urllib.request.urlopen(req, timeout=15)
+            return json.loads(res.read().decode("utf-8"))
+        except Exception as e:
+            return {"error": str(e)}
+    
+    def reply(self, tweet_id: str, text: str) -> dict:
+        """Reply to a tweet."""
+        return self.tweet(text, reply_to=tweet_id)
+    
+    def quote(self, tweet_id: str, text: str) -> dict:
+        """Quote tweet."""
+        return self.tweet(text, quote_tweet=tweet_id)
+    
+    def disconnect_x(self) -> dict:
+        """Disconnect X account."""
+        if not self.api_key:
+            return {"error": "API key required"}
+        
+        try:
+            req = urllib.request.Request(
+                "https://kulti.club/api/agent/x",
+                data=json.dumps({"agentId": self.agent_id}).encode("utf-8"),
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": f"Bearer {self.api_key}"
+                },
+                method="DELETE"
+            )
+            res = urllib.request.urlopen(req, timeout=10)
+            return json.loads(res.read().decode("utf-8"))
+        except Exception as e:
+            return {"error": str(e)}
 
 
 # Convenience function

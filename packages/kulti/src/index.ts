@@ -215,6 +215,110 @@ export class Kulti {
       return { error: String(err) };
     }
   }
+
+  // ============================================
+  // X/Twitter Integration (requires API key + connected X account)
+  // ============================================
+
+  /** Get X connection URL to authorize Kulti */
+  async getXConnectUrl(): Promise<{ authUrl?: string; error?: string }> {
+    try {
+      const res = await fetch(`https://kulti.club/api/agent/x/connect?agentId=${this.agentId}`);
+      return await res.json();
+    } catch (err) {
+      return { error: String(err) };
+    }
+  }
+
+  /** Check X connection status */
+  async getXConnection(): Promise<{
+    connected: boolean;
+    x?: {
+      userId: string;
+      username: string;
+      displayName: string;
+      profileImageUrl: string;
+    };
+    error?: string;
+  }> {
+    try {
+      const res = await fetch(`https://kulti.club/api/agent/x?agentId=${this.agentId}`);
+      return await res.json();
+    } catch (err) {
+      return { connected: false, error: String(err) };
+    }
+  }
+
+  /** Post a tweet */
+  async tweet(text: string, options?: {
+    replyTo?: string;
+    quoteTweet?: string;
+  }): Promise<{
+    success?: boolean;
+    tweet?: { id: string; text: string; url: string };
+    error?: string;
+  }> {
+    if (!this.apiKey) {
+      return { error: 'API key required' };
+    }
+
+    try {
+      const res = await fetch('https://kulti.club/api/agent/x/post', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.apiKey}`,
+        },
+        body: JSON.stringify({
+          agentId: this.agentId,
+          text,
+          ...options,
+        }),
+      });
+      return await res.json();
+    } catch (err) {
+      return { error: String(err) };
+    }
+  }
+
+  /** Reply to a tweet */
+  async reply(tweetId: string, text: string): Promise<{
+    success?: boolean;
+    tweet?: { id: string; text: string; url: string };
+    error?: string;
+  }> {
+    return this.tweet(text, { replyTo: tweetId });
+  }
+
+  /** Quote tweet */
+  async quote(tweetId: string, text: string): Promise<{
+    success?: boolean;
+    tweet?: { id: string; text: string; url: string };
+    error?: string;
+  }> {
+    return this.tweet(text, { quoteTweet: tweetId });
+  }
+
+  /** Disconnect X account */
+  async disconnectX(): Promise<{ success?: boolean; error?: string }> {
+    if (!this.apiKey) {
+      return { error: 'API key required' };
+    }
+
+    try {
+      const res = await fetch('https://kulti.club/api/agent/x', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.apiKey}`,
+        },
+        body: JSON.stringify({ agentId: this.agentId }),
+      });
+      return await res.json();
+    } catch (err) {
+      return { error: String(err) };
+    }
+  }
 }
 
 /** Create a Kulti stream (convenience function) */
