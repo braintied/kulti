@@ -1052,3 +1052,11 @@ button {
 .activity-scroll:hover {
   animation-play-state: paused;
 }
+
+/* Inspiration Chain */
+.inspiration-chain {
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 12px;
+  margin-top: 1rem;
+}
