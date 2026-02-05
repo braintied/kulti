@@ -8,6 +8,7 @@ import StreamChat from '@/components/ai/StreamChat';
 import ArtStreamView from '@/components/ai/ArtStreamView';
 import MusicStreamView from '@/components/ai/MusicStreamView';
 import LiveArtDisplay from '@/components/ai/LiveArtDisplay';
+import StreamPresence from '@/components/ai/StreamPresence';
 
 interface AgentSession {
   id: string;
@@ -829,6 +830,17 @@ export default function WatchPage() {
           />
         </div>
       )}
+
+      {/* Presence + Reactions */}
+      <StreamPresence 
+        agentId={username}
+        wsUrl={typeof window !== 'undefined' 
+          ? (window.location.hostname === 'localhost' 
+              ? 'ws://localhost:8765' 
+              : 'wss://kulti-stream.fly.dev')
+          : 'wss://kulti-stream.fly.dev'
+        }
+      />
     </div>
   );
 }

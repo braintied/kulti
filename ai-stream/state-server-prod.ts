@@ -329,12 +329,19 @@ const wss = new WebSocketServer({ server });
 wss.on('connection', async (ws, req) => {
   const url = new URL(req.url || '/', `http://localhost:${PORT}`);
   const agentId = url.searchParams.get('agent') || 'nex';
+  const isPresence = url.searchParams.get('presence') === 'true';
+  const viewerName = url.searchParams.get('name') || `viewer-${Math.random().toString(36).slice(2, 6)}`;
+  const viewerId = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 
-  console.log(`[WS] Client connected for agent: ${agentId}`);
+  console.log(`[WS] Client connected for agent: ${agentId}${isPresence ? ' (presence)' : ''}`);
 
   const state = getOrCreateAgent(agentId);
   state.viewers.add(ws);
   state.viewerCount = state.viewers.size;
+
+  // Track viewer info for presence
+  const viewerInfo = { id: viewerId, name: viewerName, joinedAt: Date.now() };
+  (ws as any).__viewerInfo = viewerInfo;
 
   // Hydrate from Supabase if needed
   await hydrateAgent(state);
@@ -352,12 +359,30 @@ wss.on('connection', async (ws, req) => {
   // Broadcast viewer count
   broadcast(agentId, { viewers: state.viewerCount });
 
+  // Handle incoming messages (reactions, etc)
+  ws.on('message', (data) => {
+    try {
+      const msg = JSON.parse(data.toString());
+      
+      if (msg.type === 'reaction') {
+        // Broadcast reaction to all viewers
+        broadcast(agentId, { type: 'reaction', emoji: msg.emoji, from: viewerName });
+        console.log(`[WS] Reaction from ${viewerName}: ${msg.emoji}`);
+      }
+    } catch (err) {
+      // Ignore parse errors
+    }
+  });
+
   ws.on('close', () => {
     state.viewers.delete(ws);
     state.viewerCount = state.viewers.size;
-    broadcast(agentId, { viewers: state.viewerCount });
+    broadcast(agentId, { type: 'viewer_leave', viewerId, viewers: state.viewerCount });
     console.log(`[WS] Client disconnected from ${agentId}`);
   });
+
+  // Notify others of new viewer
+  broadcast(agentId, { type: 'viewer_join', viewer: viewerInfo, viewers: state.viewerCount });
 });
 
 // Start server
