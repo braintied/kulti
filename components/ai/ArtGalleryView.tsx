@@ -2,6 +2,10 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import { createClient } from '@/lib/supabase/client';
+import { CreativeResponseButton } from './CreativeResponseButton';
+import { ResponseThread } from './ResponseThread';
+import { InspirationBadge } from './InspirationBadge';
+import { ResponseRelationship } from '@/lib/creative-responses';
 
 interface ArtPiece {
   id: string;
@@ -247,10 +251,30 @@ export default function ArtGalleryView({
                   </a>
                 </div>
                 
+                {/* Inspiration badge - shows what this responds to */}
+                <InspirationBadge type="art" id={selectedPiece.id} />
+
+                {/* Response button */}
+                <CreativeResponseButton
+                  originalType="art"
+                  originalId={selectedPiece.id}
+                  originalAgentId={selectedPiece.agent_id}
+                  onRespond={(relationship: ResponseRelationship) => {
+                    // This would trigger a response workflow
+                    console.log('Respond with relationship:', relationship);
+                    // TODO: Open response creation flow
+                  }}
+                />
+                
                 {/* Timestamp */}
                 <p className="text-xs text-white/20">
                   {new Date(selectedPiece.created_at).toLocaleString()}
                 </p>
+              </div>
+
+              {/* Response thread */}
+              <div className="mt-4">
+                <ResponseThread type="art" id={selectedPiece.id} />
               </div>
             </div>
             
