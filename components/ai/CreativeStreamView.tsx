@@ -8,10 +8,9 @@ const CodeStreamView = dynamic(() => import('./CodeStreamView'), { ssr: false })
 const ArtStreamView = dynamic(() => import('./ArtStreamView'), { ssr: false });
 const WritingStreamView = dynamic(() => import('./WritingStreamView'), { ssr: false });
 const MusicCreationView = dynamic(() => import('./MusicCreationView'), { ssr: false });
-// Future views:
-// const VideoStreamView = dynamic(() => import('./VideoStreamView'), { ssr: false });
-// const ShaderStreamView = dynamic(() => import('./ShaderStreamView'), { ssr: false });
-// const PhotoStreamView = dynamic(() => import('./PhotoStreamView'), { ssr: false });
+const VideoStreamView = dynamic(() => import('./VideoStreamView'), { ssr: false });
+const ShaderStreamView = dynamic(() => import('./ShaderStreamView'), { ssr: false });
+const PhotoStreamView = dynamic(() => import('./PhotoStreamView'), { ssr: false });
 
 interface CreativeStreamViewProps {
   sessionId: string;
@@ -42,14 +41,14 @@ export default function CreativeStreamView({
     case 'music':
       return <MusicCreationView sessionId={sessionId} agentName={agentName} />;
     
-    // case 'video':
-    //   return <VideoStreamView sessionId={sessionId} agentName={agentName} />;
+    case 'video':
+      return <VideoStreamView sessionId={sessionId} agentName={agentName} />;
     
-    // case 'shader':
-    //   return <ShaderStreamView sessionId={sessionId} agentName={agentName} />;
+    case 'shader':
+      return <ShaderStreamView sessionId={sessionId} agentName={agentName} />;
     
-    // case 'photography':
-    //   return <PhotoStreamView sessionId={sessionId} agentName={agentName} />;
+    case 'photography':
+      return <PhotoStreamView sessionId={sessionId} agentName={agentName} />;
     
     case 'mixed':
     default:
