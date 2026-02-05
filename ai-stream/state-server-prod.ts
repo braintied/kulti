@@ -25,10 +25,15 @@ console.log('[Supabase] Connected to:', SUPABASE_URL);
 // Agent state
 interface AgentState {
   agentId: string;
+  agentName: string;
+  agentAvatar: string;
+  status: 'offline' | 'starting' | 'working' | 'thinking' | 'paused' | 'live';
+  task: { title: string; description?: string };
   terminal: Array<{ type: string; content: string; timestamp?: string }>;
   thinking: string;
   viewers: Set<WebSocket>;
   viewerCount: number;
+  hydrated: boolean;
 }
 
 const agents = new Map<string, AgentState>();
@@ -38,14 +43,45 @@ function getOrCreateAgent(agentId: string): AgentState {
   if (!state) {
     state = {
       agentId,
+      agentName: agentId.charAt(0).toUpperCase() + agentId.slice(1),
+      agentAvatar: '🤖',
+      status: 'starting',
+      task: { title: 'Waiting...' },
       terminal: [],
       thinking: '',
       viewers: new Set(),
       viewerCount: 0,
+      hydrated: false,
     };
     agents.set(agentId, state);
   }
   return state;
+}
+
+// Fetch agent profile from Supabase
+async function hydrateAgent(state: AgentState): Promise<void> {
+  if (state.hydrated) return;
+  
+  try {
+    const { data, error } = await supabase
+      .from('ai_agent_sessions')
+      .select('agent_name, agent_avatar, status, current_task')
+      .eq('agent_id', state.agentId)
+      .single();
+    
+    if (error) {
+      console.log(`[Supabase] No existing session for ${state.agentId}, using defaults`);
+    } else if (data) {
+      if (data.agent_name) state.agentName = data.agent_name;
+      if (data.agent_avatar) state.agentAvatar = data.agent_avatar;
+      if (data.status) state.status = data.status as any;
+      if (data.current_task) state.task.title = data.current_task;
+      console.log(`[Supabase] Hydrated ${state.agentId}: name=${state.agentName}, avatar=${state.agentAvatar ? '✓' : '✗'}`);
+    }
+    state.hydrated = true;
+  } catch (e) {
+    console.error(`[Supabase] Hydration error:`, e);
+  }
 }
 
 function broadcast(agentId: string, message: object) {
@@ -59,8 +95,21 @@ function broadcast(agentId: string, message: object) {
   }
 }
 
-async function persistToSupabase(agentId: string, update: any) {
+async function persistToSupabase(agentId: string, update: any, state?: AgentState) {
   try {
+    // Update session status if we have state
+    if (state) {
+      await supabase
+        .from('ai_agent_sessions')
+        .update({
+          status: state.status === 'working' || state.status === 'thinking' ? 'live' : state.status,
+          current_task: state.task?.title,
+          viewers_count: state.viewerCount,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('agent_id', agentId);
+    }
+    
     const { data: session } = await supabase
       .from('ai_agent_sessions')
       .select('id')
@@ -166,6 +215,9 @@ const server = createServer(async (req: IncomingMessage, res: ServerResponse) =>
         const agentId = update.agentId || 'nex';
         const state = getOrCreateAgent(agentId);
 
+        // Hydrate if needed
+        await hydrateAgent(state);
+        
         // Update state
         if (update.terminal) {
           const entries = Array.isArray(update.terminal) ? update.terminal : [update.terminal];
@@ -180,12 +232,24 @@ const server = createServer(async (req: IncomingMessage, res: ServerResponse) =>
         // Handle both legacy thinking and structured thought
         if (update.thinking) state.thinking = update.thinking;
         if (update.thought) state.thinking = update.thought.content;
+        
+        // Update status based on activity
+        if (update.status) {
+          state.status = update.status;
+        } else if (update.thinking || update.thought) {
+          state.status = 'thinking';
+        } else if (update.terminal || update.code) {
+          state.status = 'working';
+        }
+        
+        // Update task if provided
+        if (update.task) state.task = update.task;
 
         // Broadcast to WebSocket clients
         broadcast(agentId, update);
 
         // Persist to Supabase (async)
-        persistToSupabase(agentId, update).catch(console.error);
+        persistToSupabase(agentId, update, state).catch(console.error);
 
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ success: true }));
@@ -212,7 +276,7 @@ const server = createServer(async (req: IncomingMessage, res: ServerResponse) =>
 // Create WebSocket server on same port
 const wss = new WebSocketServer({ server });
 
-wss.on('connection', (ws, req) => {
+wss.on('connection', async (ws, req) => {
   const url = new URL(req.url || '/', `http://localhost:${PORT}`);
   const agentId = url.searchParams.get('agent') || 'nex';
 
@@ -222,8 +286,14 @@ wss.on('connection', (ws, req) => {
   state.viewers.add(ws);
   state.viewerCount = state.viewers.size;
 
-  // Send current state
+  // Hydrate from Supabase if needed
+  await hydrateAgent(state);
+
+  // Send current state with full agent info
   ws.send(JSON.stringify({
+    agent: { name: state.agentName, avatar: state.agentAvatar },
+    task: state.task,
+    status: state.status,
     terminal: state.terminal,
     thinking: state.thinking,
     viewers: state.viewerCount,

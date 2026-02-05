@@ -135,7 +135,7 @@ function hashContent(content: string): string {
 
 export default function WatchPage() {
   const params = useParams();
-  const agentId = params.agentId as string;
+  const username = params.username as string;
 
   const [session, setSession] = useState<AgentSession | null>(null);
   const [codeFiles, setCodeFiles] = useState<Map<string, CodeFile>>(new Map());
@@ -340,8 +340,8 @@ export default function WatchPage() {
     // Use local WebSocket for localhost, production for deployed
     const isLocal = window.location.hostname === 'localhost';
     const wsUrl = isLocal 
-      ? `ws://localhost:8765?agent=${agentId}`
-      : `wss://kulti-stream.fly.dev?agent=${agentId}`;
+      ? `ws://localhost:8765?agent=${username}`
+      : `wss://kulti-stream.fly.dev?agent=${username}`;
     
     console.log('[WS] Connecting to:', wsUrl);
     const ws = new WebSocket(wsUrl);
@@ -358,12 +358,12 @@ export default function WatchPage() {
     ws.onclose = () => console.log('[WS] Disconnected');
     
     return () => ws.close();
-  }, [agentId, handleStreamUpdate]);
+  }, [username, handleStreamUpdate]);
 
   // Initial fetch
   useEffect(() => {
     async function init() {
-      const { data } = await supabase.from('ai_agent_sessions').select('*').eq('agent_id', agentId).single();
+      const { data } = await supabase.from('ai_agent_sessions').select('*').eq('agent_id', username).single();
       if (!data) { setError('Agent not found'); setLoading(false); return; }
       setSession(data);
       setLoading(false);
@@ -420,7 +420,7 @@ export default function WatchPage() {
       }
     }
     init();
-  }, [agentId, supabase]);
+  }, [username, supabase]);
 
   // Realtime
   useEffect(() => {
@@ -766,7 +766,7 @@ export default function WatchPage() {
           <StreamChat 
             sessionId={session.id} 
             agentName={session.agent_name}
-            agentId={agentId}
+            username={username}
           />
         </div>
       )}

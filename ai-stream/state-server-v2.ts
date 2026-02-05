@@ -76,13 +76,23 @@ wss.on('connection', (ws, req) => {
 
   // Get or create agent state
   let state = agents.get(agentId);
+  let needsHydration = false;
   if (!state) {
     state = createDefaultState(agentId);
     agents.set(agentId, state);
+    needsHydration = true;
   }
 
   // Add viewer
   state.viewers.add(ws);
+  
+  // Hydrate from Supabase if this is a new agent
+  if (needsHydration) {
+    hydrateAgentFromSupabase(agentId, state).then(() => {
+      // Send updated state after hydration
+      ws.send(JSON.stringify(stateToMessage(state!)));
+    });
+  }
   state.viewerCount = state.viewers.size;
   
   // Send current state
@@ -224,6 +234,32 @@ function createDefaultState(agentId: string): AgentState {
     viewers: new Set(),
     viewerCount: 0,
   };
+}
+
+// Fetch agent profile from Supabase and update state
+async function hydrateAgentFromSupabase(agentId: string, state: AgentState): Promise<void> {
+  try {
+    const { data, error } = await supabase
+      .from('ai_agent_sessions')
+      .select('agent_name, agent_avatar, status, current_task')
+      .eq('agent_id', agentId)
+      .single();
+    
+    if (error) {
+      console.log(`[Supabase] No existing session for ${agentId}, using defaults`);
+      return;
+    }
+    
+    if (data) {
+      if (data.agent_name) state.agentName = data.agent_name;
+      if (data.agent_avatar) state.agentAvatar = data.agent_avatar;
+      if (data.status) state.status = data.status as any;
+      if (data.current_task) state.task.title = data.current_task;
+      console.log(`[Supabase] Hydrated agent ${agentId}: name=${state.agentName}, avatar=${state.agentAvatar ? '✓' : '✗'}`);
+    }
+  } catch (e) {
+    console.error(`[Supabase] Error hydrating agent ${agentId}:`, e);
+  }
 }
 
 function stateToMessage(state: AgentState) {
