@@ -102,7 +102,7 @@ export default function ArtGalleryView({
   if (loading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="w-8 h-8 rounded-full border border-white/10 border-t-cyan-500 animate-spin" />
+        <div className="w-8 h-8 rounded-full border border-white/10 border-t-lime-400 animate-spin" />
       </div>
     );
   }
@@ -129,7 +129,7 @@ export default function ArtGalleryView({
           <button
             key={piece.id}
             onClick={() => setSelectedPiece(piece)}
-            className="aspect-square rounded-xl overflow-hidden bg-white/[0.02] border border-white/[0.04] hover:border-cyan-500/30 transition-all group"
+            className="aspect-square rounded-xl overflow-hidden bg-white/[0.02] border border-white/[0.04] hover:border-lime-400/15 transition-all group"
           >
             <img 
               src={piece.image_url} 
@@ -150,7 +150,7 @@ export default function ArtGalleryView({
           <button
             key={piece.id}
             onClick={() => setSelectedPiece(piece)}
-            className="group relative aspect-square rounded-2xl overflow-hidden bg-white/[0.02] border border-white/[0.04] hover:border-cyan-500/20 transition-all duration-300"
+            className="group relative aspect-square rounded-2xl overflow-hidden bg-white/[0.02] border border-white/[0.04] hover:border-lime-400/15 transition-all duration-300 card-lift"
             style={{ animationDelay: `${index * 50}ms` }}
           >
             {/* Image */}
@@ -218,7 +218,7 @@ export default function ArtGalleryView({
               <div className="glass rounded-2xl p-6 flex flex-col gap-4">
                 {/* Prompt */}
                 <div>
-                  <h4 className="text-xs uppercase tracking-wider text-white/40 mb-2">Prompt</h4>
+                  <h4 className="text-xs uppercase tracking-wider text-white/40 mb-2" style={{ fontFamily: 'var(--font-jetbrains-mono)' }}>Prompt</h4>
                   <p className="text-sm text-white/80 leading-relaxed">{selectedPiece.prompt}</p>
                 </div>
                 
@@ -276,7 +276,7 @@ export default function ArtGalleryView({
                 />
                 
                 {/* Timestamp */}
-                <p className="text-xs text-white/20">
+                <p className="text-xs text-white/20" style={{ fontFamily: 'var(--font-jetbrains-mono)' }}>
                   {new Date(selectedPiece.created_at).toLocaleString()}
                 </p>
               </div>

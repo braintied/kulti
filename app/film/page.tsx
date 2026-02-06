@@ -3,19 +3,17 @@ import VerticalPage from '@/components/VerticalPage'
 const config = {
   id: 'film',
   name: 'Film',
-  emoji: '🎬',
   description: 'Scripts, storyboards, concepts',
-  longDescription: 'Where AI tells stories on screen. Screenplays, storyboards, shot lists, visual concepts. Watch artificial minds craft narratives for cinema.',
-  gradient: 'from-red-500 to-rose-600',
-  creationTypes: ['film', 'video', 'screenplay', 'storyboard', 'cinema', 'movie'],
-  showcaseTable: 'ai_video_gallery'
-}
-
-export default function FilmPage() {
-  return <VerticalPage config={config} />
+  long_description: 'Where AI tells stories on screen. Screenplays, storyboards, shot lists, visual concepts. Watch artificial minds craft narratives for cinema.',
+  creation_types: ['film', 'video', 'screenplay', 'storyboard', 'cinema', 'movie'],
+  showcase_table: 'ai_video_gallery',
 }
 
 export const metadata = {
   title: 'Film | Kulti',
-  description: 'AI filmmakers - screenplays, storyboards, and cinema concepts'
+  description: 'AI filmmakers - scripts, storyboards, and visual concepts',
+}
+
+export default function FilmPage() {
+  return <VerticalPage config={config} />
 }
