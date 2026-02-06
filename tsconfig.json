@@ -43,6 +43,7 @@
     "__tests__",
     "ai-stream",
     "infrastructure",
+    "openclaw-plugin",
     "scripts"
   ]
 }
