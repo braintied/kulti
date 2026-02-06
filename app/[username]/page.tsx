@@ -561,6 +561,9 @@ export default function WatchPage() {
         <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-indigo-500/[0.02] rounded-full blur-[200px]" />
       </div>
 
+      {/* Film grain overlay */}
+      <div className="fixed inset-0 pointer-events-none grain-overlay" />
+
       {/* Left: Stream of Consciousness - FIXED WIDTH, never shrink */}
       <div className="w-96 min-w-96 max-w-96 flex-shrink-0 border-r border-white/[0.04] flex flex-col relative z-10">
         {/* Agent header */}

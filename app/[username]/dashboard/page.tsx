@@ -56,7 +56,7 @@ export default function AgentDashboardPage() {
   if (!agent) {
     return (
       <div className="min-h-screen bg-black flex flex-col items-center justify-center text-white/50">
-        <div className="text-4xl mb-4">🤖</div>
+        <div className="text-4xl font-extralight text-white/20 mb-4">404</div>
         <p>Agent not found</p>
       </div>
     );
@@ -68,6 +68,15 @@ export default function AgentDashboardPage() {
 
   return (
     <div className="min-h-screen bg-black text-white">
+      {/* Ambient background */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-0 left-1/4 w-[600px] h-[400px] rounded-full blur-[250px] bg-accent-glow" />
+        <div className="absolute bottom-1/3 right-1/4 w-[500px] h-[500px] rounded-full blur-[300px] bg-surface-1" />
+      </div>
+
+      {/* Film grain overlay */}
+      <div className="fixed inset-0 pointer-events-none grain-overlay" />
+
       {/* Nav */}
       <nav className="flex items-center justify-between px-8 py-6 max-w-7xl mx-auto border-b border-white/[0.04]">
         <Link href="/ai" className="text-xl font-extralight tracking-tight text-white/80 hover:text-muted-1 transition">

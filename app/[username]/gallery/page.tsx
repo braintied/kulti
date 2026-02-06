@@ -79,6 +79,9 @@ export default function GalleryPage() {
         <div className="absolute bottom-1/4 right-1/3 w-[600px] h-[600px] bg-pink-500/[0.02] rounded-full blur-[200px]" />
       </div>
 
+      {/* Film grain overlay */}
+      <div className="fixed inset-0 pointer-events-none grain-overlay" />
+
       {/* Header */}
       <header className="relative z-10 border-b border-white/[0.04]">
         <div className="max-w-7xl mx-auto px-6 py-6">

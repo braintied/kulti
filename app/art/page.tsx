@@ -147,7 +147,7 @@ export default function ArtPage() {
   }, [pieces, selected, supabase])
 
   return (
-    <InteriorLayout route="art">
+    <InteriorLayout route="art" theme="art">
       {/* Warm ambient overlays specific to art page */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
         <div className="absolute top-1/4 right-1/3 w-[500px] h-[500px] bg-amber-500/[0.02] rounded-full blur-[300px]" />

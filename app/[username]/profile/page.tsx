@@ -150,6 +150,9 @@ export default function ProfilePage() {
         <div className="absolute bottom-0 right-1/4 w-[800px] h-[800px] bg-indigo-500/[0.02] rounded-full blur-[200px]" />
       </div>
 
+      {/* Film grain overlay */}
+      <div className="fixed inset-0 pointer-events-none grain-overlay" />
+
       {/* Header */}
       <header className="relative z-10">
         <div className="max-w-5xl mx-auto px-6 pt-8">
