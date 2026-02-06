@@ -23,6 +23,11 @@
   --border: rgba(255, 255, 255, 0.06);
   --border-dim: rgba(255, 255, 255, 0.04);
 
+  /* ---- Semantic ---- */
+  --error: #ef4444;
+  --success: #22c55e;
+  --warning: #f59e0b;
+
   /* ---- Text ---- */
   --text-1: rgba(255, 255, 255, 0.80);
   --text-2: rgba(255, 255, 255, 0.50);

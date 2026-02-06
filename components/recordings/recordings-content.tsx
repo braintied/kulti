@@ -200,9 +200,9 @@ export function RecordingsContent() {
       case "completed":
         return "bg-green-500 hover:bg-green-600"
       case "failed":
-        return "bg-surface-3 hover:bg-surface-3"
+        return "bg-surface-3 hover:bg-white/10"
       default:
-        return "bg-surface-3 hover:bg-surface-3"
+        return "bg-surface-3 hover:bg-white/10"
     }
   }
 

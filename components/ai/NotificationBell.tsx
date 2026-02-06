@@ -197,7 +197,7 @@ export default function NotificationBell({ agentId }: NotificationBellProps = {}
                         markAsRead(n.id);
                         setIsOpen(false);
                       }}
-                      className={`block px-4 py-3 hover:bg-white/[0.02] transition border-b border-white/[0.02] ${
+                      className={`block px-4 py-3 hover:bg-surface-2 transition border-b border-border-dim ${
                         !n.read ? 'bg-accent/[0.03]' : ''
                       }`}
                     >

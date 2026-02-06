@@ -94,7 +94,7 @@ export function ProfileSessionHistory({
         <div className="mt-6 text-center">
           <Link
             href={`/profile/${profileUsername}/history`}
-            className="text-accent hover:text-accent font-medium"
+            className="text-accent hover:text-accent/80 font-medium"
           >
             View All Sessions →
           </Link>

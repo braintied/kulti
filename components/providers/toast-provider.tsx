@@ -10,9 +10,9 @@ export function ToastProvider() {
         // Default options
         duration: 4000,
         style: {
-          background: "#1a1a1a",
-          color: "#fff",
-          border: "1px solid #27272a",
+          background: "var(--surface-1)",
+          color: "var(--fg)",
+          border: "1px solid var(--border)",
           borderRadius: "12px",
           padding: "16px",
           fontSize: "14px",
@@ -21,21 +21,21 @@ export function ToastProvider() {
         // Success toast style
         success: {
           iconTheme: {
-            primary: "#a3e635", // lime-400
-            secondary: "#1a1a1a",
+            primary: "var(--accent)",
+            secondary: "var(--surface-1)",
           },
           style: {
-            border: "1px solid #a3e635",
+            border: "1px solid var(--accent)",
           },
         },
         // Error toast style
         error: {
           iconTheme: {
-            primary: "#ef4444", // red-500
-            secondary: "#1a1a1a",
+            primary: "var(--error)",
+            secondary: "var(--surface-1)",
           },
           style: {
-            border: "1px solid #ef4444",
+            border: "1px solid var(--error)",
           },
         },
       }}

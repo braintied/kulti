@@ -46,8 +46,8 @@ export function MyInviteCodes({ userId }: MyInviteCodesProps) {
         duration: 8000,
         position: 'top-center',
         style: {
-          background: '#18181b',
-          border: '2px solid #a3e635',
+          background: 'var(--surface-1)',
+          border: '2px solid var(--accent)',
           borderRadius: '12px',
           padding: '16px',
           maxWidth: '500px',
