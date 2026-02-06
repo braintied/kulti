@@ -28,7 +28,7 @@ export const WelcomeTour = () => {
       target: "body",
       content: (
         <div className="space-y-3">
-          <h2 className="text-2xl font-bold">🎉 Welcome to Kulti!</h2>
+          <h2 className="text-2xl font-bold">Welcome to Kulti</h2>
           <p className="text-base">
             Let&apos;s take a quick tour of the platform. Learn how to start sessions,
             earn credits, and connect with developers and creatives!
@@ -42,14 +42,14 @@ export const WelcomeTour = () => {
       content: (
         <div className="space-y-3">
           <h2 className="text-2xl font-bold flex items-center gap-2">
-            <Ticket className="w-6 h-6 text-lime-400" />
+            <Ticket className="w-6 h-6 text-accent" />
             You&apos;ve Got 5 Invite Codes!
           </h2>
           <p className="text-base">
             Share your unique codes with friends to invite them to Kulti. You&apos;ll earn{" "}
-            <span className="font-bold text-lime-400">50 credits</span> for each successful signup!
+            <span className="font-bold text-accent">50 credits</span> for each successful signup!
           </p>
-          <p className="text-sm text-gray-400">
+          <p className="text-sm text-muted-3">
             Find your codes in your profile under the Invites tab.
           </p>
         </div>
@@ -60,7 +60,7 @@ export const WelcomeTour = () => {
       target: '[data-tour="find-match"]',
       content: (
         <div className="space-y-2">
-          <h3 className="text-xl font-bold">✨ Find Your Match</h3>
+          <h3 className="text-xl font-bold">Find Your Match</h3>
           <p>Get matched with compatible developers and creatives based on your skills, interests, and experience level. Perfect for collaboration and learning!</p>
         </div>
       ),
@@ -70,7 +70,7 @@ export const WelcomeTour = () => {
       target: '[data-tour="create-session"]',
       content: (
         <div className="space-y-2">
-          <h3 className="text-xl font-bold">🎥 Create Session</h3>
+          <h3 className="text-xl font-bold">Create Session</h3>
           <p>Start a live session and stream your work. Share knowledge, collaborate in real-time, and earn credits from viewers!</p>
         </div>
       ),
@@ -80,7 +80,7 @@ export const WelcomeTour = () => {
       target: '[data-tour="browse"]',
       content: (
         <div className="space-y-2">
-          <h3 className="text-xl font-bold">🔍 Browse Sessions</h3>
+          <h3 className="text-xl font-bold">Browse Sessions</h3>
           <p>Discover active sessions across coding, design, video, music, and more. Join to learn, collaborate, and support creators.</p>
         </div>
       ),
@@ -90,7 +90,7 @@ export const WelcomeTour = () => {
       target: '[data-tour="credits"]',
       content: (
         <div className="space-y-2">
-          <h3 className="text-xl font-bold">💰 Credits System</h3>
+          <h3 className="text-xl font-bold">Credits System</h3>
           <p>Earn credits by streaming sessions, receiving tips, and referring friends. Spend them to boost sessions or tip creators you love!</p>
         </div>
       ),
@@ -100,7 +100,7 @@ export const WelcomeTour = () => {
       target: '[data-tour="community"]',
       content: (
         <div className="space-y-2">
-          <h3 className="text-xl font-bold">🌐 Community Hub</h3>
+          <h3 className="text-xl font-bold">Community Hub</h3>
           <p>Join chat rooms, propose discussion topics, and connect with developers and creatives who share your interests.</p>
         </div>
       ),

@@ -186,23 +186,23 @@ export function FindSessionModal({ isOpen, onClose }: FindSessionModalProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="find-session-title">
-      <div className="relative w-full max-w-3xl mx-4 max-h-[90vh] bg-[#1a1a1a] border border-[#27272a] rounded-2xl shadow-2xl overflow-hidden">
+      <div className="relative w-full max-w-3xl mx-4 max-h-[90vh] bg-surface-1 border border-border-default rounded-2xl shadow-2xl overflow-hidden">
         {/* Header */}
-        <div className="relative bg-gradient-to-r from-lime-400/10 to-green-500/10 border-b border-[#27272a] p-6">
+        <div className="relative bg-gradient-to-r from-accent/10 to-green-500/10 border-b border-border-default p-6">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 p-2 hover:bg-[#2a2a2a] rounded-lg transition-colors"
+            className="absolute top-4 right-4 p-2 hover:bg-surface-2 rounded-lg transition-colors"
             aria-label="Close find session modal"
           >
             <X className="w-5 h-5" />
           </button>
           <div className="flex items-center gap-3">
-            <div className="p-3 bg-lime-400 rounded-xl">
+            <div className="p-3 bg-accent rounded-xl">
               <Sparkles className="w-6 h-6 text-black" />
             </div>
             <div>
               <h2 id="find-session-title" className="font-mono text-2xl font-bold">Find a Session</h2>
-              <p className="text-sm text-[#a1a1aa]">
+              <p className="text-sm text-muted-2">
                 Connect with compatible developers who are online now
               </p>
             </div>
@@ -214,18 +214,18 @@ export function FindSessionModal({ isOpen, onClose }: FindSessionModalProps) {
               onClick={() => setMode('quick')}
               className={`flex-1 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                 mode === 'quick'
-                  ? 'bg-lime-400 text-black'
-                  : 'bg-[#2a2a2a] text-[#a1a1aa] hover:bg-[#333333]'
+                  ? 'bg-accent text-black'
+                  : 'bg-surface-2 text-muted-2 hover:bg-surface-3'
               }`}
             >
-              ⚡ Quick Match
+              Quick Match
             </button>
             <button
               onClick={() => setMode('browse')}
               className={`flex-1 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                 mode === 'browse'
-                  ? 'bg-lime-400 text-black'
-                  : 'bg-[#2a2a2a] text-[#a1a1aa] hover:bg-[#333333]'
+                  ? 'bg-accent text-black'
+                  : 'bg-surface-2 text-muted-2 hover:bg-surface-3'
               }`}
             >
               <Users className="inline-block w-4 h-4 mr-1" />
@@ -239,16 +239,16 @@ export function FindSessionModal({ isOpen, onClose }: FindSessionModalProps) {
           {/* Quick Match Mode */}
           {mode === 'quick' && (
             <div className="space-y-4">
-              <div className="p-6 bg-gradient-to-br from-lime-400/10 to-green-500/10 border border-lime-400/20 rounded-xl text-center">
-                <Sparkles className="w-12 h-12 mx-auto mb-4 text-lime-400" />
+              <div className="p-6 bg-gradient-to-br from-accent/10 to-green-500/10 border border-accent/20 rounded-xl text-center">
+                <Sparkles className="w-12 h-12 mx-auto mb-4 text-accent" />
                 <h3 className="text-xl font-bold mb-2">Instant Matchmaking</h3>
-                <p className="text-sm text-[#a1a1aa] mb-4">
+                <p className="text-sm text-muted-2 mb-4">
                   We'll find the best compatible users and create a session instantly
                 </p>
                 <button
                   onClick={handleQuickMatch}
                   disabled={creatingSession}
-                  className="px-8 py-3 bg-lime-400 hover:bg-lime-500 text-black font-bold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 mx-auto"
+                  className="px-8 py-3 bg-accent hover:bg-accent text-black font-bold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 mx-auto"
                 >
                   {creatingSession ? (
                     <>
@@ -264,7 +264,7 @@ export function FindSessionModal({ isOpen, onClose }: FindSessionModalProps) {
                 </button>
               </div>
 
-              <div className="text-center text-sm text-[#71717a]">
+              <div className="text-center text-sm text-muted-3">
                 <p>or switch to Browse Users to select specific people</p>
               </div>
             </div>
@@ -277,7 +277,7 @@ export function FindSessionModal({ isOpen, onClose }: FindSessionModalProps) {
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="font-bold text-lg">Compatible Users Online</h3>
-                  <p className="text-sm text-[#a1a1aa]">
+                  <p className="text-sm text-muted-2">
                     {users.length} {users.length === 1 ? 'user' : 'users'} available
                     {selectedUsers.size > 0 && ` • ${selectedUsers.size} selected`}
                   </p>
@@ -285,7 +285,7 @@ export function FindSessionModal({ isOpen, onClose }: FindSessionModalProps) {
                 <button
                   onClick={fetchCompatibleUsers}
                   disabled={loading}
-                  className="p-2 hover:bg-[#2a2a2a] rounded-lg transition-colors disabled:opacity-50"
+                  className="p-2 hover:bg-surface-2 rounded-lg transition-colors disabled:opacity-50"
                 >
                   <RefreshCw className={`w-5 h-5 ${loading ? 'animate-spin' : ''}`} />
                 </button>
@@ -310,9 +310,9 @@ export function FindSessionModal({ isOpen, onClose }: FindSessionModalProps) {
               {/* User List */}
               {!loading && !error && users.length === 0 && (
                 <div className="text-center py-12">
-                  <Users className="w-12 h-12 mx-auto mb-4 text-[#71717a]" />
-                  <p className="text-[#a1a1aa]">No compatible users online right now</p>
-                  <p className="text-sm text-[#71717a] mt-2">
+                  <Users className="w-12 h-12 mx-auto mb-4 text-muted-3" />
+                  <p className="text-muted-2">No compatible users online right now</p>
+                  <p className="text-sm text-muted-3 mt-2">
                     Try again later or update your profile
                   </p>
                 </div>
@@ -337,11 +337,11 @@ export function FindSessionModal({ isOpen, onClose }: FindSessionModalProps) {
 
         {/* Footer */}
         {mode === 'browse' && (
-          <div className="border-t border-[#27272a] p-6">
+          <div className="border-t border-border-default p-6">
             <button
               onClick={handleCreateWithSelected}
               disabled={selectedUsers.size === 0 || creatingSession}
-              className="w-full px-6 py-3 bg-lime-400 hover:bg-lime-500 text-black font-bold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full px-6 py-3 bg-accent hover:bg-accent text-black font-bold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {creatingSession ? (
                 <>

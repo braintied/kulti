@@ -9,7 +9,7 @@ export function notifyCreditEarned(amount: number, reason: string) {
     <div
       className={`${
         t.visible ? "animate-enter" : "animate-leave"
-      } max-w-md w-full bg-[#1a1a1a] border border-lime-400 rounded-xl shadow-2xl p-4`}
+      } max-w-md w-full bg-surface-1 border border-accent rounded-xl shadow-2xl p-4`}
     >
       <CreditToast amount={amount} reason={reason} />
     </div>
@@ -25,7 +25,7 @@ export function notifyMilestoneAchieved(
       <div
         className={`${
           t.visible ? "animate-enter" : "animate-leave"
-        } max-w-md w-full bg-[#1a1a1a] border border-lime-400 rounded-xl shadow-2xl p-4`}
+        } max-w-md w-full bg-surface-1 border border-accent rounded-xl shadow-2xl p-4`}
       >
         <CreditToast
           amount={totalCredits}
@@ -45,7 +45,7 @@ export function notifyCreditsSpent(amount: number, reason: string) {
     <div
       className={`${
         t.visible ? "animate-enter" : "animate-leave"
-      } max-w-md w-full bg-[#1a1a1a] border border-red-500 rounded-xl shadow-2xl p-4`}
+      } max-w-md w-full bg-surface-1 border border-red-500 rounded-xl shadow-2xl p-4`}
     >
       <SpendToast amount={amount} reason={reason} />
     </div>
@@ -53,7 +53,5 @@ export function notifyCreditsSpent(amount: number, reason: string) {
 }
 
 export function notifyInsufficientCredits(required: number, current: number) {
-  toast.error(`Need ${required} credits (you have ${current})`, {
-    icon: "💰",
-  })
+  toast.error(`Need ${required} credits (you have ${current})`)
 }

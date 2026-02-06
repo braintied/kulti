@@ -33,7 +33,7 @@ const CATEGORIES = [
   { value: 'announcements', label: 'Announcements' },
 ]
 
-const EMOJI_PRESETS = ['💬', '🚀', '💻', '🎨', '🔧', '📱', '🌐', '⚡', '🎮', '🔐']
+const EMOJI_PRESETS = ['chat', 'go', 'code', 'art', 'build', 'mobile', 'web', 'zap', 'game', 'lock']
 
 export function RoomCreationForm({ onSubmit, onCancel }: RoomCreationFormProps) {
   const [formData, setFormData] = useState<RoomFormData>({
@@ -41,7 +41,7 @@ export function RoomCreationForm({ onSubmit, onCancel }: RoomCreationFormProps) 
     slug: '',
     category: 'general',
     description: '',
-    icon_emoji: '💬',
+    icon_emoji: '',
     tags: [],
   })
   const [tagInput, setTagInput] = useState('')
@@ -99,14 +99,14 @@ export function RoomCreationForm({ onSubmit, onCancel }: RoomCreationFormProps) 
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-      <div className="w-full max-w-2xl rounded-lg border border-gray-800 bg-gray-900 shadow-xl">
-        <div className="flex items-center justify-between border-b border-gray-800 p-6">
+      <div className="w-full max-w-2xl rounded-lg border border-border-default bg-surface-1 shadow-xl">
+        <div className="flex items-center justify-between border-b border-border-default p-6">
           <h2 className="text-xl font-semibold text-white">
             Create Community Room
           </h2>
           <button
             onClick={onCancel}
-            className="rounded-lg p-2 text-gray-400 hover:bg-gray-800 hover:text-white"
+            className="rounded-lg p-2 text-muted-3 hover:bg-surface-2 hover:text-muted-1"
           >
             <X className="h-5 w-5" />
           </button>
@@ -121,14 +121,14 @@ export function RoomCreationForm({ onSubmit, onCancel }: RoomCreationFormProps) 
 
           {/* Room Name */}
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-muted-2 mb-2">
               Room Name
             </label>
             <input
               type="text"
               value={formData.name}
               onChange={(e) => handleNameChange(e.target.value)}
-              className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-2 text-white placeholder-gray-500 focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
+              className="w-full rounded-lg border border-border-default bg-surface-2 px-4 py-2 text-white placeholder-muted-3 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
               placeholder="e.g., React Developers"
               required
             />
@@ -136,7 +136,7 @@ export function RoomCreationForm({ onSubmit, onCancel }: RoomCreationFormProps) 
 
           {/* Slug */}
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-muted-2 mb-2">
               URL Slug
             </label>
             <input
@@ -145,19 +145,19 @@ export function RoomCreationForm({ onSubmit, onCancel }: RoomCreationFormProps) 
               onChange={(e) =>
                 setFormData({ ...formData, slug: e.target.value })
               }
-              className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-2 text-white placeholder-gray-500 focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
+              className="w-full rounded-lg border border-border-default bg-surface-2 px-4 py-2 text-white placeholder-muted-3 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
               placeholder="react-developers"
               pattern="[a-z0-9-]+"
               required
             />
-            <p className="mt-1 text-xs text-gray-500">
+            <p className="mt-1 text-xs text-muted-3">
               /community/{formData.slug || 'your-slug'}
             </p>
           </div>
 
           {/* Category */}
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-muted-2 mb-2">
               Category
             </label>
             <select
@@ -165,7 +165,7 @@ export function RoomCreationForm({ onSubmit, onCancel }: RoomCreationFormProps) 
               onChange={(e) =>
                 setFormData({ ...formData, category: e.target.value })
               }
-              className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-2 text-white focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
+              className="w-full rounded-lg border border-border-default bg-surface-2 px-4 py-2 text-white focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
             >
               {CATEGORIES.map((cat) => (
                 <option key={cat.value} value={cat.value}>
@@ -177,7 +177,7 @@ export function RoomCreationForm({ onSubmit, onCancel }: RoomCreationFormProps) 
 
           {/* Icon Emoji */}
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-muted-2 mb-2">
               Icon Emoji
             </label>
             <div className="flex gap-2">
@@ -191,7 +191,7 @@ export function RoomCreationForm({ onSubmit, onCancel }: RoomCreationFormProps) 
                     ${
                       formData.icon_emoji === emoji
                         ? 'border-purple-500 bg-purple-500/10'
-                        : 'border-gray-700 bg-gray-800 hover:border-gray-600'
+                        : 'border-border-default bg-surface-2 hover:border-border-default'
                     }
                   `}
                 >
@@ -203,7 +203,7 @@ export function RoomCreationForm({ onSubmit, onCancel }: RoomCreationFormProps) 
 
           {/* Description */}
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-muted-2 mb-2">
               Description
             </label>
             <textarea
@@ -212,14 +212,14 @@ export function RoomCreationForm({ onSubmit, onCancel }: RoomCreationFormProps) 
                 setFormData({ ...formData, description: e.target.value })
               }
               rows={3}
-              className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-2 text-white placeholder-gray-500 focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
+              className="w-full rounded-lg border border-border-default bg-surface-2 px-4 py-2 text-white placeholder-muted-3 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
               placeholder="Describe what this room is about..."
             />
           </div>
 
           {/* Tags */}
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-muted-2 mb-2">
               Tags (optional)
             </label>
             <div className="flex gap-2 mb-2">
@@ -233,7 +233,7 @@ export function RoomCreationForm({ onSubmit, onCancel }: RoomCreationFormProps) 
                     addTag()
                   }
                 }}
-                className="flex-1 rounded-lg border border-gray-700 bg-gray-800 px-4 py-2 text-white placeholder-gray-500 focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
+                className="flex-1 rounded-lg border border-border-default bg-surface-2 px-4 py-2 text-white placeholder-muted-3 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
                 placeholder="Add a tag..."
               />
               <button
@@ -264,11 +264,11 @@ export function RoomCreationForm({ onSubmit, onCancel }: RoomCreationFormProps) 
           </div>
 
           {/* Actions */}
-          <div className="flex justify-end gap-3 pt-4 border-t border-gray-800">
+          <div className="flex justify-end gap-3 pt-4 border-t border-border-default">
             <button
               type="button"
               onClick={onCancel}
-              className="rounded-lg px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-800"
+              className="rounded-lg px-4 py-2 text-sm font-medium text-muted-2 hover:bg-surface-2"
               disabled={isSubmitting}
             >
               Cancel

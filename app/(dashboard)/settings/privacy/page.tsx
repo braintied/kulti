@@ -95,7 +95,7 @@ export default function PrivacySettingsPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[50vh]">
-        <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-lime-400"></div>
+        <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-accent"></div>
       </div>
     )
   }
@@ -108,7 +108,7 @@ export default function PrivacySettingsPage() {
         description="Control who can view your profile"
       >
         <div className="space-y-3">
-          <label className="flex items-start gap-3 p-4 bg-[#2a2a2a] border-2 border-[#27272a] rounded-lg cursor-pointer hover:border-lime-400/50 transition-colors">
+          <label className="flex items-start gap-3 p-4 bg-surface-2 border-2 border-border-default rounded-lg cursor-pointer hover:border-accent/50 transition-colors">
             <input
               type="radio"
               name="profile_visibility"
@@ -117,17 +117,17 @@ export default function PrivacySettingsPage() {
               onChange={(e) =>
                 setProfileVisibility(e.target.value as ProfileVisibility)
               }
-              className="mt-1 w-4 h-4 accent-lime-400"
+              className="mt-1 w-4 h-4 accent-accent"
             />
             <div>
               <div className="font-bold mb-1">Public</div>
-              <div className="text-sm text-[#a1a1aa]">
+              <div className="text-sm text-muted-2">
                 Anyone can view your profile and stats
               </div>
             </div>
           </label>
 
-          <label className="flex items-start gap-3 p-4 bg-[#2a2a2a] border-2 border-[#27272a] rounded-lg cursor-pointer hover:border-lime-400/50 transition-colors">
+          <label className="flex items-start gap-3 p-4 bg-surface-2 border-2 border-border-default rounded-lg cursor-pointer hover:border-accent/50 transition-colors">
             <input
               type="radio"
               name="profile_visibility"
@@ -136,17 +136,17 @@ export default function PrivacySettingsPage() {
               onChange={(e) =>
                 setProfileVisibility(e.target.value as ProfileVisibility)
               }
-              className="mt-1 w-4 h-4 accent-lime-400"
+              className="mt-1 w-4 h-4 accent-accent"
             />
             <div>
               <div className="font-bold mb-1">Friends Only</div>
-              <div className="text-sm text-[#a1a1aa]">
+              <div className="text-sm text-muted-2">
                 Only friends can view your profile
               </div>
             </div>
           </label>
 
-          <label className="flex items-start gap-3 p-4 bg-[#2a2a2a] border-2 border-[#27272a] rounded-lg cursor-pointer hover:border-lime-400/50 transition-colors">
+          <label className="flex items-start gap-3 p-4 bg-surface-2 border-2 border-border-default rounded-lg cursor-pointer hover:border-accent/50 transition-colors">
             <input
               type="radio"
               name="profile_visibility"
@@ -155,11 +155,11 @@ export default function PrivacySettingsPage() {
               onChange={(e) =>
                 setProfileVisibility(e.target.value as ProfileVisibility)
               }
-              className="mt-1 w-4 h-4 accent-lime-400"
+              className="mt-1 w-4 h-4 accent-accent"
             />
             <div>
               <div className="font-bold mb-1">Private</div>
-              <div className="text-sm text-[#a1a1aa]">
+              <div className="text-sm text-muted-2">
                 Only you can view your profile
               </div>
             </div>
@@ -172,10 +172,10 @@ export default function PrivacySettingsPage() {
         title="Online Status & Availability"
         description="Control your online presence and matchmaking"
       >
-        <label className="flex items-center justify-between p-4 bg-[#2a2a2a] border border-[#27272a] rounded-lg cursor-pointer hover:border-lime-400/50 transition-colors">
+        <label className="flex items-center justify-between p-4 bg-surface-2 border border-border-default rounded-lg cursor-pointer hover:border-accent/50 transition-colors">
           <div>
             <div className="font-bold mb-1">Show Online Status</div>
-            <div className="text-sm text-[#a1a1aa]">
+            <div className="text-sm text-muted-2">
               Allow others to see when you're online
             </div>
           </div>
@@ -185,7 +185,7 @@ export default function PrivacySettingsPage() {
             aria-checked={showOnlineStatus}
             onClick={() => setShowOnlineStatus(!showOnlineStatus)}
             className={`relative w-14 h-8 rounded-full transition-colors ${
-              showOnlineStatus ? "bg-lime-400" : "bg-[#27272a]"
+              showOnlineStatus ? "bg-accent" : "bg-surface-2"
             }`}
           >
             <span
@@ -196,10 +196,10 @@ export default function PrivacySettingsPage() {
           </button>
         </label>
 
-        <label className="flex items-center justify-between p-4 bg-[#2a2a2a] border border-[#27272a] rounded-lg cursor-pointer hover:border-lime-400/50 transition-colors">
+        <label className="flex items-center justify-between p-4 bg-surface-2 border border-border-default rounded-lg cursor-pointer hover:border-accent/50 transition-colors">
           <div>
             <div className="font-bold mb-1">Matchmaking Availability</div>
-            <div className="text-sm text-[#a1a1aa]">
+            <div className="text-sm text-muted-2">
               Allow matchmaking to pair you with other developers
             </div>
           </div>
@@ -209,7 +209,7 @@ export default function PrivacySettingsPage() {
             aria-checked={matchmakingAvailable}
             onClick={() => setMatchmakingAvailable(!matchmakingAvailable)}
             className={`relative w-14 h-8 rounded-full transition-colors ${
-              matchmakingAvailable ? "bg-lime-400" : "bg-[#27272a]"
+              matchmakingAvailable ? "bg-accent" : "bg-surface-2"
             }`}
           >
             <span
@@ -227,11 +227,11 @@ export default function PrivacySettingsPage() {
         description="Control default session visibility and credit display"
       >
         <div>
-          <label className="block text-sm font-medium text-[#a1a1aa] mb-3">
+          <label className="block text-sm font-medium text-muted-2 mb-3">
             Default Session Visibility
           </label>
           <div className="space-y-3">
-            <label className="flex items-start gap-3 p-4 bg-[#2a2a2a] border-2 border-[#27272a] rounded-lg cursor-pointer hover:border-lime-400/50 transition-colors">
+            <label className="flex items-start gap-3 p-4 bg-surface-2 border-2 border-border-default rounded-lg cursor-pointer hover:border-accent/50 transition-colors">
               <input
                 type="radio"
                 name="session_visibility"
@@ -240,17 +240,17 @@ export default function PrivacySettingsPage() {
                 onChange={(e) =>
                   setSessionVisibility(e.target.value as SessionVisibility)
                 }
-                className="mt-1 w-4 h-4 accent-lime-400"
+                className="mt-1 w-4 h-4 accent-accent"
               />
               <div>
                 <div className="font-bold mb-1">Public</div>
-                <div className="text-sm text-[#a1a1aa]">
+                <div className="text-sm text-muted-2">
                   Anyone can discover and join your sessions
                 </div>
               </div>
             </label>
 
-            <label className="flex items-start gap-3 p-4 bg-[#2a2a2a] border-2 border-[#27272a] rounded-lg cursor-pointer hover:border-lime-400/50 transition-colors">
+            <label className="flex items-start gap-3 p-4 bg-surface-2 border-2 border-border-default rounded-lg cursor-pointer hover:border-accent/50 transition-colors">
               <input
                 type="radio"
                 name="session_visibility"
@@ -259,17 +259,17 @@ export default function PrivacySettingsPage() {
                 onChange={(e) =>
                   setSessionVisibility(e.target.value as SessionVisibility)
                 }
-                className="mt-1 w-4 h-4 accent-lime-400"
+                className="mt-1 w-4 h-4 accent-accent"
               />
               <div>
                 <div className="font-bold mb-1">Invite Only</div>
-                <div className="text-sm text-[#a1a1aa]">
+                <div className="text-sm text-muted-2">
                   Only people with an invite link can join
                 </div>
               </div>
             </label>
 
-            <label className="flex items-start gap-3 p-4 bg-[#2a2a2a] border-2 border-[#27272a] rounded-lg cursor-pointer hover:border-lime-400/50 transition-colors">
+            <label className="flex items-start gap-3 p-4 bg-surface-2 border-2 border-border-default rounded-lg cursor-pointer hover:border-accent/50 transition-colors">
               <input
                 type="radio"
                 name="session_visibility"
@@ -278,11 +278,11 @@ export default function PrivacySettingsPage() {
                 onChange={(e) =>
                   setSessionVisibility(e.target.value as SessionVisibility)
                 }
-                className="mt-1 w-4 h-4 accent-lime-400"
+                className="mt-1 w-4 h-4 accent-accent"
               />
               <div>
                 <div className="font-bold mb-1">Private</div>
-                <div className="text-sm text-[#a1a1aa]">
+                <div className="text-sm text-muted-2">
                   Sessions are hidden from public discovery
                 </div>
               </div>
@@ -290,10 +290,10 @@ export default function PrivacySettingsPage() {
           </div>
         </div>
 
-        <label className="flex items-center justify-between p-4 bg-[#2a2a2a] border border-[#27272a] rounded-lg cursor-pointer hover:border-lime-400/50 transition-colors">
+        <label className="flex items-center justify-between p-4 bg-surface-2 border border-border-default rounded-lg cursor-pointer hover:border-accent/50 transition-colors">
           <div>
             <div className="font-bold mb-1">Show Credit Balance</div>
-            <div className="text-sm text-[#a1a1aa]">
+            <div className="text-sm text-muted-2">
               Display your credit balance on your public profile
             </div>
           </div>
@@ -303,7 +303,7 @@ export default function PrivacySettingsPage() {
             aria-checked={showCreditBalance}
             onClick={() => setShowCreditBalance(!showCreditBalance)}
             className={`relative w-14 h-8 rounded-full transition-colors ${
-              showCreditBalance ? "bg-lime-400" : "bg-[#27272a]"
+              showCreditBalance ? "bg-accent" : "bg-surface-2"
             }`}
           >
             <span
@@ -321,8 +321,8 @@ export default function PrivacySettingsPage() {
         disabled={saving}
         className={`w-full px-6 py-3 font-bold rounded-lg transition-colors flex items-center justify-center gap-2 ${
           !saving
-            ? "bg-lime-400 hover:bg-lime-500 text-black"
-            : "bg-[#2a2a2a] text-[#71717a] cursor-not-allowed"
+            ? "bg-accent hover:bg-accent text-black"
+            : "bg-surface-2 text-muted-3 cursor-not-allowed"
         }`}
       >
         {saving ? (

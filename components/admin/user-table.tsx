@@ -46,8 +46,8 @@ export function UserTable({ users, onAction, loading = false }: UserTableProps) 
 
   if (loading) {
     return (
-      <div className="rounded-lg border border-gray-800 bg-gray-900">
-        <div className="animate-pulse p-8 text-center text-gray-500">
+      <div className="rounded-lg border border-border-default bg-surface-1">
+        <div className="animate-pulse p-8 text-center text-muted-3">
           Loading users...
         </div>
       </div>
@@ -56,60 +56,60 @@ export function UserTable({ users, onAction, loading = false }: UserTableProps) 
 
   if (users.length === 0) {
     return (
-      <div className="rounded-lg border border-gray-800 bg-gray-900 p-8 text-center text-gray-500">
+      <div className="rounded-lg border border-border-default bg-surface-1 p-8 text-center text-muted-3">
         No users found
       </div>
     )
   }
 
   return (
-    <div className="overflow-hidden rounded-lg border border-gray-800 bg-gray-900">
+    <div className="overflow-hidden rounded-lg border border-border-default bg-surface-1">
       <table className="w-full">
-        <thead className="border-b border-gray-800 bg-gray-800/50">
+        <thead className="border-b border-border-default bg-surface-2/50">
           <tr>
             <th className="px-4 py-3 text-left">
               <input
                 type="checkbox"
                 checked={selectedUsers.size === users.length}
                 onChange={toggleSelectAll}
-                className="rounded border-gray-700 bg-gray-800 text-purple-600 focus:ring-purple-500"
+                className="rounded border-border-default bg-surface-2 text-purple-600 focus:ring-accent"
               />
             </th>
-            <th className="px-4 py-3 text-left text-sm font-medium text-gray-400">
+            <th className="px-4 py-3 text-left text-sm font-medium text-muted-3">
               User
             </th>
-            <th className="px-4 py-3 text-left text-sm font-medium text-gray-400">
+            <th className="px-4 py-3 text-left text-sm font-medium text-muted-3">
               Username
             </th>
-            <th className="px-4 py-3 text-left text-sm font-medium text-gray-400">
+            <th className="px-4 py-3 text-left text-sm font-medium text-muted-3">
               Role
             </th>
-            <th className="px-4 py-3 text-left text-sm font-medium text-gray-400">
+            <th className="px-4 py-3 text-left text-sm font-medium text-muted-3">
               Credits
             </th>
-            <th className="px-4 py-3 text-left text-sm font-medium text-gray-400">
+            <th className="px-4 py-3 text-left text-sm font-medium text-muted-3">
               Joined
             </th>
-            <th className="px-4 py-3 text-left text-sm font-medium text-gray-400">
+            <th className="px-4 py-3 text-left text-sm font-medium text-muted-3">
               Status
             </th>
-            <th className="px-4 py-3 text-right text-sm font-medium text-gray-400">
+            <th className="px-4 py-3 text-right text-sm font-medium text-muted-3">
               Actions
             </th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-gray-800">
+        <tbody className="divide-y divide-border-default">
           {users.map((user) => (
             <tr
               key={user.id}
-              className="transition-colors hover:bg-gray-800/30"
+              className="transition-colors hover:bg-surface-2/30"
             >
               <td className="px-4 py-3">
                 <input
                   type="checkbox"
                   checked={selectedUsers.has(user.id)}
                   onChange={() => toggleUserSelection(user.id)}
-                  className="rounded border-gray-700 bg-gray-800 text-purple-600 focus:ring-purple-500"
+                  className="rounded border-border-default bg-surface-2 text-purple-600 focus:ring-accent"
                 />
               </td>
               <td className="px-4 py-3">
@@ -132,7 +132,7 @@ export function UserTable({ users, onAction, loading = false }: UserTableProps) 
                   </span>
                 </div>
               </td>
-              <td className="px-4 py-3 text-sm text-gray-400">
+              <td className="px-4 py-3 text-sm text-muted-3">
                 @{user.username}
               </td>
               <td className="px-4 py-3">
@@ -144,7 +144,7 @@ export function UserTable({ users, onAction, loading = false }: UserTableProps) 
                         ? 'bg-purple-500/10 text-purple-500'
                         : user.role === 'moderator'
                           ? 'bg-blue-500/10 text-blue-500'
-                          : 'bg-gray-500/10 text-gray-400'
+                          : 'bg-surface-3 text-muted-3'
                     }
                   `}
                 >
@@ -156,12 +156,12 @@ export function UserTable({ users, onAction, loading = false }: UserTableProps) 
                   <div className="font-medium text-white">
                     {user.credits_balance.toLocaleString()}
                   </div>
-                  <div className="text-xs text-gray-500">
+                  <div className="text-xs text-muted-3">
                     {user.total_credits_earned.toLocaleString()} earned
                   </div>
                 </div>
               </td>
-              <td className="px-4 py-3 text-sm text-gray-400">
+              <td className="px-4 py-3 text-sm text-muted-3">
                 {formatDistanceToNow(new Date(user.created_at), {
                   addSuffix: true,
                 })}

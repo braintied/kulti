@@ -160,20 +160,20 @@ export function TopicDetailModal({
 
   return (
     <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4" role="dialog" aria-modal="true" aria-labelledby="topic-detail-title">
-      <div className="bg-[#0a0a0a] border border-[#27272a] rounded-xl max-w-3xl w-full max-h-[90vh] overflow-hidden flex flex-col">
+      <div className="bg-black border border-border-default rounded-xl max-w-3xl w-full max-h-[90vh] overflow-hidden flex flex-col">
         {/* Header */}
-        <div className="flex items-start justify-between p-6 border-b border-[#27272a]">
+        <div className="flex items-start justify-between p-6 border-b border-border-default">
           <div className="flex-1 pr-4">
             <h2 id="topic-detail-title" className="text-2xl font-bold text-white mb-2">{topic.title}</h2>
             {topic.description && (
-              <p className="text-[#a1a1aa] text-sm">{topic.description}</p>
+              <p className="text-muted-2 text-sm">{topic.description}</p>
             )}
           </div>
           <button
             type="button"
             onClick={handleClose}
             disabled={isSubmittingComment || isStreaming}
-            className="text-[#71717a] hover:text-white transition-colors disabled:opacity-50"
+            className="text-muted-3 hover:text-muted-1 transition-colors disabled:opacity-50"
             aria-label="Close modal"
           >
             <X className="w-6 h-6" />
@@ -191,7 +191,7 @@ export function TopicDetailModal({
 
           {/* Topic Meta */}
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4 text-sm text-[#71717a]">
+            <div className="flex items-center gap-4 text-sm text-muted-3">
               {/* Creator */}
               <div className="flex items-center gap-2">
                 {topic.creator_avatar ? (
@@ -203,7 +203,7 @@ export function TopicDetailModal({
                     className="rounded-full"
                   />
                 ) : (
-                  <div className="w-6 h-6 rounded-full bg-[#27272a] flex items-center justify-center text-xs text-white">
+                  <div className="w-6 h-6 rounded-full bg-surface-2 flex items-center justify-center text-xs text-white">
                     {topic.creator_name.charAt(0).toUpperCase()}
                   </div>
                 )}
@@ -218,7 +218,7 @@ export function TopicDetailModal({
               </span>
 
               {/* Status */}
-              <span className="px-2 py-1 bg-[#27272a] text-[#a1a1aa] text-xs rounded-md">
+              <span className="px-2 py-1 bg-surface-2 text-muted-2 text-xs rounded-md">
                 {topic.status}
               </span>
             </div>
@@ -230,8 +230,8 @@ export function TopicDetailModal({
                 disabled={isVoting || topic.status !== "proposed"}
                 className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors ${
                   localHasVoted
-                    ? "bg-lime-400 text-black"
-                    : "bg-[#27272a] text-[#a1a1aa] hover:bg-[#3f3f46] hover:text-white"
+                    ? "bg-accent text-black"
+                    : "bg-surface-2 text-muted-2 hover:bg-surface-3 hover:text-muted-1"
                 } disabled:opacity-50 disabled:cursor-not-allowed`}
               >
                 <ArrowUp className="w-5 h-5" />
@@ -243,7 +243,7 @@ export function TopicDetailModal({
                 <button
                   onClick={handleStreamThis}
                   disabled={isStreaming}
-                  className="px-4 py-2 bg-gradient-to-r from-lime-400 to-green-400 text-black rounded-lg font-medium hover:from-lime-500 hover:to-green-500 transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-4 py-2 bg-gradient-to-r from-accent to-green-400 text-black rounded-lg font-medium hover:from-accent hover:to-success transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isStreaming ? (
                     <>
@@ -267,7 +267,7 @@ export function TopicDetailModal({
               {topic.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="px-3 py-1 bg-[#27272a] text-[#a1a1aa] text-xs rounded-md"
+                  className="px-3 py-1 bg-surface-2 text-muted-2 text-xs rounded-md"
                 >
                   #{tag}
                 </span>
@@ -278,7 +278,7 @@ export function TopicDetailModal({
           {/* Comments Section */}
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <MessageSquare className="w-5 h-5 text-[#a1a1aa]" />
+              <MessageSquare className="w-5 h-5 text-muted-2" />
               <h3 className="text-lg font-bold text-white">
                 Comments ({comments.length})
               </h3>
@@ -287,13 +287,13 @@ export function TopicDetailModal({
             {/* Comments List */}
             {isLoadingComments ? (
               <div className="flex items-center justify-center py-8">
-                <Loader2 className="w-6 h-6 animate-spin text-[#a1a1aa]" />
+                <Loader2 className="w-6 h-6 animate-spin text-muted-2" />
               </div>
             ) : comments.length === 0 ? (
-              <div className="text-center py-8 bg-[#1a1a1a] rounded-lg border border-[#27272a]">
-                <MessageSquare className="w-12 h-12 text-[#71717a] mx-auto mb-3" />
-                <p className="text-[#a1a1aa]">No comments yet</p>
-                <p className="text-[#71717a] text-sm mt-1">
+              <div className="text-center py-8 bg-surface-1 rounded-lg border border-border-default">
+                <MessageSquare className="w-12 h-12 text-muted-3 mx-auto mb-3" />
+                <p className="text-muted-2">No comments yet</p>
+                <p className="text-muted-3 text-sm mt-1">
                   Be the first to share your thoughts!
                 </p>
               </div>
@@ -308,7 +308,7 @@ export function TopicDetailModal({
         </div>
 
         {/* Add Comment Form */}
-        <div className="border-t border-[#27272a] p-6">
+        <div className="border-t border-border-default p-6">
           <form onSubmit={handleSubmitComment} className="space-y-3">
             <textarea
               value={newComment}
@@ -316,16 +316,16 @@ export function TopicDetailModal({
               placeholder="Share your thoughts..."
               rows={3}
               disabled={isSubmittingComment}
-              className="w-full px-4 py-3 bg-[#1a1a1a] border border-[#27272a] rounded-lg text-white placeholder-[#71717a] focus:border-lime-400 focus:outline-none resize-none disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full px-4 py-3 bg-surface-1 border border-border-default rounded-lg text-white placeholder-muted-3 focus:border-accent focus:outline-none resize-none disabled:opacity-50 disabled:cursor-not-allowed"
             />
             <div className="flex justify-between items-center">
-              <p className="text-xs text-[#71717a]">
+              <p className="text-xs text-muted-3">
                 {newComment.length}/1000 characters
               </p>
               <button
                 type="submit"
                 disabled={!newComment.trim() || isSubmittingComment}
-                className="px-4 py-2 bg-lime-400 text-black rounded-lg font-medium hover:bg-lime-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                className="px-4 py-2 bg-accent text-black rounded-lg font-medium hover:bg-accent transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
               >
                 {isSubmittingComment ? (
                   <>
@@ -353,7 +353,7 @@ interface CommentCardProps {
 
 function CommentCard({ comment }: CommentCardProps) {
   return (
-    <div className="bg-[#1a1a1a] border border-[#27272a] rounded-lg p-4">
+    <div className="bg-surface-1 border border-border-default rounded-lg p-4">
       <div className="flex items-start gap-3">
         {/* Avatar */}
         {comment.commenter?.avatar_url ? (
@@ -365,7 +365,7 @@ function CommentCard({ comment }: CommentCardProps) {
             className="rounded-full"
           />
         ) : (
-          <div className="w-10 h-10 rounded-full bg-[#27272a] flex items-center justify-center text-white font-medium">
+          <div className="w-10 h-10 rounded-full bg-surface-2 flex items-center justify-center text-white font-medium">
             {comment.commenter?.display_name.charAt(0).toUpperCase() || "?"}
           </div>
         )}
@@ -376,27 +376,27 @@ function CommentCard({ comment }: CommentCardProps) {
             <span className="font-medium text-white">
               {comment.commenter?.display_name || "Unknown User"}
             </span>
-            <span className="text-xs text-[#71717a]">
+            <span className="text-xs text-muted-3">
               {comment.commenter?.username
                 ? `@${comment.commenter.username}`
                 : ""}
             </span>
-            <span className="text-xs text-[#71717a]">·</span>
-            <span className="text-xs text-[#71717a]">
+            <span className="text-xs text-muted-3">·</span>
+            <span className="text-xs text-muted-3">
               {formatDistanceToNow(new Date(comment.created_at), {
                 addSuffix: true,
               })}
             </span>
             {comment.edited_at && (
               <>
-                <span className="text-xs text-[#71717a]">·</span>
-                <span className="text-xs text-[#71717a]">edited</span>
+                <span className="text-xs text-muted-3">·</span>
+                <span className="text-xs text-muted-3">edited</span>
               </>
             )}
           </div>
 
           {/* Content */}
-          <p className="text-[#a1a1aa] text-sm whitespace-pre-wrap">
+          <p className="text-muted-2 text-sm whitespace-pre-wrap">
             {comment.content}
           </p>
         </div>

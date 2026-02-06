@@ -28,11 +28,11 @@ interface TopicFeedProps {
 }
 
 const STATUS_COLORS: Record<TopicStatus, string> = {
-  proposed: "text-[#a1a1aa]",
+  proposed: "text-muted-2",
   planned: "text-blue-400",
-  "in-progress": "text-lime-400",
+  "in-progress": "text-accent",
   completed: "text-green-400",
-  archived: "text-[#71717a]",
+  archived: "text-muted-3",
 }
 
 const STATUS_LABELS: Record<TopicStatus, string> = {
@@ -74,13 +74,13 @@ export function TopicFeed({
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold text-white">Discussion Topics</h2>
-          <p className="text-[#a1a1aa] mt-1">
+          <p className="text-muted-2 mt-1">
             Propose topics for future streams and vote on what you'd like to see
           </p>
         </div>
         <button
           onClick={() => setShowCreateModal(true)}
-          className="px-4 py-2 bg-lime-400 text-black rounded-lg font-medium hover:bg-lime-500 transition-colors"
+          className="px-4 py-2 bg-accent text-black rounded-lg font-medium hover:bg-accent transition-colors"
         >
           Propose Topic
         </button>
@@ -92,8 +92,8 @@ export function TopicFeed({
           onClick={() => setFilter("all")}
           className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
             filter === "all"
-              ? "bg-lime-400 text-black"
-              : "bg-[#1a1a1a] text-[#a1a1aa] border border-[#27272a] hover:border-[#3f3f46]"
+              ? "bg-accent text-black"
+              : "bg-surface-1 text-muted-2 border border-border-default hover:border-border-default"
           }`}
         >
           All
@@ -105,8 +105,8 @@ export function TopicFeed({
               onClick={() => setFilter(status)}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                 filter === status
-                  ? "bg-lime-400 text-black"
-                  : "bg-[#1a1a1a] text-[#a1a1aa] border border-[#27272a] hover:border-[#3f3f46]"
+                  ? "bg-accent text-black"
+                  : "bg-surface-1 text-muted-2 border border-border-default hover:border-border-default"
               }`}
             >
               {STATUS_LABELS[status]}
@@ -117,10 +117,10 @@ export function TopicFeed({
 
       {/* Topics List */}
       {filteredTopics.length === 0 ? (
-        <div className="text-center py-12 bg-[#1a1a1a] rounded-xl border border-[#27272a]">
-          <div className="text-6xl mb-4">💡</div>
-          <p className="text-[#a1a1aa] text-lg">No topics yet</p>
-          <p className="text-[#71717a] text-sm mt-2">
+        <div className="text-center py-12 bg-surface-1 rounded-xl border border-border-default">
+          <div className="text-sm font-mono text-muted-3 mb-4">topics</div>
+          <p className="text-muted-2 text-lg">No topics yet</p>
+          <p className="text-muted-3 text-sm mt-2">
             Be the first to propose a topic for discussion!
           </p>
         </div>
@@ -222,7 +222,7 @@ function TopicCard({ topic, currentUserId, isHost, onClick }: TopicCardProps) {
   return (
     <div
       onClick={() => onClick(topic)}
-      className="bg-[#1a1a1a] border border-[#27272a] rounded-xl p-6 hover:border-[#3f3f46] transition-colors cursor-pointer"
+      className="bg-surface-1 border border-border-default rounded-xl p-6 hover:border-border-default transition-colors cursor-pointer"
     >
       <div className="flex gap-4">
         {/* Vote Button */}
@@ -232,8 +232,8 @@ function TopicCard({ topic, currentUserId, isHost, onClick }: TopicCardProps) {
             disabled={isVoting || topic.status !== "proposed"}
             className={`w-10 h-10 rounded-lg flex items-center justify-center transition-colors ${
               hasVoted
-                ? "bg-lime-400 text-black"
-                : "bg-[#27272a] text-[#a1a1aa] hover:bg-[#3f3f46] hover:text-white"
+                ? "bg-accent text-black"
+                : "bg-surface-2 text-muted-2 hover:bg-surface-3 hover:text-muted-1"
             } disabled:opacity-50 disabled:cursor-not-allowed`}
           >
             <ArrowUp className="w-5 h-5" />
@@ -249,10 +249,10 @@ function TopicCard({ topic, currentUserId, isHost, onClick }: TopicCardProps) {
               {statusLabel}
             </span>
             {topic.status === "in-progress" && (
-              <span className="flex items-center gap-1 text-xs text-lime-400">
+              <span className="flex items-center gap-1 text-xs text-accent">
                 <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-lime-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-lime-400"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
                 </span>
                 Live
               </span>
@@ -266,7 +266,7 @@ function TopicCard({ topic, currentUserId, isHost, onClick }: TopicCardProps) {
 
           {/* Description */}
           {topic.description && (
-            <p className="text-[#a1a1aa] text-sm mb-3 line-clamp-2">
+            <p className="text-muted-2 text-sm mb-3 line-clamp-2">
               {topic.description}
             </p>
           )}
@@ -277,7 +277,7 @@ function TopicCard({ topic, currentUserId, isHost, onClick }: TopicCardProps) {
               {topic.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="px-2 py-1 bg-[#27272a] text-[#a1a1aa] text-xs rounded-md"
+                  className="px-2 py-1 bg-surface-2 text-muted-2 text-xs rounded-md"
                 >
                   #{tag}
                 </span>
@@ -287,7 +287,7 @@ function TopicCard({ topic, currentUserId, isHost, onClick }: TopicCardProps) {
 
           {/* Footer */}
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4 text-sm text-[#71717a]">
+            <div className="flex items-center gap-4 text-sm text-muted-3">
               {/* Creator */}
               <div className="flex items-center gap-2">
                 {topic.creator_avatar ? (
@@ -299,7 +299,7 @@ function TopicCard({ topic, currentUserId, isHost, onClick }: TopicCardProps) {
                     className="rounded-full"
                   />
                 ) : (
-                  <div className="w-5 h-5 rounded-full bg-[#27272a] flex items-center justify-center text-xs">
+                  <div className="w-5 h-5 rounded-full bg-surface-2 flex items-center justify-center text-xs">
                     {topic.creator_name.charAt(0).toUpperCase()}
                   </div>
                 )}
@@ -329,7 +329,7 @@ function TopicCard({ topic, currentUserId, isHost, onClick }: TopicCardProps) {
                   <button
                     onClick={handleStreamThis}
                     disabled={isStreaming}
-                    className="px-4 py-2 bg-gradient-to-r from-lime-400 to-green-400 text-black rounded-lg font-medium hover:from-lime-500 hover:to-green-500 transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-4 py-2 bg-gradient-to-r from-accent to-green-400 text-black rounded-lg font-medium hover:from-accent hover:to-success transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <Sparkles className="w-4 h-4" />
                     {isStreaming ? "Creating..." : "Stream This Topic"}
@@ -341,7 +341,7 @@ function TopicCard({ topic, currentUserId, isHost, onClick }: TopicCardProps) {
                 <Link
                   href={`/session/${topic.covered_in_session_id}`}
                   onClick={(e) => e.stopPropagation()}
-                  className="px-4 py-2 bg-[#27272a] text-white rounded-lg font-medium hover:bg-[#3f3f46] transition-colors flex items-center gap-2"
+                  className="px-4 py-2 bg-surface-2 text-white rounded-lg font-medium hover:bg-surface-3 transition-colors flex items-center gap-2"
                 >
                   <Play className="w-4 h-4" />
                   View Stream

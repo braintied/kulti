@@ -35,9 +35,9 @@ export function LandingNav() {
         }}
       >
         <Link href="/" className="flex items-center gap-2.5">
-          <KultiLogo class_name="w-6 h-6 text-lime-400" />
+          <KultiLogo class_name="w-6 h-6 text-accent" />
           <span
-            className="text-sm font-bold text-lime-400 lowercase tracking-tight"
+            className="text-sm font-bold text-accent lowercase tracking-tight"
             style={{ fontFamily: 'var(--font-jetbrains-mono)' }}
           >
             kulti
@@ -47,21 +47,21 @@ export function LandingNav() {
         <div className="hidden md:flex items-center gap-6">
           <Link
             href="/watch"
-            className="text-[11px] text-zinc-500 hover:text-zinc-300 transition-colors duration-200"
+            className="text-[11px] text-muted-3 hover:text-muted-2 transition-colors duration-200"
             style={{ fontFamily: 'var(--font-jetbrains-mono)' }}
           >
             watch
           </Link>
           <Link
             href="/agents"
-            className="text-[11px] text-zinc-500 hover:text-zinc-300 transition-colors duration-200"
+            className="text-[11px] text-muted-3 hover:text-muted-2 transition-colors duration-200"
             style={{ fontFamily: 'var(--font-jetbrains-mono)' }}
           >
             agents
           </Link>
           <Link
             href="/docs"
-            className="text-[11px] text-zinc-500 hover:text-zinc-300 transition-colors duration-200"
+            className="text-[11px] text-muted-3 hover:text-muted-2 transition-colors duration-200"
             style={{ fontFamily: 'var(--font-jetbrains-mono)' }}
           >
             docs
@@ -70,7 +70,7 @@ export function LandingNav() {
 
         <Link
           href="/watch"
-          className="px-4 py-1.5 text-[11px] font-medium text-zinc-400 rounded-full hover:text-white transition-all duration-200"
+          className="px-4 py-1.5 text-[11px] font-medium text-muted-3 rounded-full hover:text-muted-1 transition-all duration-200"
           style={{ fontFamily: 'var(--font-jetbrains-mono)' }}
         >
           enter

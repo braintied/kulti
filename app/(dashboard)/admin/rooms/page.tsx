@@ -112,7 +112,7 @@ export default function RoomsPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-white">Community Rooms</h1>
-          <p className="mt-2 text-gray-400">
+          <p className="mt-2 text-muted-3">
             Create and manage discussion spaces
           </p>
         </div>
@@ -126,7 +126,7 @@ export default function RoomsPage() {
       </div>
 
       {/* Stats */}
-      <div className="flex gap-4 text-sm text-gray-400">
+      <div className="flex gap-4 text-sm text-muted-3">
         <span>
           Active Rooms:{' '}
           <span className="font-medium text-white">{activeRooms.length}</span>
@@ -138,22 +138,22 @@ export default function RoomsPage() {
       </div>
 
       {/* Active Rooms */}
-      <div className="rounded-lg border border-gray-800 bg-gray-900">
-        <div className="border-b border-gray-800 p-4">
+      <div className="rounded-lg border border-border-default bg-surface-1">
+        <div className="border-b border-border-default p-4">
           <h2 className="font-semibold text-white">Active Rooms</h2>
         </div>
-        <div className="divide-y divide-gray-800">
+        <div className="divide-y divide-border-default">
           {loading ? (
-            <div className="p-8 text-center text-gray-500">Loading rooms...</div>
+            <div className="p-8 text-center text-muted-3">Loading rooms...</div>
           ) : activeRooms.length === 0 ? (
-            <div className="p-8 text-center text-gray-500">
+            <div className="p-8 text-center text-muted-3">
               No active rooms. Create one to get started!
             </div>
           ) : (
             activeRooms.map((room) => (
               <div
                 key={room.id}
-                className="flex items-center justify-between p-4 hover:bg-gray-800/30"
+                className="flex items-center justify-between p-4 hover:bg-surface-2/30"
               >
                 <div className="flex items-center gap-4 flex-1">
                   <span className="text-3xl">{room.icon_emoji}</span>
@@ -164,10 +164,10 @@ export default function RoomsPage() {
                         {room.category}
                       </span>
                     </div>
-                    <p className="mt-1 text-sm text-gray-400">
+                    <p className="mt-1 text-sm text-muted-3">
                       {room.description || 'No description'}
                     </p>
-                    <div className="mt-2 flex gap-4 text-xs text-gray-500">
+                    <div className="mt-2 flex gap-4 text-xs text-muted-3">
                       <span>{room.member_count} members</span>
                       <span>{room.message_count} messages</span>
                       <span>
@@ -190,7 +190,7 @@ export default function RoomsPage() {
                   </a>
                   <button
                     onClick={() => archiveRoom(room.id)}
-                    className="rounded-lg p-1.5 text-gray-400 hover:bg-gray-800 hover:text-white"
+                    className="rounded-lg p-1.5 text-muted-3 hover:bg-surface-2 hover:text-muted-1"
                     title="Archive room"
                   >
                     <Archive className="h-5 w-5" />
@@ -211,21 +211,21 @@ export default function RoomsPage() {
 
       {/* Archived Rooms */}
       {archivedRooms.length > 0 && (
-        <div className="rounded-lg border border-gray-800 bg-gray-900">
-          <div className="border-b border-gray-800 p-4">
+        <div className="rounded-lg border border-border-default bg-surface-1">
+          <div className="border-b border-border-default p-4">
             <h2 className="font-semibold text-white">Archived Rooms</h2>
           </div>
-          <div className="divide-y divide-gray-800">
+          <div className="divide-y divide-border-default">
             {archivedRooms.map((room) => (
               <div
                 key={room.id}
-                className="flex items-center justify-between p-4 opacity-60 hover:bg-gray-800/30"
+                className="flex items-center justify-between p-4 opacity-60 hover:bg-surface-2/30"
               >
                 <div className="flex items-center gap-4">
                   <span className="text-2xl">{room.icon_emoji}</span>
                   <div>
                     <h3 className="font-medium text-white">{room.name}</h3>
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs text-muted-3">
                       Archived{' '}
                       {room.archived_at &&
                         formatDistanceToNow(new Date(room.archived_at), {

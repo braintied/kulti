@@ -137,12 +137,12 @@ export function HLSViewer({ streamUrl, sessionId, onError }: HLSViewerProps) {
 
   if (error) {
     return (
-      <div className="w-full h-full flex items-center justify-center bg-[#1a1a1a] rounded-lg">
+      <div className="w-full h-full flex items-center justify-center bg-surface-1 rounded-lg">
         <div className="text-center space-y-4 p-8">
           <WifiOff className="w-16 h-16 mx-auto text-red-500" />
           <div>
             <h3 className="text-xl font-bold text-white mb-2">Stream Unavailable</h3>
-            <p className="text-[#a1a1aa]">{error}</p>
+            <p className="text-muted-2">{error}</p>
           </div>
         </div>
       </div>
@@ -153,10 +153,10 @@ export function HLSViewer({ streamUrl, sessionId, onError }: HLSViewerProps) {
     <div className="relative w-full h-full bg-black rounded-lg overflow-hidden group">
       {/* Loading State */}
       {isLoading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-[#1a1a1a] z-10">
+        <div className="absolute inset-0 flex items-center justify-center bg-surface-1 z-10">
           <div className="text-center space-y-4">
-            <Loader2 className="w-12 h-12 mx-auto animate-spin text-lime-400" />
-            <p className="text-lg text-[#a1a1aa]">Loading stream...</p>
+            <Loader2 className="w-12 h-12 mx-auto animate-spin text-accent" />
+            <p className="text-lg text-muted-2">Loading stream...</p>
           </div>
         </div>
       )}
@@ -199,7 +199,7 @@ export function HLSViewer({ streamUrl, sessionId, onError }: HLSViewerProps) {
 
       {/* Bottom Info Bar */}
       <div className="absolute bottom-20 left-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity">
-        <div className="bg-black/80 backdrop-blur rounded-lg px-4 py-2 text-sm text-[#a1a1aa]">
+        <div className="bg-black/80 backdrop-blur rounded-lg px-4 py-2 text-sm text-muted-2">
           Viewing via HLS (Scalable Streaming) - Low latency mode enabled
         </div>
       </div>

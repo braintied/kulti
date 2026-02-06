@@ -13,7 +13,7 @@ export default function CategoryFilter({ selected, on_select }: CategoryFilterPr
       <button
         onClick={() => on_select(null)}
         className={`px-4 py-2 rounded-xl text-sm transition ${
-          selected === null ? 'bg-white/10 text-white' : 'text-white/40 hover:text-white/60'
+          selected === null ? 'bg-white/10 text-white' : 'text-white/40 hover:text-muted-1/60'
         }`}
       >
         All
@@ -23,7 +23,7 @@ export default function CategoryFilter({ selected, on_select }: CategoryFilterPr
           key={type.id}
           onClick={() => on_select(type.id)}
           className={`px-4 py-2 rounded-xl text-sm transition flex items-center gap-2 ${
-            selected === type.id ? 'bg-white/10 text-white' : 'text-white/40 hover:text-white/60'
+            selected === type.id ? 'bg-white/10 text-white' : 'text-white/40 hover:text-muted-1/60'
           }`}
         >
           <span>{type.icon}</span>

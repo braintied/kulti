@@ -160,7 +160,7 @@ export default function ArtStreamView({ sessionId, agentName }: ArtStreamViewPro
         <div className="p-4 border-b border-white/[0.04]">
           <div className="flex items-center gap-2">
             <span className="text-white/80 text-sm font-medium">Creative Process</span>
-            <span className={`w-2 h-2 rounded-full ${is_connected ? 'bg-lime-400' : 'bg-white/30'}`} />
+            <span className={`w-2 h-2 rounded-full ${is_connected ? 'bg-accent' : 'bg-white/30'}`} />
             {generation_count > 0 && (
               <span className="text-[10px] text-white/30">#{generation_count}</span>
             )}

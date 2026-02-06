@@ -21,7 +21,7 @@ interface StreamPresenceProps {
   wsUrl: string;
 }
 
-const REACTION_EMOJIS = ['🔥', '💯', '🎨', '💡', '🚀', '👀', '💭', '⚡'];
+const REACTION_EMOJIS = ['+1', '!!', 'art', 'idea', 'go', 'eyes', 'hmm', 'zap'];
 
 export default function StreamPresence({ agentId, wsUrl }: StreamPresenceProps) {
   const [viewers, setViewers] = useState<Viewer[]>([]);
@@ -107,7 +107,7 @@ export default function StreamPresence({ agentId, wsUrl }: StreamPresenceProps) 
               {viewers.slice(0, 5).map((viewer) => (
                 <div
                   key={viewer.id}
-                  className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400 to-indigo-600 ring-2 ring-black flex items-center justify-center text-xs font-medium"
+                  className="w-8 h-8 rounded-full bg-gradient-to-br from-accent to-indigo-600 ring-2 ring-black flex items-center justify-center text-xs font-medium"
                   title={viewer.name}
                 >
                   {viewer.avatar ? (
@@ -147,7 +147,7 @@ export default function StreamPresence({ agentId, wsUrl }: StreamPresenceProps) 
               onClick={() => setShowReactionPicker(!showReactionPicker)}
               className="glass rounded-2xl px-4 py-3 flex items-center gap-2 hover:bg-white/[0.06] transition"
             >
-              <span className="text-xl">🔥</span>
+              <span className="text-xl font-mono">+1</span>
               <span className="text-sm text-white/50">React</span>
             </button>
           </div>

@@ -157,7 +157,7 @@ function DashboardContent() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[50vh]">
-        <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-lime-400"></div>
+        <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-accent"></div>
       </div>
     )
   }
@@ -184,12 +184,12 @@ function DashboardContent() {
       <div className="flex flex-col gap-4 sm:gap-6">
         <div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-mono">Dashboard</h1>
-          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-[#a1a1aa] mt-2 sm:mt-4">
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-2 mt-2 sm:mt-4">
             Join a live session or create your own
           </p>
           {onlineUsers > 0 && (
-            <div className="flex items-center gap-2 mt-2 sm:mt-3 text-lime-400">
-              <div className="w-2 h-2 bg-lime-400 rounded-full animate-pulse"></div>
+            <div className="flex items-center gap-2 mt-2 sm:mt-3 text-accent">
+              <div className="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
               <span className="text-sm font-medium">
                 {onlineUsers} {onlineUsers === 1 ? 'developer' : 'developers'} online
               </span>
@@ -202,7 +202,7 @@ function DashboardContent() {
             onClick={() => setShowFindSession(true)}
             disabled={!profileCompleted}
             data-tour="find-match"
-            className="min-h-[56px] bg-gradient-to-r from-lime-400 to-green-500 hover:from-lime-500 hover:to-green-600 text-black font-bold text-base sm:text-lg lg:text-xl px-8 sm:px-10 py-4 sm:py-5 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="min-h-[56px] bg-gradient-to-r from-accent to-green-500 hover:from-accent hover:to-success text-black font-bold text-base sm:text-lg lg:text-xl px-8 sm:px-10 py-4 sm:py-5 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
             title={!profileCompleted ? 'Complete your profile first' : ''}
             aria-label="Find a session to join"
             aria-disabled={!profileCompleted}
@@ -213,7 +213,7 @@ function DashboardContent() {
           <button
             onClick={() => router.push("/dashboard?create=true")}
             data-tour="create-session"
-            className="min-h-[56px] bg-lime-400 hover:bg-lime-500 text-black font-bold text-base sm:text-lg lg:text-xl px-8 sm:px-10 py-4 sm:py-5 rounded-xl transition-colors duration-300"
+            className="min-h-[56px] bg-accent hover:bg-accent text-black font-bold text-base sm:text-lg lg:text-xl px-8 sm:px-10 py-4 sm:py-5 rounded-xl transition-colors duration-300"
             aria-label="Create a new session"
           >
             Create Session
@@ -223,22 +223,22 @@ function DashboardContent() {
 
       {/* Matchmaking Widget (if users online) */}
       {onlineUsers > 2 && profileCompleted && (
-        <div className="p-4 sm:p-6 bg-gradient-to-br from-lime-400/10 to-green-500/10 border-2 border-lime-400/20 rounded-xl sm:rounded-2xl">
+        <div className="p-4 sm:p-6 bg-gradient-to-br from-accent/10 to-green-500/10 border-2 border-accent/20 rounded-xl sm:rounded-2xl">
           <div className="flex flex-col sm:flex-row items-start justify-between gap-4">
             <div className="flex items-start gap-3 sm:gap-4 flex-1">
-              <div className="p-2 sm:p-3 bg-lime-400 rounded-lg sm:rounded-xl flex-shrink-0">
+              <div className="p-2 sm:p-3 bg-accent rounded-lg sm:rounded-xl flex-shrink-0">
                 <Users className="w-6 h-6 sm:w-8 sm:h-8 text-black" />
               </div>
               <div className="min-w-0">
                 <h3 className="text-lg sm:text-xl lg:text-2xl font-bold mb-1">Compatible Developers Online</h3>
-                <p className="text-sm sm:text-base text-[#a1a1aa]">
+                <p className="text-sm sm:text-base text-muted-2">
                   {onlineUsers} developers who match your skills are available right now
                 </p>
               </div>
             </div>
             <button
               onClick={() => setShowFindSession(true)}
-              className="w-full sm:w-auto min-h-[44px] px-6 py-3 bg-lime-400 hover:bg-lime-500 text-black font-bold rounded-lg transition-colors whitespace-nowrap"
+              className="w-full sm:w-auto min-h-[44px] px-6 py-3 bg-accent hover:bg-accent text-black font-bold rounded-lg transition-colors whitespace-nowrap"
             >
               Find Match
             </button>
@@ -264,16 +264,16 @@ function DashboardContent() {
           </div>
         ) : (
           <div
-            className="text-center py-12 sm:py-20 border border-[#27272a] border-dashed rounded-xl sm:rounded-2xl bg-[#1a1a1a]/30 backdrop-blur-sm px-4"
+            className="text-center py-12 sm:py-20 border border-border-default border-dashed rounded-xl sm:rounded-2xl bg-surface-1/30 backdrop-blur-sm px-4"
             role="status"
             aria-label="No live sessions"
           >
-            <p className="text-lg sm:text-xl lg:text-2xl text-[#a1a1aa] mb-6 sm:mb-8">
+            <p className="text-lg sm:text-xl lg:text-2xl text-muted-2 mb-6 sm:mb-8">
               No live sessions right now. Be the first to start one!
             </p>
             <button
               onClick={() => router.push("/dashboard?create=true")}
-              className="min-h-[56px] bg-lime-400 hover:bg-lime-500 text-black font-bold text-base sm:text-lg lg:text-xl px-8 sm:px-12 py-4 sm:py-5 rounded-xl transition-colors duration-300"
+              className="min-h-[56px] bg-accent hover:bg-accent text-black font-bold text-base sm:text-lg lg:text-xl px-8 sm:px-12 py-4 sm:py-5 rounded-xl transition-colors duration-300"
               aria-label="Create a new session"
             >
               Create Session
@@ -290,7 +290,7 @@ export default function DashboardPage() {
   return (
     <Suspense fallback={
       <div className="flex items-center justify-center min-h-[50vh]">
-        <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-lime-400"></div>
+        <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-accent"></div>
       </div>
     }>
       <DashboardContent />

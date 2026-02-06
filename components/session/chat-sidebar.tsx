@@ -98,7 +98,7 @@ export function ChatSidebar({ sessionId, userId }: ChatSidebarProps) {
   return (
     <div className="h-full flex flex-col">
       {/* Header */}
-      <div className="border-b border-gray-800 p-4">
+      <div className="border-b border-border-default p-4">
         <h3 className="font-bold font-mono">Chat</h3>
       </div>
 
@@ -134,7 +134,7 @@ export function ChatSidebar({ sessionId, userId }: ChatSidebarProps) {
       </div>
 
       {/* Input */}
-      <form onSubmit={handleSendMessage} className="border-t border-gray-800 p-4">
+      <form onSubmit={handleSendMessage} className="border-t border-border-default p-4">
         <div className="flex gap-2">
           <Input
             value={newMessage}

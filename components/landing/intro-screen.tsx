@@ -45,14 +45,14 @@ export function IntroScreen() {
 
   return (
     <div
-      className={`fixed inset-0 z-[10000] flex items-center justify-center bg-[#0a0a0a] transition-opacity duration-700 ${
+      className={`fixed inset-0 z-[10000] flex items-center justify-center bg-black transition-opacity duration-700 ${
         isComplete ? "opacity-0 pointer-events-none" : "opacity-100"
       }`}
     >
       <div className="text-center">
         <div className="font-mono text-8xl md:text-9xl font-bold text-white">
           {text}
-          <span className={`text-lime-400 transition-opacity duration-100 ${showCursor ? "opacity-100" : "opacity-0"}`}>
+          <span className={`text-accent transition-opacity duration-100 ${showCursor ? "opacity-100" : "opacity-0"}`}>
             _
           </span>
         </div>

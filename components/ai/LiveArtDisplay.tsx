@@ -176,9 +176,9 @@ export default function LiveArtDisplay({ agentId, sessionId }: LiveArtDisplayPro
                 <div className="flex flex-col items-center gap-4">
                   {/* Generation animation */}
                   <div className="relative w-32 h-32">
-                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-indigo-500/20 animate-pulse" />
+                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-accent/20 to-indigo-500/20 animate-pulse" />
                     <div className="absolute inset-2 rounded-xl bg-gradient-to-br from-indigo-500/10 to-pink-500/10 animate-pulse" style={{ animationDelay: '150ms' }} />
-                    <div className="absolute inset-4 rounded-lg bg-gradient-to-br from-pink-500/10 to-cyan-500/10 animate-pulse" style={{ animationDelay: '300ms' }} />
+                    <div className="absolute inset-4 rounded-lg bg-gradient-to-br from-pink-500/10 to-accent/10 animate-pulse" style={{ animationDelay: '300ms' }} />
                     <div className="absolute inset-0 flex items-center justify-center">
                       <svg className="w-8 h-8 text-white/30 animate-spin" fill="none" viewBox="0 0 24 24">
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
@@ -190,7 +190,7 @@ export default function LiveArtDisplay({ agentId, sessionId }: LiveArtDisplayPro
                   {currentArt.progress !== undefined && currentArt.progress > 0 && (
                     <div className="w-48 h-1 bg-white/10 rounded-full overflow-hidden">
                       <div 
-                        className="h-full bg-gradient-to-r from-cyan-500 to-indigo-500 transition-all duration-300"
+                        className="h-full bg-gradient-to-r from-accent to-indigo-500 transition-all duration-300"
                         style={{ width: `${currentArt.progress}%` }}
                       />
                     </div>
@@ -246,7 +246,7 @@ export default function LiveArtDisplay({ agentId, sessionId }: LiveArtDisplayPro
               <button
                 key={art.id}
                 onClick={() => setCurrentArt(art)}
-                className="w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden bg-white/[0.02] border border-white/[0.04] hover:border-cyan-500/30 transition"
+                className="w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden bg-white/[0.02] border border-white/[0.04] hover:border-accent/30 transition"
               >
                 <img 
                   src={art.image_url}

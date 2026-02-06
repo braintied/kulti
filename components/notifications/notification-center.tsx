@@ -47,7 +47,7 @@ export default function NotificationCenter({ onClose }: NotificationCenterProps)
       case 'message_reply':
         return <MessageCircle className="h-5 w-5 text-pink-500" />
       default:
-        return <Bell className="h-5 w-5 text-gray-500" />
+        return <Bell className="h-5 w-5 text-muted-3" />
     }
   }
 
@@ -71,12 +71,12 @@ export default function NotificationCenter({ onClose }: NotificationCenterProps)
   }
 
   return (
-    <div className="w-96 bg-white dark:bg-gray-900 rounded-lg shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+    <div className="w-96 bg-white dark:bg-surface-1 rounded-lg shadow-2xl border border-border-default dark:border-border-default overflow-hidden">
       {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+      <div className="flex items-center justify-between p-4 border-b border-border-default dark:border-border-default">
         <div className="flex items-center gap-2">
-          <Bell className="h-5 w-5 text-gray-700 dark:text-gray-300" />
-          <h3 className="font-semibold text-gray-900 dark:text-white">
+          <Bell className="h-5 w-5 text-muted-3 dark:text-muted-2" />
+          <h3 className="font-semibold text-muted-1 dark:text-white">
             Notifications
           </h3>
           {unreadCount > 0 && (
@@ -104,30 +104,30 @@ export default function NotificationCenter({ onClose }: NotificationCenterProps)
         aria-live="polite"
       >
         {loading ? (
-          <div className="p-8 text-center text-gray-500 dark:text-gray-400" role="status">
-            <div className="w-8 h-8 border-4 border-gray-300 border-t-gray-600 rounded-full animate-spin mx-auto mb-3" aria-hidden="true" />
+          <div className="p-8 text-center text-muted-3 dark:text-muted-3" role="status">
+            <div className="w-8 h-8 border-4 border-border-default border-t-accent rounded-full animate-spin mx-auto mb-3" aria-hidden="true" />
             <span>Loading notifications...</span>
           </div>
         ) : notifications.length === 0 ? (
           <div className="p-8 text-center" role="status">
-            <Bell className="h-12 w-12 text-gray-300 dark:text-gray-600 mx-auto mb-3" aria-hidden="true" />
-            <p className="text-gray-500 dark:text-gray-400 font-medium">
+            <Bell className="h-12 w-12 text-muted-2 dark:text-muted-4 mx-auto mb-3" aria-hidden="true" />
+            <p className="text-muted-3 dark:text-muted-3 font-medium">
               No notifications yet
             </p>
-            <p className="text-sm text-gray-400 dark:text-gray-500 mt-1">
+            <p className="text-sm text-muted-3 dark:text-muted-3 mt-1">
               We'll notify you when something happens
             </p>
           </div>
         ) : (
-          <div className="divide-y divide-gray-100 dark:divide-gray-800">
+          <div className="divide-y divide-border-dim dark:divide-border-default">
             {notifications.map((notification) => (
               <button
                 key={notification.id}
                 onClick={() => handleNotificationClick(notification)}
-                className={`w-full p-4 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-left ${
+                className={`w-full p-4 hover:bg-surface-1 dark:hover:bg-surface-2 transition-colors text-left ${
                   !notification.read
                     ? 'bg-blue-50 dark:bg-blue-900/10'
-                    : 'bg-white dark:bg-gray-900'
+                    : 'bg-white dark:bg-surface-1'
                 }`}
                 aria-label={`${notification.title}. ${notification.read ? 'Read' : 'Unread'}. ${notification.message}`}
               >
@@ -137,17 +137,17 @@ export default function NotificationCenter({ onClose }: NotificationCenterProps)
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-2">
-                      <p className="font-semibold text-gray-900 dark:text-white text-sm">
+                      <p className="font-semibold text-muted-1 dark:text-white text-sm">
                         {notification.title}
                       </p>
                       {!notification.read && (
                         <span className="flex-shrink-0 h-2 w-2 bg-blue-500 rounded-full mt-1" />
                       )}
                     </div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1 line-clamp-2">
+                    <p className="text-sm text-muted-4 dark:text-muted-3 mt-1 line-clamp-2">
                       {notification.message}
                     </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-500 mt-2">
+                    <p className="text-xs text-muted-3 dark:text-muted-3 mt-2">
                       {formatDistanceToNow(new Date(notification.created_at), {
                         addSuffix: true
                       })}
@@ -162,10 +162,10 @@ export default function NotificationCenter({ onClose }: NotificationCenterProps)
 
       {/* Footer */}
       {notifications.length > 0 && (
-        <div className="p-3 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+        <div className="p-3 border-t border-border-default dark:border-border-default bg-surface-1 dark:bg-surface-2">
           <button
             onClick={onClose}
-            className="w-full text-center text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 font-medium"
+            className="w-full text-center text-sm text-muted-4 dark:text-muted-3 hover:text-muted-1 dark:hover:text-muted-1 font-medium"
           >
             Close
           </button>

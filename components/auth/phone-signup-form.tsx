@@ -299,12 +299,12 @@ export function PhoneSignupForm({ initialInviteCode }: PhoneSignupFormProps = {}
             <div
               key={s}
               className={`flex-1 h-2 rounded-full mx-1 transition-colors duration-300 ${
-                s <= step ? 'bg-lime-400' : 'bg-[#27272a]'
+                s <= step ? 'bg-accent' : 'bg-surface-2'
               }`}
             />
           ))}
         </div>
-        <p className="text-sm text-[#71717a] text-center">
+        <p className="text-sm text-muted-3 text-center">
           Step {step} of 4
         </p>
       </div>
@@ -321,7 +321,7 @@ export function PhoneSignupForm({ initialInviteCode }: PhoneSignupFormProps = {}
         <form onSubmit={step1Form.handleSubmit(handleStep1Submit)} className="space-y-4 md:space-y-6">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-white mb-2">Enter Invite Code</h2>
-            <p className="text-[#a1a1aa]">You need an invite code to join Kulti</p>
+            <p className="text-muted-2">You need an invite code to join Kulti</p>
           </div>
 
           <div>
@@ -345,7 +345,7 @@ export function PhoneSignupForm({ initialInviteCode }: PhoneSignupFormProps = {}
           <Button
             type="submit"
             disabled={loading}
-            className="w-full bg-lime-400 hover:bg-lime-500 text-black font-bold text-lg md:text-xl px-6 md:px-12 py-4 md:py-6 h-auto rounded-xl"
+            className="w-full bg-accent hover:bg-accent text-black font-bold text-lg md:text-xl px-6 md:px-12 py-4 md:py-6 h-auto rounded-xl"
           >
             {loading ? (
               <>
@@ -370,7 +370,7 @@ export function PhoneSignupForm({ initialInviteCode }: PhoneSignupFormProps = {}
           <Button
             onClick={handleSendOTP}
             disabled={loading || !phone}
-            className="w-full bg-lime-400 hover:bg-lime-500 text-black font-bold text-lg md:text-xl px-6 md:px-12 py-4 md:py-6 h-auto rounded-xl"
+            className="w-full bg-accent hover:bg-accent text-black font-bold text-lg md:text-xl px-6 md:px-12 py-4 md:py-6 h-auto rounded-xl"
           >
             {loading ? (
               <>
@@ -389,11 +389,11 @@ export function PhoneSignupForm({ initialInviteCode }: PhoneSignupFormProps = {}
         <div className="space-y-4 md:space-y-6">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-white mb-2">Enter Verification Code</h2>
-            <p className="text-[#a1a1aa]">
+            <p className="text-muted-2">
               We sent a 6-digit code to {phone}
             </p>
             {otpExpiration > 0 && (
-              <p className="text-sm text-lime-400 mt-2">
+              <p className="text-sm text-accent mt-2">
                 Code expires in 0:{otpExpiration.toString().padStart(2, '0')}
               </p>
             )}
@@ -417,7 +417,7 @@ export function PhoneSignupForm({ initialInviteCode }: PhoneSignupFormProps = {}
           <Button
             onClick={handleVerifyOTP}
             disabled={loading || otp.length !== 6}
-            className="w-full bg-lime-400 hover:bg-lime-500 text-black font-bold text-lg md:text-xl px-6 md:px-12 py-4 md:py-6 h-auto rounded-xl"
+            className="w-full bg-accent hover:bg-accent text-black font-bold text-lg md:text-xl px-6 md:px-12 py-4 md:py-6 h-auto rounded-xl"
           >
             {loading ? (
               <>
@@ -433,7 +433,7 @@ export function PhoneSignupForm({ initialInviteCode }: PhoneSignupFormProps = {}
             <button
               onClick={handleResendOTP}
               disabled={resendCooldown > 0}
-              className="text-sm text-lime-400 hover:text-lime-300 disabled:text-[#71717a] disabled:cursor-not-allowed transition-colors px-4 py-2"
+              className="text-sm text-accent hover:text-accent/80 disabled:text-muted-3 disabled:cursor-not-allowed transition-colors px-4 py-2"
             >
               {resendCooldown > 0
                 ? `Resend code in 0:${resendCooldown.toString().padStart(2, '0')}`
@@ -448,7 +448,7 @@ export function PhoneSignupForm({ initialInviteCode }: PhoneSignupFormProps = {}
         <form onSubmit={step4Form.handleSubmit(handleCompleteProfile)} className="space-y-4 md:space-y-6">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-white mb-2">Complete Your Profile</h2>
-            <p className="text-[#a1a1aa]">Just a few more details</p>
+            <p className="text-muted-2">Just a few more details</p>
           </div>
 
           <div>
@@ -499,7 +499,7 @@ export function PhoneSignupForm({ initialInviteCode }: PhoneSignupFormProps = {}
               className="h-14 text-lg"
               disabled={loading}
             />
-            <p className="mt-2 text-xs sm:text-sm text-[#71717a]">
+            <p className="mt-2 text-xs sm:text-sm text-muted-3">
               Used for account recovery and notifications
             </p>
             {step4Form.formState.errors.email && (
@@ -525,7 +525,7 @@ export function PhoneSignupForm({ initialInviteCode }: PhoneSignupFormProps = {}
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-0 top-0 h-14 px-4 flex items-center justify-center text-[#71717a] hover:text-white transition-colors disabled:opacity-50"
+                className="absolute right-0 top-0 h-14 px-4 flex items-center justify-center text-muted-3 hover:text-muted-1 transition-colors disabled:opacity-50"
                 disabled={loading}
                 aria-label={showPassword ? "Hide password" : "Show password"}
               >
@@ -536,7 +536,7 @@ export function PhoneSignupForm({ initialInviteCode }: PhoneSignupFormProps = {}
                 )}
               </button>
             </div>
-            <p className="mt-2 text-xs sm:text-sm text-[#71717a]">
+            <p className="mt-2 text-xs sm:text-sm text-muted-3">
               Used to login with email instead of phone
             </p>
             {step4Form.formState.errors.password && (
@@ -549,7 +549,7 @@ export function PhoneSignupForm({ initialInviteCode }: PhoneSignupFormProps = {}
           <Button
             type="submit"
             disabled={loading}
-            className="w-full bg-lime-400 hover:bg-lime-500 text-black font-bold text-lg md:text-xl px-6 md:px-12 py-4 md:py-6 h-auto rounded-xl"
+            className="w-full bg-accent hover:bg-accent text-black font-bold text-lg md:text-xl px-6 md:px-12 py-4 md:py-6 h-auto rounded-xl"
           >
             {loading ? (
               <>

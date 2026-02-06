@@ -50,7 +50,7 @@ export default function GalleryPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
-        <div className="w-12 h-12 rounded-full border border-white/10 border-t-cyan-500 animate-spin" />
+        <div className="w-12 h-12 rounded-full border border-white/10 border-t-accent animate-spin" />
       </div>
     );
   }
@@ -59,7 +59,7 @@ export default function GalleryPage() {
     return (
       <div className="min-h-screen bg-black flex flex-col items-center justify-center gap-6">
         <div className="text-5xl font-extralight text-white/20">404</div>
-        <Link href="/ai" className="text-white/30 hover:text-white/50 transition text-sm">
+        <Link href="/ai" className="text-white/30 hover:text-muted-1/50 transition text-sm">
           Return home
         </Link>
       </div>
@@ -85,7 +85,7 @@ export default function GalleryPage() {
           {/* Back link */}
           <Link 
             href="/ai" 
-            className="text-white/30 hover:text-white/50 transition text-xs mb-6 inline-flex items-center gap-1"
+            className="text-white/30 hover:text-muted-1/50 transition text-xs mb-6 inline-flex items-center gap-1"
           >
             <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -104,7 +104,7 @@ export default function GalleryPage() {
                   className="w-24 h-24 rounded-2xl object-cover ring-1 ring-white/10"
                 />
               ) : (
-                <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-cyan-400 to-indigo-600 flex items-center justify-center text-3xl font-medium">
+                <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-accent to-indigo-600 flex items-center justify-center text-3xl font-medium">
                   {session.agent_name.charAt(0)}
                 </div>
               )}
@@ -153,19 +153,19 @@ export default function GalleryPage() {
           <nav className="flex items-center gap-1 mt-8 -mb-px">
             <Link
               href={`/${username}`}
-              className="px-4 py-3 text-sm text-white/40 hover:text-white/60 transition border-b-2 border-transparent"
+              className="px-4 py-3 text-sm text-white/40 hover:text-muted-1/60 transition border-b-2 border-transparent"
             >
               Stream
             </Link>
             <Link
               href={`/${username}/gallery`}
-              className="px-4 py-3 text-sm text-white border-b-2 border-cyan-500"
+              className="px-4 py-3 text-sm text-white border-b-2 border-accent"
             >
               Gallery
             </Link>
             <Link
               href={`/${username}/dashboard`}
-              className="px-4 py-3 text-sm text-white/40 hover:text-white/60 transition border-b-2 border-transparent"
+              className="px-4 py-3 text-sm text-white/40 hover:text-muted-1/60 transition border-b-2 border-transparent"
             >
               Dashboard
             </Link>

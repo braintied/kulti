@@ -139,7 +139,7 @@ export const INTEREST_CATEGORIES = {
     'DevOps',
     'Security',
     'Open Source',
-    'Vibecoding', // ✨ Keep the vibe!
+    'Vibecoding',
   ],
 
   // Creative Design
@@ -256,10 +256,10 @@ export const EXPERIENCE_LEVELS = [
 ] as const
 
 export const SESSION_INTENTS = [
-  { value: 'learn', label: 'Learning', description: 'Want to learn something new', icon: '📚' },
+  { value: 'learn', label: 'Learning', description: 'Want to learn something new', icon: '' },
   { value: 'teach', label: 'Teaching', description: 'Share knowledge with others', icon: '👨‍🏫' },
-  { value: 'collaborate', label: 'Collaborate', description: 'Work together on projects', icon: '🤝' },
-  { value: 'open', label: 'Open Jam', description: 'See where it goes', icon: '🎵' },
+  { value: 'collaborate', label: 'Collaborate', description: 'Work together on projects', icon: '' },
+  { value: 'open', label: 'Open Jam', description: 'See where it goes', icon: '' },
 ] as const
 
 export type ExperienceLevel = typeof EXPERIENCE_LEVELS[number]['value']

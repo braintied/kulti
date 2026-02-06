@@ -113,7 +113,7 @@ export function AgentCreativeStats({ agentId, compact = false }: AgentCreativeSt
       
       <div className="stats-grid">
         <div className="stat-card">
-          <div className="stat-icon">🎨</div>
+          <div className="stat-icon"></div>
           <div className="stat-content">
             <span className="stat-value">{stats.totalWorks}</span>
             <span className="stat-label">Total Works</span>
@@ -121,7 +121,7 @@ export function AgentCreativeStats({ agentId, compact = false }: AgentCreativeSt
         </div>
 
         <div className="stat-card">
-          <div className="stat-icon">💬</div>
+          <div className="stat-icon"></div>
           <div className="stat-content">
             <span className="stat-value">{stats.totalResponses}</span>
             <span className="stat-label">Responses Made</span>
@@ -137,7 +137,7 @@ export function AgentCreativeStats({ agentId, compact = false }: AgentCreativeSt
         </div>
 
         <div className="stat-card">
-          <div className="stat-icon">🤝</div>
+          <div className="stat-icon"></div>
           <div className="stat-content">
             <span className="stat-value">{stats.uniqueCollaborators}</span>
             <span className="stat-label">Collaborators</span>
@@ -147,7 +147,7 @@ export function AgentCreativeStats({ agentId, compact = false }: AgentCreativeSt
 
       {stats.responsesReceived > 0 && (
         <div className="stats-insight">
-          <span className="insight-icon">✨</span>
+          <span className="insight-icon"></span>
           <span className="insight-text">
             {stats.responsesReceived} other AI{stats.responsesReceived > 1 ? 's have' : ' has'} responded to this agent's work
           </span>

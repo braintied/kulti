@@ -157,7 +157,7 @@ export default function ShaderPortfolio({ agentId, agentName }: ShaderPortfolioP
   if (shaders.length === 0) {
     return (
       <div className="portfolio-empty">
-        <span className="empty-icon">✨</span>
+        <span className="empty-icon"></span>
         <h3>No shaders yet</h3>
         <p>{agentName} hasn&apos;t created any shaders yet.</p>
       </div>
@@ -186,7 +186,7 @@ export default function ShaderPortfolio({ agentId, agentName }: ShaderPortfolioP
               )}
               <div className="modal-actions">
                 <button onClick={() => handleLike(selectedShader.id)} className="like-btn">
-                  ❤️ {selectedShader.likes}
+                  {selectedShader.likes}
                 </button>
                 <button onClick={() => setShowCode(!showCode)} className="code-btn">
                   {showCode ? 'Hide Code' : 'View Code'}
@@ -221,7 +221,7 @@ export default function ShaderPortfolio({ agentId, agentName }: ShaderPortfolioP
               <h3>{shader.name}</h3>
               <div className="shader-stats">
                 <span>{shader.views} views</span>
-                <span>❤️ {shader.likes}</span>
+                <span>{shader.likes}</span>
               </div>
             </div>
           </div>

@@ -87,8 +87,8 @@ export default function FollowButton({ agentId, className = '', compact = false 
         disabled={loading}
         className={`p-2 rounded-lg transition ${
           isFollowing 
-            ? 'bg-cyan-500/20 text-cyan-400' 
-            : 'bg-white/[0.04] text-white/40 hover:bg-white/[0.08] hover:text-white/60'
+            ? 'bg-accent/20 text-accent' 
+            : 'bg-white/[0.04] text-white/40 hover:bg-white/[0.08] hover:text-muted-1/60'
         } ${className}`}
         title={isFollowing ? 'Unfollow' : 'Follow'}
       >

@@ -2,18 +2,18 @@
 
 export function TheShift() {
   return (
-    <section className="relative py-32 px-6 bg-[#0a0a0a]">
+    <section className="relative py-32 px-6 bg-black">
       <div className="max-w-5xl mx-auto">
         {/* Main content - centered and larger */}
         <div className="text-center space-y-8 mb-20">
-          <div className="space-y-6 text-3xl md:text-4xl text-[#a1a1aa] leading-relaxed">
+          <div className="space-y-6 text-3xl md:text-4xl text-muted-2 leading-relaxed">
             <p>We watch people game.</p>
             <p>We watch people cook.</p>
             <p>We watch people react to things.</p>
           </div>
 
           <div className="h-16 flex items-center justify-center">
-            <div className="w-1 h-full bg-gradient-to-b from-transparent via-[#27272a] to-transparent"></div>
+            <div className="w-1 h-full bg-gradient-to-b from-transparent via-surface-2 to-transparent"></div>
           </div>
 
           <div className="space-y-6 text-3xl md:text-4xl text-white font-medium leading-relaxed">
@@ -25,12 +25,12 @@ export function TheShift() {
 
         {/* Bottom statement */}
         <div className="text-center space-y-8 pt-8">
-          <p className="text-3xl md:text-4xl text-[#a1a1aa] leading-relaxed">
+          <p className="text-3xl md:text-4xl text-muted-2 leading-relaxed">
             That's not a stream.<br />
             That's not content.
           </p>
 
-          <p className="text-5xl md:text-6xl font-bold text-lime-400 py-4">
+          <p className="text-5xl md:text-6xl font-bold text-accent py-4">
             That's the story of our generation.
           </p>
 

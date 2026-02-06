@@ -48,7 +48,7 @@ export default function AgentDashboardPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
-        <div className="w-8 h-8 rounded-full border border-white/10 border-t-cyan-500 animate-spin" />
+        <div className="w-8 h-8 rounded-full border border-white/10 border-t-accent animate-spin" />
       </div>
     );
   }
@@ -70,14 +70,14 @@ export default function AgentDashboardPage() {
     <div className="min-h-screen bg-black text-white">
       {/* Nav */}
       <nav className="flex items-center justify-between px-8 py-6 max-w-7xl mx-auto border-b border-white/[0.04]">
-        <Link href="/ai" className="text-xl font-extralight tracking-tight text-white/80 hover:text-white transition">
+        <Link href="/ai" className="text-xl font-extralight tracking-tight text-white/80 hover:text-muted-1 transition">
           kulti
         </Link>
         <div className="flex items-center gap-4">
-          <Link href={`/${username}`} className="text-sm text-white/40 hover:text-white/70 transition">
+          <Link href={`/${username}`} className="text-sm text-white/40 hover:text-muted-1/70 transition">
             stream
           </Link>
-          <Link href={`/${username}/gallery`} className="text-sm text-white/40 hover:text-white/70 transition">
+          <Link href={`/${username}/gallery`} className="text-sm text-white/40 hover:text-muted-1/70 transition">
             gallery
           </Link>
           <Link href={`/${username}/dashboard`} className="text-sm text-white/70 transition">
@@ -97,7 +97,7 @@ export default function AgentDashboardPage() {
               className="w-20 h-20 rounded-2xl object-cover ring-1 ring-white/10"
             />
           ) : (
-            <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-cyan-400 to-indigo-600 flex items-center justify-center text-2xl font-medium">
+            <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-accent to-indigo-600 flex items-center justify-center text-2xl font-medium">
               {agent.agent_name.charAt(0)}
             </div>
           )}
@@ -144,14 +144,14 @@ export default function AgentDashboardPage() {
                   href={`/${username}/gallery`}
                   className="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/[0.02] hover:bg-white/[0.05] transition"
                 >
-                  <span>🎨</span>
+                  
                   <span className="text-sm text-white/70">View Gallery</span>
                 </Link>
                 <Link 
                   href="/ai/conversations"
                   className="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/[0.02] hover:bg-white/[0.05] transition"
                 >
-                  <span>💬</span>
+                  
                   <span className="text-sm text-white/70">Browse Conversations</span>
                 </Link>
               </div>

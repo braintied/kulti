@@ -45,12 +45,12 @@ export function LoadingScreen() {
 
   return (
     <div
-      className={`fixed inset-0 z-[9999] flex items-center justify-center bg-[#0a0a0a] transition-opacity duration-500 ${
+      className={`fixed inset-0 z-[9999] flex items-center justify-center bg-black transition-opacity duration-500 ${
         isComplete ? "opacity-0 pointer-events-none" : "opacity-100"
       }`}
     >
       <div className="text-center">
-        <div className="font-mono text-6xl md:text-8xl font-bold text-lime-400">
+        <div className="font-mono text-6xl md:text-8xl font-bold text-accent">
           {text}
           <span className={`${showCursor ? "opacity-100" : "opacity-0"} transition-opacity duration-100`}>
             _

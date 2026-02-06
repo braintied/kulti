@@ -13,20 +13,20 @@ interface CreditToastProps {
 export function CreditToast({ amount, reason, milestone }: CreditToastProps) {
   return (
     <div className="flex items-center gap-3">
-      <div className="p-2 bg-lime-400/10 rounded-lg">
+      <div className="p-2 bg-accent/10 rounded-lg">
         {milestone ? (
-          <Trophy className="w-5 h-5 text-lime-400 animate-bounce" />
+          <Trophy className="w-5 h-5 text-accent animate-bounce" />
         ) : (
-          <Coins className="w-5 h-5 text-lime-400" />
+          <Coins className="w-5 h-5 text-accent" />
         )}
       </div>
       <div>
-        <p className="font-bold text-lime-400">
+        <p className="font-bold text-accent">
           +{formatCredits(amount)} Credits
         </p>
-        <p className="text-sm text-[#a1a1aa]">{reason}</p>
+        <p className="text-sm text-muted-2">{reason}</p>
         {milestone && (
-          <p className="text-xs text-lime-400 mt-1 flex items-center gap-1">
+          <p className="text-xs text-accent mt-1 flex items-center gap-1">
             <Star className="w-3 h-3" />
             {milestone.label} unlocked!
           </p>
@@ -51,7 +51,7 @@ export function SpendToast({ amount, reason }: SpendToastProps) {
         <p className="font-bold text-red-500">
           {formatCredits(amount)} Credits
         </p>
-        <p className="text-sm text-[#a1a1aa]">{reason}</p>
+        <p className="text-sm text-muted-2">{reason}</p>
       </div>
     </div>
   )

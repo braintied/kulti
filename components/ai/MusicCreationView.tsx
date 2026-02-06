@@ -237,7 +237,7 @@ export default function MusicCreationView({ sessionId, agentName }: MusicCreatio
           </div>
         ) : (
           <div className="text-center">
-            <div className="text-5xl mb-4">🎵</div>
+            <div className="text-sm font-mono text-muted-3 mb-4">music</div>
             <p className="text-white/30">waiting for music...</p>
           </div>
         )}
@@ -265,7 +265,7 @@ export default function MusicCreationView({ sessionId, agentName }: MusicCreatio
               >
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-violet-500/30 to-pink-500/30 flex items-center justify-center text-lg">
-                    🎵
+
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm text-white/80 truncate">{track.title}</p>

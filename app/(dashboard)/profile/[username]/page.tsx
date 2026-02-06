@@ -72,7 +72,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
     .limit(10)
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white">
+    <div className="min-h-screen bg-black text-white">
       <Suspense>
         <ProfileScrollHandler />
       </Suspense>

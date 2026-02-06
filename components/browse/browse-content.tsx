@@ -90,7 +90,7 @@ export function BrowseContent({ sessions, currentUserId, isLoading = false }: Br
       <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
         {/* Search */}
         <div className="flex-1 relative">
-          <Search className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-[#71717a] w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
+          <Search className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-muted-3 w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
           <label htmlFor="session-search" className="sr-only">
             Search sessions, topics, or hosts
           </label>
@@ -100,7 +100,7 @@ export function BrowseContent({ sessions, currentUserId, isLoading = false }: Br
             placeholder="Search sessions, topics, or hosts..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 min-h-[48px] bg-[#1a1a1a] border border-[#27272a] rounded-xl text-white placeholder-[#71717a] focus:border-lime-400 focus:outline-none transition-colors text-base sm:text-lg"
+            className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 min-h-[48px] bg-surface-1 border border-border-default rounded-xl text-white placeholder-muted-3 focus:border-accent focus:outline-none transition-colors text-base sm:text-lg"
             aria-label="Search sessions"
           />
         </div>
@@ -110,8 +110,8 @@ export function BrowseContent({ sessions, currentUserId, isLoading = false }: Br
           onClick={() => setShowFilters(!showFilters)}
           className={`min-h-[48px] px-5 sm:px-6 py-3 sm:py-4 rounded-xl border transition-colors flex items-center justify-center gap-2 font-medium ${
             showFilters
-              ? "bg-lime-400 text-black border-lime-400"
-              : "bg-[#1a1a1a] border-[#27272a] hover:border-lime-400"
+              ? "bg-accent text-black border-accent"
+              : "bg-surface-1 border-border-default hover:border-accent"
           }`}
           aria-label={showFilters ? "Hide filters" : "Show filters"}
           aria-expanded={showFilters}
@@ -123,10 +123,10 @@ export function BrowseContent({ sessions, currentUserId, isLoading = false }: Br
 
       {/* Filters Panel */}
       {showFilters && (
-        <div className="bg-[#1a1a1a] border border-[#27272a] rounded-xl p-4 sm:p-6 space-y-4 sm:space-y-6">
+        <div className="bg-surface-1 border border-border-default rounded-xl p-4 sm:p-6 space-y-4 sm:space-y-6">
           {/* Status Filter */}
           <div>
-            <h3 className="text-sm font-medium text-[#a1a1aa] mb-3">Status</h3>
+            <h3 className="text-sm font-medium text-muted-2 mb-3">Status</h3>
             <div className="flex overflow-x-auto gap-2 pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap">
               {(["all", "live", "scheduled", "ended"] as StatusFilter[]).map((status) => (
                 <button
@@ -134,8 +134,8 @@ export function BrowseContent({ sessions, currentUserId, isLoading = false }: Br
                   onClick={() => setStatusFilter(status)}
                   className={`min-h-[44px] px-4 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap flex-shrink-0 ${
                     statusFilter === status
-                      ? "bg-lime-400 text-black"
-                      : "bg-[#2a2a2a] text-[#a1a1aa] hover:text-white hover:bg-[#333333]"
+                      ? "bg-accent text-black"
+                      : "bg-surface-2 text-muted-2 hover:text-muted-1 hover:bg-surface-3"
                   }`}
                 >
                   {status.charAt(0).toUpperCase() + status.slice(1)}
@@ -149,7 +149,7 @@ export function BrowseContent({ sessions, currentUserId, isLoading = false }: Br
 
           {/* Sort By */}
           <div>
-            <h3 className="text-sm font-medium text-[#a1a1aa] mb-3">Sort By</h3>
+            <h3 className="text-sm font-medium text-muted-2 mb-3">Sort By</h3>
             <div className="flex overflow-x-auto gap-2 pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap">
               {(["featured", "newest", "popular"] as SortOption[]).map((option) => (
                 <button
@@ -157,8 +157,8 @@ export function BrowseContent({ sessions, currentUserId, isLoading = false }: Br
                   onClick={() => setSortBy(option)}
                   className={`min-h-[44px] px-4 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap flex-shrink-0 ${
                     sortBy === option
-                      ? "bg-lime-400 text-black"
-                      : "bg-[#2a2a2a] text-[#a1a1aa] hover:text-white hover:bg-[#333333]"
+                      ? "bg-accent text-black"
+                      : "bg-surface-2 text-muted-2 hover:text-muted-1 hover:bg-surface-3"
                   }`}
                 >
                   {option === "featured" && "Featured"}
@@ -173,7 +173,7 @@ export function BrowseContent({ sessions, currentUserId, isLoading = false }: Br
 
       {/* Results Count */}
       <div className="flex items-center justify-between">
-        <p className="text-sm sm:text-base text-[#a1a1aa]">
+        <p className="text-sm sm:text-base text-muted-2">
           {filteredSessions.length} session{filteredSessions.length !== 1 ? "s" : ""} found
         </p>
       </div>
@@ -201,9 +201,9 @@ export function BrowseContent({ sessions, currentUserId, isLoading = false }: Br
           role="status"
           aria-label="No sessions found"
         >
-          <Filter className="w-12 h-12 sm:w-16 sm:h-16 text-[#a1a1aa] mx-auto mb-4" aria-hidden="true" />
-          <p className="text-lg sm:text-xl text-[#a1a1aa] mb-2">No sessions found</p>
-          <p className="text-sm sm:text-base text-[#71717a]">
+          <Filter className="w-12 h-12 sm:w-16 sm:h-16 text-muted-2 mx-auto mb-4" aria-hidden="true" />
+          <p className="text-lg sm:text-xl text-muted-2 mb-2">No sessions found</p>
+          <p className="text-sm sm:text-base text-muted-3">
             Try adjusting your filters or search query
           </p>
         </div>

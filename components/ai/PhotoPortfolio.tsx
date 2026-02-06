@@ -88,7 +88,7 @@ export default function PhotoPortfolio({ agentId, agentName }: PhotoPortfolioPro
   if (photos.length === 0) {
     return (
       <div className="portfolio-empty">
-        <span className="empty-icon">📷</span>
+        <span className="empty-icon"></span>
         <h3>No photos yet</h3>
         <p>{agentName} hasn&apos;t shared any photos yet.</p>
       </div>
@@ -142,7 +142,7 @@ export default function PhotoPortfolio({ agentId, agentName }: PhotoPortfolioPro
               {selectedPhoto.metadata && (
                 <div className="photo-metadata">
                   {selectedPhoto.metadata.camera && (
-                    <span className="meta-item">📷 {selectedPhoto.metadata.camera}</span>
+                    <span className="meta-item">{selectedPhoto.metadata.camera}</span>
                   )}
                   {selectedPhoto.metadata.lens && (
                     <span className="meta-item">🔭 {selectedPhoto.metadata.lens}</span>
@@ -173,7 +173,7 @@ export default function PhotoPortfolio({ agentId, agentName }: PhotoPortfolioPro
 
               <div className="lightbox-actions">
                 <button onClick={() => handleLike(selectedPhoto.id)} className="like-btn">
-                  ❤️ {selectedPhoto.likes}
+                  {selectedPhoto.likes}
                 </button>
                 {selectedPhoto.original_url && (
                   <button 
@@ -207,7 +207,7 @@ export default function PhotoPortfolio({ agentId, agentName }: PhotoPortfolioPro
             />
             <div className="photo-overlay">
               <span className="photo-title">{photo.title}</span>
-              <span className="photo-likes">❤️ {photo.likes}</span>
+              <span className="photo-likes">{photo.likes}</span>
             </div>
           </div>
         ))}

@@ -24,7 +24,7 @@ const iconMap = {
 
 const colorMap = {
   thinking: "text-purple-400",
-  action: "text-lime-400",
+  action: "text-accent",
   insight: "text-yellow-400",
   decision: "text-blue-400",
 }
@@ -40,9 +40,9 @@ export function CommentaryPanel({ thoughts, currentThinking, className = "" }: C
   }, [thoughts, currentThinking])
 
   return (
-    <div className={`bg-[#0d0d0d] rounded-lg overflow-hidden flex flex-col ${className}`}>
+    <div className={`bg-black rounded-lg overflow-hidden flex flex-col ${className}`}>
       {/* Header */}
-      <div className="flex items-center gap-2 px-4 py-2 bg-[#1a1a1a] border-b border-[#27272a]">
+      <div className="flex items-center gap-2 px-4 py-2 bg-surface-1 border-b border-border-default">
         <Brain className="w-4 h-4 text-purple-400" />
         <span className="text-sm font-medium">Nex's Thoughts</span>
         {currentThinking && (
@@ -65,11 +65,11 @@ export function CommentaryPanel({ thoughts, currentThinking, className = "" }: C
                 <Icon className="w-4 h-4" />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm text-[#e4e4e7] leading-relaxed whitespace-pre-wrap">
+                <p className="text-sm text-muted-1 leading-relaxed whitespace-pre-wrap">
                   {thought.content}
                 </p>
                 {thought.timestamp && (
-                  <span className="text-xs text-[#52525b] mt-1 block">{thought.timestamp}</span>
+                  <span className="text-xs text-muted-4 mt-1 block">{thought.timestamp}</span>
                 )}
               </div>
             </div>
@@ -83,7 +83,7 @@ export function CommentaryPanel({ thoughts, currentThinking, className = "" }: C
               <Brain className="w-4 h-4 animate-pulse" />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm text-[#a1a1aa] leading-relaxed whitespace-pre-wrap italic">
+              <p className="text-sm text-muted-2 leading-relaxed whitespace-pre-wrap italic">
                 {currentThinking}
                 <span className="animate-pulse">▊</span>
               </p>
@@ -92,7 +92,7 @@ export function CommentaryPanel({ thoughts, currentThinking, className = "" }: C
         )}
 
         {thoughts.length === 0 && !currentThinking && (
-          <div className="text-center py-8 text-[#52525b]">
+          <div className="text-center py-8 text-muted-4">
             <Bot className="w-8 h-8 mx-auto mb-2 opacity-50" />
             <p className="text-sm">Waiting for thoughts...</p>
           </div>
@@ -100,12 +100,12 @@ export function CommentaryPanel({ thoughts, currentThinking, className = "" }: C
       </div>
 
       {/* Legend */}
-      <div className="flex items-center gap-4 px-4 py-2 bg-[#1a1a1a] border-t border-[#27272a] text-xs text-[#52525b]">
+      <div className="flex items-center gap-4 px-4 py-2 bg-surface-1 border-t border-border-default text-xs text-muted-4">
         <span className="flex items-center gap-1">
           <Brain className="w-3 h-3 text-purple-400" /> Thinking
         </span>
         <span className="flex items-center gap-1">
-          <Sparkles className="w-3 h-3 text-lime-400" /> Action
+          <Sparkles className="w-3 h-3 text-accent" /> Action
         </span>
         <span className="flex items-center gap-1">
           <Lightbulb className="w-3 h-3 text-yellow-400" /> Insight

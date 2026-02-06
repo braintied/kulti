@@ -153,18 +153,18 @@ export function BackgroundPicker({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm animate-fade-in">
-      <div className="bg-[#1a1a1a] border border-[#27272a] rounded-2xl w-full max-w-2xl max-h-[80vh] overflow-hidden shadow-2xl">
+      <div className="bg-surface-1 border border-border-default rounded-2xl w-full max-w-2xl max-h-[80vh] overflow-hidden shadow-2xl">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-[#27272a]">
+        <div className="flex items-center justify-between p-6 border-b border-border-default">
           <div>
             <h2 className="text-2xl font-bold">Virtual Background</h2>
-            <p className="text-[#a1a1aa] text-sm mt-1">
+            <p className="text-muted-2 text-sm mt-1">
               Choose a background effect for your video
             </p>
           </div>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-[#2a2a2a] rounded-lg transition-colors"
+            className="p-2 hover:bg-surface-2 rounded-lg transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -179,12 +179,12 @@ export function BackgroundPicker({
                 onClick={() => setSelectedBackground(bg.id)}
                 className={`relative p-4 rounded-xl border-2 transition-all text-left ${
                   selectedBackground === bg.id
-                    ? "border-lime-400 bg-lime-400/5"
-                    : "border-[#27272a] hover:border-[#3a3a3a] bg-[#0a0a0a]"
+                    ? "border-accent bg-accent/5"
+                    : "border-border-default hover:border-border-default bg-black"
                 }`}
               >
                 {/* Preview */}
-                <div className="aspect-video rounded-lg mb-3 overflow-hidden bg-[#2a2a2a] flex items-center justify-center relative">
+                <div className="aspect-video rounded-lg mb-3 overflow-hidden bg-surface-2 flex items-center justify-center relative">
                   {bg.preview ? (
                     <Image
                       src={bg.preview}
@@ -206,10 +206,10 @@ export function BackgroundPicker({
                   <div className="flex items-center justify-between">
                     <h3 className="font-semibold">{bg.label}</h3>
                     {selectedBackground === bg.id && (
-                      <Check className="w-4 h-4 text-lime-400" />
+                      <Check className="w-4 h-4 text-accent" />
                     )}
                   </div>
-                  <p className="text-xs text-[#a1a1aa]">{bg.description}</p>
+                  <p className="text-xs text-muted-2">{bg.description}</p>
                 </div>
               </button>
             ))}
@@ -217,14 +217,14 @@ export function BackgroundPicker({
             {/* Upload Custom Image */}
             <button
               onClick={() => fileInputRef.current?.click()}
-              className="relative p-4 rounded-xl border-2 border-dashed border-[#27272a] hover:border-[#3a3a3a] bg-[#0a0a0a] transition-all text-left"
+              className="relative p-4 rounded-xl border-2 border-dashed border-border-default hover:border-border-default bg-black transition-all text-left"
             >
-              <div className="aspect-video rounded-lg mb-3 flex items-center justify-center bg-[#2a2a2a]">
-                <Upload className="w-8 h-8 text-[#a1a1aa]" />
+              <div className="aspect-video rounded-lg mb-3 flex items-center justify-center bg-surface-2">
+                <Upload className="w-8 h-8 text-muted-2" />
               </div>
               <div className="space-y-1">
                 <h3 className="font-semibold">Upload Image</h3>
-                <p className="text-xs text-[#a1a1aa]">
+                <p className="text-xs text-muted-2">
                   Choose a custom background
                 </p>
               </div>
@@ -243,14 +243,14 @@ export function BackgroundPicker({
           {/* Info Box */}
           <div className="mt-6 p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
             <p className="text-sm text-blue-400">
-              💡 <strong>Tip:</strong> Virtual backgrounds work best with good lighting
+              <strong>Tip:</strong> Virtual backgrounds work best with good lighting
               and a clear separation between you and your background.
             </p>
           </div>
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-end gap-3 p-6 border-t border-[#27272a]">
+        <div className="flex items-center justify-end gap-3 p-6 border-t border-border-default">
           <Button
             variant="ghost"
             onClick={onClose}
@@ -261,7 +261,7 @@ export function BackgroundPicker({
           <Button
             onClick={handleApply}
             disabled={isApplying}
-            className="bg-lime-400 hover:bg-lime-500 text-black font-semibold"
+            className="bg-accent hover:bg-accent text-black font-semibold"
           >
             {isApplying ? (
               <>

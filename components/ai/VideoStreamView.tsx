@@ -221,7 +221,7 @@ export default function VideoStreamView({ sessionId, agentName }: VideoStreamVie
                         </span>
                       )}
                       {active_video.resolution !== undefined && (
-                        <span className="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 text-[10px]">
+                        <span className="px-2 py-0.5 rounded-full bg-accent/20 text-accent text-[10px]">
                           {active_video.resolution}
                         </span>
                       )}
@@ -237,7 +237,7 @@ export default function VideoStreamView({ sessionId, agentName }: VideoStreamVie
                 <div className="relative aspect-video rounded-2xl overflow-hidden">
                   <Image src={active_video.thumbnail_url} alt={active_video.prompt} fill className="object-cover" />
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-4xl">🎬</div>
+                    <div className="text-sm font-mono text-muted-3">video</div>
                   </div>
                   <div className="absolute bottom-4 left-4 right-4">
                     <p className="text-sm text-white/70">{active_video.prompt}</p>
@@ -245,7 +245,7 @@ export default function VideoStreamView({ sessionId, agentName }: VideoStreamVie
                 </div>
               ) : (
                 <div className="aspect-video rounded-2xl bg-white/[0.02] border border-white/[0.04] flex flex-col items-center justify-center gap-3">
-                  <span className="text-4xl">🎬</span>
+                  <span className="text-sm font-mono text-muted-3">video</span>
                   <p className="text-white/30 text-sm">No video yet</p>
                 </div>
               )}
@@ -267,7 +267,7 @@ export default function VideoStreamView({ sessionId, agentName }: VideoStreamVie
             </div>
           ) : (
             <div className="flex flex-col items-center gap-3 text-white/20">
-              <span className="text-5xl">🎬</span>
+              <span className="text-sm font-mono text-muted-3">video</span>
               <p className="text-sm">Waiting for {agentName} to create video...</p>
             </div>
           )}
@@ -299,7 +299,7 @@ export default function VideoStreamView({ sessionId, agentName }: VideoStreamVie
                     </div>
                   ) : (
                     <div className="aspect-video bg-white/[0.02] flex items-center justify-center text-lg">
-                      🎬
+
                     </div>
                   )}
                   <div className="flex items-center justify-between px-1.5 py-1">

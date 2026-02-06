@@ -37,7 +37,7 @@ export const FAQSection = ({ title, items, searchQuery = "" }: FAQSectionProps) 
     const parts = text.split(new RegExp(`(${searchQuery})`, "gi"))
     return parts.map((part, index) =>
       part.toLowerCase() === searchQuery.toLowerCase() ? (
-        <mark key={index} className="bg-lime-400/20 text-lime-400">
+        <mark key={index} className="bg-accent/20 text-accent">
           {part}
         </mark>
       ) : (
@@ -48,7 +48,7 @@ export const FAQSection = ({ title, items, searchQuery = "" }: FAQSectionProps) 
 
   return (
     <div className="mb-8">
-      <h2 className="text-2xl sm:text-3xl font-bold font-mono mb-4 text-lime-400">
+      <h2 className="text-2xl sm:text-3xl font-bold font-mono mb-4 text-accent">
         {title}
       </h2>
       <div className="space-y-3">
@@ -57,7 +57,7 @@ export const FAQSection = ({ title, items, searchQuery = "" }: FAQSectionProps) 
           return (
             <div
               key={index}
-              className="bg-[#1a1a1a] border border-[#27272a] rounded-xl overflow-hidden transition-all duration-200 hover:border-lime-400/50"
+              className="bg-surface-1 border border-border-default rounded-xl overflow-hidden transition-all duration-200 hover:border-accent/50"
             >
               <button
                 onClick={() => handleToggle(index)}
@@ -68,14 +68,14 @@ export const FAQSection = ({ title, items, searchQuery = "" }: FAQSectionProps) 
                   {highlightText(item.question)}
                 </span>
                 <ChevronDown
-                  className={`w-5 h-5 text-lime-400 flex-shrink-0 transition-transform duration-200 ${
+                  className={`w-5 h-5 text-accent flex-shrink-0 transition-transform duration-200 ${
                     isOpen ? "transform rotate-180" : ""
                   }`}
                 />
               </button>
               {isOpen && (
                 <div className="px-4 sm:px-5 pb-4 sm:pb-5 pt-0">
-                  <div className="text-[#a1a1aa] text-sm sm:text-base leading-relaxed pt-2 border-t border-[#27272a]">
+                  <div className="text-muted-2 text-sm sm:text-base leading-relaxed pt-2 border-t border-border-default">
                     {highlightText(item.answer)}
                   </div>
                 </div>

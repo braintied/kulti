@@ -16,7 +16,7 @@ interface RoomChatProps {
   hasMore?: boolean
 }
 
-const COMMON_EMOJIS = ["👍", "❤️", "😂", "🎉", "🚀", "💯", "🔥", "👏"]
+const COMMON_EMOJIS = ["+1", "love", "ha", "nice", "go", "100", "fire", "clap"]
 
 export function RoomChat({
   roomId,
@@ -80,7 +80,7 @@ export function RoomChat({
         {hasMore && (
           <button
             onClick={onLoadMore}
-            className="w-full py-2 text-sm text-[#a1a1aa] hover:text-white transition-colors"
+            className="w-full py-2 text-sm text-muted-2 hover:text-muted-1 transition-colors"
           >
             Load earlier messages
           </button>
@@ -102,10 +102,10 @@ export function RoomChat({
 
       {/* Reply Preview */}
       {replyingTo && (
-        <div className="px-6 py-3 bg-[#27272a] border-t border-[#3f3f46] flex items-center justify-between">
+        <div className="px-6 py-3 bg-surface-2 border-t border-border-default flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Reply className="w-4 h-4 text-[#71717a]" />
-            <span className="text-sm text-[#a1a1aa]">
+            <Reply className="w-4 h-4 text-muted-3" />
+            <span className="text-sm text-muted-2">
               Replying to{" "}
               <span className="text-white font-medium">
                 {replyingTo.profile?.display_name}
@@ -114,7 +114,7 @@ export function RoomChat({
           </div>
           <button
             onClick={() => setReplyingTo(null)}
-            className="text-[#71717a] hover:text-white transition-colors"
+            className="text-muted-3 hover:text-muted-1 transition-colors"
           >
             Cancel
           </button>
@@ -122,7 +122,7 @@ export function RoomChat({
       )}
 
       {/* Input Area */}
-      <div className="p-6 border-t border-[#27272a]">
+      <div className="p-6 border-t border-border-default">
         <div className="flex gap-3">
           <textarea
             ref={inputRef}
@@ -130,13 +130,13 @@ export function RoomChat({
             onChange={(e) => setMessageText(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Type a message... (Shift+Enter for new line)"
-            className="flex-1 bg-[#1a1a1a] border border-[#27272a] rounded-xl px-4 py-3 text-white placeholder-[#71717a] focus:border-lime-400 focus:outline-none resize-none min-h-[60px] max-h-[200px]"
+            className="flex-1 bg-surface-1 border border-border-default rounded-xl px-4 py-3 text-white placeholder-muted-3 focus:border-accent focus:outline-none resize-none min-h-[60px] max-h-[200px]"
             rows={2}
           />
           <button
             onClick={handleSend}
             disabled={!messageText.trim() || isSending}
-            className="self-end px-6 py-3 bg-lime-400 text-black rounded-xl font-medium hover:bg-lime-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+            className="self-end px-6 py-3 bg-accent text-black rounded-xl font-medium hover:bg-accent transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
           >
             <Send className="w-4 h-4" />
             Send
@@ -212,7 +212,7 @@ function MessageItem({
               className="rounded-full"
             />
           ) : (
-            <div className="w-10 h-10 rounded-full bg-[#27272a] flex items-center justify-center text-white font-medium">
+            <div className="w-10 h-10 rounded-full bg-surface-2 flex items-center justify-center text-white font-medium">
               {message.profile?.display_name?.charAt(0).toUpperCase() || "?"}
             </div>
           )}
@@ -225,21 +225,21 @@ function MessageItem({
             <span className="font-semibold text-white">
               {message.profile?.display_name || "Unknown User"}
             </span>
-            <span className="text-xs text-[#71717a]">
+            <span className="text-xs text-muted-3">
               @{message.profile?.username || "unknown"}
             </span>
-            <span className="text-xs text-[#71717a]">
+            <span className="text-xs text-muted-3">
               {formatDistanceToNow(new Date(message.created_at), {
                 addSuffix: true,
               })}
             </span>
             {message.edited_at && (
-              <span className="text-xs text-[#71717a] italic">(edited)</span>
+              <span className="text-xs text-muted-3 italic">(edited)</span>
             )}
           </div>
 
           {/* Message Text */}
-          <div className="text-[#e4e4e7] whitespace-pre-wrap break-words">
+          <div className="text-muted-1 whitespace-pre-wrap break-words">
             {message.content}
           </div>
 
@@ -252,12 +252,12 @@ function MessageItem({
                   onClick={() => handleReact(emoji)}
                   className={`px-2 py-1 rounded-md text-sm flex items-center gap-1 transition-colors ${
                     data.user_reacted
-                      ? "bg-lime-400/20 border border-lime-400/50"
-                      : "bg-[#1a1a1a] border border-[#27272a] hover:border-[#3f3f46]"
+                      ? "bg-accent/20 border border-accent/50"
+                      : "bg-surface-1 border border-border-default hover:border-border-default"
                   }`}
                 >
                   <span>{emoji}</span>
-                  <span className="text-xs text-[#a1a1aa]">{data.count}</span>
+                  <span className="text-xs text-muted-2">{data.count}</span>
                 </button>
               ))}
             </div>
@@ -267,14 +267,14 @@ function MessageItem({
           <div className="flex items-center gap-2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
             <button
               onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-              className="p-1.5 rounded-md hover:bg-[#27272a] text-[#71717a] hover:text-white transition-colors"
+              className="p-1.5 rounded-md hover:bg-surface-2 text-muted-3 hover:text-muted-1 transition-colors"
               title="Add reaction"
             >
               <Smile className="w-4 h-4" />
             </button>
             <button
               onClick={onReply}
-              className="p-1.5 rounded-md hover:bg-[#27272a] text-[#71717a] hover:text-white transition-colors"
+              className="p-1.5 rounded-md hover:bg-surface-2 text-muted-3 hover:text-muted-1 transition-colors"
               title="Reply"
             >
               <Reply className="w-4 h-4" />
@@ -283,7 +283,7 @@ function MessageItem({
               <button
                 onClick={loadThread}
                 disabled={loadingThread}
-                className="px-2 py-1 rounded-md text-xs text-[#a1a1aa] hover:text-white hover:bg-[#27272a] transition-colors"
+                className="px-2 py-1 rounded-md text-xs text-muted-2 hover:text-muted-1 hover:bg-surface-2 transition-colors"
               >
                 {loadingThread
                   ? "Loading..."
@@ -294,12 +294,12 @@ function MessageItem({
 
           {/* Emoji Picker */}
           {showEmojiPicker && (
-            <div className="mt-2 p-2 bg-[#1a1a1a] border border-[#27272a] rounded-lg flex gap-1">
+            <div className="mt-2 p-2 bg-surface-1 border border-border-default rounded-lg flex gap-1">
               {COMMON_EMOJIS.map((emoji) => (
                 <button
                   key={emoji}
                   onClick={() => handleReact(emoji)}
-                  className="text-xl p-1 hover:bg-[#27272a] rounded transition-colors"
+                  className="text-xl p-1 hover:bg-surface-2 rounded transition-colors"
                 >
                   {emoji}
                 </button>
@@ -309,7 +309,7 @@ function MessageItem({
 
           {/* Thread View */}
           {showThread && thread.length > 0 && (
-            <div className="mt-3 pl-4 border-l-2 border-[#27272a] space-y-3">
+            <div className="mt-3 pl-4 border-l-2 border-border-default space-y-3">
               {thread.slice(1).map((reply) => (
                 <div key={reply.message_id} className="flex gap-2">
                   <div className="flex-shrink-0">
@@ -322,7 +322,7 @@ function MessageItem({
                         className="rounded-full"
                       />
                     ) : (
-                      <div className="w-8 h-8 rounded-full bg-[#27272a] flex items-center justify-center text-white text-sm">
+                      <div className="w-8 h-8 rounded-full bg-surface-2 flex items-center justify-center text-white text-sm">
                         {reply.display_name.charAt(0).toUpperCase()}
                       </div>
                     )}
@@ -332,13 +332,13 @@ function MessageItem({
                       <span className="font-semibold text-white text-sm">
                         {reply.display_name}
                       </span>
-                      <span className="text-xs text-[#71717a]">
+                      <span className="text-xs text-muted-3">
                         {formatDistanceToNow(new Date(reply.created_at), {
                           addSuffix: true,
                         })}
                       </span>
                     </div>
-                    <div className="text-sm text-[#e4e4e7] whitespace-pre-wrap">
+                    <div className="text-sm text-muted-1 whitespace-pre-wrap">
                       {reply.content}
                     </div>
                   </div>

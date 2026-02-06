@@ -25,12 +25,12 @@ export function LandingNav() {
 
   return (
     <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-3rem)] max-w-5xl">
-      <div className="bg-[#1a1a1a]/50 backdrop-blur-xl border border-[#27272a]/50 rounded-2xl px-6 shadow-2xl">
+      <div className="bg-surface-1/50 backdrop-blur-xl border border-border-default/50 rounded-2xl px-6 shadow-2xl">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="font-mono text-xl font-bold text-white">
             kulti
-            <span className={`text-lime-400 transition-opacity duration-100 ${showCursor ? "opacity-100" : "opacity-0"}`}>
+            <span className={`text-accent transition-opacity duration-100 ${showCursor ? "opacity-100" : "opacity-0"}`}>
               _
             </span>
           </div>
@@ -40,7 +40,7 @@ export function LandingNav() {
             {/* Sign In - Secondary */}
             <Link
               href="/login"
-              className="inline-flex items-center justify-center px-4 py-2 md:px-6 md:py-3 bg-[#27272a] hover:bg-[#3a3a3a] text-white rounded-full font-medium text-xs sm:text-sm transition-colors whitespace-nowrap"
+              className="inline-flex items-center justify-center px-4 py-2 md:px-6 md:py-3 bg-surface-2 hover:bg-surface-3 text-white rounded-full font-medium text-xs sm:text-sm transition-colors whitespace-nowrap"
             >
               Sign In
             </Link>
@@ -48,7 +48,7 @@ export function LandingNav() {
             {/* Get Started - Primary */}
             <Link
               href="/signup"
-              className="inline-flex items-center justify-center px-4 py-2 md:px-6 md:py-3 bg-lime-400 hover:bg-lime-500 text-black rounded-full font-medium text-xs sm:text-sm transition-colors whitespace-nowrap"
+              className="inline-flex items-center justify-center px-4 py-2 md:px-6 md:py-3 bg-accent hover:bg-accent text-black rounded-full font-medium text-xs sm:text-sm transition-colors whitespace-nowrap"
             >
               Get Started
             </Link>

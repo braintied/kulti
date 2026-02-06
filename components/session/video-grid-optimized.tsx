@@ -128,7 +128,7 @@ export function VideoGrid() {
           {sidebarHasMore && sidebarPage > 0 && (
             <button
               onClick={() => setSidebarPage((p) => Math.max(0, p - 1))}
-              className="flex items-center justify-center py-2 bg-[#1a1a1a] hover:bg-[#2a2a2a] rounded-lg transition-colors"
+              className="flex items-center justify-center py-2 bg-surface-1 hover:bg-surface-2 rounded-lg transition-colors"
             >
               <ChevronLeft className="w-5 h-5" />
               <span className="text-sm ml-1">Previous</span>
@@ -149,7 +149,7 @@ export function VideoGrid() {
           {sidebarHasMore && (sidebarPage + 1) * SIDEBAR_PEERS < orderedPeers.length && (
             <button
               onClick={() => setSidebarPage((p) => p + 1)}
-              className="flex items-center justify-center py-2 bg-[#1a1a1a] hover:bg-[#2a2a2a] rounded-lg transition-colors"
+              className="flex items-center justify-center py-2 bg-surface-1 hover:bg-surface-2 rounded-lg transition-colors"
             >
               <span className="text-sm mr-1">Next</span>
               <ChevronRight className="w-5 h-5" />
@@ -169,20 +169,20 @@ export function VideoGrid() {
           <button
             onClick={goToPrevPage}
             disabled={currentPage === 0}
-            className="flex items-center gap-2 px-4 py-2 bg-[#1a1a1a] hover:bg-[#2a2a2a] disabled:opacity-50 disabled:cursor-not-allowed rounded-lg transition-colors"
+            className="flex items-center gap-2 px-4 py-2 bg-surface-1 hover:bg-surface-2 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg transition-colors"
           >
             <ChevronLeft className="w-4 h-4" />
             <span className="text-sm">Previous</span>
           </button>
 
-          <div className="text-sm text-[#a1a1aa]">
+          <div className="text-sm text-muted-2">
             Page {currentPage + 1} of {totalPages} ({totalPeers} participants)
           </div>
 
           <button
             onClick={goToNextPage}
             disabled={currentPage === totalPages - 1}
-            className="flex items-center gap-2 px-4 py-2 bg-[#1a1a1a] hover:bg-[#2a2a2a] disabled:opacity-50 disabled:cursor-not-allowed rounded-lg transition-colors"
+            className="flex items-center gap-2 px-4 py-2 bg-surface-1 hover:bg-surface-2 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg transition-colors"
           >
             <span className="text-sm">Next</span>
             <ChevronRight className="w-4 h-4" />
@@ -204,8 +204,8 @@ export function VideoGrid() {
               onClick={() => setCurrentPage(index)}
               className={`w-2 h-2 rounded-full transition-all ${
                 index === currentPage
-                  ? "bg-lime-400 w-8"
-                  : "bg-[#27272a] hover:bg-[#3a3a3a]"
+                  ? "bg-accent w-8"
+                  : "bg-surface-2 hover:bg-surface-3"
               }`}
               aria-label={`Go to page ${index + 1}`}
             />

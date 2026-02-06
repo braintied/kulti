@@ -68,7 +68,7 @@ const thoughtTypeConfig: Record<string, {
   },
   prompt: { 
     label: 'Crafting Prompt', 
-    icon: '📝', 
+    icon: '', 
     gradient: 'from-amber-500/10 to-orange-500/5',
     textClass: 'text-amber-400/70',
     borderClass: 'border-amber-500/20',
@@ -76,15 +76,15 @@ const thoughtTypeConfig: Record<string, {
   },
   tool: { 
     label: 'Using Tool', 
-    icon: '🔧', 
-    gradient: 'from-blue-500/10 to-cyan-500/5',
+    icon: '', 
+    gradient: 'from-blue-500/10 to-accent/5',
     textClass: 'text-blue-400/70',
     borderClass: 'border-blue-500/20',
     cursorClass: 'bg-blue-400/70'
   },
   context: { 
     label: 'Loading Context', 
-    icon: '📖', 
+    icon: '', 
     gradient: 'from-emerald-500/10 to-green-500/5',
     textClass: 'text-emerald-400/70',
     borderClass: 'border-emerald-500/20',
@@ -108,16 +108,16 @@ const thoughtTypeConfig: Record<string, {
   },
   observation: { 
     label: 'Observing', 
-    icon: '👀', 
-    gradient: 'from-cyan-500/10 to-blue-500/5',
-    textClass: 'text-cyan-400/70',
-    borderClass: 'border-cyan-500/20',
-    cursorClass: 'bg-cyan-400/70'
+    icon: '', 
+    gradient: 'from-accent/10 to-blue-500/5',
+    textClass: 'text-accent/70',
+    borderClass: 'border-accent/20',
+    cursorClass: 'bg-accent/70'
   },
   general: { 
     label: 'Thinking', 
-    icon: '💭', 
-    gradient: 'from-white/5 to-gray-500/5',
+    icon: '', 
+    gradient: 'from-white/5 to-white/[0.02]',
     textClass: 'text-white/50',
     borderClass: 'border-white/10',
     cursorClass: 'bg-white/50'
@@ -534,7 +534,7 @@ export default function WatchPage() {
   if (loading) {
     return (
       <div className="h-screen bg-black flex items-center justify-center">
-        <div className="w-12 h-12 rounded-full border border-white/10 border-t-cyan-500 animate-spin" />
+        <div className="w-12 h-12 rounded-full border border-white/10 border-t-accent animate-spin" />
       </div>
     );
   }
@@ -543,7 +543,7 @@ export default function WatchPage() {
     return (
       <div className="h-screen bg-black flex flex-col items-center justify-center gap-6">
         <div className="text-5xl font-extralight text-white/20">404</div>
-        <Link href="/ai" className="text-white/30 hover:text-white/50 transition text-sm">Return home</Link>
+        <Link href="/ai" className="text-white/30 hover:text-muted-1/50 transition text-sm">Return home</Link>
       </div>
     );
   }
@@ -557,7 +557,7 @@ export default function WatchPage() {
     <div className="h-screen bg-black text-white overflow-hidden flex">
       {/* Ambient background */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-[800px] h-[800px] bg-cyan-500/[0.02] rounded-full blur-[200px]" />
+        <div className="absolute top-1/4 left-1/4 w-[800px] h-[800px] bg-accent/[0.02] rounded-full blur-[200px]" />
         <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-indigo-500/[0.02] rounded-full blur-[200px]" />
       </div>
 
@@ -565,7 +565,7 @@ export default function WatchPage() {
       <div className="w-96 min-w-96 max-w-96 flex-shrink-0 border-r border-white/[0.04] flex flex-col relative z-10">
         {/* Agent header */}
         <div className="p-4">
-          <Link href="/ai" className="text-white/30 hover:text-white/50 transition text-xs mb-3 inline-flex items-center gap-1">
+          <Link href="/ai" className="text-white/30 hover:text-muted-1/50 transition text-xs mb-3 inline-flex items-center gap-1">
             <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
             back
           </Link>
@@ -574,7 +574,7 @@ export default function WatchPage() {
               {avatarUrl ? (
                 <img src={avatarUrl} alt={session.agent_name} className="w-12 h-12 rounded-xl object-cover" />
               ) : (
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-400 to-indigo-600 flex items-center justify-center text-lg font-medium">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent to-indigo-600 flex items-center justify-center text-lg font-medium">
                   {session.agent_name.charAt(0)}
                 </div>
               )}
@@ -591,9 +591,9 @@ export default function WatchPage() {
               <div className="text-xs text-white/40 mt-0.5 flex items-center gap-2">
                 <span>{session.viewers_count} watching</span>
                 <span className="text-white/20">·</span>
-                <Link href={`/${username}/gallery`} className="hover:text-white/60 transition">gallery</Link>
+                <Link href={`/${username}/gallery`} className="hover:text-muted-1/60 transition">gallery</Link>
                 <span className="text-white/20">·</span>
-                <Link href={`/${username}/dashboard`} className="hover:text-white/60 transition">dashboard</Link>
+                <Link href={`/${username}/dashboard`} className="hover:text-muted-1/60 transition">dashboard</Link>
               </div>
             </div>
           </div>
@@ -706,7 +706,7 @@ export default function WatchPage() {
             {(session.creation_type === 'code' || session.creation_type === 'other' || fileList.length > 0) && (
               <button
                 onClick={() => { setActiveTab('code'); setUserSelectedTab(true); }}
-                className={`px-4 py-1.5 rounded-lg text-sm transition ${activeTab === 'code' ? 'bg-white/10 text-white' : 'text-white/30 hover:text-white/50'}`}
+                className={`px-4 py-1.5 rounded-lg text-sm transition ${activeTab === 'code' ? 'bg-white/10 text-white' : 'text-white/30 hover:text-muted-1/50'}`}
               >
                 code
               </button>
@@ -715,7 +715,7 @@ export default function WatchPage() {
             {session.preview_url && (
               <button
                 onClick={() => { setActiveTab('preview'); setUserSelectedTab(true); }}
-                className={`px-4 py-1.5 rounded-lg text-sm transition ${activeTab === 'preview' ? 'bg-white/10 text-white' : 'text-white/30 hover:text-white/50'}`}
+                className={`px-4 py-1.5 rounded-lg text-sm transition ${activeTab === 'preview' ? 'bg-white/10 text-white' : 'text-white/30 hover:text-muted-1/50'}`}
               >
                 preview
               </button>
@@ -724,7 +724,7 @@ export default function WatchPage() {
             {(session.creation_type === 'art' || session.creation_type === 'image' || session.creation_type === 'other' || true) && (
               <button
                 onClick={() => { setActiveTab('art'); setUserSelectedTab(true); }}
-                className={`px-4 py-1.5 rounded-lg text-sm transition ${activeTab === 'art' ? 'bg-white/10 text-white' : 'text-white/30 hover:text-white/50'}`}
+                className={`px-4 py-1.5 rounded-lg text-sm transition ${activeTab === 'art' ? 'bg-white/10 text-white' : 'text-white/30 hover:text-muted-1/50'}`}
               >
                 art
               </button>
@@ -733,7 +733,7 @@ export default function WatchPage() {
           {/* Gallery link */}
           <Link
             href={`/${username}/gallery`}
-            className="ml-auto mr-4 text-xs text-white/30 hover:text-white/50 transition"
+            className="ml-auto mr-4 text-xs text-white/30 hover:text-muted-1/50 transition"
           >
             view gallery →
           </Link>
@@ -747,12 +747,12 @@ export default function WatchPage() {
                   className={`px-3 py-1 rounded text-xs font-mono transition flex items-center gap-2 ${
                     activeFile === file.filename
                       ? 'bg-white/10 text-white'
-                      : 'text-white/30 hover:text-white/50'
+                      : 'text-white/30 hover:text-muted-1/50'
                   }`}
                 >
                   {file.filename}
                   {file.isTyping && (
-                    <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse" />
+                    <span className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse" />
                   )}
                 </button>
               ))}
@@ -769,7 +769,7 @@ export default function WatchPage() {
                   waiting for code...
                 </div>
               ) : (
-                <div className="rounded-xl overflow-hidden ring-1 ring-cyan-500/20 flex-1 flex flex-col min-h-0">
+                <div className="rounded-xl overflow-hidden ring-1 ring-accent/20 flex-1 flex flex-col min-h-0">
                   {/* File header */}
                   <div className="px-4 py-2 bg-white/[0.04] flex items-center justify-between text-xs">
                     <div className="flex items-center gap-2">
@@ -782,7 +782,7 @@ export default function WatchPage() {
                         {currentFile.action}
                       </span>
                       {currentFile.isTyping && (
-                        <span className="text-cyan-400 animate-pulse">typing...</span>
+                        <span className="text-accent animate-pulse">typing...</span>
                       )}
                     </div>
                     <span className="text-white/20">
@@ -794,7 +794,7 @@ export default function WatchPage() {
                     <pre className="font-mono text-[13px] leading-relaxed text-white/70 whitespace-pre w-max">
                       {currentFile.displayedContent}
                       {currentFile.isTyping && (
-                        <span ref={cursorRef} className="inline-block w-2 h-4 bg-cyan-400 animate-pulse ml-0.5" />
+                        <span ref={cursorRef} className="inline-block w-2 h-4 bg-accent animate-pulse ml-0.5" />
                       )}
                     </pre>
                   </div>
@@ -836,7 +836,7 @@ export default function WatchPage() {
         className={`fixed bottom-6 right-6 z-50 w-14 h-14 rounded-2xl flex items-center justify-center transition-all ${
           showChat 
             ? 'bg-white/10 text-white' 
-            : 'bg-cyan-500/20 text-cyan-400 hover:bg-cyan-500/30'
+            : 'bg-accent/20 text-accent hover:bg-accent/30'
         }`}
       >
         {showChat ? (

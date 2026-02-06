@@ -26,57 +26,57 @@ export function InviteCodeTable({
 
   if (loading) {
     return (
-      <div className="rounded-lg border border-gray-800 bg-gray-900 p-8 text-center">
-        <p className="text-gray-500">Loading invite codes...</p>
+      <div className="rounded-lg border border-border-default bg-surface-1 p-8 text-center">
+        <p className="text-muted-3">Loading invite codes...</p>
       </div>
     )
   }
 
   if (invites.length === 0) {
     return (
-      <div className="rounded-lg border border-gray-800 bg-gray-900 p-8 text-center">
-        <p className="text-gray-500">No invite codes found</p>
+      <div className="rounded-lg border border-border-default bg-surface-1 p-8 text-center">
+        <p className="text-muted-3">No invite codes found</p>
       </div>
     )
   }
 
   return (
-    <div className="overflow-hidden rounded-lg border border-gray-800 bg-gray-900">
+    <div className="overflow-hidden rounded-lg border border-border-default bg-surface-1">
       <div className="overflow-x-auto">
         <table className="w-full">
-          <thead className="border-b border-gray-800 bg-gray-800/50">
+          <thead className="border-b border-border-default bg-surface-2/50">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">
+              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-3">
                 Code
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">
+              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-3">
                 Uses
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">
+              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-3">
                 Expires
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">
+              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-3">
                 Status
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">
+              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-3">
                 Created
               </th>
-              <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-400">
+              <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-muted-3">
                 Actions
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-800">
+          <tbody className="divide-y divide-border-default">
             {invites.map((invite) => (
-              <tr key={invite.id} className="hover:bg-gray-800/30">
+              <tr key={invite.id} className="hover:bg-surface-2/30">
                 <td className="px-6 py-4">
                   <div className="flex items-center gap-2">
-                    <code className="rounded bg-gray-800 px-2 py-1 text-sm font-mono text-purple-400">
+                    <code className="rounded bg-surface-2 px-2 py-1 text-sm font-mono text-purple-400">
                       {invite.code}
                     </code>
                     <button
                       onClick={() => copyToClipboard(invite.code)}
-                      className="text-gray-500 hover:text-white min-h-[44px] min-w-[44px] flex items-center justify-center"
+                      className="text-muted-3 hover:text-muted-1 min-h-[44px] min-w-[44px] flex items-center justify-center"
                     >
                       {copiedCode === invite.code ? (
                         <Check className="h-4 w-4 text-green-500" />
@@ -86,7 +86,7 @@ export function InviteCodeTable({
                     </button>
                   </div>
                   {invite.metadata?.note && (
-                    <p className="mt-1 text-xs text-gray-500">
+                    <p className="mt-1 text-xs text-muted-3">
                       {invite.metadata.note}
                     </p>
                   )}
@@ -94,7 +94,7 @@ export function InviteCodeTable({
                 <td className="px-6 py-4 text-sm text-white">
                   {invite.current_uses} / {invite.max_uses}
                 </td>
-                <td className="px-6 py-4 text-sm text-gray-400">
+                <td className="px-6 py-4 text-sm text-muted-3">
                   {invite.expires_at
                     ? new Date(invite.expires_at).toLocaleDateString()
                     : 'Never'}
@@ -105,12 +105,12 @@ export function InviteCodeTable({
                       Active
                     </span>
                   ) : (
-                    <span className="inline-flex rounded-full bg-gray-500/10 px-2 py-1 text-xs font-medium text-gray-500">
+                    <span className="inline-flex rounded-full bg-surface-3 px-2 py-1 text-xs font-medium text-muted-3">
                       Inactive
                     </span>
                   )}
                 </td>
-                <td className="px-6 py-4 text-sm text-gray-400">
+                <td className="px-6 py-4 text-sm text-muted-3">
                   {new Date(invite.created_at).toLocaleDateString()}
                 </td>
                 <td className="px-6 py-4 text-right text-sm font-medium">

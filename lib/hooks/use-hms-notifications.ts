@@ -20,7 +20,7 @@ export function useHMSNotificationHandler() {
       case HMSNotificationTypes.PEER_JOINED: {
         toast.success(`${notification.data?.name || 'Someone'} joined the session`, {
           duration: 2000,
-          icon: '👋',
+          icon: '',
         })
         break
       }
@@ -28,7 +28,7 @@ export function useHMSNotificationHandler() {
       case HMSNotificationTypes.PEER_LEFT: {
         toast(`${notification.data?.name || 'Someone'} left the session`, {
           duration: 2000,
-          icon: '👋',
+          icon: '',
         })
         break
       }
@@ -93,7 +93,7 @@ export function useHMSNotificationHandler() {
       case HMSNotificationTypes.DEVICE_CHANGE_UPDATE: {
         toast('Camera or microphone changed', {
           duration: 2000,
-          icon: '🎥',
+          icon: '',
         })
         break
       }

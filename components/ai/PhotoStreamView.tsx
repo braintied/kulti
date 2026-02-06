@@ -68,7 +68,7 @@ export default function PhotoStreamView({ sessionId, agentName }: PhotoStreamVie
     if (type === 'reason') return 'text-blue-400'
     if (type === 'decide') return 'text-emerald-400'
     if (type === 'observe') return 'text-yellow-400'
-    if (type === 'evaluate') return 'text-cyan-400'
+    if (type === 'evaluate') return 'text-accent'
     return 'text-rose-400'
   }
 
@@ -260,7 +260,7 @@ export default function PhotoStreamView({ sessionId, agentName }: PhotoStreamVie
             </div>
           ) : (
             <div className="flex flex-col items-center gap-3 text-white/20">
-              <span className="text-5xl">📷</span>
+              <span className="text-sm font-mono text-muted-3">photo</span>
               <p className="text-sm">Waiting for {agentName} to share a photo...</p>
             </div>
           )}
@@ -310,12 +310,12 @@ export default function PhotoStreamView({ sessionId, agentName }: PhotoStreamVie
                   </span>
                 )}
                 {active_photo.metadata.aperture !== undefined && (
-                  <span className="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 text-[10px]">
+                  <span className="px-2 py-0.5 rounded-full bg-accent/20 text-accent text-[10px]">
                     ƒ/{active_photo.metadata.aperture}
                   </span>
                 )}
                 {active_photo.metadata.shutter !== undefined && (
-                  <span className="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 text-[10px]">
+                  <span className="px-2 py-0.5 rounded-full bg-accent/20 text-accent text-[10px]">
                     {active_photo.metadata.shutter}
                   </span>
                 )}

@@ -14,12 +14,12 @@ export function ProfileSessionHistory({
 }: ProfileSessionHistoryProps) {
   if (!sessions || sessions.length === 0) {
     return (
-      <div className="bg-[#1a1a1a] border border-[#27272a] rounded-xl p-8">
+      <div className="bg-surface-1 border border-border-default rounded-xl p-8">
         <h2 className="font-mono text-2xl font-bold mb-6">Session History</h2>
         <div className="text-center py-8">
-          <Video className="w-12 h-12 text-[#a1a1aa] mx-auto mb-4" />
-          <p className="text-[#a1a1aa]">No sessions yet</p>
-          <p className="text-sm text-[#71717a] mt-2">
+          <Video className="w-12 h-12 text-muted-2 mx-auto mb-4" />
+          <p className="text-muted-2">No sessions yet</p>
+          <p className="text-sm text-muted-3 mt-2">
             Session history will appear here
           </p>
         </div>
@@ -28,7 +28,7 @@ export function ProfileSessionHistory({
   }
 
   return (
-    <div className="bg-[#1a1a1a] border border-[#27272a] rounded-xl p-8">
+    <div className="bg-surface-1 border border-border-default rounded-xl p-8">
       <h2 className="font-mono text-2xl font-bold mb-6">Recent Sessions</h2>
 
       <div className="space-y-3">
@@ -44,7 +44,7 @@ export function ProfileSessionHistory({
           return (
             <div
               key={participant.session_id}
-              className="p-4 bg-[#2a2a2a] hover:bg-[#333333] rounded-lg transition-colors"
+              className="p-4 bg-surface-2 hover:bg-surface-3 rounded-lg transition-colors"
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1 min-w-0">
@@ -57,7 +57,7 @@ export function ProfileSessionHistory({
                     <h3 className="font-medium truncate">{session.title}</h3>
                   </div>
 
-                  <div className="flex items-center gap-4 text-sm text-[#71717a]">
+                  <div className="flex items-center gap-4 text-sm text-muted-3">
                     {!isHost && session.host && (
                       <span>by @{session.host.username}</span>
                     )}
@@ -77,9 +77,9 @@ export function ProfileSessionHistory({
 
                 {/* Credits Earned */}
                 {participant.credits_earned > 0 && (
-                  <div className="flex items-center gap-1 px-3 py-1 bg-lime-400/10 rounded-lg">
-                    <Coins className="w-4 h-4 text-lime-400" />
-                    <span className="font-mono font-bold text-lime-400">
+                  <div className="flex items-center gap-1 px-3 py-1 bg-accent/10 rounded-lg">
+                    <Coins className="w-4 h-4 text-accent" />
+                    <span className="font-mono font-bold text-accent">
                       +{formatCredits(participant.credits_earned)}
                     </span>
                   </div>
@@ -94,7 +94,7 @@ export function ProfileSessionHistory({
         <div className="mt-6 text-center">
           <Link
             href={`/profile/${profileUsername}/history`}
-            className="text-lime-400 hover:text-lime-500 font-medium"
+            className="text-accent hover:text-accent font-medium"
           >
             View All Sessions →
           </Link>

@@ -36,7 +36,7 @@ export default function AdminLayout({
       <div className="flex h-screen items-center justify-center bg-black">
         <div className="text-center">
           <div className="mb-4 h-12 w-12 animate-spin rounded-full border-4 border-purple-500 border-t-transparent mx-auto" />
-          <p className="text-gray-400">Verifying admin access...</p>
+          <p className="text-muted-3">Verifying admin access...</p>
         </div>
       </div>
     )

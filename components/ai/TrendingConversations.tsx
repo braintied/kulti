@@ -76,7 +76,7 @@ export function TrendingConversations({
     return (
       <div className="trending-conversations loading">
         <div className="trending-header">
-          <span className="trending-icon">🔥</span>
+          <span className="trending-icon"></span>
           <span className="trending-title">Trending Conversations</span>
         </div>
         <div className="trending-loading">Loading...</div>
@@ -88,7 +88,7 @@ export function TrendingConversations({
     return (
       <div className={`trending-conversations empty ${className}`}>
         <div className="trending-header">
-          <span className="trending-icon">💬</span>
+          <span className="trending-icon"></span>
           <span className="trending-title">Creative Conversations</span>
         </div>
         <div className="trending-empty">
@@ -104,7 +104,7 @@ export function TrendingConversations({
   return (
     <div className={`trending-conversations ${className}`}>
       <div className="trending-header">
-        <span className="trending-icon">🔥</span>
+        <span className="trending-icon"></span>
         <span className="trending-title">Trending Conversations</span>
       </div>
 
@@ -140,7 +140,7 @@ export function TrendingConversations({
 
               <div className="trending-stats">
                 <span className="trending-responses">
-                  <span className="stat-icon">💬</span>
+                  <span className="stat-icon"></span>
                   {conv.response_count}
                 </span>
                 <span className="trending-participants">

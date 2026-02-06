@@ -200,9 +200,9 @@ export function RecordingsContent() {
       case "completed":
         return "bg-green-500 hover:bg-green-600"
       case "failed":
-        return "bg-gray-500 hover:bg-gray-600"
+        return "bg-surface-3 hover:bg-surface-3"
       default:
-        return "bg-gray-500 hover:bg-gray-600"
+        return "bg-surface-3 hover:bg-surface-3"
     }
   }
 
@@ -251,14 +251,14 @@ export function RecordingsContent() {
 
   if (recordings.length === 0) {
     return (
-      <div className="text-center py-20 border border-[#27272a] border-dashed rounded-2xl bg-[#1a1a1a]/30 backdrop-blur-sm">
+      <div className="text-center py-20 border border-border-default border-dashed rounded-2xl bg-surface-1/30 backdrop-blur-sm">
         <div className="flex flex-col items-center gap-6">
-          <div className="p-6 bg-[#27272a] rounded-full">
-            <Film className="w-12 h-12 text-lime-400" />
+          <div className="p-6 bg-surface-2 rounded-full">
+            <Film className="w-12 h-12 text-accent" />
           </div>
           <div>
             <h3 className="text-2xl font-bold mb-3">No recordings yet</h3>
-            <p className="text-[#a1a1aa] max-w-md mx-auto text-lg">
+            <p className="text-muted-2 max-w-md mx-auto text-lg">
               Start recording your sessions to create video content that can be shared
               later. Recordings will appear here once they finish processing.
             </p>
@@ -279,14 +279,14 @@ export function RecordingsContent() {
 
       {/* Recordings Grid */}
       {filteredRecordings.length === 0 ? (
-        <div className="text-center py-20 border border-[#27272a] border-dashed rounded-2xl bg-[#1a1a1a]/30 backdrop-blur-sm">
+        <div className="text-center py-20 border border-border-default border-dashed rounded-2xl bg-surface-1/30 backdrop-blur-sm">
           <div className="flex flex-col items-center gap-4">
-            <div className="p-6 bg-[#27272a] rounded-full">
-              <Film className="w-10 h-10 text-[#a1a1aa]" />
+            <div className="p-6 bg-surface-2 rounded-full">
+              <Film className="w-10 h-10 text-muted-2" />
             </div>
             <div>
               <h3 className="text-xl font-bold mb-2">No recordings found</h3>
-              <p className="text-[#a1a1aa] max-w-md mx-auto">
+              <p className="text-muted-2 max-w-md mx-auto">
                 Try adjusting your filters to see more results
               </p>
             </div>
@@ -297,10 +297,10 @@ export function RecordingsContent() {
           {filteredRecordings.map((recording) => (
             <Card
               key={recording.id}
-              className="group bg-[#1a1a1a] border-[#27272a] hover:border-lime-400/50 transition-all duration-300 overflow-hidden"
+              className="group bg-surface-1 border-border-default hover:border-accent/50 transition-all duration-300 overflow-hidden"
             >
               {/* Thumbnail / Preview */}
-              <div className="relative aspect-video bg-gradient-to-br from-[#27272a] to-[#1a1a1a] flex items-center justify-center overflow-hidden">
+              <div className="relative aspect-video bg-gradient-to-br from-surface-2 to-surface-1 flex items-center justify-center overflow-hidden">
                 {recording.status === "completed" && recording.recording_url ? (
                   <div className="relative w-full h-full">
                     <video
@@ -312,7 +312,7 @@ export function RecordingsContent() {
                     <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                       <button
                         onClick={() => setPlayingRecording(recording)}
-                        className="p-6 bg-lime-400 hover:bg-lime-500 rounded-full transition-all transform hover:scale-110"
+                        className="p-6 bg-accent hover:bg-accent rounded-full transition-all transform hover:scale-110"
                         aria-label={`Play ${recording.sessions.title}`}
                       >
                         <Play className="w-8 h-8 text-black fill-black" />
@@ -320,7 +320,7 @@ export function RecordingsContent() {
                     </div>
                   </div>
                 ) : (
-                  <div className="flex flex-col items-center gap-3 text-[#a1a1aa]">
+                  <div className="flex flex-col items-center gap-3 text-muted-2">
                     <Film className="w-16 h-16" />
                     {recording.status === "processing" && (
                       <Loader2 className="w-6 h-6 animate-spin text-yellow-500" />
@@ -356,14 +356,14 @@ export function RecordingsContent() {
                     {recording.sessions.title}
                   </h3>
                   {recording.sessions.description && (
-                    <p className="text-sm text-[#a1a1aa] line-clamp-2">
+                    <p className="text-sm text-muted-2 line-clamp-2">
                       {recording.sessions.description}
                     </p>
                   )}
                 </div>
 
                 {/* Metadata */}
-                <div className="flex flex-wrap gap-4 text-sm text-[#a1a1aa]">
+                <div className="flex flex-wrap gap-4 text-sm text-muted-2">
                   <div className="flex items-center gap-1">
                     <Calendar className="w-4 h-4" />
                     <span>
@@ -460,10 +460,10 @@ export function RecordingsContent() {
 
       {/* Delete Confirmation Dialog */}
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
-        <AlertDialogContent className="bg-[#1a1a1a] border-[#27272a]">
+        <AlertDialogContent className="bg-surface-1 border-border-default">
           <AlertDialogHeader>
             <AlertDialogTitle className="text-white">Delete Recording?</AlertDialogTitle>
-            <AlertDialogDescription className="text-[#a1a1aa]">
+            <AlertDialogDescription className="text-muted-2">
               This action cannot be undone. The recording will be permanently deleted
               from our servers.
             </AlertDialogDescription>
@@ -471,7 +471,7 @@ export function RecordingsContent() {
           <AlertDialogFooter>
             <AlertDialogCancel
               disabled={isDeleting}
-              className="bg-[#27272a] text-white hover:bg-[#3a3a3a] border-0"
+              className="bg-surface-2 text-white hover:bg-surface-3 border-0"
             >
               Cancel
             </AlertDialogCancel>

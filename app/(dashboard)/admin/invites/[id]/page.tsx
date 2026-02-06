@@ -36,7 +36,7 @@ export default function InviteDetailsPage() {
   if (loading || !invite) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <p className="text-gray-500">Loading...</p>
+        <p className="text-muted-3">Loading...</p>
       </div>
     )
   }
@@ -47,7 +47,7 @@ export default function InviteDetailsPage() {
       <div>
         <button
           onClick={() => router.push('/admin/invites')}
-          className="mb-4 flex items-center gap-2 text-gray-400 hover:text-white"
+          className="mb-4 flex items-center gap-2 text-muted-3 hover:text-muted-1"
         >
           <ArrowLeft className="h-4 w-4" />
           Back to Invites
@@ -55,7 +55,7 @@ export default function InviteDetailsPage() {
         <h1 className="text-3xl font-bold text-white">
           Invite Code: {invite.code}
         </h1>
-        <p className="mt-2 text-gray-400">
+        <p className="mt-2 text-muted-3">
           Created by {invite.creator_display_name || 'System'}
         </p>
       </div>
@@ -87,34 +87,34 @@ export default function InviteDetailsPage() {
       </div>
 
       {/* Users List */}
-      <div className="rounded-lg border border-gray-800 bg-gray-900">
-        <div className="border-b border-gray-800 p-6">
+      <div className="rounded-lg border border-border-default bg-surface-1">
+        <div className="border-b border-border-default p-6">
           <h2 className="text-lg font-semibold text-white">
             Users ({invite.uses?.length || 0})
           </h2>
         </div>
-        <div className="divide-y divide-gray-800">
+        <div className="divide-y divide-border-default">
           {invite.uses && invite.uses.length > 0 ? (
             invite.uses.map((use, index) => (
               <div
                 key={`${use.user_id}-${index}`}
-                className="flex items-center justify-between p-4 hover:bg-gray-800/30"
+                className="flex items-center justify-between p-4 hover:bg-surface-2/30"
               >
                 <div>
                   <p className="text-sm font-medium text-white">
                     {use.display_name || use.username || `User: ${use.user_id.slice(0, 8)}...`}
                   </p>
                   {use.username && (
-                    <p className="text-xs text-gray-500">@{use.username}</p>
+                    <p className="text-xs text-muted-3">@{use.username}</p>
                   )}
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-xs text-muted-3 mt-1">
                     Signed up {new Date(use.used_at).toLocaleString()}
                   </p>
                 </div>
               </div>
             ))
           ) : (
-            <div className="p-8 text-center text-gray-500">
+            <div className="p-8 text-center text-muted-3">
               No users have used this code yet
             </div>
           )}

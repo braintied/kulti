@@ -107,23 +107,23 @@ export function ProfileSetupModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="profile-setup-title">
-      <div className="relative w-full max-w-2xl mx-4 max-h-[90vh] bg-[#1a1a1a] border border-[#27272a] rounded-2xl shadow-2xl overflow-hidden">
+      <div className="relative w-full max-w-2xl mx-4 max-h-[90vh] bg-surface-1 border border-border-default rounded-2xl shadow-2xl overflow-hidden">
         {/* Header */}
-        <div className="relative bg-gradient-to-r from-lime-400/10 to-green-500/10 border-b border-[#27272a] p-6">
+        <div className="relative bg-gradient-to-r from-accent/10 to-green-500/10 border-b border-border-default p-6">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 p-2 hover:bg-[#2a2a2a] rounded-lg transition-colors"
+            className="absolute top-4 right-4 p-2 hover:bg-surface-2 rounded-lg transition-colors"
             aria-label="Close profile setup modal"
           >
             <X className="w-5 h-5" />
           </button>
           <div className="flex items-center gap-3">
-            <div className="p-3 bg-lime-400 rounded-xl">
+            <div className="p-3 bg-accent rounded-xl">
               <Sparkles className="w-6 h-6 text-black" />
             </div>
             <div>
               <h2 id="profile-setup-title" className="font-mono text-2xl font-bold">Complete Your Profile</h2>
-              <p className="text-sm text-[#a1a1aa]">
+              <p className="text-sm text-muted-2">
                 Help us find perfect session matches for you
               </p>
             </div>
@@ -135,7 +135,7 @@ export function ProfileSetupModal({
               <div
                 key={i}
                 className={`flex-1 h-1 rounded-full transition-colors ${
-                  i < step ? 'bg-lime-400' : 'bg-[#27272a]'
+                  i < step ? 'bg-accent' : 'bg-surface-2'
                 }`}
               />
             ))}
@@ -149,7 +149,7 @@ export function ProfileSetupModal({
             <div className="space-y-4">
               <div>
                 <h3 className="text-xl font-bold mb-2">What are your skills?</h3>
-                <p className="text-sm text-[#a1a1aa]">
+                <p className="text-sm text-muted-2">
                   Select the technologies and tools you work with (select at least 1)
                 </p>
               </div>
@@ -161,8 +161,8 @@ export function ProfileSetupModal({
                     onClick={() => toggleSkill(skill)}
                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                       skills.includes(skill)
-                        ? 'bg-lime-400 text-black'
-                        : 'bg-[#2a2a2a] text-[#e5e5e5] hover:bg-[#333333]'
+                        ? 'bg-accent text-black'
+                        : 'bg-surface-2 text-muted-1 hover:bg-surface-3'
                     }`}
                   >
                     {skill}
@@ -175,7 +175,7 @@ export function ProfileSetupModal({
 
               {/* Custom Skill Input */}
               <div>
-                <label className="block text-sm font-medium text-[#a1a1aa] mb-2">
+                <label className="block text-sm font-medium text-muted-2 mb-2">
                   Add custom skill
                 </label>
                 <div className="flex gap-2">
@@ -185,12 +185,12 @@ export function ProfileSetupModal({
                     onChange={(e) => setCustomSkill(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && addCustomSkill()}
                     placeholder="e.g., GraphQL"
-                    className="flex-1 px-4 py-2 bg-[#2a2a2a] border border-[#27272a] rounded-lg text-white text-sm focus:border-lime-400 focus:outline-none"
+                    className="flex-1 px-4 py-2 bg-surface-2 border border-border-default rounded-lg text-white text-sm focus:border-accent focus:outline-none"
                   />
                   <button
                     onClick={addCustomSkill}
                     disabled={!customSkill.trim()}
-                    className="px-4 py-2 bg-lime-400 hover:bg-lime-500 text-black rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-4 py-2 bg-accent hover:bg-accent text-black rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Add
                   </button>
@@ -198,8 +198,8 @@ export function ProfileSetupModal({
               </div>
 
               {skills.length > 0 && (
-                <div className="p-4 bg-lime-400/10 border border-lime-400/20 rounded-xl">
-                  <p className="text-sm text-lime-400 font-medium">
+                <div className="p-4 bg-accent/10 border border-accent/20 rounded-xl">
+                  <p className="text-sm text-accent font-medium">
                     ✓ {skills.length} skill{skills.length !== 1 ? 's' : ''} selected
                   </p>
                 </div>
@@ -212,7 +212,7 @@ export function ProfileSetupModal({
             <div className="space-y-4">
               <div>
                 <h3 className="text-xl font-bold mb-2">What interests you?</h3>
-                <p className="text-sm text-[#a1a1aa]">
+                <p className="text-sm text-muted-2">
                   Choose topics you want to learn about or teach (select at least 1)
                 </p>
               </div>
@@ -224,8 +224,8 @@ export function ProfileSetupModal({
                     onClick={() => toggleInterest(interest)}
                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                       interests.includes(interest)
-                        ? 'bg-lime-400 text-black'
-                        : 'bg-[#2a2a2a] text-[#e5e5e5] hover:bg-[#333333]'
+                        ? 'bg-accent text-black'
+                        : 'bg-surface-2 text-muted-1 hover:bg-surface-3'
                     }`}
                   >
                     {interest}
@@ -238,7 +238,7 @@ export function ProfileSetupModal({
 
               {/* Custom Interest Input */}
               <div>
-                <label className="block text-sm font-medium text-[#a1a1aa] mb-2">
+                <label className="block text-sm font-medium text-muted-2 mb-2">
                   Add custom interest
                 </label>
                 <div className="flex gap-2">
@@ -248,12 +248,12 @@ export function ProfileSetupModal({
                     onChange={(e) => setCustomInterest(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && addCustomInterest()}
                     placeholder="e.g., Microservices"
-                    className="flex-1 px-4 py-2 bg-[#2a2a2a] border border-[#27272a] rounded-lg text-white text-sm focus:border-lime-400 focus:outline-none"
+                    className="flex-1 px-4 py-2 bg-surface-2 border border-border-default rounded-lg text-white text-sm focus:border-accent focus:outline-none"
                   />
                   <button
                     onClick={addCustomInterest}
                     disabled={!customInterest.trim()}
-                    className="px-4 py-2 bg-lime-400 hover:bg-lime-500 text-black rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-4 py-2 bg-accent hover:bg-accent text-black rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Add
                   </button>
@@ -261,8 +261,8 @@ export function ProfileSetupModal({
               </div>
 
               {interests.length > 0 && (
-                <div className="p-4 bg-lime-400/10 border border-lime-400/20 rounded-xl">
-                  <p className="text-sm text-lime-400 font-medium">
+                <div className="p-4 bg-accent/10 border border-accent/20 rounded-xl">
+                  <p className="text-sm text-accent font-medium">
                     ✓ {interests.length} interest{interests.length !== 1 ? 's' : ''} selected
                   </p>
                 </div>
@@ -275,7 +275,7 @@ export function ProfileSetupModal({
             <div className="space-y-4">
               <div>
                 <h3 className="text-xl font-bold mb-2">What's your experience level?</h3>
-                <p className="text-sm text-[#a1a1aa]">
+                <p className="text-sm text-muted-2">
                   This helps us match you with people at the right level
                 </p>
               </div>
@@ -287,17 +287,17 @@ export function ProfileSetupModal({
                     onClick={() => setExperienceLevel(level.value)}
                     className={`w-full p-4 rounded-xl border-2 transition-all text-left ${
                       experienceLevel === level.value
-                        ? 'border-lime-400 bg-lime-400/10'
-                        : 'border-[#27272a] bg-[#2a2a2a] hover:border-[#333333]'
+                        ? 'border-accent bg-accent/10'
+                        : 'border-border-default bg-surface-2 hover:border-border-default'
                     }`}
                   >
                     <div className="flex items-center justify-between">
                       <div>
                         <p className="font-bold text-lg">{level.label}</p>
-                        <p className="text-sm text-[#71717a] mt-1">{level.description}</p>
+                        <p className="text-sm text-muted-3 mt-1">{level.description}</p>
                       </div>
                       {experienceLevel === level.value && (
-                        <div className="w-6 h-6 bg-lime-400 rounded-full flex items-center justify-center">
+                        <div className="w-6 h-6 bg-accent rounded-full flex items-center justify-center">
                           <Check className="w-4 h-4 text-black" />
                         </div>
                       )}
@@ -317,11 +317,11 @@ export function ProfileSetupModal({
         </div>
 
         {/* Footer */}
-        <div className="border-t border-[#27272a] p-6">
+        <div className="border-t border-border-default p-6">
           <div className="flex items-center justify-between gap-4">
             <button
               onClick={handleSkip}
-              className="text-sm text-[#71717a] hover:text-white transition-colors"
+              className="text-sm text-muted-3 hover:text-muted-1 transition-colors"
             >
               Skip for now
             </button>
@@ -330,7 +330,7 @@ export function ProfileSetupModal({
               {step > 1 && (
                 <button
                   onClick={handleBack}
-                  className="px-6 py-3 bg-[#2a2a2a] hover:bg-[#333333] text-white rounded-lg transition-colors flex items-center gap-2"
+                  className="px-6 py-3 bg-surface-2 hover:bg-surface-3 text-white rounded-lg transition-colors flex items-center gap-2"
                 >
                   <ChevronLeft className="w-4 h-4" />
                   Back
@@ -344,7 +344,7 @@ export function ProfileSetupModal({
                     (step === 1 && skills.length < 1) ||
                     (step === 2 && interests.length < 1)
                   }
-                  className="px-6 py-3 bg-lime-400 hover:bg-lime-500 text-black font-bold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                  className="px-6 py-3 bg-accent hover:bg-accent text-black font-bold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                 >
                   Next
                   <ChevronRight className="w-4 h-4" />
@@ -353,7 +353,7 @@ export function ProfileSetupModal({
                 <button
                   onClick={handleComplete}
                   disabled={loading}
-                  className="px-6 py-3 bg-lime-400 hover:bg-lime-500 text-black font-bold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-6 py-3 bg-accent hover:bg-accent text-black font-bold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {loading ? 'Saving...' : 'Complete Profile'}
                 </button>

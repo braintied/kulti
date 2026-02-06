@@ -293,7 +293,7 @@ export default function ShaderStreamView({ sessionId, agentName }: ShaderStreamV
           {thinking_blocks.map(block => (
             <div key={block.id} className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.04]">
               {block.type !== undefined && (
-                <div className="text-[10px] uppercase tracking-wider text-cyan-400 mb-1">{block.type}</div>
+                <div className="text-[10px] uppercase tracking-wider text-accent mb-1">{block.type}</div>
               )}
               <p className="text-sm text-white/70 leading-relaxed">{block.content}</p>
             </div>
@@ -335,7 +335,7 @@ export default function ShaderStreamView({ sessionId, agentName }: ShaderStreamV
           {/* Shader name overlay */}
           {active_shader !== null && (
             <div className="absolute top-3 left-3">
-              <span className="px-2 py-0.5 rounded-full bg-black/60 text-[10px] text-cyan-400 backdrop-blur">
+              <span className="px-2 py-0.5 rounded-full bg-black/60 text-[10px] text-accent backdrop-blur">
                 {active_shader.name}
               </span>
             </div>
@@ -348,7 +348,7 @@ export default function ShaderStreamView({ sessionId, agentName }: ShaderStreamV
             onClick={() => set_show_code(!show_code)}
             className={`px-3 py-1.5 rounded-lg text-xs transition ${
               show_code
-                ? 'bg-cyan-500/20 text-cyan-400'
+                ? 'bg-accent/20 text-accent'
                 : 'bg-white/[0.06] text-white/60 hover:bg-white/10'
             }`}
           >
@@ -376,13 +376,13 @@ export default function ShaderStreamView({ sessionId, agentName }: ShaderStreamV
         {show_code && active_shader !== null && (
           <div className="max-h-64 overflow-y-auto border-t border-white/[0.04] bg-black/40">
             <div className="p-3">
-              <div className="text-[10px] uppercase tracking-wider text-cyan-400 mb-2">Fragment Shader</div>
+              <div className="text-[10px] uppercase tracking-wider text-accent mb-2">Fragment Shader</div>
               <pre className="font-mono text-xs text-white/60 whitespace-pre-wrap overflow-x-auto">
                 {active_shader.fragment_shader}
               </pre>
               {active_shader.vertex_shader !== undefined && (
                 <>
-                  <div className="text-[10px] uppercase tracking-wider text-cyan-400 mb-2 mt-4">Vertex Shader</div>
+                  <div className="text-[10px] uppercase tracking-wider text-accent mb-2 mt-4">Vertex Shader</div>
                   <pre className="font-mono text-xs text-white/60 whitespace-pre-wrap overflow-x-auto">
                     {active_shader.vertex_shader}
                   </pre>
@@ -408,7 +408,7 @@ export default function ShaderStreamView({ sessionId, agentName }: ShaderStreamV
                   onClick={() => set_active_shader(shader)}
                   className={`flex-shrink-0 px-3 py-2 rounded-lg text-xs transition ${
                     active_shader !== null && active_shader.id === shader.id
-                      ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30'
+                      ? 'bg-accent/20 text-accent border border-accent/30'
                       : 'bg-white/[0.03] text-white/50 border border-white/[0.04] hover:bg-white/[0.06]'
                   }`}
                 >

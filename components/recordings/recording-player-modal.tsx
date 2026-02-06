@@ -182,21 +182,21 @@ export function RecordingPlayerModal({
       aria-labelledby="player-title"
     >
       <div
-        className="w-full max-w-6xl bg-[#0a0a0a] border border-[#27272a] rounded-2xl overflow-hidden"
+        className="w-full max-w-6xl bg-black border border-border-default rounded-2xl overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-start justify-between p-6 border-b border-[#27272a]">
+        <div className="flex items-start justify-between p-6 border-b border-border-default">
           <div className="flex-1 min-w-0">
             <h2 id="player-title" className="text-2xl font-bold mb-2 truncate">
               {recording.sessions.title}
             </h2>
             {recording.sessions.description && (
-              <p className="text-[#a1a1aa] text-sm mb-2 line-clamp-2">
+              <p className="text-muted-2 text-sm mb-2 line-clamp-2">
                 {recording.sessions.description}
               </p>
             )}
-            <div className="flex flex-wrap gap-4 text-sm text-[#a1a1aa]">
+            <div className="flex flex-wrap gap-4 text-sm text-muted-2">
               <span>
                 Recorded{" "}
                 {formatDistanceToNow(new Date(recording.created_at), {
@@ -242,7 +242,7 @@ export function RecordingPlayerModal({
               max={duration || 0}
               value={currentTime}
               onChange={handleSeek}
-              className="w-full h-1 bg-[#27272a] rounded-full appearance-none cursor-pointer accent-lime-400"
+              className="w-full h-1 bg-surface-2 rounded-full appearance-none cursor-pointer accent-accent"
               aria-label="Seek video"
             />
 
@@ -280,7 +280,7 @@ export function RecordingPlayerModal({
                   step="0.1"
                   value={isMuted ? 0 : volume}
                   onChange={handleVolumeChange}
-                  className="w-20 h-1 bg-[#27272a] rounded-full appearance-none cursor-pointer accent-lime-400"
+                  className="w-20 h-1 bg-surface-2 rounded-full appearance-none cursor-pointer accent-accent"
                   aria-label="Volume"
                 />
 
@@ -305,9 +305,9 @@ export function RecordingPlayerModal({
         </div>
 
         {/* Footer Actions */}
-        <div className="flex items-center justify-between p-6 border-t border-[#27272a]">
-          <div className="text-sm text-[#a1a1aa]">
-            Press <kbd className="px-2 py-1 bg-[#27272a] rounded">ESC</kbd> to close
+        <div className="flex items-center justify-between p-6 border-t border-border-default">
+          <div className="text-sm text-muted-2">
+            Press <kbd className="px-2 py-1 bg-surface-2 rounded">ESC</kbd> to close
           </div>
           {recording.recording_url && (
             <Button

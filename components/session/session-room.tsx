@@ -430,12 +430,12 @@ function SessionRoomContent({
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a]">
-        <div className="text-center space-y-8 p-12 bg-[#1a1a1a]/50 backdrop-blur-sm border border-[#27272a] rounded-2xl max-w-md animate-fade-in">
+      <div className="min-h-screen flex items-center justify-center bg-black">
+        <div className="text-center space-y-8 p-12 bg-surface-1/50 backdrop-blur-sm border border-border-default rounded-2xl max-w-md animate-fade-in">
           <p className="text-red-500 text-2xl font-bold">{error}</p>
           <button
             onClick={() => router.push("/dashboard")}
-            className="bg-lime-400 hover:bg-lime-500 text-black font-bold text-lg px-12 py-4 rounded-xl transition-colors duration-300"
+            className="bg-accent hover:bg-accent text-black font-bold text-lg px-12 py-4 rounded-xl transition-colors duration-300"
           >
             Back to Dashboard
           </button>
@@ -446,25 +446,25 @@ function SessionRoomContent({
 
   if (isJoining || (!isConnected && !useHLS)) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a]">
+      <div className="min-h-screen flex items-center justify-center bg-black">
         <div className="text-center animate-fade-in">
-          <div className="animate-spin rounded-full h-20 w-20 border-b-4 border-lime-400 mx-auto mb-6"></div>
-          <p className="text-2xl text-[#a1a1aa]">Joining session...</p>
+          <div className="animate-spin rounded-full h-20 w-20 border-b-4 border-accent mx-auto mb-6"></div>
+          <p className="text-2xl text-muted-2">Joining session...</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="h-screen flex flex-col bg-[#0a0a0a] relative">
+    <div className="h-screen flex flex-col bg-black relative">
       {/* Reconnection Overlay */}
       {roomState === HMSRoomState.Reconnecting && (
         <div className="absolute inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center animate-fade-in">
-          <div className="text-center space-y-6 p-12 bg-[#1a1a1a]/90 border border-[#27272a] rounded-2xl max-w-md">
-            <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-lime-400 mx-auto"></div>
+          <div className="text-center space-y-6 p-12 bg-surface-1/90 border border-border-default rounded-2xl max-w-md">
+            <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-accent mx-auto"></div>
             <div>
               <h2 className="text-2xl font-bold text-white mb-2">Reconnecting...</h2>
-              <p className="text-[#a1a1aa]">
+              <p className="text-muted-2">
                 Lost connection. Attempting to rejoin the session.
               </p>
             </div>
@@ -473,20 +473,20 @@ function SessionRoomContent({
       )}
 
       {/* Header */}
-      <header className="border-b border-[#27272a] bg-[#1a1a1a]/95 backdrop-blur">
+      <header className="border-b border-border-default bg-surface-1/95 backdrop-blur">
         <div className="px-3 sm:px-6 py-3 sm:py-5">
           <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
             <div className="flex items-center gap-3 lg:gap-6">
               <button
                 onClick={handleLeave}
-                className="flex items-center gap-2 px-3 py-2 sm:px-6 sm:py-3 rounded-lg hover:bg-[#2a2a2a] transition-colors text-base sm:text-lg font-medium flex-shrink-0"
+                className="flex items-center gap-2 px-3 py-2 sm:px-6 sm:py-3 rounded-lg hover:bg-surface-2 transition-colors text-base sm:text-lg font-medium flex-shrink-0"
               >
                 <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
                 <span className="hidden sm:inline">Leave</span>
               </button>
               <div className="flex-1 min-w-0">
                 <h1 className="font-bold font-mono text-base sm:text-xl lg:text-2xl truncate">{session.title}</h1>
-                <p className="text-xs sm:text-sm lg:text-base text-[#a1a1aa] truncate">
+                <p className="text-xs sm:text-sm lg:text-base text-muted-2 truncate">
                   Hosted by {session.host.display_name}
                 </p>
               </div>
@@ -516,25 +516,25 @@ function SessionRoomContent({
 
               <div className="flex items-center gap-2 sm:gap-3">
                 {watchDuration > 0 && (
-                  <div className={`px-2 sm:px-4 py-1.5 sm:py-2 bg-[#1a1a1a] border rounded-lg transition-all duration-300 ${
+                  <div className={`px-2 sm:px-4 py-1.5 sm:py-2 bg-surface-1 border rounded-lg transition-all duration-300 ${
                     showCreditsAnimation
-                      ? "border-lime-400 scale-105 shadow-lg shadow-lime-400/20"
-                      : "border-[#27272a]"
+                      ? "border-accent scale-105 shadow-lg shadow-accent/20"
+                      : "border-border-default"
                   }`}>
-                    <div className="flex items-center gap-1 sm:gap-2 text-xs text-[#a1a1aa]">
+                    <div className="flex items-center gap-1 sm:gap-2 text-xs text-muted-2">
                       <TrendingUp className="w-3 h-3" />
                       <span className="hidden sm:inline">Earning</span>
                     </div>
                     <div className="flex items-center gap-1 sm:gap-2">
                       <span className={`font-mono text-sm sm:text-lg font-bold transition-all duration-300 ${
                         showCreditsAnimation ? "scale-110" : ""
-                      } text-lime-400`}>
+                      } text-accent`}>
                         +{estimatedCredits}
                       </span>
                     </div>
                   </div>
                 )}
-                <div className="px-3 sm:px-5 py-1.5 sm:py-2 bg-lime-400/10 text-lime-400 text-sm sm:text-lg rounded-lg font-mono font-bold">
+                <div className="px-3 sm:px-5 py-1.5 sm:py-2 bg-accent/10 text-accent text-sm sm:text-lg rounded-lg font-mono font-bold">
                   {session.room_code}
                 </div>
                 {aiPermissions && (
@@ -569,7 +569,7 @@ function SessionRoomContent({
               <VideoGrid />
             )}
           </div>
-          <div className="border-t border-[#27272a] bg-[#1a1a1a]/50 sticky bottom-0">
+          <div className="border-t border-border-default bg-surface-1/50 sticky bottom-0">
             <Controls
               sessionId={session.id}
               isHost={session.host_id === userId}
@@ -582,16 +582,16 @@ function SessionRoomContent({
 
         <StatsPanel />
 
-        <div className="hidden lg:flex lg:w-96 border-l border-[#27272a] flex-col bg-[#1a1a1a]/30">
-          <div className="flex border-b border-[#27272a]">
+        <div className="hidden lg:flex lg:w-96 border-l border-border-default flex-col bg-surface-1/30">
+          <div className="flex border-b border-border-default">
             <button
               onClick={() => setActiveTab("chat")}
               className={`${
                 aiPermissions?.moduleEnabled ? "flex-1" : "w-full"
               } flex items-center justify-center gap-2 px-4 py-3 font-medium transition-colors ${
                 activeTab === "chat"
-                  ? "bg-[#1a1a1a] text-white border-b-2 border-lime-400"
-                  : "text-[#71717a] hover:text-white"
+                  ? "bg-surface-1 text-white border-b-2 border-accent"
+                  : "text-muted-3 hover:text-muted-1"
               }`}
             >
               <MessageSquare className="w-4 h-4" />
@@ -602,8 +602,8 @@ function SessionRoomContent({
                 onClick={() => setActiveTab("ai")}
                 className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 font-medium transition-colors ${
                   activeTab === "ai"
-                    ? "bg-[#1a1a1a] text-white border-b-2 border-purple-500"
-                    : "text-[#71717a] hover:text-white"
+                    ? "bg-surface-1 text-white border-b-2 border-purple-500"
+                    : "text-muted-3 hover:text-muted-1"
                 }`}
               >
                 <Bot className="w-4 h-4" />
@@ -636,7 +636,7 @@ function SessionRoomContent({
               />
             )}
           </div>
-          <div className="border-t border-[#27272a] p-6">
+          <div className="border-t border-border-default p-6">
             <OBSPanel sessionId={session.id} isHost={session.host_id === userId} />
           </div>
         </div>

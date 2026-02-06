@@ -174,22 +174,22 @@ export default function HelpPage() {
   const totalQuestions = allSections.reduce((sum, section) => sum + section.items.length, 0)
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] p-4 sm:p-6 lg:p-8">
+    <div className="min-h-screen bg-black p-4 sm:p-6 lg:p-8">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-8 sm:mb-12">
           <div className="flex items-center gap-3 mb-4">
-            <div className="p-3 bg-lime-400/10 rounded-xl">
-              <HelpCircle className="w-8 h-8 text-lime-400" />
+            <div className="p-3 bg-accent/10 rounded-xl">
+              <HelpCircle className="w-8 h-8 text-accent" />
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-mono">
               Help Center
             </h1>
           </div>
-          <p className="text-base sm:text-lg lg:text-xl text-[#a1a1aa]">
+          <p className="text-base sm:text-lg lg:text-xl text-muted-2">
             Find answers to common questions about using Kulti
           </p>
-          <p className="text-sm text-[#71717a] mt-2">
+          <p className="text-sm text-muted-3 mt-2">
             {totalQuestions} articles across {allSections.length} categories
           </p>
         </div>
@@ -221,16 +221,16 @@ export default function HelpPage() {
                 ).length === 0
             ) && (
               <div className="text-center py-12">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-[#1a1a1a] rounded-full mb-4">
-                  <HelpCircle className="w-8 h-8 text-[#a1a1aa]" />
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-surface-1 rounded-full mb-4">
+                  <HelpCircle className="w-8 h-8 text-muted-2" />
                 </div>
                 <h3 className="text-xl font-bold text-white mb-2">No results found</h3>
-                <p className="text-[#a1a1aa] mb-6">
+                <p className="text-muted-2 mb-6">
                   We couldn't find any articles matching "{searchQuery}"
                 </p>
                 <button
                   onClick={() => setSearchQuery("")}
-                  className="px-6 py-3 bg-lime-400 hover:bg-lime-500 text-black font-bold rounded-lg transition-colors"
+                  className="px-6 py-3 bg-accent hover:bg-accent text-black font-bold rounded-lg transition-colors"
                 >
                   Clear Search
                 </button>
@@ -239,21 +239,21 @@ export default function HelpPage() {
         </div>
 
         {/* Still Need Help */}
-        <div className="mt-12 p-6 sm:p-8 bg-[#1a1a1a] border border-[#27272a] rounded-xl">
+        <div className="mt-12 p-6 sm:p-8 bg-surface-1 border border-border-default rounded-xl">
           <h2 className="text-2xl font-bold font-mono mb-3">Still need help?</h2>
-          <p className="text-[#a1a1aa] mb-6">
+          <p className="text-muted-2 mb-6">
             Can't find what you're looking for? Our support team is here to help.
           </p>
           <div className="flex flex-col sm:flex-row gap-3">
             <a
               href="/settings"
-              className="flex-1 px-6 py-3 bg-lime-400 hover:bg-lime-500 text-black font-bold rounded-lg transition-colors text-center"
+              className="flex-1 px-6 py-3 bg-accent hover:bg-accent text-black font-bold rounded-lg transition-colors text-center"
             >
               Contact Support
             </a>
             <a
               href="/community"
-              className="flex-1 px-6 py-3 bg-[#2a2a2a] hover:bg-[#333333] text-white font-bold rounded-lg transition-colors text-center border border-[#27272a]"
+              className="flex-1 px-6 py-3 bg-surface-2 hover:bg-surface-3 text-white font-bold rounded-lg transition-colors text-center border border-border-default"
             >
               Join Community
             </a>

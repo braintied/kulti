@@ -21,24 +21,24 @@ export function StatsCard({
 }: StatsCardProps) {
   if (loading) {
     return (
-      <div className="rounded-lg border border-gray-800 bg-gray-900 p-6">
+      <div className="rounded-lg border border-border-default bg-surface-1 p-6">
         <div className="animate-pulse space-y-3">
-          <div className="h-4 w-24 rounded bg-gray-800" />
-          <div className="h-8 w-32 rounded bg-gray-800" />
-          {description && <div className="h-3 w-40 rounded bg-gray-800" />}
+          <div className="h-4 w-24 rounded bg-surface-2" />
+          <div className="h-8 w-32 rounded bg-surface-2" />
+          {description && <div className="h-3 w-40 rounded bg-surface-2" />}
         </div>
       </div>
     )
   }
 
   return (
-    <div className="rounded-lg border border-gray-800 bg-gray-900 p-6">
+    <div className="rounded-lg border border-border-default bg-surface-1 p-6">
       <div className="flex items-start justify-between">
         <div className="flex-1">
-          <p className="text-sm font-medium text-gray-400">{title}</p>
+          <p className="text-sm font-medium text-muted-3">{title}</p>
           <p className="mt-2 text-3xl font-semibold text-white">{value}</p>
           {description && (
-            <p className="mt-1 text-sm text-gray-500">{description}</p>
+            <p className="mt-1 text-sm text-muted-3">{description}</p>
           )}
           {trend && (
             <div className="mt-2 flex items-center gap-1 text-sm">
@@ -49,7 +49,7 @@ export function StatsCard({
               >
                 {trend.isPositive ? '↑' : '↓'} {Math.abs(trend.value)}%
               </span>
-              <span className="text-gray-500">{trend.label}</span>
+              <span className="text-muted-3">{trend.label}</span>
             </div>
           )}
         </div>

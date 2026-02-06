@@ -197,11 +197,11 @@ export function CreditsMilestones({ userId }: CreditsMilestonesProps) {
 
   if (loading) {
     return (
-      <div className="bg-[#1a1a1a] border border-[#27272a] rounded-xl p-6 animate-pulse">
+      <div className="bg-surface-1 border border-border-default rounded-xl p-6 animate-pulse">
         <h2 className="font-mono text-2xl font-bold mb-6">Milestones</h2>
         <div className="space-y-4">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="h-20 bg-[#2a2a2a] rounded-lg" />
+            <div key={i} className="h-20 bg-surface-2 rounded-lg" />
           ))}
         </div>
       </div>
@@ -209,11 +209,11 @@ export function CreditsMilestones({ userId }: CreditsMilestonesProps) {
   }
 
   return (
-    <div className="bg-[#1a1a1a] border border-[#27272a] rounded-xl p-6">
+    <div className="bg-surface-1 border border-border-default rounded-xl p-6">
       <div className="flex items-center justify-between mb-6">
         <h2 className="font-mono text-2xl font-bold">Milestones</h2>
-        <div className="px-3 py-1 bg-lime-400/10 rounded-full">
-          <span className="text-sm font-bold text-lime-400">
+        <div className="px-3 py-1 bg-accent/10 rounded-full">
+          <span className="text-sm font-bold text-accent">
             {achievedMilestones.length}/{MILESTONE_DEFINITIONS.length}
           </span>
         </div>
@@ -222,7 +222,7 @@ export function CreditsMilestones({ userId }: CreditsMilestonesProps) {
       {/* Next Milestones */}
       {nextMilestones.length > 0 && (
         <div className="mb-6">
-          <h3 className="text-sm font-medium text-[#a1a1aa] mb-3">Up Next</h3>
+          <h3 className="text-sm font-medium text-muted-2 mb-3">Up Next</h3>
           <div className="space-y-3">
             {nextMilestones.map((milestone) => {
               const def = MILESTONE_DEFINITIONS.find((d) => d.type === milestone.type)
@@ -234,34 +234,34 @@ export function CreditsMilestones({ userId }: CreditsMilestonesProps) {
               return (
                 <div
                   key={milestone.type}
-                  className="p-4 bg-[#2a2a2a] rounded-lg border border-[#27272a]"
+                  className="p-4 bg-surface-2 rounded-lg border border-border-default"
                 >
                   <div className="flex items-start gap-3 mb-3">
-                    <div className="p-2 bg-[#1a1a1a] rounded-lg">
-                      <Icon className="w-4 h-4 text-[#a1a1aa]" />
+                    <div className="p-2 bg-surface-1 rounded-lg">
+                      <Icon className="w-4 h-4 text-muted-2" />
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center justify-between mb-1">
                         <p className="font-medium">{milestone.label}</p>
-                        <span className="text-xs font-mono text-lime-400">
+                        <span className="text-xs font-mono text-accent">
                           +{formatCredits(milestone.reward)}
                         </span>
                       </div>
-                      <p className="text-sm text-[#71717a]">{milestone.description}</p>
+                      <p className="text-sm text-muted-3">{milestone.description}</p>
                     </div>
                   </div>
 
                   {/* Progress Bar */}
                   <div className="space-y-1">
-                    <div className="flex justify-between text-xs text-[#71717a]">
+                    <div className="flex justify-between text-xs text-muted-3">
                       <span>
                         {milestone.progress?.toLocaleString()} / {milestone.total?.toLocaleString()}
                       </span>
                       <span>{Math.round(progressPercent)}%</span>
                     </div>
-                    <div className="h-1.5 bg-[#1a1a1a] rounded-full overflow-hidden">
+                    <div className="h-1.5 bg-surface-1 rounded-full overflow-hidden">
                       <div
-                        className="h-full bg-lime-400 rounded-full transition-all duration-500"
+                        className="h-full bg-accent rounded-full transition-all duration-500"
                         style={{ width: `${progressPercent}%` }}
                       />
                     </div>
@@ -276,7 +276,7 @@ export function CreditsMilestones({ userId }: CreditsMilestonesProps) {
       {/* Achieved Milestones */}
       {achievedMilestones.length > 0 && (
         <div>
-          <h3 className="text-sm font-medium text-[#a1a1aa] mb-3">Achieved</h3>
+          <h3 className="text-sm font-medium text-muted-2 mb-3">Achieved</h3>
           <div className="space-y-2">
             {achievedMilestones.map((milestone) => {
               const def = MILESTONE_DEFINITIONS.find((d) => d.type === milestone.type)
@@ -285,19 +285,19 @@ export function CreditsMilestones({ userId }: CreditsMilestonesProps) {
               return (
                 <div
                   key={milestone.type}
-                  className="flex items-center gap-3 p-3 bg-[#2a2a2a]/50 rounded-lg"
+                  className="flex items-center gap-3 p-3 bg-surface-2/50 rounded-lg"
                 >
-                  <div className="p-2 bg-lime-400/10 rounded-lg">
-                    <Icon className="w-4 h-4 text-lime-400" />
+                  <div className="p-2 bg-accent/10 rounded-lg">
+                    <Icon className="w-4 h-4 text-accent" />
                   </div>
                   <div className="flex-1">
                     <p className="font-medium text-sm">{milestone.label}</p>
-                    <p className="text-xs text-[#71717a]">
+                    <p className="text-xs text-muted-3">
                       {milestone.achieved_at &&
                         new Date(milestone.achieved_at).toLocaleDateString()}
                     </p>
                   </div>
-                  <span className="text-xs font-mono text-lime-400">
+                  <span className="text-xs font-mono text-accent">
                     +{formatCredits(milestone.reward)}
                   </span>
                 </div>
@@ -309,9 +309,9 @@ export function CreditsMilestones({ userId }: CreditsMilestonesProps) {
 
       {achievedMilestones.length === 0 && (
         <div className="text-center py-8">
-          <Trophy className="w-12 h-12 text-[#a1a1aa] mx-auto mb-4" />
-          <p className="text-[#a1a1aa]">No milestones yet</p>
-          <p className="text-sm text-[#71717a] mt-2">
+          <Trophy className="w-12 h-12 text-muted-2 mx-auto mb-4" />
+          <p className="text-muted-2">No milestones yet</p>
+          <p className="text-sm text-muted-3 mt-2">
             Start earning to unlock achievements
           </p>
         </div>

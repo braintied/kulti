@@ -111,12 +111,12 @@ export function TipModal({
       aria-modal="true"
       aria-labelledby="tip-modal-title"
     >
-      <div className="relative w-full max-w-lg bg-[#1a1a1a] border border-[#27272a] rounded-2xl shadow-2xl overflow-hidden overflow-y-auto max-h-[90vh]">
+      <div className="relative w-full max-w-lg bg-surface-1 border border-border-default rounded-2xl shadow-2xl overflow-hidden overflow-y-auto max-h-[90vh]">
         {/* Header */}
-        <div className="relative bg-gradient-to-r from-pink-500/10 to-purple-500/10 border-b border-[#27272a] p-4 sm:p-6">
+        <div className="relative bg-gradient-to-r from-pink-500/10 to-purple-500/10 border-b border-border-default p-4 sm:p-6">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 p-2 min-h-[44px] min-w-[44px] flex items-center justify-center hover:bg-[#2a2a2a] rounded-lg transition-colors"
+            className="absolute top-4 right-4 p-2 min-h-[44px] min-w-[44px] flex items-center justify-center hover:bg-surface-2 rounded-lg transition-colors"
             aria-label="Close tip modal"
           >
             <X className="w-5 h-5" />
@@ -127,7 +127,7 @@ export function TipModal({
             </div>
             <div>
               <h2 id="tip-modal-title" className="font-mono text-xl sm:text-2xl font-bold">Send Tip</h2>
-              <p className="text-sm text-[#a1a1aa]">Show your appreciation</p>
+              <p className="text-sm text-muted-2">Show your appreciation</p>
             </div>
           </div>
         </div>
@@ -135,22 +135,22 @@ export function TipModal({
         {/* Content */}
         <div className="p-4 sm:p-6 space-y-4 sm:space-y-6">
           {/* Recipient */}
-          <div className="p-4 bg-[#2a2a2a] rounded-xl">
-            <p className="text-sm text-[#a1a1aa] mb-1">Tipping:</p>
+          <div className="p-4 bg-surface-2 rounded-xl">
+            <p className="text-sm text-muted-2 mb-1">Tipping:</p>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-lime-400 flex items-center justify-center text-black font-bold">
+              <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center text-black font-bold">
                 {recipientName[0].toUpperCase()}
               </div>
               <div>
                 <p className="font-bold">{recipientName}</p>
-                <p className="text-sm text-[#71717a]">@{recipientUsername}</p>
+                <p className="text-sm text-muted-3">@{recipientUsername}</p>
               </div>
             </div>
           </div>
 
           {/* Quick Amounts */}
           <div>
-            <h3 className="text-sm font-medium text-[#a1a1aa] mb-3">Amount</h3>
+            <h3 className="text-sm font-medium text-muted-2 mb-3">Amount</h3>
             <div className="grid grid-cols-3 gap-2 mb-3">
               {QUICK_TIP_AMOUNTS.map((value) => (
                 <button
@@ -158,8 +158,8 @@ export function TipModal({
                   onClick={() => handleQuickAmount(value)}
                   className={`min-h-[44px] px-3 sm:px-4 py-3 rounded-lg font-mono font-bold transition-colors text-sm sm:text-base ${
                     amount === value && !showCustom
-                      ? "bg-lime-400 text-black"
-                      : "bg-[#2a2a2a] text-white hover:bg-[#333333]"
+                      ? "bg-accent text-black"
+                      : "bg-surface-2 text-white hover:bg-surface-3"
                   }`}
                   aria-label={`Tip ${formatCredits(value)}`}
                   aria-pressed={amount === value && !showCustom}
@@ -171,8 +171,8 @@ export function TipModal({
                 onClick={() => setShowCustom(true)}
                 className={`min-h-[44px] px-3 sm:px-4 py-3 rounded-lg font-bold transition-colors text-sm sm:text-base ${
                   showCustom
-                    ? "bg-lime-400 text-black"
-                    : "bg-[#2a2a2a] text-white hover:bg-[#333333]"
+                    ? "bg-accent text-black"
+                    : "bg-surface-2 text-white hover:bg-surface-3"
                 }`}
                 aria-label="Enter custom tip amount"
                 aria-pressed={showCustom}
@@ -193,7 +193,7 @@ export function TipModal({
                   value={customAmount}
                   onChange={(e) => handleCustomAmount(e.target.value)}
                   placeholder="Enter amount (1-10,000)"
-                  className="w-full px-4 py-3 min-h-[48px] bg-[#2a2a2a] border border-[#27272a] rounded-lg text-white font-mono focus:border-lime-400 focus:outline-none"
+                  className="w-full px-4 py-3 min-h-[48px] bg-surface-2 border border-border-default rounded-lg text-white font-mono focus:border-accent focus:outline-none"
                   min={1}
                   max={10000}
                   aria-describedby="custom-amount-help"
@@ -207,7 +207,7 @@ export function TipModal({
 
           {/* Message */}
           <div>
-            <label htmlFor="tip-message" className="block text-sm font-medium text-[#a1a1aa] mb-3">
+            <label htmlFor="tip-message" className="block text-sm font-medium text-muted-2 mb-3">
               Message (Optional)
             </label>
             <input
@@ -216,25 +216,25 @@ export function TipModal({
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Add a nice message..."
-              className="w-full px-4 py-3 min-h-[48px] bg-[#2a2a2a] border border-[#27272a] rounded-lg text-white focus:border-lime-400 focus:outline-none"
+              className="w-full px-4 py-3 min-h-[48px] bg-surface-2 border border-border-default rounded-lg text-white focus:border-accent focus:outline-none"
               maxLength={100}
               aria-describedby="tip-message-help"
             />
-            <p id="tip-message-help" className="text-xs text-[#71717a] mt-1">
+            <p id="tip-message-help" className="text-xs text-muted-3 mt-1">
               {message.length}/100 characters
             </p>
           </div>
 
           {/* Balance Summary */}
-          <div className="p-4 bg-[#2a2a2a] rounded-xl space-y-3">
+          <div className="p-4 bg-surface-2 rounded-xl space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-[#a1a1aa]">Amount</span>
+              <span className="text-muted-2">Amount</span>
               <span className="font-mono font-bold text-pink-500 text-lg">
                 {formatCredits(amount)}
               </span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-[#a1a1aa]">Your Balance</span>
+              <span className="text-muted-2">Your Balance</span>
               <span className={`font-mono font-bold text-lg ${
                 canAfford ? 'text-white' : 'text-red-500'
               }`}>
@@ -242,9 +242,9 @@ export function TipModal({
               </span>
             </div>
             {canAfford && (
-              <div className="pt-3 border-t border-[#27272a]">
+              <div className="pt-3 border-t border-border-default">
                 <div className="flex items-center justify-between">
-                  <span className="text-[#a1a1aa]">After Tip</span>
+                  <span className="text-muted-2">After Tip</span>
                   <span className="font-mono font-bold">
                     {formatCredits(currentBalance - amount)}
                   </span>
@@ -266,7 +266,7 @@ export function TipModal({
           <div className="flex flex-col sm:flex-row gap-3 pt-4">
             <button
               onClick={onClose}
-              className="flex-1 px-6 py-3 min-h-[48px] bg-[#2a2a2a] hover:bg-[#333333] text-white font-bold rounded-lg transition-colors"
+              className="flex-1 px-6 py-3 min-h-[48px] bg-surface-2 hover:bg-surface-3 text-white font-bold rounded-lg transition-colors"
               aria-label="Cancel and close modal"
             >
               Cancel
@@ -277,7 +277,7 @@ export function TipModal({
               className={`flex-1 px-6 py-3 min-h-[48px] font-bold rounded-lg transition-colors flex items-center justify-center gap-2 ${
                 canAfford && !loading && amount > 0
                   ? 'bg-pink-500 hover:bg-pink-600 text-white'
-                  : 'bg-[#2a2a2a] text-[#71717a] cursor-not-allowed'
+                  : 'bg-surface-2 text-muted-3 cursor-not-allowed'
               }`}
               aria-label={`Send ${formatCredits(amount)} tip to ${recipientName}`}
               aria-disabled={loading || !canAfford || amount <= 0}

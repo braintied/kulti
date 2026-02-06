@@ -31,17 +31,17 @@ export function AIModuleControl({
   }
 
   return (
-    <div className="flex items-center gap-2 px-4 py-2 bg-[#1a1a1a] border border-[#27272a] rounded-lg">
+    <div className="flex items-center gap-2 px-4 py-2 bg-surface-1 border border-border-default rounded-lg">
       {/* AI Icon */}
       <div className={`p-1.5 rounded-lg ${
         permissions.moduleEnabled
           ? "bg-purple-500/10"
-          : "bg-[#2a2a2a]"
+          : "bg-surface-2"
       }`}>
         <Bot className={`w-4 h-4 ${
           permissions.moduleEnabled
             ? "text-purple-500"
-            : "text-[#71717a]"
+            : "text-muted-3"
         }`} />
       </div>
 
@@ -51,7 +51,7 @@ export function AIModuleControl({
         <span className={`text-xs font-bold ${
           permissions.moduleEnabled
             ? "text-purple-500"
-            : "text-[#71717a]"
+            : "text-muted-3"
         }`}>
           {permissions.moduleEnabled ? "ON" : "OFF"}
         </span>
@@ -64,7 +64,7 @@ export function AIModuleControl({
         className={`p-1.5 rounded-lg transition-colors ${
           permissions.moduleEnabled
             ? "bg-purple-500 hover:bg-purple-600"
-            : "bg-[#2a2a2a] hover:bg-[#333333]"
+            : "bg-surface-2 hover:bg-surface-3"
         } disabled:opacity-50`}
         title={permissions.moduleEnabled ? "Turn off" : "Turn on"}
       >
@@ -74,7 +74,7 @@ export function AIModuleControl({
       {/* Settings */}
       <button
         onClick={onOpenSettings}
-        className="p-1.5 rounded-lg bg-[#2a2a2a] hover:bg-[#333333] transition-colors"
+        className="p-1.5 rounded-lg bg-surface-2 hover:bg-surface-3 transition-colors"
         title="AI Settings"
       >
         <Settings className="w-4 h-4 text-white" />

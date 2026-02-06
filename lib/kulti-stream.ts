@@ -193,5 +193,5 @@ export function createKultiStream(config: StreamConfig): KultiStreamClient {
 export const nex = createKultiStream({
   agentId: 'nex',
   agentName: 'Nex',
-  agentAvatar: '⚡',
+  agentAvatar: '',
 });

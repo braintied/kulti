@@ -171,7 +171,7 @@ export default function ArtPage() {
           </span>
           {live_artists.length > 0 && (
             <span
-              className="px-2 py-0.5 rounded-full text-[10px] bg-lime-400/15 text-lime-400"
+              className="px-2 py-0.5 rounded-full text-[10px] bg-accent/15 text-accent"
               style={{ fontFamily: 'var(--font-jetbrains-mono)' }}
             >
               {live_artists.length} creating now
@@ -188,7 +188,7 @@ export default function ArtPage() {
               <Link
                 key={artist.agent_id}
                 href={`/watch/${artist.agent_id}`}
-                className="flex items-center gap-2.5 px-3 py-2 rounded-full bg-white/[0.03] border border-white/[0.06] hover:border-lime-400/20 transition flex-shrink-0 card-lift"
+                className="flex items-center gap-2.5 px-3 py-2 rounded-full bg-white/[0.03] border border-white/[0.06] hover:border-accent/20 transition flex-shrink-0 card-lift"
               >
                 <div className="relative">
                   {artist.agent_avatar && (artist.agent_avatar.startsWith('/') || artist.agent_avatar.startsWith('http')) ? (
@@ -200,7 +200,7 @@ export default function ArtPage() {
                       className="rounded-full"
                     />
                   ) : (
-                    <div className="w-6 h-6 rounded-full bg-gradient-to-br from-zinc-600 to-zinc-700 flex items-center justify-center text-[10px] font-medium">
+                    <div className="w-6 h-6 rounded-full bg-gradient-to-br from-surface-3 to-surface-2 flex items-center justify-center text-[10px] font-medium">
                       {artist.agent_name.charAt(0)}
                     </div>
                   )}
@@ -222,7 +222,7 @@ export default function ArtPage() {
       <div className="px-6 md:px-12 pb-20 max-w-7xl mx-auto">
         {loading ? (
           <div className="flex justify-center py-20">
-            <div className="w-10 h-10 rounded-full border-2 border-white/10 border-t-lime-400 animate-spin" />
+            <div className="w-10 h-10 rounded-full border-2 border-white/10 border-t-accent animate-spin" />
           </div>
         ) : pieces.length === 0 ? (
           <div className="text-center py-20">
@@ -240,7 +240,7 @@ export default function ArtPage() {
                 <button
                   key={piece.id}
                   onClick={() => set_selected(piece)}
-                  className="group relative w-full rounded-2xl overflow-hidden bg-white/[0.02] border border-white/[0.04] hover:border-lime-400/15 transition-all duration-300 card-lift break-inside-avoid block"
+                  className="group relative w-full rounded-2xl overflow-hidden bg-white/[0.02] border border-white/[0.04] hover:border-accent/15 transition-all duration-300 card-lift break-inside-avoid block"
                   style={{ animation: `slide-up 0.5s ease-out ${Math.min(index * 0.03, 0.5)}s both` }}
                 >
                   <img
@@ -283,7 +283,7 @@ export default function ArtPage() {
                   {Date.now() - new Date(piece.created_at).getTime() < 3600000 && (
                     <div className="absolute top-3 left-3">
                       <span
-                        className="px-2 py-0.5 rounded-full text-[10px] uppercase tracking-wider bg-lime-400/20 text-lime-400 border border-lime-400/30 backdrop-blur-sm"
+                        className="px-2 py-0.5 rounded-full text-[10px] uppercase tracking-wider bg-accent/20 text-accent border border-accent/30 backdrop-blur-sm"
                         style={{ fontFamily: 'var(--font-jetbrains-mono)' }}
                       >
                         new
@@ -297,7 +297,7 @@ export default function ArtPage() {
             {/* Infinite scroll sentinel */}
             {has_more && (
               <div ref={sentinel_ref} className="flex justify-center py-12">
-                <div className="w-8 h-8 rounded-full border-2 border-white/10 border-t-lime-400 animate-spin" />
+                <div className="w-8 h-8 rounded-full border-2 border-white/10 border-t-accent animate-spin" />
               </div>
             )}
           </>

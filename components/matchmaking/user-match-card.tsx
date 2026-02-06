@@ -30,9 +30,9 @@ export function UserMatchCard({
   const displayName = user.displayName || user.username
   const matchPercentage = Math.round(user.matchScore * 100)
   const experienceLabels = {
-    beginner: '🌱 Beginner',
-    intermediate: '⚡ Intermediate',
-    advanced: '🚀 Advanced',
+    beginner: 'Beginner',
+    intermediate: 'Intermediate',
+    advanced: 'Advanced',
   }
 
   return (
@@ -40,8 +40,8 @@ export function UserMatchCard({
       onClick={onSelect}
       className={`w-full p-4 rounded-xl border-2 transition-all text-left ${
         selected
-          ? 'border-lime-400 bg-lime-400/10'
-          : 'border-[#27272a] bg-[#1a1a1a] hover:border-[#333333]'
+          ? 'border-accent bg-accent/10'
+          : 'border-border-default bg-surface-1 hover:border-border-default'
       }`}
     >
       <div className="flex items-start gap-4">
@@ -57,13 +57,13 @@ export function UserMatchCard({
               loading="lazy"
             />
           ) : (
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-lime-400 to-green-500 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-accent to-green-500 flex items-center justify-center">
               <Users className="w-6 h-6 text-black" />
             </div>
           )}
           {/* Match Score Badge */}
           {showMatchDetails && (
-            <div className="absolute -top-1 -right-1 bg-lime-400 text-black text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
+            <div className="absolute -top-1 -right-1 bg-accent text-black text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
               {matchPercentage}
             </div>
           )}
@@ -74,7 +74,7 @@ export function UserMatchCard({
           <div className="flex items-center gap-2 mb-1">
             <h3 className="font-bold text-white truncate">{displayName}</h3>
             {user.experienceLevel && (
-              <span className="text-xs text-[#a1a1aa]">
+              <span className="text-xs text-muted-2">
                 {experienceLabels[user.experienceLevel as keyof typeof experienceLabels] || user.experienceLevel}
               </span>
             )}
@@ -83,7 +83,7 @@ export function UserMatchCard({
           {/* Shared Skills */}
           {showMatchDetails && user.sharedSkills && user.sharedSkills.length > 0 && (
             <div className="mb-2">
-              <p className="text-xs text-lime-400 font-medium mb-1 flex items-center gap-1">
+              <p className="text-xs text-accent font-medium mb-1 flex items-center gap-1">
                 <Sparkles className="w-3 h-3" />
                 Shared Skills
               </p>
@@ -91,13 +91,13 @@ export function UserMatchCard({
                 {user.sharedSkills.slice(0, 3).map((skill) => (
                   <span
                     key={skill}
-                    className="px-2 py-0.5 bg-lime-400/20 text-lime-400 text-xs rounded-md font-mono"
+                    className="px-2 py-0.5 bg-accent/20 text-accent text-xs rounded-md font-mono"
                   >
                     {skill}
                   </span>
                 ))}
                 {user.sharedSkills.length > 3 && (
-                  <span className="text-xs text-[#a1a1aa]">
+                  <span className="text-xs text-muted-2">
                     +{user.sharedSkills.length - 3} more
                   </span>
                 )}
@@ -119,7 +119,7 @@ export function UserMatchCard({
                   </span>
                 ))}
                 {user.sharedInterests.length > 2 && (
-                  <span className="text-xs text-[#a1a1aa]">
+                  <span className="text-xs text-muted-2">
                     +{user.sharedInterests.length - 2} more
                   </span>
                 )}
@@ -133,13 +133,13 @@ export function UserMatchCard({
               {user.skills.slice(0, 3).map((skill) => (
                 <span
                   key={skill}
-                  className="px-2 py-0.5 bg-[#2a2a2a] text-[#a1a1aa] text-xs rounded-md font-mono"
+                  className="px-2 py-0.5 bg-surface-2 text-muted-2 text-xs rounded-md font-mono"
                 >
                   {skill}
                 </span>
               ))}
               {user.skills.length > 3 && (
-                <span className="text-xs text-[#a1a1aa]">
+                <span className="text-xs text-muted-2">
                   +{user.skills.length - 3} more
                 </span>
               )}
@@ -149,7 +149,7 @@ export function UserMatchCard({
 
         {/* Selected Indicator */}
         {selected && (
-          <div className="w-6 h-6 bg-lime-400 rounded-full flex items-center justify-center flex-shrink-0">
+          <div className="w-6 h-6 bg-accent rounded-full flex items-center justify-center flex-shrink-0">
             <svg
               className="w-4 h-4 text-black"
               fill="none"

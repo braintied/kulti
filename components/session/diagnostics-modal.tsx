@@ -278,19 +278,19 @@ export function DiagnosticsModal({ isOpen, onClose, onContinue }: DiagnosticsMod
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="bg-[#1a1a1a] border-[#27272a] text-white max-w-2xl">
+      <DialogContent className="bg-surface-1 border-border-default text-white max-w-2xl">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold">Connection Diagnostics</DialogTitle>
-          <DialogDescription className="text-[#a1a1aa]">
+          <DialogDescription className="text-muted-2">
             Testing your connection to ensure the best video quality
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4 my-6">
           {/* Browser Compatibility */}
-          <div className="flex items-start gap-4 p-4 bg-[#0a0a0a] rounded-lg border border-[#27272a]">
+          <div className="flex items-start gap-4 p-4 bg-black rounded-lg border border-border-default">
             <div className="mt-0.5">
-              <Chrome className="w-6 h-6 text-[#a1a1aa]" />
+              <Chrome className="w-6 h-6 text-muted-2" />
             </div>
             <div className="flex-1 min-w-0">
               <h3 className="font-semibold mb-1">Browser Compatibility</h3>
@@ -304,9 +304,9 @@ export function DiagnosticsModal({ isOpen, onClose, onContinue }: DiagnosticsMod
           </div>
 
           {/* WebRTC Support */}
-          <div className="flex items-start gap-4 p-4 bg-[#0a0a0a] rounded-lg border border-[#27272a]">
+          <div className="flex items-start gap-4 p-4 bg-black rounded-lg border border-border-default">
             <div className="mt-0.5">
-              <MonitorPlay className="w-6 h-6 text-[#a1a1aa]" />
+              <MonitorPlay className="w-6 h-6 text-muted-2" />
             </div>
             <div className="flex-1 min-w-0">
               <h3 className="font-semibold mb-1">WebRTC Support</h3>
@@ -320,9 +320,9 @@ export function DiagnosticsModal({ isOpen, onClose, onContinue }: DiagnosticsMod
           </div>
 
           {/* Connectivity */}
-          <div className="flex items-start gap-4 p-4 bg-[#0a0a0a] rounded-lg border border-[#27272a]">
+          <div className="flex items-start gap-4 p-4 bg-black rounded-lg border border-border-default">
             <div className="mt-0.5">
-              <Wifi className="w-6 h-6 text-[#a1a1aa]" />
+              <Wifi className="w-6 h-6 text-muted-2" />
             </div>
             <div className="flex-1 min-w-0">
               <h3 className="font-semibold mb-1">Server Connectivity</h3>
@@ -336,9 +336,9 @@ export function DiagnosticsModal({ isOpen, onClose, onContinue }: DiagnosticsMod
           </div>
 
           {/* Bandwidth */}
-          <div className="flex items-start gap-4 p-4 bg-[#0a0a0a] rounded-lg border border-[#27272a]">
+          <div className="flex items-start gap-4 p-4 bg-black rounded-lg border border-border-default">
             <div className="mt-0.5">
-              <Activity className="w-6 h-6 text-[#a1a1aa]" />
+              <Activity className="w-6 h-6 text-muted-2" />
             </div>
             <div className="flex-1 min-w-0">
               <h3 className="font-semibold mb-1">Bandwidth Test</h3>
@@ -394,7 +394,7 @@ export function DiagnosticsModal({ isOpen, onClose, onContinue }: DiagnosticsMod
               onClose()
             }}
             disabled={isRunning}
-            className="bg-lime-400 hover:bg-lime-500 text-black"
+            className="bg-accent hover:bg-accent text-black"
           >
             Continue to Session
           </Button>

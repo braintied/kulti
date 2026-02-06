@@ -118,12 +118,12 @@ export function PresenterInviteModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="presenter-invite-title">
-      <div className="relative w-full max-w-lg mx-4 bg-[#1a1a1a] border border-[#27272a] rounded-2xl shadow-2xl overflow-hidden">
+      <div className="relative w-full max-w-lg mx-4 bg-surface-1 border border-border-default rounded-2xl shadow-2xl overflow-hidden">
         {/* Header */}
-        <div className="relative bg-gradient-to-r from-purple-500/10 to-blue-500/10 border-b border-[#27272a] p-6">
+        <div className="relative bg-gradient-to-r from-purple-500/10 to-blue-500/10 border-b border-border-default p-6">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 p-2 hover:bg-[#2a2a2a] rounded-lg transition-colors"
+            className="absolute top-4 right-4 p-2 hover:bg-surface-2 rounded-lg transition-colors"
             aria-label="Close presenter invite modal"
           >
             <X className="w-5 h-5" />
@@ -134,7 +134,7 @@ export function PresenterInviteModal({
             </div>
             <div>
               <h2 id="presenter-invite-title" className="font-mono text-2xl font-bold">Presenter Invite</h2>
-              <p className="text-sm text-[#a1a1aa]">Share this link to invite presenters</p>
+              <p className="text-sm text-muted-2">Share this link to invite presenters</p>
             </div>
           </div>
         </div>
@@ -147,7 +147,7 @@ export function PresenterInviteModal({
               <LinkIcon className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" />
               <div className="text-sm">
                 <p className="text-blue-400 font-medium mb-1">How it works</p>
-                <ul className="text-[#a1a1aa] space-y-1 text-xs">
+                <ul className="text-muted-2 space-y-1 text-xs">
                   <li>• Share this link with people you want as presenters</li>
                   <li>• They can join as guests without creating an account</li>
                   <li>• They'll be able to share their screen</li>
@@ -161,16 +161,16 @@ export function PresenterInviteModal({
           {/* Invite Link Display */}
           {inviteUrl && !isRevoked ? (
             <div className="space-y-3">
-              <label className="text-sm font-medium text-[#a1a1aa]">
+              <label className="text-sm font-medium text-muted-2">
                 Invite Link
               </label>
               <div className="flex gap-2">
-                <div className="flex-1 px-4 py-3 bg-[#2a2a2a] border border-[#27272a] rounded-lg font-mono text-sm text-[#e5e5e5] truncate">
+                <div className="flex-1 px-4 py-3 bg-surface-2 border border-border-default rounded-lg font-mono text-sm text-muted-1 truncate">
                   {inviteUrl}
                 </div>
                 <button
                   onClick={handleCopy}
-                  className="px-4 py-3 bg-lime-400 hover:bg-lime-500 text-black rounded-lg transition-colors font-bold flex items-center gap-2"
+                  className="px-4 py-3 bg-accent hover:bg-accent text-black rounded-lg transition-colors font-bold flex items-center gap-2"
                 >
                   {copied ? (
                     <>
@@ -191,7 +191,7 @@ export function PresenterInviteModal({
                 <button
                   onClick={handleGenerate}
                   disabled={loading}
-                  className="flex-1 px-4 py-2 bg-[#2a2a2a] hover:bg-[#333333] text-white rounded-lg transition-colors flex items-center justify-center gap-2 text-sm disabled:opacity-50"
+                  className="flex-1 px-4 py-2 bg-surface-2 hover:bg-surface-3 text-white rounded-lg transition-colors flex items-center justify-center gap-2 text-sm disabled:opacity-50"
                 >
                   <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
                   Regenerate Link
@@ -211,7 +211,7 @@ export function PresenterInviteModal({
                 <AlertCircle className="w-5 h-5" />
                 <span className="font-medium">Link Revoked</span>
               </div>
-              <p className="text-sm text-[#a1a1aa] mt-2">
+              <p className="text-sm text-muted-2 mt-2">
                 This invite link has been revoked and no longer works. Generate a new one to invite presenters.
               </p>
             </div>
@@ -220,7 +220,7 @@ export function PresenterInviteModal({
               <div className="w-16 h-16 bg-blue-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <LinkIcon className="w-8 h-8 text-blue-500" />
               </div>
-              <p className="text-[#a1a1aa] text-sm mb-4">
+              <p className="text-muted-2 text-sm mb-4">
                 No active invite link. Generate one to start inviting presenters.
               </p>
               <button

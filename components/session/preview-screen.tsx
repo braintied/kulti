@@ -322,19 +322,19 @@ export function PreviewScreen({ sessionId, roomId, onJoin, onCancel }: PreviewSc
   // Render device error
   if (deviceError) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a] p-4">
-        <div className="max-w-md w-full space-y-6 p-8 bg-[#1a1a1a] border border-[#27272a] rounded-2xl">
+      <div className="min-h-screen flex items-center justify-center bg-black p-4">
+        <div className="max-w-md w-full space-y-6 p-8 bg-surface-1 border border-border-default rounded-2xl">
           <div className="flex items-center gap-3 text-red-500">
             <AlertCircle className="w-8 h-8 flex-shrink-0" />
             <h2 className="text-2xl font-bold">{deviceError.message}</h2>
           </div>
 
-          <p className="text-[#a1a1aa]">{deviceError.details}</p>
+          <p className="text-muted-2">{deviceError.details}</p>
 
           {deviceError.type === "permission_denied" && (
-            <div className="bg-[#27272a]/50 p-4 rounded-lg space-y-2">
+            <div className="bg-surface-2/50 p-4 rounded-lg space-y-2">
               <p className="font-medium text-sm">To fix this:</p>
-              <ol className="text-sm text-[#a1a1aa] space-y-1 list-decimal list-inside">
+              <ol className="text-sm text-muted-2 space-y-1 list-decimal list-inside">
                 <li>Click the camera/microphone icon in your browser's address bar</li>
                 <li>Select "Allow" for camera and microphone access</li>
                 <li>Reload this page</li>
@@ -343,9 +343,9 @@ export function PreviewScreen({ sessionId, roomId, onJoin, onCancel }: PreviewSc
           )}
 
           {deviceError.type === "device_not_found" && allDevices.videoInput?.length === 0 && (
-            <div className="bg-[#27272a]/50 p-4 rounded-lg space-y-2">
+            <div className="bg-surface-2/50 p-4 rounded-lg space-y-2">
               <p className="font-medium text-sm">Available devices:</p>
-              <div className="text-sm text-[#a1a1aa] space-y-1">
+              <div className="text-sm text-muted-2 space-y-1">
                 <p>Cameras: {allDevices.videoInput?.length || "None"}</p>
                 <p>Microphones: {allDevices.audioInput?.length || "None"}</p>
                 <p>Speakers: {allDevices.audioOutput?.length || "None"}</p>
@@ -369,26 +369,26 @@ export function PreviewScreen({ sessionId, roomId, onJoin, onCancel }: PreviewSc
   // Loading state
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a]">
+      <div className="min-h-screen flex items-center justify-center bg-black">
         <div className="text-center space-y-4">
-          <Loader2 className="w-12 h-12 animate-spin text-lime-400 mx-auto" />
-          <p className="text-xl text-[#a1a1aa]">Setting up your devices...</p>
+          <Loader2 className="w-12 h-12 animate-spin text-accent mx-auto" />
+          <p className="text-xl text-muted-2">Setting up your devices...</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center p-4">
+    <div className="min-h-screen bg-black flex items-center justify-center p-4">
       <div className="max-w-4xl w-full space-y-6">
         {/* Header */}
         <div className="text-center space-y-2">
           <h1 className="text-3xl font-bold">Setup Your Devices</h1>
-          <p className="text-[#a1a1aa]">Test your camera and microphone before joining</p>
+          <p className="text-muted-2">Test your camera and microphone before joining</p>
         </div>
 
         {/* Video Preview */}
-        <div className="relative aspect-video bg-[#1a1a1a] rounded-2xl overflow-hidden border border-[#27272a]">
+        <div className="relative aspect-video bg-surface-1 rounded-2xl overflow-hidden border border-border-default">
           {isLocalVideoEnabled ? (
             <video
               ref={videoRef}
@@ -400,10 +400,10 @@ export function PreviewScreen({ sessionId, roomId, onJoin, onCancel }: PreviewSc
           ) : (
             <div className="w-full h-full flex items-center justify-center">
               <div className="text-center space-y-4">
-                <div className="w-24 h-24 rounded-full bg-[#27272a] flex items-center justify-center mx-auto">
-                  <CameraOff className="w-12 h-12 text-[#71717a]" />
+                <div className="w-24 h-24 rounded-full bg-surface-2 flex items-center justify-center mx-auto">
+                  <CameraOff className="w-12 h-12 text-muted-3" />
                 </div>
-                <p className="text-[#a1a1aa]">Camera is off</p>
+                <p className="text-muted-2">Camera is off</p>
               </div>
             </div>
           )}
@@ -417,7 +417,7 @@ export function PreviewScreen({ sessionId, roomId, onJoin, onCancel }: PreviewSc
                   onClick={toggleVideo}
                   className={`p-4 rounded-full transition-all ${
                     isLocalVideoEnabled
-                      ? "bg-[#27272a] hover:bg-[#3a3a3a]"
+                      ? "bg-surface-2 hover:bg-surface-3"
                       : "bg-red-500 hover:bg-red-600"
                   }`}
                   aria-label={isLocalVideoEnabled ? "Turn off camera" : "Turn on camera"}
@@ -433,7 +433,7 @@ export function PreviewScreen({ sessionId, roomId, onJoin, onCancel }: PreviewSc
                   onClick={toggleAudio}
                   className={`p-4 rounded-full transition-all ${
                     isLocalAudioEnabled
-                      ? "bg-[#27272a] hover:bg-[#3a3a3a]"
+                      ? "bg-surface-2 hover:bg-surface-3"
                       : "bg-red-500 hover:bg-red-600"
                   }`}
                   aria-label={isLocalAudioEnabled ? "Mute microphone" : "Unmute microphone"}
@@ -449,7 +449,7 @@ export function PreviewScreen({ sessionId, roomId, onJoin, onCancel }: PreviewSc
               {/* Settings Button */}
               <button
                 onClick={() => setShowSettings(!showSettings)}
-                className="p-4 rounded-full bg-[#27272a] hover:bg-[#3a3a3a] transition-all"
+                className="p-4 rounded-full bg-surface-2 hover:bg-surface-3 transition-all"
                 aria-label="Device settings"
               >
                 <Settings className="w-6 h-6" />
@@ -460,23 +460,23 @@ export function PreviewScreen({ sessionId, roomId, onJoin, onCancel }: PreviewSc
 
         {/* Audio Level Indicator */}
         {isLocalAudioEnabled && (
-          <div className="bg-[#1a1a1a] border border-[#27272a] rounded-lg p-4">
+          <div className="bg-surface-1 border border-border-default rounded-lg p-4">
             <div className="flex items-center gap-3">
-              <Mic className="w-5 h-5 text-lime-400" />
+              <Mic className="w-5 h-5 text-accent" />
               <div className="flex-1">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm text-[#a1a1aa]">Microphone Level</span>
-                  <span className="text-xs text-[#a1a1aa]">{Math.round(audioLevel)}%</span>
+                  <span className="text-sm text-muted-2">Microphone Level</span>
+                  <span className="text-xs text-muted-2">{Math.round(audioLevel)}%</span>
                 </div>
-                <div className="w-full h-2 bg-[#27272a] rounded-full overflow-hidden">
+                <div className="w-full h-2 bg-surface-2 rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-lime-400 transition-all duration-100 rounded-full"
+                    className="h-full bg-accent transition-all duration-100 rounded-full"
                     style={{ width: `${audioLevel}%` }}
                   />
                 </div>
               </div>
             </div>
-            <p className="text-xs text-[#71717a] mt-2">
+            <p className="text-xs text-muted-3 mt-2">
               {audioLevel > 5 ? "Speak to test your microphone" : "Try speaking louder"}
             </p>
           </div>
@@ -484,7 +484,7 @@ export function PreviewScreen({ sessionId, roomId, onJoin, onCancel }: PreviewSc
 
         {/* Device Settings Panel */}
         {showSettings && (
-          <div className="bg-[#1a1a1a] border border-[#27272a] rounded-lg p-6 space-y-4">
+          <div className="bg-surface-1 border border-border-default rounded-lg p-6 space-y-4">
             <h3 className="text-lg font-semibold flex items-center gap-2">
               <Settings className="w-5 h-5" />
               Device Settings
@@ -492,11 +492,11 @@ export function PreviewScreen({ sessionId, roomId, onJoin, onCancel }: PreviewSc
 
             {/* Camera Selection */}
             <div className="space-y-2">
-              <label className="text-sm font-medium text-[#a1a1aa]">Camera</label>
+              <label className="text-sm font-medium text-muted-2">Camera</label>
               <select
                 value={selectedDeviceIDs.videoInput}
                 onChange={(e) => handleVideoDeviceChange(e.target.value)}
-                className="w-full bg-[#27272a] border border-[#3a3a3a] rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-lime-400"
+                className="w-full bg-surface-2 border border-border-default rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-accent"
               >
                 {allDevices.videoInput?.map((device) => (
                   <option key={device.deviceId} value={device.deviceId}>
@@ -508,11 +508,11 @@ export function PreviewScreen({ sessionId, roomId, onJoin, onCancel }: PreviewSc
 
             {/* Microphone Selection */}
             <div className="space-y-2">
-              <label className="text-sm font-medium text-[#a1a1aa]">Microphone</label>
+              <label className="text-sm font-medium text-muted-2">Microphone</label>
               <select
                 value={selectedDeviceIDs.audioInput}
                 onChange={(e) => handleAudioInputChange(e.target.value)}
-                className="w-full bg-[#27272a] border border-[#3a3a3a] rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-lime-400"
+                className="w-full bg-surface-2 border border-border-default rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-accent"
               >
                 {allDevices.audioInput?.map((device) => (
                   <option key={device.deviceId} value={device.deviceId}>
@@ -524,12 +524,12 @@ export function PreviewScreen({ sessionId, roomId, onJoin, onCancel }: PreviewSc
 
             {/* Speaker Selection */}
             <div className="space-y-2">
-              <label className="text-sm font-medium text-[#a1a1aa]">Speaker</label>
+              <label className="text-sm font-medium text-muted-2">Speaker</label>
               <div className="flex gap-2">
                 <select
                   value={selectedDeviceIDs.audioOutput}
                   onChange={(e) => handleAudioOutputChange(e.target.value)}
-                  className="flex-1 bg-[#27272a] border border-[#3a3a3a] rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-lime-400"
+                  className="flex-1 bg-surface-2 border border-border-default rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-accent"
                 >
                   {allDevices.audioOutput?.map((device) => (
                     <option key={device.deviceId} value={device.deviceId}>
@@ -542,51 +542,51 @@ export function PreviewScreen({ sessionId, roomId, onJoin, onCancel }: PreviewSc
                   className={`px-4 py-2 rounded-lg font-medium transition-colors ${
                     isTesting
                       ? "bg-red-500 hover:bg-red-600"
-                      : "bg-lime-400 hover:bg-lime-500 text-black"
+                      : "bg-accent hover:bg-accent text-black"
                   }`}
                 >
                   <Volume2 className="w-5 h-5" />
                 </button>
               </div>
-              <p className="text-xs text-[#71717a]">Click the speaker icon to test audio output</p>
+              <p className="text-xs text-muted-3">Click the speaker icon to test audio output</p>
             </div>
           </div>
         )}
 
         {/* Device Status */}
-        <div className="bg-[#1a1a1a] border border-[#27272a] rounded-lg p-4">
+        <div className="bg-surface-1 border border-border-default rounded-lg p-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="flex items-center gap-3">
               {isLocalVideoEnabled ? (
-                <CheckCircle2 className="w-5 h-5 text-lime-400" />
+                <CheckCircle2 className="w-5 h-5 text-accent" />
               ) : (
                 <AlertCircle className="w-5 h-5 text-yellow-500" />
               )}
               <div>
                 <p className="text-sm font-medium">Camera</p>
-                <p className="text-xs text-[#71717a]">
+                <p className="text-xs text-muted-3">
                   {isLocalVideoEnabled ? "Ready" : "Disabled"}
                 </p>
               </div>
             </div>
             <div className="flex items-center gap-3">
               {isLocalAudioEnabled ? (
-                <CheckCircle2 className="w-5 h-5 text-lime-400" />
+                <CheckCircle2 className="w-5 h-5 text-accent" />
               ) : (
                 <AlertCircle className="w-5 h-5 text-yellow-500" />
               )}
               <div>
                 <p className="text-sm font-medium">Microphone</p>
-                <p className="text-xs text-[#71717a]">
+                <p className="text-xs text-muted-3">
                   {isLocalAudioEnabled ? "Ready" : "Disabled"}
                 </p>
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <CheckCircle2 className="w-5 h-5 text-lime-400" />
+              <CheckCircle2 className="w-5 h-5 text-accent" />
               <div>
                 <p className="text-sm font-medium">Connection</p>
-                <p className="text-xs text-[#71717a]">Ready</p>
+                <p className="text-xs text-muted-3">Ready</p>
               </div>
             </div>
           </div>
@@ -623,7 +623,7 @@ export function PreviewScreen({ sessionId, roomId, onJoin, onCancel }: PreviewSc
           <Button
             onClick={handleJoin}
             variant="primary"
-            className="flex-1 bg-lime-400 hover:bg-lime-500 text-black font-bold"
+            className="flex-1 bg-accent hover:bg-accent text-black font-bold"
             disabled={isJoining}
           >
             {isJoining ? (

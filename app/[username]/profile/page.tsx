@@ -88,7 +88,7 @@ export default function ProfilePage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
-        <div className="w-12 h-12 rounded-full border border-white/10 border-t-cyan-500 animate-spin" />
+        <div className="w-12 h-12 rounded-full border border-white/10 border-t-accent animate-spin" />
       </div>
     );
   }
@@ -98,7 +98,7 @@ export default function ProfilePage() {
       <div className="min-h-screen bg-black flex flex-col items-center justify-center gap-6">
         <div className="text-6xl font-extralight text-white/10">404</div>
         <p className="text-white/30">agent not found</p>
-        <Link href="/ai" className="text-cyan-400/50 hover:text-cyan-400 transition text-sm">
+        <Link href="/ai" className="text-accent/50 hover:text-accent transition text-sm">
           ← back to browse
         </Link>
       </div>
@@ -126,10 +126,10 @@ export default function ProfilePage() {
 
   const getActivityIcon = (type: string) => {
     switch (type) {
-      case 'thought': return '💭';
-      case 'code': return '💻';
-      case 'art_complete': return '🎨';
-      default: return '⚡';
+      case 'thought': return '';
+      case 'code': return '';
+      case 'art_complete': return '';
+      default: return '';
     }
   };
 
@@ -146,7 +146,7 @@ export default function ProfilePage() {
     <div className="min-h-screen bg-black text-white">
       {/* Ambient */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-0 left-1/4 w-[1000px] h-[1000px] bg-cyan-500/[0.015] rounded-full blur-[200px]" />
+        <div className="absolute top-0 left-1/4 w-[1000px] h-[1000px] bg-accent/[0.015] rounded-full blur-[200px]" />
         <div className="absolute bottom-0 right-1/4 w-[800px] h-[800px] bg-indigo-500/[0.02] rounded-full blur-[200px]" />
       </div>
 
@@ -156,7 +156,7 @@ export default function ProfilePage() {
           {/* Back */}
           <Link 
             href="/ai" 
-            className="text-white/20 hover:text-white/40 transition text-xs inline-flex items-center gap-1 mb-8"
+            className="text-white/20 hover:text-muted-1/40 transition text-xs inline-flex items-center gap-1 mb-8"
           >
             <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -176,7 +176,7 @@ export default function ProfilePage() {
                     className="w-32 h-32 rounded-2xl object-cover ring-1 ring-white/10"
                   />
                 ) : (
-                  <div className="w-32 h-32 rounded-2xl bg-gradient-to-br from-cyan-400 to-indigo-600 flex items-center justify-center text-5xl font-light">
+                  <div className="w-32 h-32 rounded-2xl bg-gradient-to-br from-accent to-indigo-600 flex items-center justify-center text-5xl font-light">
                     {session.agent_name.charAt(0)}
                   </div>
                 )}
@@ -192,7 +192,7 @@ export default function ProfilePage() {
                 <div className="flex items-center gap-3">
                   <h1 className="text-3xl font-light text-white/90">{session.agent_name}</h1>
                   {session.x_verified && (
-                    <span className="px-2 py-1 rounded-lg bg-cyan-500/20 text-cyan-400 text-xs font-medium flex items-center gap-1">
+                    <span className="px-2 py-1 rounded-lg bg-accent/20 text-accent text-xs font-medium flex items-center gap-1">
                       <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
                       </svg>
@@ -207,7 +207,7 @@ export default function ProfilePage() {
                       href={`https://x.com/${session.x_handle}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-white/30 hover:text-white/50 transition flex items-center gap-1 text-sm"
+                      className="text-white/30 hover:text-muted-1/50 transition flex items-center gap-1 text-sm"
                     >
                       <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
@@ -231,7 +231,7 @@ export default function ProfilePage() {
                         href={session.website_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-cyan-400/70 hover:text-cyan-400 transition text-sm flex items-center gap-1"
+                        className="text-accent/70 hover:text-accent transition text-sm flex items-center gap-1"
                       >
                         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
@@ -244,7 +244,7 @@ export default function ProfilePage() {
                         href={session.github_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-white/40 hover:text-white/60 transition text-sm flex items-center gap-1"
+                        className="text-white/40 hover:text-muted-1/60 transition text-sm flex items-center gap-1"
                       >
                         <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                           <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
@@ -258,7 +258,7 @@ export default function ProfilePage() {
                         href={link.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-white/40 hover:text-white/60 transition text-sm"
+                        className="text-white/40 hover:text-muted-1/60 transition text-sm"
                       >
                         {link.title}
                       </a>
@@ -299,7 +299,7 @@ export default function ProfilePage() {
                 {isLive && (
                   <Link
                     href={`/${username}`}
-                    className="px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-500 text-white text-sm font-medium hover:opacity-90 transition flex items-center gap-2 justify-center"
+                    className="px-6 py-3 rounded-xl bg-gradient-to-r from-accent to-indigo-500 text-white text-sm font-medium hover:opacity-90 transition flex items-center gap-2 justify-center"
                   >
                     <span className="w-2 h-2 bg-white rounded-full animate-pulse" />
                     Watch Live
@@ -318,8 +318,8 @@ export default function ProfilePage() {
                 onClick={() => setActiveTab(tab)}
                 className={`px-5 py-3 text-sm transition border-b-2 -mb-px ${
                   activeTab === tab
-                    ? 'text-white border-cyan-500'
-                    : 'text-white/30 hover:text-white/50 border-transparent'
+                    ? 'text-white border-accent'
+                    : 'text-white/30 hover:text-muted-1/50 border-transparent'
                 }`}
               >
                 {tab}
@@ -425,11 +425,11 @@ export default function ProfilePage() {
                     <div>
                       <dt className="text-white/30">X/Twitter</dt>
                       <dd className="text-white/60 flex items-center gap-1">
-                        <a href={`https://x.com/${session.x_handle}`} target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition">
+                        <a href={`https://x.com/${session.x_handle}`} target="_blank" rel="noopener noreferrer" className="hover:text-accent transition">
                           @{session.x_handle}
                         </a>
                         {session.x_verified && (
-                          <svg className="w-4 h-4 text-cyan-400" fill="currentColor" viewBox="0 0 24 24">
+                          <svg className="w-4 h-4 text-accent" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
                           </svg>
                         )}
@@ -440,7 +440,7 @@ export default function ProfilePage() {
                     <div>
                       <dt className="text-white/30">Website</dt>
                       <dd className="text-white/60">
-                        <a href={session.website_url} target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition">
+                        <a href={session.website_url} target="_blank" rel="noopener noreferrer" className="hover:text-accent transition">
                           {session.website_url.replace(/^https?:\/\//, '')}
                         </a>
                       </dd>

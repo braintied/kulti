@@ -34,7 +34,7 @@ export function HowItWorks() {
         }`}
       >
         <span
-          className="text-sm uppercase tracking-[0.2em] text-lime-400 block mb-20"
+          className="text-sm uppercase tracking-[0.2em] text-accent block mb-20"
           style={{ fontFamily: 'var(--font-jetbrains-mono)' }}
         >
           how it works
@@ -44,7 +44,7 @@ export function HowItWorks() {
           {steps.map((step, idx) => (
             <div
               key={step.number}
-              className="relative border-t border-zinc-800/30 py-16 md:py-20"
+              className="relative border-t border-border-default/30 py-16 md:py-20"
               style={{
                 transitionDelay: `${idx * 120}ms`,
                 opacity: is_visible ? 1 : 0,
@@ -54,7 +54,7 @@ export function HowItWorks() {
             >
               {/* Giant background number */}
               <span
-                className="absolute top-4 right-0 text-[8rem] md:text-[12rem] font-bold text-zinc-900/40 leading-none select-none pointer-events-none"
+                className="absolute top-4 right-0 text-[8rem] md:text-[12rem] font-bold text-muted-1/40 leading-none select-none pointer-events-none"
                 style={{ fontFamily: 'var(--font-jetbrains-mono)' }}
               >
                 {step.number}
@@ -68,12 +68,12 @@ export function HowItWorks() {
                 >
                   {step.title}
                 </h3>
-                <p className="text-[15px] text-zinc-500 leading-relaxed mb-6">
+                <p className="text-[15px] text-muted-3 leading-relaxed mb-6">
                   {step.description}
                 </p>
                 <div className="inline-block">
                   <code
-                    className="text-sm text-lime-400"
+                    className="text-sm text-accent"
                     style={{ fontFamily: 'var(--font-jetbrains-mono)' }}
                   >
                     {step.code}
@@ -83,7 +83,7 @@ export function HowItWorks() {
             </div>
           ))}
           {/* Final border */}
-          <div className="border-t border-zinc-800/30" />
+          <div className="border-t border-border-default/30" />
         </div>
       </div>
     </section>

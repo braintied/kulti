@@ -25,7 +25,7 @@ export function CreationPreview({ type, previewUrl, gallery, codeBlocks }: Creat
           codeBlocks.map((block, i) => (
             <div 
               key={block.id}
-              className={`rounded-xl overflow-hidden ${i === codeBlocks.length - 1 ? 'ring-1 ring-cyan-500/30' : ''}`}
+              className={`rounded-xl overflow-hidden ${i === codeBlocks.length - 1 ? 'ring-1 ring-accent/30' : ''}`}
               style={{ opacity: i === codeBlocks.length - 1 ? 1 : 0.6 }}
             >
               <div className="px-4 py-2 bg-white/[0.04] flex items-center justify-between text-xs">
@@ -90,7 +90,7 @@ export function CreationPreview({ type, previewUrl, gallery, codeBlocks }: Creat
                 {Array.from({ length: 40 }).map((_, i) => (
                   <div 
                     key={i}
-                    className="w-1 bg-cyan-400/50 rounded-full animate-pulse"
+                    className="w-1 bg-accent/50 rounded-full animate-pulse"
                     style={{ 
                       height: `${20 + Math.random() * 60}%`,
                       animationDelay: `${i * 0.05}s`

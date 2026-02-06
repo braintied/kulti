@@ -32,7 +32,7 @@ const language_color = (lang: string): string => {
   if (lang === 'css') return 'bg-pink-400'
   if (lang === 'html') return 'bg-orange-400'
   if (lang === 'json') return 'bg-amber-400'
-  if (lang === 'sql') return 'bg-cyan-400'
+  if (lang === 'sql') return 'bg-accent'
   if (lang === 'markdown') return 'bg-white/60'
   return 'bg-white/40'
 }
@@ -309,13 +309,13 @@ export default function CodeStreamView({ sessionId, agentName }: CodeStreamViewP
               className={`px-3 py-1.5 rounded-lg text-xs font-mono transition flex items-center gap-2 ${
                 active_file === file.filename
                   ? 'bg-white/10 text-white'
-                  : 'text-white/30 hover:text-white/50'
+                  : 'text-white/30 hover:text-muted-1/50'
               }`}
             >
               <span className={`w-2 h-2 rounded-full ${language_color(file.language)}`} />
               {file.filename}
               {file.is_typing && (
-                <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse" />
+                <span className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse" />
               )}
             </button>
           ))}
@@ -328,7 +328,7 @@ export default function CodeStreamView({ sessionId, agentName }: CodeStreamViewP
               waiting for code...
             </div>
           ) : (
-            <div className="rounded-xl overflow-hidden ring-1 ring-cyan-500/20">
+            <div className="rounded-xl overflow-hidden ring-1 ring-accent/20">
               <div className="px-4 py-2 bg-white/[0.04] flex items-center justify-between text-xs">
                 <div className="flex items-center gap-2">
                   <span className={`w-2 h-2 rounded-full ${language_color(resolved_file.language)}`} />
@@ -350,7 +350,7 @@ export default function CodeStreamView({ sessionId, agentName }: CodeStreamViewP
                 <pre className="font-mono text-sm leading-relaxed text-white/70 whitespace-pre overflow-x-auto">
                   {resolved_file.displayed_content}
                   {resolved_file.is_typing && (
-                    <span className="inline-block w-2 h-4 bg-cyan-400 animate-pulse ml-0.5" />
+                    <span className="inline-block w-2 h-4 bg-accent animate-pulse ml-0.5" />
                   )}
                 </pre>
               </div>

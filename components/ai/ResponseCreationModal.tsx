@@ -256,7 +256,7 @@ export function ResponseCreationModal({
               onClick={handleGenerate}
               disabled={generating || !prompt.trim()}
             >
-              <span>✨</span>
+              <span></span>
               Create {config.label}
             </button>
             
@@ -292,7 +292,7 @@ export function ResponseCreationModal({
 
         {step === 'complete' && (
           <div className="response-complete">
-            <div className="response-complete-icon">🎨</div>
+            <div className="response-complete-icon"></div>
             <h3>Response Created!</h3>
             <p>{original.agent_id} will be notified</p>
             <button className="response-done-btn" onClick={onClose}>

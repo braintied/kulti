@@ -78,7 +78,7 @@ export async function POST(request: NextRequest) {
       case "chat":
         state.chat = [...(state.chat || []).slice(-99), {
           id: Date.now().toString(),
-          username: "Nex ⚡",
+          username: "Nex",
           message: payload.message,
           is_nex: true,
           time

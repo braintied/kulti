@@ -83,7 +83,7 @@ export function LoginForm() {
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-0 top-0 h-14 px-4 flex items-center justify-center text-[#71717a] hover:text-white transition-colors"
+            className="absolute right-0 top-0 h-14 px-4 flex items-center justify-center text-muted-3 hover:text-muted-1 transition-colors"
             aria-label={showPassword ? "Hide password" : "Show password"}
           >
             {showPassword ? (
@@ -107,7 +107,7 @@ export function LoginForm() {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full bg-lime-400 hover:bg-lime-500 text-black font-bold text-lg md:text-xl px-6 md:px-12 py-4 md:py-5 rounded-xl transition-colors duration-300 disabled:opacity-50 disabled:hover:scale-100"
+        className="w-full bg-accent hover:bg-accent text-black font-bold text-lg md:text-xl px-6 md:px-12 py-4 md:py-5 rounded-xl transition-colors duration-300 disabled:opacity-50 disabled:hover:scale-100"
       >
         {isSubmitting ? "Signing in..." : "Sign In"}
       </button>

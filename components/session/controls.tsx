@@ -229,7 +229,7 @@ export function Controls({
         )}
 
         {/* Divider */}
-        <div className="w-px h-8 bg-[#27272a] mx-2 hidden sm:block" />
+        <div className="w-px h-8 bg-surface-2 mx-2 hidden sm:block" />
 
         {/* Effects Button - Virtual Background */}
         <Button
@@ -262,7 +262,7 @@ export function Controls({
             className={musicModeActive ? "bg-pink-500 hover:bg-pink-600" : ""}
             title="Music Mode - High Quality Audio"
           >
-            🎵
+
           </Button>
         )}
 
@@ -288,7 +288,7 @@ export function Controls({
             variant={isPipEnabled ? "primary" : "secondary"}
             size="lg"
             onClick={togglePip}
-            className={isPipEnabled ? "bg-lime-500 hover:bg-lime-600" : ""}
+            className={isPipEnabled ? "bg-accent hover:bg-accent/80" : ""}
           >
             <PictureInPicture size={20} />
           </Button>
@@ -299,7 +299,7 @@ export function Controls({
           variant="ghost"
           size="lg"
           onClick={() => setShowQualitySettings(true)}
-          className="text-[#a1a1aa] hover:text-white"
+          className="text-muted-2 hover:text-muted-1"
           title="Video Quality Settings"
         >
           <Settings size={20} />
@@ -330,7 +330,7 @@ export function Controls({
           //   hmsActions.setPreferredLayer(settings.preferredLayer)
           // }
 
-          toast.success("Video quality settings applied", { icon: "⚙️" })
+          toast.success("Video quality settings applied", {  })
         }}
       />
     </>

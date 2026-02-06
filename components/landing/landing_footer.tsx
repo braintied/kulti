@@ -31,9 +31,9 @@ export function LandingFooter() {
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
         {/* Logo + wordmark */}
         <div className="flex items-center gap-3">
-          <KultiLogoSmall class_name="w-6 h-6 text-lime-400" />
+          <KultiLogoSmall class_name="w-6 h-6 text-accent" />
           <span
-            className="text-[15px] font-bold text-lime-400 lowercase"
+            className="text-[15px] font-bold text-accent lowercase"
             style={{ fontFamily: 'var(--font-jetbrains-mono)' }}
           >
             kulti
@@ -43,7 +43,7 @@ export function LandingFooter() {
         {/* Nav links — monochromatic hover */}
         <nav className="flex items-center gap-8">
           {footer_links.map((link) => {
-            const shared_class = "text-[13px] text-zinc-600 hover:text-white transition-colors duration-150 lowercase"
+            const shared_class = "text-[13px] text-muted-4 hover:text-muted-1 transition-colors duration-150 lowercase"
             const font_style = { fontFamily: 'var(--font-jetbrains-mono)' }
 
             if (link.external === true) {
@@ -78,7 +78,7 @@ export function LandingFooter() {
         <div className="flex items-center gap-2">
           <span className="w-1.5 h-1.5 rounded-full bg-white/30" />
           <p
-            className="text-[12px] text-zinc-700 lowercase"
+            className="text-[12px] text-muted-4 lowercase"
             style={{ fontFamily: 'var(--font-jetbrains-mono)' }}
           >
             built by machines

@@ -70,23 +70,23 @@ export function SessionEndModal({ isOpen, onClose, sessionId }: SessionEndModalP
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="session-end-title">
-      <div className="relative w-full max-w-2xl mx-4 bg-[#1a1a1a] border border-[#27272a] rounded-2xl shadow-2xl overflow-hidden">
+      <div className="relative w-full max-w-2xl mx-4 bg-surface-1 border border-border-default rounded-2xl shadow-2xl overflow-hidden">
         {/* Header */}
-        <div className="relative bg-gradient-to-r from-lime-400/10 to-green-500/10 border-b border-[#27272a] p-6">
+        <div className="relative bg-gradient-to-r from-accent/10 to-green-500/10 border-b border-border-default p-6">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 p-2 hover:bg-[#2a2a2a] rounded-lg transition-colors"
+            className="absolute top-4 right-4 p-2 hover:bg-surface-2 rounded-lg transition-colors"
             aria-label="Close session summary modal"
           >
             <X className="w-5 h-5" />
           </button>
           <div className="flex items-center gap-3 mb-2">
-            <div className="p-3 bg-lime-400 rounded-xl">
+            <div className="p-3 bg-accent rounded-xl">
               <Coins className="w-6 h-6 text-black" />
             </div>
             <div>
               <h2 id="session-end-title" className="font-mono text-2xl font-bold">Session Complete!</h2>
-              <p className="text-sm text-[#a1a1aa]">Here's what you earned</p>
+              <p className="text-sm text-muted-2">Here's what you earned</p>
             </div>
           </div>
         </div>
@@ -95,18 +95,18 @@ export function SessionEndModal({ isOpen, onClose, sessionId }: SessionEndModalP
         <div className="p-6 space-y-6">
           {loading ? (
             <div className="text-center py-12">
-              <div className="w-12 h-12 border-4 border-lime-400/20 border-t-lime-400 rounded-full animate-spin mx-auto mb-4" />
-              <p className="text-[#a1a1aa]">Calculating your earnings...</p>
+              <div className="w-12 h-12 border-4 border-accent/20 border-t-accent rounded-full animate-spin mx-auto mb-4" />
+              <p className="text-muted-2">Calculating your earnings...</p>
             </div>
           ) : summary ? (
             <>
               {/* Total Credits Earned */}
-              <div className="text-center py-8 bg-[#2a2a2a] rounded-xl border border-[#27272a]">
-                <p className="text-sm text-[#a1a1aa] mb-2">Total Credits Earned</p>
-                <p className="font-mono text-5xl font-bold text-lime-400 mb-4">
+              <div className="text-center py-8 bg-surface-2 rounded-xl border border-border-default">
+                <p className="text-sm text-muted-2 mb-2">Total Credits Earned</p>
+                <p className="font-mono text-5xl font-bold text-accent mb-4">
                   +{formatCredits(summary.total_credits_earned)}
                 </p>
-                <div className="flex items-center justify-center gap-2 text-sm text-[#71717a]">
+                <div className="flex items-center justify-center gap-2 text-sm text-muted-3">
                   <Clock className="w-4 h-4" />
                   <span>{formatDuration(summary.watch_duration_seconds)}</span>
                   <span>·</span>
@@ -116,15 +116,15 @@ export function SessionEndModal({ isOpen, onClose, sessionId }: SessionEndModalP
 
               {/* Breakdown */}
               <div className="space-y-3">
-                <h3 className="font-medium text-sm text-[#a1a1aa]">Breakdown</h3>
+                <h3 className="font-medium text-sm text-muted-2">Breakdown</h3>
 
                 {/* Base Credits */}
-                <div className="flex items-center justify-between p-4 bg-[#2a2a2a] rounded-lg">
+                <div className="flex items-center justify-between p-4 bg-surface-2 rounded-lg">
                   <div className="flex items-center gap-3">
-                    <TrendingUp className="w-5 h-5 text-lime-400" />
+                    <TrendingUp className="w-5 h-5 text-accent" />
                     <span>Base Credits</span>
                   </div>
-                  <span className="font-mono font-bold text-lime-400">
+                  <span className="font-mono font-bold text-accent">
                     +{formatCredits(summary.base_credits)}
                   </span>
                 </div>
@@ -133,32 +133,32 @@ export function SessionEndModal({ isOpen, onClose, sessionId }: SessionEndModalP
                 {totalBonuses > 0 && (
                   <div className="space-y-2">
                     {summary.bonuses.active_chat && (
-                      <div className="flex items-center justify-between p-3 bg-[#2a2a2a]/50 rounded-lg text-sm">
-                        <span className="text-[#a1a1aa]">Active Chat Bonus</span>
+                      <div className="flex items-center justify-between p-3 bg-surface-2/50 rounded-lg text-sm">
+                        <span className="text-muted-2">Active Chat Bonus</span>
                         <span className="font-mono text-green-500">
                           +{formatCredits(summary.bonuses.active_chat)}
                         </span>
                       </div>
                     )}
                     {summary.bonuses.helped_others && (
-                      <div className="flex items-center justify-between p-3 bg-[#2a2a2a]/50 rounded-lg text-sm">
-                        <span className="text-[#a1a1aa]">Helper Bonus</span>
+                      <div className="flex items-center justify-between p-3 bg-surface-2/50 rounded-lg text-sm">
+                        <span className="text-muted-2">Helper Bonus</span>
                         <span className="font-mono text-green-500">
                           +{formatCredits(summary.bonuses.helped_others)}
                         </span>
                       </div>
                     )}
                     {summary.bonuses.repeat_viewer && (
-                      <div className="flex items-center justify-between p-3 bg-[#2a2a2a]/50 rounded-lg text-sm">
-                        <span className="text-[#a1a1aa]">Repeat Viewer Bonus</span>
+                      <div className="flex items-center justify-between p-3 bg-surface-2/50 rounded-lg text-sm">
+                        <span className="text-muted-2">Repeat Viewer Bonus</span>
                         <span className="font-mono text-green-500">
                           +{formatCredits(summary.bonuses.repeat_viewer)}
                         </span>
                       </div>
                     )}
                     {summary.bonuses.completion && (
-                      <div className="flex items-center justify-between p-3 bg-[#2a2a2a]/50 rounded-lg text-sm">
-                        <span className="text-[#a1a1aa]">Completion Bonus</span>
+                      <div className="flex items-center justify-between p-3 bg-surface-2/50 rounded-lg text-sm">
+                        <span className="text-muted-2">Completion Bonus</span>
                         <span className="font-mono text-green-500">
                           +{formatCredits(summary.bonuses.completion)}
                         </span>
@@ -198,13 +198,13 @@ export function SessionEndModal({ isOpen, onClose, sessionId }: SessionEndModalP
               <div className="flex gap-3 pt-4">
                 <Link
                   href="/credits"
-                  className="flex-1 px-6 py-3 bg-lime-400 hover:bg-lime-500 text-black font-bold rounded-lg transition-colors text-center"
+                  className="flex-1 px-6 py-3 bg-accent hover:bg-accent text-black font-bold rounded-lg transition-colors text-center"
                 >
                   View Credits
                 </Link>
                 <button
                   onClick={onClose}
-                  className="flex-1 px-6 py-3 bg-[#2a2a2a] hover:bg-[#333333] text-white font-bold rounded-lg transition-colors"
+                  className="flex-1 px-6 py-3 bg-surface-2 hover:bg-surface-3 text-white font-bold rounded-lg transition-colors"
                 >
                   Close
                 </button>
@@ -212,10 +212,10 @@ export function SessionEndModal({ isOpen, onClose, sessionId }: SessionEndModalP
             </>
           ) : (
             <div className="text-center py-12">
-              <p className="text-[#a1a1aa]">Failed to load session summary</p>
+              <p className="text-muted-2">Failed to load session summary</p>
               <button
                 onClick={onClose}
-                className="mt-4 px-6 py-2 bg-[#2a2a2a] hover:bg-[#333333] rounded-lg transition-colors"
+                className="mt-4 px-6 py-2 bg-surface-2 hover:bg-surface-3 rounded-lg transition-colors"
               >
                 Close
               </button>

@@ -20,9 +20,9 @@ export function ProfileScrollHandler() {
           })
 
           // Add temporary highlight effect
-          invitesSection.classList.add('ring-2', 'ring-lime-400', 'ring-opacity-50')
+          invitesSection.classList.add('ring-2', 'ring-accent', 'ring-opacity-50')
           setTimeout(() => {
-            invitesSection.classList.remove('ring-2', 'ring-lime-400', 'ring-opacity-50')
+            invitesSection.classList.remove('ring-2', 'ring-accent', 'ring-opacity-50')
           }, 2000)
         }
       }, 100)

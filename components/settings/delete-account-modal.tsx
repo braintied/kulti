@@ -68,14 +68,14 @@ export const DeleteAccountModal = ({
       aria-labelledby="delete-account-title"
     >
       <div
-        className="relative w-full max-w-lg mx-4 bg-[#1a1a1a] border-2 border-red-500/50 rounded-2xl shadow-2xl"
+        className="relative w-full max-w-lg mx-4 bg-surface-1 border-2 border-red-500/50 rounded-2xl shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
         <div className="border-b border-red-500/20 bg-red-500/5 p-6">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 p-2 hover:bg-[#2a2a2a] rounded-lg transition-colors"
+            className="absolute top-4 right-4 p-2 hover:bg-surface-2 rounded-lg transition-colors"
             aria-label="Close delete account modal"
           >
             <X className="w-5 h-5" />
@@ -94,11 +94,11 @@ export const DeleteAccountModal = ({
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4">
             <h3 className="font-bold text-red-400 mb-2">Warning</h3>
-            <p className="text-sm text-[#a1a1aa] mb-2">
+            <p className="text-sm text-muted-2 mb-2">
               This action cannot be undone. This will permanently delete your
               account and remove all of your data from our servers, including:
             </p>
-            <ul className="text-sm text-[#a1a1aa] list-disc list-inside space-y-1 ml-2">
+            <ul className="text-sm text-muted-2 list-disc list-inside space-y-1 ml-2">
               <li>Your profile and personal information</li>
               <li>All sessions you've hosted</li>
               <li>Your credit balance and transaction history</li>
@@ -114,7 +114,7 @@ export const DeleteAccountModal = ({
           )}
 
           <div>
-            <label className="block text-sm font-medium text-[#a1a1aa] mb-2">
+            <label className="block text-sm font-medium text-muted-2 mb-2">
               Type <span className="text-red-400 font-bold">DELETE</span> to
               confirm
             </label>
@@ -122,21 +122,21 @@ export const DeleteAccountModal = ({
               type="text"
               value={confirmation}
               onChange={(e) => setConfirmation(e.target.value)}
-              className="w-full px-4 py-3 bg-[#2a2a2a] border border-[#27272a] rounded-lg text-white focus:border-red-400 focus:outline-none transition-colors"
+              className="w-full px-4 py-3 bg-surface-2 border border-border-default rounded-lg text-white focus:border-red-400 focus:outline-none transition-colors"
               placeholder="DELETE"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-[#a1a1aa] mb-2">
+            <label className="block text-sm font-medium text-muted-2 mb-2">
               Confirm Password
             </label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 bg-[#2a2a2a] border border-[#27272a] rounded-lg text-white focus:border-red-400 focus:outline-none transition-colors"
+              className="w-full px-4 py-3 bg-surface-2 border border-border-default rounded-lg text-white focus:border-red-400 focus:outline-none transition-colors"
               placeholder="Enter your password"
               required
             />
@@ -147,7 +147,7 @@ export const DeleteAccountModal = ({
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-6 py-3 bg-[#2a2a2a] hover:bg-[#333333] text-white font-bold rounded-lg transition-colors"
+              className="flex-1 px-6 py-3 bg-surface-2 hover:bg-surface-3 text-white font-bold rounded-lg transition-colors"
             >
               Cancel
             </button>
@@ -157,7 +157,7 @@ export const DeleteAccountModal = ({
               className={`flex-1 px-6 py-3 font-bold rounded-lg transition-colors flex items-center justify-center gap-2 ${
                 !loading && confirmation === "DELETE"
                   ? "bg-red-500 hover:bg-red-600 text-white"
-                  : "bg-[#2a2a2a] text-[#71717a] cursor-not-allowed"
+                  : "bg-surface-2 text-muted-3 cursor-not-allowed"
               }`}
             >
               {loading ? (

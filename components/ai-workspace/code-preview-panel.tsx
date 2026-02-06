@@ -40,26 +40,26 @@ export function CodePreviewPanel({ files, className = "" }: CodePreviewPanelProp
       .replace(/>/g, "&gt;")
 
     highlighted = highlighted
-      .replace(comments, '<span class="text-[#6b7280]">$1</span>')
-      .replace(strings, '<span class="text-[#a3e635]">$&</span>')
-      .replace(keywords, '<span class="text-[#f472b6]">$1</span>')
-      .replace(numbers, '<span class="text-[#fbbf24]">$1</span>')
+      .replace(comments, '<span class="text-muted-3">$1</span>')
+      .replace(strings, '<span class="text-accent">$&</span>')
+      .replace(keywords, '<span class="text-pink-400">$1</span>')
+      .replace(numbers, '<span class="text-amber-400">$1</span>')
 
     return highlighted
   }
 
   return (
-    <div className={`bg-[#0d0d0d] rounded-lg overflow-hidden flex flex-col ${className}`}>
+    <div className={`bg-black rounded-lg overflow-hidden flex flex-col ${className}`}>
       {/* File tabs */}
-      <div className="flex items-center bg-[#1a1a1a] border-b border-[#27272a] overflow-x-auto">
+      <div className="flex items-center bg-surface-1 border-b border-border-default overflow-x-auto">
         {files.map((file, index) => (
           <button
             key={index}
             onClick={() => setActiveIndex(index)}
-            className={`flex items-center gap-2 px-4 py-2 text-sm border-r border-[#27272a] whitespace-nowrap transition-colors ${
+            className={`flex items-center gap-2 px-4 py-2 text-sm border-r border-border-default whitespace-nowrap transition-colors ${
               index === activeIndex
-                ? "bg-[#0d0d0d] text-white"
-                : "text-[#71717a] hover:text-white hover:bg-[#27272a]"
+                ? "bg-black text-white"
+                : "text-muted-3 hover:text-muted-1 hover:bg-surface-2"
             }`}
           >
             <FileCode className="w-4 h-4" />
@@ -69,7 +69,7 @@ export function CodePreviewPanel({ files, className = "" }: CodePreviewPanelProp
         <div className="flex-1" />
         <button
           onClick={handleCopy}
-          className="p-2 text-[#71717a] hover:text-white transition-colors"
+          className="p-2 text-muted-3 hover:text-muted-1 transition-colors"
           title="Copy code"
         >
           {copied ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
@@ -84,7 +84,7 @@ export function CodePreviewPanel({ files, className = "" }: CodePreviewPanelProp
       </div>
 
       {/* Status bar */}
-      <div className="flex items-center justify-between px-4 py-1 bg-[#1a1a1a] border-t border-[#27272a] text-xs text-[#71717a]">
+      <div className="flex items-center justify-between px-4 py-1 bg-surface-1 border-t border-border-default text-xs text-muted-3">
         <span>{activeFile.language}</span>
         <span>{activeFile.content.split("\n").length} lines</span>
       </div>

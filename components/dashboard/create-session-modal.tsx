@@ -85,12 +85,12 @@ export function CreateSessionModal({ onClose }: CreateSessionModalProps) {
       aria-modal="true"
       aria-labelledby="create-session-title"
     >
-      <div className="bg-[#1a1a1a]/95 border border-[#27272a] rounded-xl sm:rounded-2xl max-w-2xl w-full p-6 sm:p-10 my-8 animate-fade-in-delay-1 max-h-[calc(100vh-64px)] overflow-y-auto">
+      <div className="bg-surface-1/95 border border-border-default rounded-xl sm:rounded-2xl max-w-2xl w-full p-6 sm:p-10 my-8 animate-fade-in-delay-1 max-h-[calc(100vh-64px)] overflow-y-auto">
         <div className="flex justify-between items-start mb-6 sm:mb-8">
           <h2 id="create-session-title" className="text-2xl sm:text-3xl lg:text-4xl font-bold font-mono">Create Session</h2>
           <button
             onClick={onClose}
-            className="p-2 sm:p-3 min-h-[44px] min-w-[44px] flex items-center justify-center hover:bg-[#2a2a2a] rounded-lg transition-colors flex-shrink-0"
+            className="p-2 sm:p-3 min-h-[44px] min-w-[44px] flex items-center justify-center hover:bg-surface-2 rounded-lg transition-colors flex-shrink-0"
             aria-label="Close create session modal"
           >
             <X className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -136,28 +136,28 @@ export function CreateSessionModal({ onClose }: CreateSessionModalProps) {
                 onClick={() => setValue("isPublic", true)}
                 className={`flex-1 p-4 sm:p-5 min-h-[56px] rounded-xl border ${
                   isPublic
-                    ? "border-lime-400 bg-lime-400/10"
-                    : "border-[#27272a] hover:border-lime-400/30"
+                    ? "border-accent bg-accent/10"
+                    : "border-border-default hover:border-accent/30"
                 } transition-all duration-300`}
                 aria-pressed={isPublic}
                 aria-label="Make session public - anyone can join"
               >
                 <div className="font-bold text-base sm:text-lg">Public</div>
-                <div className="text-sm sm:text-base text-[#a1a1aa]">Anyone can join</div>
+                <div className="text-sm sm:text-base text-muted-2">Anyone can join</div>
               </button>
               <button
                 type="button"
                 onClick={() => setValue("isPublic", false)}
                 className={`flex-1 p-4 sm:p-5 min-h-[56px] rounded-xl border ${
                   !isPublic
-                    ? "border-lime-400 bg-lime-400/10"
-                    : "border-[#27272a] hover:border-lime-400/30"
+                    ? "border-accent bg-accent/10"
+                    : "border-border-default hover:border-accent/30"
                 } transition-all duration-300`}
                 aria-pressed={!isPublic}
                 aria-label="Make session private - invite only"
               >
                 <div className="font-bold text-base sm:text-lg">Private</div>
-                <div className="text-sm sm:text-base text-[#a1a1aa]">Invite only</div>
+                <div className="text-sm sm:text-base text-muted-2">Invite only</div>
               </button>
             </div>
           </fieldset>
@@ -169,7 +169,7 @@ export function CreateSessionModal({ onClose }: CreateSessionModalProps) {
             <select
               id="maxPresenters"
               {...register("maxPresenters", { valueAsNumber: true })}
-              className="w-full h-12 sm:h-14 min-h-[48px] rounded-lg border border-[#27272a] bg-[#0a0a0a] px-3 sm:px-4 py-2 text-base sm:text-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime-400"
+              className="w-full h-12 sm:h-14 min-h-[48px] rounded-lg border border-border-default bg-black px-3 sm:px-4 py-2 text-base sm:text-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
             >
               <option value={2}>2 presenters</option>
               <option value={3}>3 presenters</option>
@@ -177,7 +177,7 @@ export function CreateSessionModal({ onClose }: CreateSessionModalProps) {
               <option value={5}>5 presenters</option>
               <option value={6}>6 presenters</option>
             </select>
-            <p className="text-sm text-[#a1a1aa] mt-2">
+            <p className="text-sm text-muted-2 mt-2">
               Presenters can share video/audio. Viewers are unlimited.
             </p>
           </div>
@@ -185,18 +185,18 @@ export function CreateSessionModal({ onClose }: CreateSessionModalProps) {
           <div>
             <label
               htmlFor="enableOBS"
-              className="flex items-center gap-3 sm:gap-4 cursor-pointer p-4 sm:p-5 min-h-[56px] rounded-xl border border-[#27272a] hover:border-lime-400/30 transition-all duration-300"
+              className="flex items-center gap-3 sm:gap-4 cursor-pointer p-4 sm:p-5 min-h-[56px] rounded-xl border border-border-default hover:border-accent/30 transition-all duration-300"
             >
               <input
                 id="enableOBS"
                 type="checkbox"
                 {...register("enableOBS")}
-                className="w-5 h-5 min-w-[20px] rounded border-[#27272a] text-lime-400 focus:ring-lime-400 focus:ring-offset-0"
+                className="w-5 h-5 min-w-[20px] rounded border-border-default text-accent focus:ring-accent focus:ring-offset-0"
                 aria-describedby="obs-help"
               />
               <div className="flex-1">
                 <div className="font-bold text-sm sm:text-base">Enable OBS Streaming</div>
-                <div id="obs-help" className="text-sm sm:text-base text-[#a1a1aa]">
+                <div id="obs-help" className="text-sm sm:text-base text-muted-2">
                   Allow streaming from OBS alongside browser participants
                 </div>
               </div>
@@ -213,7 +213,7 @@ export function CreateSessionModal({ onClose }: CreateSessionModalProps) {
             <button
               type="button"
               onClick={onClose}
-              className="w-full sm:flex-1 bg-[#2a2a2a] text-white font-bold text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 min-h-[56px] rounded-xl hover:bg-[#3a3a3a] transition-colors"
+              className="w-full sm:flex-1 bg-surface-2 text-white font-bold text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 min-h-[56px] rounded-xl hover:bg-surface-3 transition-colors"
               aria-label="Cancel and close modal"
             >
               Cancel
@@ -221,7 +221,7 @@ export function CreateSessionModal({ onClose }: CreateSessionModalProps) {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full sm:flex-1 bg-lime-400 hover:bg-lime-500 text-black font-bold text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 min-h-[56px] rounded-xl transition-colors duration-300 disabled:opacity-50 disabled:hover:scale-100 flex items-center justify-center gap-2"
+              className="w-full sm:flex-1 bg-accent hover:bg-accent text-black font-bold text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 min-h-[56px] rounded-xl transition-colors duration-300 disabled:opacity-50 disabled:hover:scale-100 flex items-center justify-center gap-2"
               aria-label={isSubmitting ? "Creating session" : "Create new session"}
               aria-disabled={isSubmitting}
             >

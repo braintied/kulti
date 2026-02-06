@@ -17,21 +17,21 @@ export function ProfileHeader({ profile, isOwnProfile }: ProfileHeaderProps) {
     <>
       <div className="relative">
         {/* Background Pattern */}
-        <div className="absolute inset-0 bg-gradient-to-r from-lime-400/5 to-green-500/5 rounded-2xl" />
+        <div className="absolute inset-0 bg-gradient-to-r from-accent/5 to-green-500/5 rounded-2xl" />
 
         {/* Content */}
-        <div className="relative p-8 border border-[#27272a] rounded-2xl bg-[#1a1a1a]/50 backdrop-blur-sm">
+        <div className="relative p-8 border border-border-default rounded-2xl bg-surface-1/50 backdrop-blur-sm">
           <div className="flex flex-col md:flex-row gap-8 items-start md:items-center">
             {/* Avatar */}
             <div className="relative">
-              <div className="w-32 h-32 rounded-full bg-gradient-to-br from-lime-400 to-green-500 flex items-center justify-center">
+              <div className="w-32 h-32 rounded-full bg-gradient-to-br from-accent to-green-500 flex items-center justify-center">
                 <span className="text-6xl font-bold text-black">
                   {profile.display_name[0].toUpperCase()}
                 </span>
               </div>
               {/* Streak Badge */}
               {profile.current_streak && profile.current_streak > 0 && (
-                <div className="absolute -bottom-2 -right-2 flex items-center gap-1 px-3 py-1 bg-orange-500 rounded-full border-2 border-[#1a1a1a]">
+                <div className="absolute -bottom-2 -right-2 flex items-center gap-1 px-3 py-1 bg-orange-500 rounded-full border-2 border-border-default">
                   <Flame className="w-4 h-4 text-white" />
                   <span className="text-sm font-bold text-white">
                     {profile.current_streak}
@@ -47,9 +47,9 @@ export function ProfileHeader({ profile, isOwnProfile }: ProfileHeaderProps) {
                   <h1 className="font-mono text-4xl font-bold mb-2">
                     {profile.display_name}
                   </h1>
-                  <p className="text-xl text-[#a1a1aa]">@{profile.username}</p>
+                  <p className="text-xl text-muted-2">@{profile.username}</p>
                   {profile.bio && (
-                    <p className="text-lg text-[#a1a1aa] mt-4 max-w-2xl">
+                    <p className="text-lg text-muted-2 mt-4 max-w-2xl">
                       {profile.bio}
                     </p>
                   )}
@@ -59,7 +59,7 @@ export function ProfileHeader({ profile, isOwnProfile }: ProfileHeaderProps) {
                 {isOwnProfile && (
                   <button
                     onClick={() => setShowEditModal(true)}
-                    className="flex items-center gap-2 px-6 py-3 border border-[#27272a] hover:border-lime-400 rounded-lg transition-colors"
+                    className="flex items-center gap-2 px-6 py-3 border border-border-default hover:border-accent rounded-lg transition-colors"
                   >
                     <Edit className="w-4 h-4" />
                     <span className="font-medium">Edit Profile</span>

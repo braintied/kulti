@@ -124,7 +124,7 @@ export function TransactionHistory({ userId }: TransactionHistoryProps) {
 
   if (loading) {
     return (
-      <div className="bg-[#1a1a1a] border border-[#27272a] rounded-xl p-6">
+      <div className="bg-surface-1 border border-border-default rounded-xl p-6">
         <h2 className="font-mono text-2xl font-bold mb-6">Transaction History</h2>
         <div className="space-y-3">
           {[1, 2, 3, 4, 5].map((i) => (
@@ -136,7 +136,7 @@ export function TransactionHistory({ userId }: TransactionHistoryProps) {
   }
 
   return (
-    <div className="bg-[#1a1a1a] border border-[#27272a] rounded-xl p-6">
+    <div className="bg-surface-1 border border-border-default rounded-xl p-6">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <h2 className="font-mono text-2xl font-bold">Transaction History</h2>
@@ -147,8 +147,8 @@ export function TransactionHistory({ userId }: TransactionHistoryProps) {
             onClick={() => setFilter("all")}
             className={`min-h-[44px] px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               filter === "all"
-                ? "bg-lime-400 text-black"
-                : "bg-[#2a2a2a] text-[#a1a1aa] hover:text-white"
+                ? "bg-accent text-black"
+                : "bg-surface-2 text-muted-2 hover:text-muted-1"
             }`}
             aria-label="Show all transactions"
             aria-pressed={filter === "all"}
@@ -160,7 +160,7 @@ export function TransactionHistory({ userId }: TransactionHistoryProps) {
             className={`min-h-[44px] px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               filter === "earned"
                 ? "bg-green-500 text-black"
-                : "bg-[#2a2a2a] text-[#a1a1aa] hover:text-white"
+                : "bg-surface-2 text-muted-2 hover:text-muted-1"
             }`}
             aria-label="Show earned credits only"
             aria-pressed={filter === "earned"}
@@ -172,7 +172,7 @@ export function TransactionHistory({ userId }: TransactionHistoryProps) {
             className={`min-h-[44px] px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               filter === "spent"
                 ? "bg-red-500 text-black"
-                : "bg-[#2a2a2a] text-[#a1a1aa] hover:text-white"
+                : "bg-surface-2 text-muted-2 hover:text-muted-1"
             }`}
             aria-label="Show spent credits only"
             aria-pressed={filter === "spent"}
@@ -185,9 +185,9 @@ export function TransactionHistory({ userId }: TransactionHistoryProps) {
       {/* Transactions List */}
       {filteredTransactions.length === 0 ? (
         <div className="text-center py-12" role="status" aria-label="No transactions">
-          <Clock className="w-12 h-12 text-[#a1a1aa] mx-auto mb-4" aria-hidden="true" />
-          <p className="text-[#a1a1aa]">No transactions yet</p>
-          <p className="text-sm text-[#71717a] mt-2">
+          <Clock className="w-12 h-12 text-muted-2 mx-auto mb-4" aria-hidden="true" />
+          <p className="text-muted-2">No transactions yet</p>
+          <p className="text-sm text-muted-3 mt-2">
             Join or host a session to start earning credits
           </p>
         </div>
@@ -196,13 +196,13 @@ export function TransactionHistory({ userId }: TransactionHistoryProps) {
           {filteredTransactions.map((tx) => (
             <div
               key={tx.id}
-              className="flex items-center justify-between p-4 bg-[#2a2a2a] hover:bg-[#333333] rounded-lg transition-colors"
+              className="flex items-center justify-between p-4 bg-surface-2 hover:bg-surface-3 rounded-lg transition-colors"
             >
               {/* Left Side - Type & Time */}
               <div className="flex items-center gap-4">
-                <div className="p-2 bg-[#1a1a1a] rounded-lg">
+                <div className="p-2 bg-surface-1 rounded-lg">
                   {TRANSACTION_ICONS[tx.type] || (
-                    <ArrowUpRight className="w-4 h-4 text-[#a1a1aa]" />
+                    <ArrowUpRight className="w-4 h-4 text-muted-2" />
                   )}
                 </div>
                 <div>
@@ -210,11 +210,11 @@ export function TransactionHistory({ userId }: TransactionHistoryProps) {
                     {getTransactionLabel(tx)}
                   </p>
                   {getTransactionSubtext(tx) && (
-                    <p className="text-sm text-[#a1a1aa] italic mt-0.5">
+                    <p className="text-sm text-muted-2 italic mt-0.5">
                       {getTransactionSubtext(tx)}
                     </p>
                   )}
-                  <p className="text-sm text-[#71717a] mt-0.5">
+                  <p className="text-sm text-muted-3 mt-0.5">
                     {formatDate(tx.created_at)}
                   </p>
                 </div>
@@ -230,7 +230,7 @@ export function TransactionHistory({ userId }: TransactionHistoryProps) {
                   {tx.amount > 0 ? "+" : ""}
                   {formatCredits(tx.amount)}
                 </p>
-                <p className="text-xs text-[#71717a]">
+                <p className="text-xs text-muted-3">
                   Balance: {formatCredits(tx.balance_after)}
                 </p>
               </div>

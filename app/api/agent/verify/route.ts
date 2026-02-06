@@ -245,7 +245,7 @@ export async function PUT(request: NextRequest) {
       agentId: verification.agent_id,
       xHandle: verification.x_handle,
       apiKey,
-      message: '🎉 Verification complete! You can now update your profile via the API.'
+      message: 'Verification complete! You can now update your profile via the API.'
     });
 
   } catch (error) {

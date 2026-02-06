@@ -26,13 +26,13 @@ export const EmptyState = ({
       <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold text-white mb-2 sm:mb-3">
         {title}
       </h3>
-      <p className="text-sm sm:text-base text-[#a1a1aa] mb-6 sm:mb-8 max-w-md mx-auto px-4">
+      <p className="text-sm sm:text-base text-muted-2 mb-6 sm:mb-8 max-w-md mx-auto px-4">
         {description}
       </p>
       {action && (
         <button
           onClick={action.onClick}
-          className="min-h-[44px] sm:min-h-[56px] bg-lime-400 hover:bg-lime-500 text-black font-bold text-base sm:text-lg px-8 sm:px-12 py-3 sm:py-5 rounded-xl transition-colors duration-300"
+          className="min-h-[44px] sm:min-h-[56px] bg-accent hover:bg-accent text-black font-bold text-base sm:text-lg px-8 sm:px-12 py-3 sm:py-5 rounded-xl transition-colors duration-300"
           aria-label={action.label}
         >
           {action.label}
@@ -50,7 +50,7 @@ export const EmptyStateCard = ({
   className = ""
 }: EmptyStateProps) => {
   return (
-    <div className={`bg-[#1a1a1a] border border-[#27272a] border-dashed rounded-xl sm:rounded-2xl backdrop-blur-sm ${className}`}>
+    <div className={`bg-surface-1 border border-border-default border-dashed rounded-xl sm:rounded-2xl backdrop-blur-sm ${className}`}>
       <EmptyState
         icon={icon}
         title={title}

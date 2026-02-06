@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
         slug,
         category,
         description: description || null,
-        icon_emoji: icon_emoji || '💬',
+        icon_emoji: icon_emoji || '',
         tags: tags || [],
         created_by: user?.id,
         is_public: true,

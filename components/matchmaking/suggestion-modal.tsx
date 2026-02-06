@@ -110,28 +110,28 @@ export function SuggestionModal({ isOpen, onClose, suggestion }: SuggestionModal
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="suggestion-modal-title">
-      <div className="relative w-full max-w-2xl mx-4 max-h-[90vh] bg-[#1a1a1a] border border-[#27272a] rounded-2xl shadow-2xl overflow-hidden">
+      <div className="relative w-full max-w-2xl mx-4 max-h-[90vh] bg-surface-1 border border-border-default rounded-2xl shadow-2xl overflow-hidden">
         {/* Header */}
-        <div className="relative bg-gradient-to-r from-lime-400/10 to-green-500/10 border-b border-[#27272a] p-6">
+        <div className="relative bg-gradient-to-r from-accent/10 to-green-500/10 border-b border-border-default p-6">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 p-2 hover:bg-[#2a2a2a] rounded-lg transition-colors"
+            className="absolute top-4 right-4 p-2 hover:bg-surface-2 rounded-lg transition-colors"
             aria-label="Close suggestion modal"
           >
             <X className="w-5 h-5" />
           </button>
           <div className="flex items-center gap-3">
-            <div className="p-3 bg-lime-400 rounded-xl">
+            <div className="p-3 bg-accent rounded-xl">
               <Sparkles className="w-6 h-6 text-black" />
             </div>
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-1">
                 <h2 id="suggestion-modal-title" className="font-mono text-2xl font-bold">Perfect Match!</h2>
-                <span className="px-3 py-1 bg-lime-400 text-black text-sm font-bold rounded-full">
+                <span className="px-3 py-1 bg-accent text-black text-sm font-bold rounded-full">
                   {matchPercentage}% Match
                 </span>
               </div>
-              <p className="text-sm text-[#a1a1aa] flex items-center gap-2">
+              <p className="text-sm text-muted-2 flex items-center gap-2">
                 <Clock className="w-4 h-4" />
                 Expires in {minutesLeft} {minutesLeft === 1 ? 'minute' : 'minutes'}
               </p>
@@ -146,7 +146,7 @@ export function SuggestionModal({ isOpen, onClose, suggestion }: SuggestionModal
               <h3 className="font-bold text-lg mb-2">
                 {suggestion.suggestedUsers.length} {suggestion.suggestedUsers.length === 1 ? 'Developer' : 'Developers'} Match Your Interests
               </h3>
-              <p className="text-sm text-[#a1a1aa]">
+              <p className="text-sm text-muted-2">
                 We found compatible developers who are online right now and share your skills and interests
               </p>
             </div>
@@ -182,28 +182,28 @@ export function SuggestionModal({ isOpen, onClose, suggestion }: SuggestionModal
             )}
 
             {/* Info Box */}
-            <div className="p-4 bg-lime-400/10 border border-lime-400/20 rounded-xl">
-              <p className="text-sm text-lime-400">
-                💡 <strong>Accepting</strong> will create a new session and invite these developers to join you
+            <div className="p-4 bg-accent/10 border border-accent/20 rounded-xl">
+              <p className="text-sm text-accent">
+                <strong>Accepting</strong> will create a new session and invite these developers to join you
               </p>
             </div>
           </div>
         </div>
 
         {/* Footer */}
-        <div className="border-t border-[#27272a] p-6">
+        <div className="border-t border-border-default p-6">
           <div className="flex gap-3">
             <button
               onClick={handleDecline}
               disabled={loading}
-              className="flex-1 px-6 py-3 bg-[#2a2a2a] hover:bg-[#333333] text-white font-medium rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 px-6 py-3 bg-surface-2 hover:bg-surface-3 text-white font-medium rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? 'Processing...' : 'Maybe Later'}
             </button>
             <button
               onClick={handleAccept}
               disabled={loading}
-              className="flex-1 px-6 py-3 bg-lime-400 hover:bg-lime-500 text-black font-bold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="flex-1 px-6 py-3 bg-accent hover:bg-accent text-black font-bold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {loading ? (
                 <>

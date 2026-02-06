@@ -69,23 +69,23 @@ export function BoostSessionModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="boost-session-title">
-      <div className="relative w-full max-w-lg mx-4 bg-[#1a1a1a] border border-[#27272a] rounded-2xl shadow-2xl overflow-hidden">
+      <div className="relative w-full max-w-lg mx-4 bg-surface-1 border border-border-default rounded-2xl shadow-2xl overflow-hidden">
         {/* Header */}
-        <div className="relative bg-gradient-to-r from-lime-400/10 to-green-500/10 border-b border-[#27272a] p-6">
+        <div className="relative bg-gradient-to-r from-accent/10 to-green-500/10 border-b border-border-default p-6">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 p-2 hover:bg-[#2a2a2a] rounded-lg transition-colors"
+            className="absolute top-4 right-4 p-2 hover:bg-surface-2 rounded-lg transition-colors"
             aria-label="Close boost session modal"
           >
             <X className="w-5 h-5" />
           </button>
           <div className="flex items-center gap-3 mb-2">
-            <div className="p-3 bg-lime-400 rounded-xl">
+            <div className="p-3 bg-accent rounded-xl">
               <TrendingUp className="w-6 h-6 text-black" />
             </div>
             <div>
               <h2 id="boost-session-title" className="font-mono text-2xl font-bold">Boost Session</h2>
-              <p className="text-sm text-[#a1a1aa]">Feature your session</p>
+              <p className="text-sm text-muted-2">Feature your session</p>
             </div>
           </div>
         </div>
@@ -93,38 +93,38 @@ export function BoostSessionModal({
         {/* Content */}
         <div className="p-6 space-y-6">
           {/* Session Title */}
-          <div className="p-4 bg-[#2a2a2a] rounded-xl">
-            <p className="text-sm text-[#a1a1aa] mb-1">Boosting:</p>
+          <div className="p-4 bg-surface-2 rounded-xl">
+            <p className="text-sm text-muted-2 mb-1">Boosting:</p>
             <p className="font-bold text-lg line-clamp-1">{sessionTitle}</p>
           </div>
 
           {/* Benefits */}
           <div className="space-y-3">
-            <h3 className="font-medium text-sm text-[#a1a1aa]">Benefits</h3>
+            <h3 className="font-medium text-sm text-muted-2">Benefits</h3>
             <div className="space-y-2">
-              <div className="flex items-start gap-3 p-3 bg-[#2a2a2a]/50 rounded-lg">
-                <Star className="w-5 h-5 text-lime-400 mt-0.5" />
+              <div className="flex items-start gap-3 p-3 bg-surface-2/50 rounded-lg">
+                <Star className="w-5 h-5 text-accent mt-0.5" />
                 <div>
                   <p className="font-medium">Featured Badge</p>
-                  <p className="text-sm text-[#71717a]">
+                  <p className="text-sm text-muted-3">
                     Stand out with a prominent featured badge
                   </p>
                 </div>
               </div>
-              <div className="flex items-start gap-3 p-3 bg-[#2a2a2a]/50 rounded-lg">
-                <Eye className="w-5 h-5 text-lime-400 mt-0.5" />
+              <div className="flex items-start gap-3 p-3 bg-surface-2/50 rounded-lg">
+                <Eye className="w-5 h-5 text-accent mt-0.5" />
                 <div>
                   <p className="font-medium">Top Placement</p>
-                  <p className="text-sm text-[#71717a]">
+                  <p className="text-sm text-muted-3">
                     Appear at the top of browse and dashboard
                   </p>
                 </div>
               </div>
-              <div className="flex items-start gap-3 p-3 bg-[#2a2a2a]/50 rounded-lg">
-                <Clock className="w-5 h-5 text-lime-400 mt-0.5" />
+              <div className="flex items-start gap-3 p-3 bg-surface-2/50 rounded-lg">
+                <Clock className="w-5 h-5 text-accent mt-0.5" />
                 <div>
                   <p className="font-medium">24 Hour Duration</p>
-                  <p className="text-sm text-[#71717a]">
+                  <p className="text-sm text-muted-3">
                     Boost lasts for a full 24 hours
                   </p>
                 </div>
@@ -133,15 +133,15 @@ export function BoostSessionModal({
           </div>
 
           {/* Cost & Balance */}
-          <div className="p-4 bg-[#2a2a2a] rounded-xl space-y-3">
+          <div className="p-4 bg-surface-2 rounded-xl space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-[#a1a1aa]">Cost</span>
-              <span className="font-mono font-bold text-lime-400 text-lg">
+              <span className="text-muted-2">Cost</span>
+              <span className="font-mono font-bold text-accent text-lg">
                 {formatCredits(boostCost)} credits
               </span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-[#a1a1aa]">Your Balance</span>
+              <span className="text-muted-2">Your Balance</span>
               <span className={`font-mono font-bold text-lg ${
                 canAfford ? 'text-white' : 'text-red-500'
               }`}>
@@ -149,9 +149,9 @@ export function BoostSessionModal({
               </span>
             </div>
             {canAfford && (
-              <div className="pt-3 border-t border-[#27272a]">
+              <div className="pt-3 border-t border-border-default">
                 <div className="flex items-center justify-between">
-                  <span className="text-[#a1a1aa]">After Boost</span>
+                  <span className="text-muted-2">After Boost</span>
                   <span className="font-mono font-bold">
                     {formatCredits(currentBalance - boostCost)} credits
                   </span>
@@ -173,7 +173,7 @@ export function BoostSessionModal({
           <div className="flex gap-3 pt-4">
             <button
               onClick={onClose}
-              className="flex-1 px-6 py-3 bg-[#2a2a2a] hover:bg-[#333333] text-white font-bold rounded-lg transition-colors"
+              className="flex-1 px-6 py-3 bg-surface-2 hover:bg-surface-3 text-white font-bold rounded-lg transition-colors"
             >
               Cancel
             </button>
@@ -182,8 +182,8 @@ export function BoostSessionModal({
               disabled={loading || !canAfford}
               className={`flex-1 px-6 py-3 font-bold rounded-lg transition-colors flex items-center justify-center gap-2 ${
                 canAfford && !loading
-                  ? 'bg-lime-400 hover:bg-lime-500 text-black'
-                  : 'bg-[#2a2a2a] text-[#71717a] cursor-not-allowed'
+                  ? 'bg-accent hover:bg-accent text-black'
+                  : 'bg-surface-2 text-muted-3 cursor-not-allowed'
               }`}
             >
               {loading ? (

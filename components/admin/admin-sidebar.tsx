@@ -25,13 +25,13 @@ export function AdminSidebar() {
   const pathname = usePathname()
 
   return (
-    <div className="flex h-full w-64 flex-col border-r border-gray-800 bg-gray-900">
+    <div className="flex h-full w-64 flex-col border-r border-border-default bg-surface-1">
       {/* Admin Badge */}
-      <div className="flex items-center gap-2 border-b border-gray-800 p-4">
+      <div className="flex items-center gap-2 border-b border-border-default p-4">
         <ShieldCheck className="h-6 w-6 text-purple-500" />
         <div>
           <h2 className="text-lg font-semibold text-white">Admin Panel</h2>
-          <p className="text-xs text-gray-400">Platform Management</p>
+          <p className="text-xs text-muted-3">Platform Management</p>
         </div>
       </div>
 
@@ -48,7 +48,7 @@ export function AdminSidebar() {
                 ${
                   isActive
                     ? 'bg-purple-600 text-white'
-                    : 'text-gray-300 hover:bg-gray-800 hover:text-white'
+                    : 'text-muted-2 hover:bg-surface-2 hover:text-muted-1'
                 }
               `}
             >
@@ -60,10 +60,10 @@ export function AdminSidebar() {
       </nav>
 
       {/* Back to Dashboard */}
-      <div className="border-t border-gray-800 p-4">
+      <div className="border-t border-border-default p-4">
         <Link
           href="/dashboard"
-          className="flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-gray-400 transition-colors hover:bg-gray-800 hover:text-white"
+          className="flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-muted-3 transition-colors hover:bg-surface-2 hover:text-muted-1"
         >
           <svg
             className="h-5 w-5"

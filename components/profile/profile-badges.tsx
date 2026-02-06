@@ -25,12 +25,12 @@ const BADGE_CONFIG: Record<string, { label: string; icon: LucideIcon; color: str
 export function ProfileBadges({ badges }: ProfileBadgesProps) {
   if (!badges || badges.length === 0) {
     return (
-      <div className="bg-[#1a1a1a] border border-[#27272a] rounded-xl p-8">
+      <div className="bg-surface-1 border border-border-default rounded-xl p-8">
         <h2 className="font-mono text-2xl font-bold mb-6">Badges</h2>
         <div className="text-center py-8">
-          <Trophy className="w-12 h-12 text-[#a1a1aa] mx-auto mb-4" />
-          <p className="text-[#a1a1aa]">No badges yet</p>
-          <p className="text-sm text-[#71717a] mt-2">
+          <Trophy className="w-12 h-12 text-muted-2 mx-auto mb-4" />
+          <p className="text-muted-2">No badges yet</p>
+          <p className="text-sm text-muted-3 mt-2">
             Earn badges by completing milestones
           </p>
         </div>
@@ -39,10 +39,10 @@ export function ProfileBadges({ badges }: ProfileBadgesProps) {
   }
 
   return (
-    <div className="bg-[#1a1a1a] border border-[#27272a] rounded-xl p-8">
+    <div className="bg-surface-1 border border-border-default rounded-xl p-8">
       <h2 className="font-mono text-2xl font-bold mb-6">
         Badges
-        <span className="ml-3 text-lg text-[#a1a1aa]">({badges.length})</span>
+        <span className="ml-3 text-lg text-muted-2">({badges.length})</span>
       </h2>
 
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
@@ -52,11 +52,11 @@ export function ProfileBadges({ badges }: ProfileBadgesProps) {
 
           const Icon = config.icon
           const colorClass = {
-            lime: "bg-lime-400/10 border-lime-400/50 text-lime-400",
+            lime: "bg-accent/10 border-accent/50 text-accent",
             blue: "bg-blue-500/10 border-blue-500/50 text-blue-500",
             purple: "bg-purple-500/10 border-purple-500/50 text-purple-500",
             yellow: "bg-yellow-500/10 border-yellow-500/50 text-yellow-500",
-          }[config.color] || "bg-lime-400/10 border-lime-400/50 text-lime-400"
+          }[config.color] || "bg-accent/10 border-accent/50 text-accent"
 
           return (
             <div
@@ -69,7 +69,7 @@ export function ProfileBadges({ badges }: ProfileBadgesProps) {
               </div>
 
               {/* Tooltip */}
-              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-[#1a1a1a] border border-[#27272a] rounded-lg text-xs whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-surface-1 border border-border-default rounded-lg text-xs whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
                 Earned {new Date(badge.awarded_at).toLocaleDateString()}
               </div>
             </div>

@@ -45,9 +45,9 @@ export function InteriorNav({ active_route }: InteriorNavProps) {
         }}
       >
         <Link href="/" className="flex items-center gap-2.5">
-          <KultiLogo class_name="w-6 h-6 text-lime-400" />
+          <KultiLogo class_name="w-6 h-6 text-accent" />
           <span
-            className="text-sm font-bold text-lime-400 lowercase tracking-tight"
+            className="text-sm font-bold text-accent lowercase tracking-tight"
             style={{ fontFamily: 'var(--font-jetbrains-mono)' }}
           >
             kulti
@@ -61,8 +61,8 @@ export function InteriorNav({ active_route }: InteriorNavProps) {
               href={link.href}
               className={`text-[11px] transition-colors duration-200 ${
                 active_route === link.label
-                  ? 'text-lime-400'
-                  : 'text-zinc-500 hover:text-zinc-300'
+                  ? 'text-accent'
+                  : 'text-muted-3 hover:text-muted-2'
               }`}
               style={{ fontFamily: 'var(--font-jetbrains-mono)' }}
             >
@@ -73,7 +73,7 @@ export function InteriorNav({ active_route }: InteriorNavProps) {
 
         <Link
           href="/watch"
-          className="px-4 py-1.5 text-[11px] font-medium text-zinc-400 rounded-full hover:text-white transition-all duration-200"
+          className="px-4 py-1.5 text-[11px] font-medium text-muted-3 rounded-full hover:text-muted-1 transition-all duration-200"
           style={{ fontFamily: 'var(--font-jetbrains-mono)' }}
         >
           enter

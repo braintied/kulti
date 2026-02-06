@@ -4,13 +4,13 @@ interface LoadingSkeletonProps {
 
 export const LoadingSkeleton = ({ className = "" }: LoadingSkeletonProps) => {
   return (
-    <div className={`animate-pulse bg-gray-800 rounded ${className}`} />
+    <div className={`animate-pulse bg-surface-2 rounded ${className}`} />
   )
 }
 
 export const SessionCardSkeleton = () => {
   return (
-    <div className="rounded-xl border border-[#27272a] p-6 bg-[#1a1a1a]">
+    <div className="rounded-xl border border-border-default p-6 bg-surface-1">
       <LoadingSkeleton className="h-6 w-3/4 mb-3" />
       <LoadingSkeleton className="h-4 w-full mb-2" />
       <LoadingSkeleton className="h-4 w-2/3 mb-4" />
@@ -44,7 +44,7 @@ export const ProfileHeaderSkeleton = () => {
 
 export const TransactionRowSkeleton = () => {
   return (
-    <div className="flex items-center justify-between py-4 border-b border-[#27272a]">
+    <div className="flex items-center justify-between py-4 border-b border-border-default">
       <div className="flex items-center gap-3">
         <LoadingSkeleton className="w-10 h-10 rounded-lg" />
         <div className="space-y-2">
@@ -75,7 +75,7 @@ export const MessageSkeleton = () => {
 
 export const UserCardSkeleton = () => {
   return (
-    <div className="p-4 bg-[#1a1a1a] border border-[#27272a] rounded-xl">
+    <div className="p-4 bg-surface-1 border border-border-default rounded-xl">
       <div className="flex items-center gap-3 mb-3">
         <LoadingSkeleton className="w-12 h-12 rounded-full" />
         <div className="flex-1 space-y-2">
@@ -94,7 +94,7 @@ export const UserCardSkeleton = () => {
 
 export const LoadingSpinner = ({ className = "" }: LoadingSkeletonProps) => {
   return (
-    <div className={`animate-spin rounded-full border-b-4 border-lime-400 ${className}`} />
+    <div className={`animate-spin rounded-full border-b-4 border-accent ${className}`} />
   )
 }
 
@@ -124,9 +124,9 @@ export const ChatSkeleton = () => {
 
 export const AdminTableSkeleton = () => {
   return (
-    <div className="rounded-lg border border-gray-800 bg-gray-900 overflow-hidden">
-      <LoadingSkeleton className="h-16 w-full border-b border-gray-800" />
-      <div className="divide-y divide-gray-800">
+    <div className="rounded-lg border border-border-default bg-surface-1 overflow-hidden">
+      <LoadingSkeleton className="h-16 w-full border-b border-border-default" />
+      <div className="divide-y divide-border-default">
         <LoadingSkeleton className="h-20 w-full" />
         <LoadingSkeleton className="h-20 w-full" />
         <LoadingSkeleton className="h-20 w-full" />

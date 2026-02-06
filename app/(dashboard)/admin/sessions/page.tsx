@@ -160,13 +160,13 @@ export default function SessionsPage() {
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold text-white">Session Management</h1>
-        <p className="mt-2 text-gray-400">
+        <p className="mt-2 text-muted-3">
           Monitor and moderate platform sessions
         </p>
       </div>
 
       {/* Stats */}
-      <div className="flex gap-4 text-sm text-gray-400">
+      <div className="flex gap-4 text-sm text-muted-3">
         <span>
           Total: <span className="font-medium text-white">{sessions.length}</span>
         </span>
@@ -183,13 +183,13 @@ export default function SessionsPage() {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         {/* Search */}
         <div className="relative flex-1 max-w-md">
-          <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-500" />
+          <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-3" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search by title or host..."
-            className="w-full rounded-lg border border-gray-700 bg-gray-800 pl-10 pr-4 py-2 text-white placeholder-gray-500 focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
+            className="w-full rounded-lg border border-border-default bg-surface-2 pl-10 pr-4 py-2 text-white placeholder-muted-3 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
           />
         </div>
 
@@ -197,7 +197,7 @@ export default function SessionsPage() {
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="rounded-lg border border-gray-700 bg-gray-800 px-4 py-2 text-white focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
+          className="rounded-lg border border-border-default bg-surface-2 px-4 py-2 text-white focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
         >
           <option value="all">All Sessions</option>
           <option value="live">Live Only</option>
@@ -208,17 +208,17 @@ export default function SessionsPage() {
       </div>
 
       {/* Sessions List */}
-      <div className="rounded-lg border border-gray-800 bg-gray-900">
+      <div className="rounded-lg border border-border-default bg-surface-1">
         {loading ? (
-          <div className="p-8 text-center text-gray-500">Loading sessions...</div>
+          <div className="p-8 text-center text-muted-3">Loading sessions...</div>
         ) : filteredSessions.length === 0 ? (
-          <div className="p-8 text-center text-gray-500">No sessions found</div>
+          <div className="p-8 text-center text-muted-3">No sessions found</div>
         ) : (
-          <div className="divide-y divide-gray-800">
+          <div className="divide-y divide-border-default">
             {filteredSessions.map((session) => (
               <div
                 key={session.id}
-                className="p-4 hover:bg-gray-800/30 transition-colors"
+                className="p-4 hover:bg-surface-2/30 transition-colors"
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1">
@@ -231,7 +231,7 @@ export default function SessionsPage() {
                             session.status === 'live'
                               ? 'bg-green-500/10 text-green-500'
                               : session.status === 'ended'
-                                ? 'bg-gray-500/10 text-gray-400'
+                                ? 'bg-surface-3 text-muted-3'
                                 : 'bg-blue-500/10 text-blue-500'
                           }
                         `}
@@ -242,15 +242,15 @@ export default function SessionsPage() {
                         <Star className="h-4 w-4 text-yellow-500" />
                       )}
                     </div>
-                    <p className="mt-1 text-sm text-gray-400">
+                    <p className="mt-1 text-sm text-muted-3">
                       Hosted by @{session.host.username}
                     </p>
                     {session.description && (
-                      <p className="mt-1 text-sm text-gray-500 line-clamp-1">
+                      <p className="mt-1 text-sm text-muted-3 line-clamp-1">
                         {session.description}
                       </p>
                     )}
-                    <div className="mt-3 flex flex-wrap gap-4 text-xs text-gray-500">
+                    <div className="mt-3 flex flex-wrap gap-4 text-xs text-muted-3">
                       <span>Duration: {getSessionDuration(session)}</span>
                       <span>
                         {session.avg_concurrent_viewers} avg viewers
@@ -274,7 +274,7 @@ export default function SessionsPage() {
                         ${
                           session.featured_rank > 0
                             ? 'text-yellow-500 hover:bg-yellow-500/10'
-                            : 'text-gray-400 hover:bg-gray-800'
+                            : 'text-muted-3 hover:bg-surface-2'
                         }
                       `}
                       title={session.featured_rank > 0 ? 'Remove from featured' : 'Add to featured'}

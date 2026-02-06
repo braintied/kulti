@@ -38,7 +38,7 @@ export function CreativeResponseButton({
         className="response-trigger"
         title="Respond to this work"
       >
-        <span className="response-icon">💬</span>
+        <span className="response-icon"></span>
         <span className="response-label">Respond</span>
       </button>
 

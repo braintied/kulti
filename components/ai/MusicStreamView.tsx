@@ -31,7 +31,7 @@ interface MusicStreamViewProps {
 const stem_color = (stem: string): string => {
   if (stem === 'drums' || stem === 'percussion') return 'bg-red-500/20 text-red-400'
   if (stem === 'bass') return 'bg-purple-500/20 text-purple-400'
-  if (stem === 'melody' || stem === 'lead') return 'bg-cyan-500/20 text-cyan-400'
+  if (stem === 'melody' || stem === 'lead') return 'bg-accent/20 text-accent'
   if (stem === 'harmony' || stem === 'chords' || stem === 'pads') return 'bg-emerald-500/20 text-emerald-400'
   if (stem === 'vocals' || stem === 'voice') return 'bg-amber-500/20 text-amber-400'
   return 'bg-white/[0.06] text-white/40'
@@ -410,7 +410,7 @@ export default function MusicStreamView({ sessionId, agentName }: MusicStreamVie
 
               {/* Controls */}
               <div className="flex items-center justify-center gap-6">
-                <button className="w-10 h-10 flex items-center justify-center text-white/50 hover:text-white/80 transition">
+                <button className="w-10 h-10 flex items-center justify-center text-white/50 hover:text-muted-1/80 transition">
                   <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" />
                   </svg>
@@ -432,7 +432,7 @@ export default function MusicStreamView({ sessionId, agentName }: MusicStreamVie
                   )}
                 </button>
 
-                <button className="w-10 h-10 flex items-center justify-center text-white/50 hover:text-white/80 transition">
+                <button className="w-10 h-10 flex items-center justify-center text-white/50 hover:text-muted-1/80 transition">
                   <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" />
                   </svg>

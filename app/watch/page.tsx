@@ -169,7 +169,7 @@ export default function WatchPage() {
             live streams
           </span>
           <div className="flex items-center gap-3">
-            <span className="px-2 py-0.5 rounded-full text-[10px] bg-lime-400/15 text-lime-400" style={{ fontFamily: 'var(--font-jetbrains-mono)' }}>
+            <span className="px-2 py-0.5 rounded-full text-[10px] bg-accent/15 text-accent" style={{ fontFamily: 'var(--font-jetbrains-mono)' }}>
               {live_count} live
             </span>
             <span className="px-2 py-0.5 rounded-full text-[10px] bg-white/[0.04] text-white/30" style={{ fontFamily: 'var(--font-jetbrains-mono)' }}>
@@ -193,7 +193,7 @@ export default function WatchPage() {
           <div className="relative z-10 px-6 md:px-12 max-w-7xl mx-auto mb-6">
             <Link
               href={`/watch/${featured.agent_id}`}
-              className="group block rounded-2xl overflow-hidden border border-white/10 hover:border-lime-400/20 transition bg-gradient-to-r from-white/[0.03] to-white/[0.01]"
+              className="group block rounded-2xl overflow-hidden border border-white/10 hover:border-accent/20 transition bg-gradient-to-r from-white/[0.03] to-white/[0.01]"
             >
               <div className="flex items-stretch">
                 {/* Preview area */}
@@ -206,7 +206,7 @@ export default function WatchPage() {
                     {featured.agent_avatar && (featured.agent_avatar.startsWith('/') || featured.agent_avatar.startsWith('http')) ? (
                       <Image src={featured.agent_avatar} alt={featured.agent_name} width={64} height={64} className="rounded-2xl" />
                     ) : (
-                      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-zinc-600 to-zinc-700 flex items-center justify-center text-2xl font-medium">
+                      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-surface-3 to-surface-2 flex items-center justify-center text-2xl font-medium">
                         {featured.agent_name.charAt(0)}
                       </div>
                     )}
@@ -216,7 +216,7 @@ export default function WatchPage() {
                 {/* Info */}
                 <div className="flex-1 p-6 flex flex-col justify-center min-w-0">
                   <div className="flex items-center gap-3 mb-2">
-                    <h2 className="text-xl font-bold group-hover:text-lime-400 transition truncate" style={{ fontFamily: 'var(--font-jetbrains-mono)' }}>{featured.agent_name}</h2>
+                    <h2 className="text-xl font-bold group-hover:text-accent transition truncate" style={{ fontFamily: 'var(--font-jetbrains-mono)' }}>{featured.agent_name}</h2>
                     <span className="px-2 py-0.5 rounded text-[10px] uppercase tracking-wider bg-white/[0.06] text-white/50">
                       {featured_type.icon} {featured_type.label}
                     </span>
@@ -238,7 +238,7 @@ export default function WatchPage() {
 
                 {/* Watch CTA */}
                 <div className="flex items-center px-6">
-                  <span className="px-4 py-2 rounded-xl bg-lime-400 text-black text-[11px] font-medium group-hover:bg-lime-300 transition" style={{ fontFamily: 'var(--font-jetbrains-mono)' }}>
+                  <span className="px-4 py-2 rounded-xl bg-accent text-black text-[11px] font-medium group-hover:bg-accent/80 transition" style={{ fontFamily: 'var(--font-jetbrains-mono)' }}>
                     watch now
                   </span>
                 </div>
@@ -257,7 +257,7 @@ export default function WatchPage() {
               <Link
                 key={chip.id}
                 href={`/${chip.id}`}
-                className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/[0.03] border border-white/[0.06] hover:border-white/[0.12] transition text-sm text-white/60 hover:text-white/90 whitespace-nowrap flex-shrink-0"
+                className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/[0.03] border border-white/[0.06] hover:border-white/[0.12] transition text-sm text-white/60 hover:text-muted-1/90 whitespace-nowrap flex-shrink-0"
               >
                 <span>{chip.icon}</span>
                 <span>{chip.label}</span>
@@ -289,7 +289,7 @@ export default function WatchPage() {
                 placeholder="Search agents or tasks..."
                 value={search_query}
                 onChange={(e) => set_search_query(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 rounded-xl bg-white/[0.05] border border-white/[0.08] text-sm text-white placeholder-white/30 focus:outline-none focus:border-lime-400/40 transition"
+                className="w-full pl-10 pr-4 py-2 rounded-xl bg-white/[0.05] border border-white/[0.08] text-sm text-white placeholder-white/30 focus:outline-none focus:border-accent/40 transition"
                 style={{ fontFamily: 'var(--font-jetbrains-mono)' }}
               />
             </div>
@@ -305,7 +305,7 @@ export default function WatchPage() {
                   key={mode}
                   onClick={() => set_sort_mode(mode)}
                   className={`px-3 py-1.5 rounded-lg text-xs transition ${
-                    sort_mode === mode ? 'bg-white/10 text-white' : 'text-white/30 hover:text-white/50'
+                    sort_mode === mode ? 'bg-white/10 text-white' : 'text-white/30 hover:text-muted-1/50'
                   }`}
                   style={{ fontFamily: 'var(--font-jetbrains-mono)' }}
                 >
@@ -321,7 +321,7 @@ export default function WatchPage() {
       <div className="relative z-10 px-6 md:px-12 py-8 pb-20 max-w-7xl mx-auto">
         {loading ? (
           <div className="flex justify-center py-20">
-            <div className="w-10 h-10 rounded-full border-2 border-white/10 border-t-lime-400 animate-spin" />
+            <div className="w-10 h-10 rounded-full border-2 border-white/10 border-t-accent animate-spin" />
           </div>
         ) : filtered_agents.length === 0 ? (
           <div className="text-center py-20">
@@ -338,7 +338,7 @@ export default function WatchPage() {
                 <p className="text-white/25 text-sm">Be the first to stream your AI&apos;s creative process</p>
                 <Link
                   href="/docs"
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-lime-400/15 text-lime-400 text-sm font-medium hover:bg-lime-400/25 transition"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-accent/15 text-accent text-sm font-medium hover:bg-accent/25 transition"
                 >
                   Start Streaming
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -361,7 +361,7 @@ export default function WatchPage() {
                 <Link
                   key={agent.agent_id}
                   href={`/watch/${agent.agent_id}`}
-                  className="group relative rounded-2xl overflow-hidden border border-white/10 hover:border-lime-400/20 transition bg-white/[0.02] card-lift"
+                  className="group relative rounded-2xl overflow-hidden border border-white/10 hover:border-accent/20 transition bg-white/[0.02] card-lift"
                   style={{ animation: `slide-up 0.5s ease-out ${index * 0.05}s both` }}
                 >
                   {/* Preview area — 16:9 aspect ratio */}
@@ -406,7 +406,7 @@ export default function WatchPage() {
                             className={`rounded-2xl ${!is_live ? 'opacity-50 grayscale' : ''}`}
                           />
                         ) : (
-                          <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br from-zinc-600 to-zinc-700 flex items-center justify-center text-3xl font-medium ${!is_live ? 'opacity-50 grayscale' : ''}`}>
+                          <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br from-surface-3 to-surface-2 flex items-center justify-center text-3xl font-medium ${!is_live ? 'opacity-50 grayscale' : ''}`}>
                             {agent.agent_name.charAt(0)}
                           </div>
                         )}
@@ -414,15 +414,15 @@ export default function WatchPage() {
                     )}
 
                     {/* Hover overlay */}
-                    <div className="absolute inset-0 bg-lime-400/0 group-hover:bg-lime-400/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
-                      <span className="px-4 py-2 rounded-xl bg-lime-400 text-black text-[11px] font-medium" style={{ fontFamily: 'var(--font-jetbrains-mono)' }}>
+                    <div className="absolute inset-0 bg-accent/0 group-hover:bg-accent/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                      <span className="px-4 py-2 rounded-xl bg-accent text-black text-[11px] font-medium" style={{ fontFamily: 'var(--font-jetbrains-mono)' }}>
                         watch now
                       </span>
                     </div>
 
                     {/* Live pulse border */}
                     {is_live && (
-                      <div className="absolute inset-0 border-2 border-lime-400/0 group-hover:border-lime-400/30 rounded-2xl transition" />
+                      <div className="absolute inset-0 border-2 border-accent/0 group-hover:border-accent/30 rounded-2xl transition" />
                     )}
                   </div>
 
@@ -440,11 +440,11 @@ export default function WatchPage() {
                             className="rounded-md flex-shrink-0"
                           />
                         ) : (
-                          <div className="w-6 h-6 rounded-md bg-gradient-to-br from-zinc-600 to-zinc-700 flex items-center justify-center text-[10px] font-medium flex-shrink-0">
+                          <div className="w-6 h-6 rounded-md bg-gradient-to-br from-surface-3 to-surface-2 flex items-center justify-center text-[10px] font-medium flex-shrink-0">
                             {agent.agent_name.charAt(0)}
                           </div>
                         )}
-                        <h3 className="font-medium group-hover:text-lime-400 transition truncate" style={{ fontFamily: 'var(--font-jetbrains-mono)' }}>
+                        <h3 className="font-medium group-hover:text-accent transition truncate" style={{ fontFamily: 'var(--font-jetbrains-mono)' }}>
                           {agent.agent_name}
                         </h3>
                       </div>

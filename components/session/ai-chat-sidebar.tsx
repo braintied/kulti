@@ -198,17 +198,17 @@ export function AIChatSidebar({
   }
 
   return (
-    <div className="flex flex-col h-full bg-[#1a1a1a]">
+    <div className="flex flex-col h-full bg-surface-1">
       {/* Header */}
-      <div className="flex items-center gap-3 p-4 border-b border-[#27272a]">
+      <div className="flex items-center gap-3 p-4 border-b border-border-default">
         <div className="p-2 bg-purple-500/10 rounded-lg">
           <Bot className="w-5 h-5 text-purple-500" />
         </div>
         <div className="flex-1">
           <h3 className="font-bold text-sm">AI Assistant</h3>
-          <p className="text-xs text-[#71717a]">Shared Claude conversation</p>
+          <p className="text-xs text-muted-3">Shared Claude conversation</p>
         </div>
-        <div className="text-xs text-[#71717a] font-mono">
+        <div className="text-xs text-muted-3 font-mono">
           {AI_MESSAGE_COST}c/msg
         </div>
       </div>
@@ -220,8 +220,8 @@ export function AIChatSidebar({
             <div className="w-16 h-16 bg-purple-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
               <Sparkles className="w-8 h-8 text-purple-500" />
             </div>
-            <p className="text-[#a1a1aa] text-sm">No messages yet</p>
-            <p className="text-xs text-[#71717a] mt-2">
+            <p className="text-muted-2 text-sm">No messages yet</p>
+            <p className="text-xs text-muted-3 mt-2">
               Start with "Claude," or "@claude" to ask a question
             </p>
           </div>
@@ -241,7 +241,7 @@ export function AIChatSidebar({
                   <Bot className="w-5 h-5 text-white" />
                 </div>
               ) : (
-                <div className="w-8 h-8 bg-lime-400 rounded-full flex items-center justify-center text-black font-bold text-sm">
+                <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center text-black font-bold text-sm">
                   {message.display_name?.[0]?.toUpperCase() || '?'}
                 </div>
               )}
@@ -256,11 +256,11 @@ export function AIChatSidebar({
                     : message.display_name || 'Unknown'}
                 </span>
                 {message.role === 'user' && (
-                  <span className="text-xs text-[#71717a]">
+                  <span className="text-xs text-muted-3">
                     @{message.username}
                   </span>
                 )}
-                <span className="text-xs text-[#71717a]">
+                <span className="text-xs text-muted-3">
                   {new Date(message.created_at).toLocaleTimeString([], {
                     hour: '2-digit',
                     minute: '2-digit',
@@ -296,7 +296,7 @@ export function AIChatSidebar({
                   </ReactMarkdown>
                 </div>
               ) : (
-                <p className="text-sm text-[#e5e5e5]">{message.content}</p>
+                <p className="text-sm text-muted-1">{message.content}</p>
               )}
             </div>
           </div>
@@ -309,7 +309,7 @@ export function AIChatSidebar({
             </div>
             <div className="flex-1">
               <p className="font-medium text-sm mb-1">Claude</p>
-              <div className="flex items-center gap-2 text-[#71717a]">
+              <div className="flex items-center gap-2 text-muted-3">
                 <Loader2 className="w-4 h-4 animate-spin" />
                 <span className="text-sm">Thinking...</span>
               </div>
@@ -331,10 +331,10 @@ export function AIChatSidebar({
       )}
 
       {/* Input */}
-      <div className="p-4 border-t border-[#27272a]">
+      <div className="p-4 border-t border-border-default">
         {!canChat ? (
-          <div className="p-4 bg-[#2a2a2a] border border-[#27272a] rounded-lg">
-            <p className="text-sm text-[#a1a1aa] text-center">
+          <div className="p-4 bg-surface-2 border border-border-default rounded-lg">
+            <p className="text-sm text-muted-2 text-center">
               {getNoAccessReason(permissions)}
             </p>
           </div>
@@ -348,7 +348,7 @@ export function AIChatSidebar({
                 onKeyPress={handleKeyPress}
                 placeholder="Ask Claude..."
                 disabled={loading || !canChat}
-                className="flex-1 px-4 py-2 bg-[#2a2a2a] border border-[#27272a] rounded-lg text-white text-sm focus:border-purple-500 focus:outline-none disabled:opacity-50"
+                className="flex-1 px-4 py-2 bg-surface-2 border border-border-default rounded-lg text-white text-sm focus:border-accent focus:outline-none disabled:opacity-50"
               />
               <button
                 onClick={handleSend}
@@ -362,7 +362,7 @@ export function AIChatSidebar({
                 )}
               </button>
             </div>
-            <p className="text-xs text-[#71717a] mt-2">
+            <p className="text-xs text-muted-3 mt-2">
               {currentBalance < AI_MESSAGE_COST
                 ? `You need ${AI_MESSAGE_COST} credits to ask Claude`
                 : `${AI_MESSAGE_COST} credits per message • Balance: ${currentBalance}c`}

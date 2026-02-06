@@ -89,7 +89,7 @@ const THOUGHT_COLORS: Record<ThoughtType, { border: string; bg: string; badge: s
   observation: { border: 'border-amber-500/30', bg: 'from-amber-500/10 to-amber-500/5', badge: 'bg-amber-500/20 text-amber-400', text: 'text-amber-300/70', label: 'observation' },
   evaluation: { border: 'border-purple-500/30', bg: 'from-purple-500/10 to-purple-500/5', badge: 'bg-purple-500/20 text-purple-400', text: 'text-purple-300/70', label: 'evaluation' },
   tool: { border: 'border-orange-500/30', bg: 'from-orange-500/10 to-orange-500/5', badge: 'bg-orange-500/20 text-orange-400', text: 'text-orange-300/70', label: 'tool' },
-  context: { border: 'border-lime-400/30', bg: 'from-lime-400/10 to-lime-400/5', badge: 'bg-lime-400/20 text-lime-400', text: 'text-lime-300/70', label: 'context' },
+  context: { border: 'border-accent/30', bg: 'from-accent/10 to-accent/5', badge: 'bg-accent/20 text-accent', text: 'text-accent/70', label: 'context' },
   prompt: { border: 'border-white/30', bg: 'from-white/10 to-white/5', badge: 'bg-white/20 text-white/80', text: 'text-white/70', label: 'prompt' },
   general: { border: 'border-white/10', bg: 'from-white/5 to-transparent', badge: 'bg-white/10 text-white/50', text: 'text-white/50', label: 'thought' },
 };
@@ -521,7 +521,7 @@ export default function WatchPage() {
   if (loading) {
     return (
       <div className="h-screen bg-black flex items-center justify-center">
-        <div className="w-12 h-12 rounded-full border border-white/10 border-t-lime-400 animate-spin" />
+        <div className="w-12 h-12 rounded-full border border-white/10 border-t-accent animate-spin" />
       </div>
     );
   }
@@ -530,7 +530,7 @@ export default function WatchPage() {
     return (
       <div className="h-screen bg-black flex flex-col items-center justify-center gap-6">
         <div className="text-5xl font-extralight text-white/20">404</div>
-        <Link href="/ai" className="text-white/30 hover:text-white/50 transition text-sm">Return home</Link>
+        <Link href="/ai" className="text-white/30 hover:text-muted-1/50 transition text-sm">Return home</Link>
       </div>
     );
   }
@@ -556,8 +556,8 @@ export default function WatchPage() {
       <div className="w-96 min-w-96 max-w-96 flex-shrink-0 border-r border-white/[0.04] flex flex-col relative z-10">
         {/* Agent header */}
         <div className="p-4">
-          <Link href="/watch" className="text-white/30 hover:text-white/50 transition text-xs mb-3 inline-flex items-center gap-1.5">
-            <KultiLogo class_name="w-4 h-4 text-lime-400" />
+          <Link href="/watch" className="text-white/30 hover:text-muted-1/50 transition text-xs mb-3 inline-flex items-center gap-1.5">
+            <KultiLogo class_name="w-4 h-4 text-accent" />
             <span style={{ fontFamily: 'var(--font-jetbrains-mono)' }}>back</span>
           </Link>
           <div className="flex items-center gap-3 p-3 rounded-2xl bg-white/[0.03] border border-white/[0.06] backdrop-blur-xl">
@@ -565,7 +565,7 @@ export default function WatchPage() {
               {avatarUrl ? (
                 <img src={avatarUrl} alt={session.agent_name} className="w-12 h-12 rounded-xl object-cover" />
               ) : (
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-zinc-600 to-zinc-700 flex items-center justify-center text-lg font-medium">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-surface-3 to-surface-2 flex items-center justify-center text-lg font-medium">
                   {session.agent_name.charAt(0)}
                 </div>
               )}
@@ -594,9 +594,9 @@ export default function WatchPage() {
         {/* Goal & milestones */}
         {goal !== null && (
           <div className="px-4 pb-3">
-            <div className="p-3 rounded-xl bg-gradient-to-br from-lime-400/10 to-lime-400/5 border border-lime-400/20">
+            <div className="p-3 rounded-xl bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20">
               <div className="flex items-center gap-2 mb-2">
-                <svg className="w-4 h-4 text-lime-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-4 h-4 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
                 <span className="text-sm font-medium text-white/80">{goal.title}</span>
@@ -676,7 +676,7 @@ export default function WatchPage() {
           <span className="text-[10px] text-white/20 uppercase tracking-wider">stream of consciousness</span>
           <button
             onClick={() => set_collapsed_details(!collapsed_details)}
-            className="text-[10px] text-white/20 hover:text-white/40 transition"
+            className="text-[10px] text-white/20 hover:text-muted-1/40 transition"
           >
             {collapsed_details ? 'show all' : 'hide details'}
           </button>
@@ -713,7 +713,7 @@ export default function WatchPage() {
                     className={`
                       ${is_detail ? 'p-2' : 'p-3'} rounded-xl transition-all duration-500
                       ${is_headline
-                        ? `bg-gradient-to-br ${colors.bg} border ${colors.border} shadow-lg shadow-lime-400/10`
+                        ? `bg-gradient-to-br ${colors.bg} border ${colors.border} shadow-lg shadow-accent/10`
                         : is_latest
                           ? `bg-gradient-to-br ${colors.bg} border ${colors.border} shadow-lg`
                           : 'bg-white/[0.02] border border-white/[0.04]'
@@ -727,7 +727,7 @@ export default function WatchPage() {
                         {colors.label}
                       </span>
                       {is_headline && (
-                        <span className="px-1.5 py-0.5 rounded text-[9px] uppercase tracking-wider font-medium bg-lime-400/20 text-lime-400">
+                        <span className="px-1.5 py-0.5 rounded text-[9px] uppercase tracking-wider font-medium bg-accent/20 text-accent">
                           key
                         </span>
                       )}
@@ -755,7 +755,7 @@ export default function WatchPage() {
                     }`}>
                       {block.displayedContent || block.content}
                       {(is_latest || block.isTyping) && (
-                        <span className="inline-block w-1.5 h-3.5 bg-lime-400/70 ml-0.5 animate-pulse" />
+                        <span className="inline-block w-1.5 h-3.5 bg-accent/70 ml-0.5 animate-pulse" />
                       )}
                     </p>
 
@@ -777,13 +777,13 @@ export default function WatchPage() {
           <div className="flex items-center px-4 gap-1">
             <button
               onClick={() => setActiveTab('code')}
-              className={`px-4 py-1.5 rounded-lg text-sm transition ${activeTab === 'code' ? 'bg-white/10 text-white' : 'text-white/30 hover:text-white/50'}`}
+              className={`px-4 py-1.5 rounded-lg text-sm transition ${activeTab === 'code' ? 'bg-white/10 text-white' : 'text-white/30 hover:text-muted-1/50'}`}
             >
               code
             </button>
             <button
               onClick={() => setActiveTab('preview')}
-              className={`px-4 py-1.5 rounded-lg text-sm transition ${activeTab === 'preview' ? 'bg-white/10 text-white' : 'text-white/30 hover:text-white/50'}`}
+              className={`px-4 py-1.5 rounded-lg text-sm transition ${activeTab === 'preview' ? 'bg-white/10 text-white' : 'text-white/30 hover:text-muted-1/50'}`}
             >
               preview
             </button>
@@ -798,12 +798,12 @@ export default function WatchPage() {
                   className={`px-3 py-1 rounded text-xs font-mono transition flex items-center gap-2 ${
                     activeFile === file.filename
                       ? 'bg-white/10 text-white'
-                      : 'text-white/30 hover:text-white/50'
+                      : 'text-white/30 hover:text-muted-1/50'
                   }`}
                 >
                   {file.filename}
                   {file.isTyping && (
-                    <span className="w-1.5 h-1.5 bg-lime-400 rounded-full animate-pulse" />
+                    <span className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse" />
                   )}
                 </button>
               ))}
@@ -838,7 +838,7 @@ export default function WatchPage() {
                         {currentFile.action}
                       </span>
                       {currentFile.isTyping && (
-                        <span className="text-lime-400 animate-pulse">typing...</span>
+                        <span className="text-accent animate-pulse">typing...</span>
                       )}
                     </div>
                     <span className="text-white/20">
@@ -859,7 +859,7 @@ export default function WatchPage() {
                               className={
                                 is_removed ? 'bg-red-500/10 text-red-400/80' :
                                 is_added ? 'bg-emerald-500/10 text-emerald-400/80' :
-                                is_hunk_header ? 'text-lime-400/50' :
+                                is_hunk_header ? 'text-accent/50' :
                                 'text-white/70'
                               }
                             >
@@ -868,14 +868,14 @@ export default function WatchPage() {
                           );
                         })}
                         {currentFile.isTyping && (
-                          <span ref={cursorRef} className="inline-block w-2 h-4 bg-lime-400 animate-pulse ml-0.5" />
+                          <span ref={cursorRef} className="inline-block w-2 h-4 bg-accent animate-pulse ml-0.5" />
                         )}
                       </pre>
                     ) : (
                       <pre className="font-mono text-[13px] leading-relaxed text-white/70 whitespace-pre w-max">
                         {currentFile.displayedContent}
                         {currentFile.isTyping && (
-                          <span ref={cursorRef} className="inline-block w-2 h-4 bg-lime-400 animate-pulse ml-0.5" />
+                          <span ref={cursorRef} className="inline-block w-2 h-4 bg-accent animate-pulse ml-0.5" />
                         )}
                       </pre>
                     )}
@@ -914,7 +914,7 @@ export default function WatchPage() {
         className={`fixed bottom-6 right-6 z-50 w-14 h-14 rounded-2xl flex items-center justify-center transition-all ${
           showChat 
             ? 'bg-white/10 text-white' 
-            : 'bg-lime-400/15 text-lime-400 hover:bg-lime-400/25'
+            : 'bg-accent/15 text-accent hover:bg-accent/25'
         }`}
       >
         {showChat ? (

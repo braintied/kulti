@@ -47,7 +47,7 @@ export default function SettingsLayout({
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-mono mb-3 sm:mb-4">
             Settings
           </h1>
-          <p className="text-base sm:text-lg lg:text-xl text-[#a1a1aa]">
+          <p className="text-base sm:text-lg lg:text-xl text-muted-2">
             Manage your account, privacy, and notification preferences
           </p>
         </div>
@@ -67,13 +67,13 @@ export default function SettingsLayout({
                     href={item.href}
                     className={`flex items-start gap-3 sm:gap-4 p-3 sm:p-4 min-h-[72px] rounded-xl transition-all duration-200 ${
                       isActive
-                        ? "bg-lime-400/10 border-2 border-lime-400"
-                        : "bg-[#1a1a1a] border-2 border-[#27272a] hover:border-lime-400/50"
+                        ? "bg-accent/10 border-2 border-accent"
+                        : "bg-surface-1 border-2 border-border-default hover:border-accent/50"
                     }`}
                   >
                     <div
                       className={`p-2 rounded-lg flex-shrink-0 ${
-                        isActive ? "bg-lime-400 text-black" : "bg-[#2a2a2a]"
+                        isActive ? "bg-accent text-black" : "bg-surface-2"
                       }`}
                     >
                       <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -81,12 +81,12 @@ export default function SettingsLayout({
                     <div className="flex-1 min-w-0">
                       <h3
                         className={`font-bold mb-1 text-sm sm:text-base ${
-                          isActive ? "text-lime-400" : "text-white"
+                          isActive ? "text-accent" : "text-white"
                         }`}
                       >
                         {item.label}
                       </h3>
-                      <p className="text-xs sm:text-sm text-[#a1a1aa]">
+                      <p className="text-xs sm:text-sm text-muted-2">
                         {item.description}
                       </p>
                     </div>

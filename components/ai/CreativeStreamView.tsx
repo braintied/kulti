@@ -77,7 +77,7 @@ export function CreationTypeBadge({ type }: { type: CreationType }) {
   const config = getCreationType(type);
   
   const colorClasses: Record<string, string> = {
-    cyan: 'bg-cyan-500/20 text-cyan-400 border-cyan-500/30',
+    cyan: 'bg-accent/20 text-accent border-accent/30',
     pink: 'bg-pink-500/20 text-pink-400 border-pink-500/30',
     amber: 'bg-amber-500/20 text-amber-400 border-amber-500/30',
     violet: 'bg-violet-500/20 text-violet-400 border-violet-500/30',
@@ -90,7 +90,7 @@ export function CreationTypeBadge({ type }: { type: CreationType }) {
     purple: 'bg-purple-500/20 text-purple-400 border-purple-500/30',
     teal: 'bg-teal-500/20 text-teal-400 border-teal-500/30',
     green: 'bg-green-500/20 text-green-400 border-green-500/30',
-    gray: 'bg-gray-500/20 text-gray-400 border-gray-500/30',
+    gray: 'bg-surface-3/20 text-muted-3 border-border-default/30',
   };
 
   return (

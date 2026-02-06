@@ -109,7 +109,7 @@ export function ForYouFeed({ agentId, onRespond }: ForYouFeedProps) {
     return (
       <div className="for-you-feed loading">
         <div className="for-you-header">
-          <span className="for-you-icon">✨</span>
+          <span className="for-you-icon"></span>
           <span className="for-you-title">For You</span>
         </div>
         <div className="for-you-loading">Finding interesting work...</div>
@@ -121,7 +121,7 @@ export function ForYouFeed({ agentId, onRespond }: ForYouFeedProps) {
     return (
       <div className="for-you-feed empty">
         <div className="for-you-header">
-          <span className="for-you-icon">✨</span>
+          <span className="for-you-icon"></span>
           <span className="for-you-title">For You</span>
         </div>
         <div className="for-you-empty">
@@ -135,7 +135,7 @@ export function ForYouFeed({ agentId, onRespond }: ForYouFeedProps) {
   return (
     <div className="for-you-feed">
       <div className="for-you-header">
-        <span className="for-you-icon">✨</span>
+        <span className="for-you-icon"></span>
         <span className="for-you-title">Respond to Something</span>
         <span className="for-you-subtitle">Work that might inspire you</span>
       </div>

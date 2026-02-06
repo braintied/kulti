@@ -29,16 +29,16 @@ export function MyInviteCodes({ userId }: MyInviteCodesProps) {
       // Show fun creative toast notification
       toast((_t) => (
         <div className="flex items-start gap-3 max-w-md">
-          <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-lime-400 to-green-500 flex items-center justify-center">
+          <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-accent to-green-500 flex items-center justify-center">
             <Gift className="w-6 h-6 text-black" />
           </div>
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-1">
-              <Sparkles className="w-4 h-4 text-lime-400" />
+              <Sparkles className="w-4 h-4 text-accent" />
               <h3 className="font-bold text-white">You've Got Golden Tickets!</h3>
             </div>
-            <p className="text-sm text-gray-300 leading-relaxed">
-              Share your <span className="font-mono text-lime-400">{invites.length} invite codes</span> with friends and earn <span className="font-bold text-lime-400">50 credits</span> for each signup. That's potential <span className="font-bold text-lime-400">{invites.length * 50} credits</span> waiting for you! 🎉
+            <p className="text-sm text-muted-2 leading-relaxed">
+              Share your <span className="font-mono text-accent">{invites.length} invite codes</span> with friends and earn <span className="font-bold text-accent">50 credits</span> for each signup. That's potential <span className="font-bold text-accent">{invites.length * 50} credits</span> waiting for you!
             </p>
           </div>
         </div>
@@ -89,20 +89,20 @@ export function MyInviteCodes({ userId }: MyInviteCodesProps) {
 
   if (loading) {
     return (
-      <div className="rounded-lg border border-gray-800 bg-gray-900 p-8 text-center">
-        <p className="text-gray-500">Loading your invite codes...</p>
+      <div className="rounded-lg border border-border-default bg-surface-1 p-8 text-center">
+        <p className="text-muted-3">Loading your invite codes...</p>
       </div>
     )
   }
 
   if (invites.length === 0) {
     return (
-      <div className="rounded-lg border border-gray-800 bg-gray-900 p-8 text-center">
-        <Ticket className="mx-auto h-12 w-12 text-gray-600" />
-        <p className="mt-4 text-gray-500">
+      <div className="rounded-lg border border-border-default bg-surface-1 p-8 text-center">
+        <Ticket className="mx-auto h-12 w-12 text-muted-4" />
+        <p className="mt-4 text-muted-3">
           Your invite codes are being generated...
         </p>
-        <p className="mt-2 text-sm text-gray-600">
+        <p className="mt-2 text-sm text-muted-4">
           Refresh the page in a moment
         </p>
       </div>
@@ -116,26 +116,26 @@ export function MyInviteCodes({ userId }: MyInviteCodesProps) {
     <div className="space-y-6">
       {/* Stats Summary */}
       <div className="grid gap-4 sm:grid-cols-3">
-        <div className="rounded-lg border border-gray-800 bg-gray-900 p-4">
+        <div className="rounded-lg border border-border-default bg-surface-1 p-4">
           <div className="flex items-center gap-2 mb-2">
-            <Ticket className="h-5 w-5 text-lime-400" />
-            <span className="text-sm text-gray-400">My Codes</span>
+            <Ticket className="h-5 w-5 text-accent" />
+            <span className="text-sm text-muted-3">My Codes</span>
           </div>
           <p className="text-2xl font-bold text-white">
             {invites.length}
           </p>
         </div>
-        <div className="rounded-lg border border-gray-800 bg-gray-900 p-4">
+        <div className="rounded-lg border border-border-default bg-surface-1 p-4">
           <div className="flex items-center gap-2 mb-2">
-            <Users className="h-5 w-5 text-lime-400" />
-            <span className="text-sm text-gray-400">Total Referrals</span>
+            <Users className="h-5 w-5 text-accent" />
+            <span className="text-sm text-muted-3">Total Referrals</span>
           </div>
           <p className="text-2xl font-bold text-white">{totalUses}</p>
         </div>
-        <div className="rounded-lg border border-gray-800 bg-gray-900 p-4">
+        <div className="rounded-lg border border-border-default bg-surface-1 p-4">
           <div className="flex items-center gap-2 mb-2">
-            <TrendingUp className="h-5 w-5 text-lime-400" />
-            <span className="text-sm text-gray-400">Credits Earned</span>
+            <TrendingUp className="h-5 w-5 text-accent" />
+            <span className="text-sm text-muted-3">Credits Earned</span>
           </div>
           <p className="text-2xl font-bold text-white">
             {totalCreditsEarned}
@@ -144,24 +144,24 @@ export function MyInviteCodes({ userId }: MyInviteCodesProps) {
       </div>
 
       {/* Codes List */}
-      <div className="rounded-lg border border-gray-800 bg-gray-900">
-        <div className="border-b border-gray-800 p-4">
+      <div className="rounded-lg border border-border-default bg-surface-1">
+        <div className="border-b border-border-default p-4">
           <h3 className="font-semibold text-white">Your Invite Codes</h3>
-          <p className="text-sm text-gray-400 mt-1">
+          <p className="text-sm text-muted-3 mt-1">
             Share these codes with friends. You'll earn 50 credits for each signup!
           </p>
         </div>
-        <div className="divide-y divide-gray-800">
+        <div className="divide-y divide-border-default">
           {invites.map((invite) => (
             <div key={invite.id} className="p-4">
               <div className="flex items-center justify-between flex-wrap gap-3">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <code className="rounded bg-gray-800 px-3 py-1.5 text-sm font-mono text-lime-400">
+                  <code className="rounded bg-surface-2 px-3 py-1.5 text-sm font-mono text-accent">
                     {invite.code}
                   </code>
                   <button
                     onClick={() => copyToClipboard(invite.code)}
-                    className="p-1.5 rounded hover:bg-gray-800 text-gray-500 hover:text-white transition-colors"
+                    className="p-1.5 rounded hover:bg-surface-2 text-muted-3 hover:text-muted-1 transition-colors"
                     title="Copy code"
                   >
                     {copiedCode === invite.code ? (
@@ -172,7 +172,7 @@ export function MyInviteCodes({ userId }: MyInviteCodesProps) {
                   </button>
                   <button
                     onClick={() => copyLinkToClipboard(invite.code)}
-                    className="px-3 py-1.5 rounded bg-lime-400/10 hover:bg-lime-400/20 border border-lime-400/30 text-lime-400 text-sm font-medium transition-colors flex items-center gap-1.5"
+                    className="px-3 py-1.5 rounded bg-accent/10 hover:bg-accent/20 border border-accent/30 text-accent text-sm font-medium transition-colors flex items-center gap-1.5"
                     title="Copy shareable link"
                   >
                     {copiedLink === invite.code ? (
@@ -188,7 +188,7 @@ export function MyInviteCodes({ userId }: MyInviteCodesProps) {
                     )}
                   </button>
                   {invite.metadata?.note && (
-                    <span className="text-xs text-gray-500 ml-2">
+                    <span className="text-xs text-muted-3 ml-2">
                       {invite.metadata.note}
                     </span>
                   )}
@@ -197,13 +197,13 @@ export function MyInviteCodes({ userId }: MyInviteCodesProps) {
                   <p className="text-sm font-medium text-white">
                     {invite.current_uses} / {invite.max_uses} uses
                   </p>
-                  <p className="text-xs text-lime-400">
+                  <p className="text-xs text-accent">
                     {invite.current_uses * 50} credits earned
                   </p>
                 </div>
               </div>
               {invite.expires_at && (
-                <p className="text-xs text-gray-500 mt-2">
+                <p className="text-xs text-muted-3 mt-2">
                   Expires {new Date(invite.expires_at).toLocaleDateString()}
                 </p>
               )}

@@ -71,7 +71,7 @@ export default function VideoPortfolio({ agentId, agentName }: VideoPortfolioPro
   if (videos.length === 0) {
     return (
       <div className="portfolio-empty">
-        <span className="empty-icon">🎬</span>
+        <span className="empty-icon"></span>
         <h3>No videos yet</h3>
         <p>{agentName} hasn&apos;t created any videos yet.</p>
       </div>
@@ -98,7 +98,7 @@ export default function VideoPortfolio({ agentId, agentName }: VideoPortfolioPro
               <div className="modal-meta">
                 <span>{selectedVideo.views} views</span>
                 <button onClick={() => handleLike(selectedVideo.id)} className="like-btn">
-                  ❤️ {selectedVideo.likes}
+                  {selectedVideo.likes}
                 </button>
               </div>
             </div>
@@ -118,7 +118,7 @@ export default function VideoPortfolio({ agentId, agentName }: VideoPortfolioPro
               {video.thumbnail_url ? (
                 <img src={video.thumbnail_url} alt={video.title} />
               ) : (
-                <div className="thumbnail-placeholder">🎬</div>
+                <div className="thumbnail-placeholder"></div>
               )}
               {video.duration && (
                 <span className="video-duration">{formatDuration(video.duration)}</span>
@@ -129,7 +129,7 @@ export default function VideoPortfolio({ agentId, agentName }: VideoPortfolioPro
               <h3>{video.title}</h3>
               <div className="video-stats">
                 <span>{video.views} views</span>
-                <span>❤️ {video.likes}</span>
+                <span>{video.likes}</span>
               </div>
             </div>
           </div>

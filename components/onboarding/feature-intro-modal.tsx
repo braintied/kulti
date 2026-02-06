@@ -56,7 +56,7 @@ export const FeatureIntroModal = ({
       aria-modal="true"
     >
       <div
-        className="relative w-full max-w-lg bg-gradient-to-br from-[#18181b] to-[#27272a] border-2 border-lime-400/20 rounded-2xl shadow-2xl shadow-lime-400/10 animate-in zoom-in-95 fade-in duration-300"
+        className="relative w-full max-w-lg bg-gradient-to-br from-surface-1 to-surface-2 border-2 border-accent/20 rounded-2xl shadow-2xl shadow-accent/10 animate-in zoom-in-95 fade-in duration-300"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
@@ -65,15 +65,15 @@ export const FeatureIntroModal = ({
           className="absolute top-4 right-4 p-2 rounded-lg hover:bg-white/10 transition-colors"
           aria-label="Close modal"
         >
-          <X className="w-5 h-5 text-[#a1a1aa]" />
+          <X className="w-5 h-5 text-muted-2" />
         </button>
 
         {/* Content */}
         <div className="p-8 space-y-6">
           {/* Icon */}
           <div className="flex justify-center">
-            <div className="p-4 bg-lime-400/10 border-2 border-lime-400/20 rounded-full">
-              <Sparkles className="w-12 h-12 text-lime-400" />
+            <div className="p-4 bg-accent/10 border-2 border-accent/20 rounded-full">
+              <Sparkles className="w-12 h-12 text-accent" />
             </div>
           </div>
 
@@ -82,19 +82,19 @@ export const FeatureIntroModal = ({
             <h2 id="feature-intro-title" className="text-3xl font-bold">
               {title}
             </h2>
-            <p className="text-lg text-[#a1a1aa]">{description}</p>
+            <p className="text-lg text-muted-2">{description}</p>
           </div>
 
           {/* Tips */}
           {tips.length > 0 && (
             <div className="space-y-3 p-4 bg-white/5 rounded-xl border border-white/10">
-              <h3 className="text-sm font-bold text-lime-400 uppercase tracking-wide">
+              <h3 className="text-sm font-bold text-accent uppercase tracking-wide">
                 Quick Tips
               </h3>
               <ul className="space-y-2">
                 {tips.map((tip, index) => (
-                  <li key={index} className="flex items-start gap-2 text-sm text-[#a1a1aa]">
-                    <span className="text-lime-400 mt-1">•</span>
+                  <li key={index} className="flex items-start gap-2 text-sm text-muted-2">
+                    <span className="text-accent mt-1">•</span>
                     <span>{tip}</span>
                   </li>
                 ))}
@@ -110,11 +110,11 @@ export const FeatureIntroModal = ({
                 id="dont-show-again"
                 checked={dontShowAgain}
                 onChange={(e) => setDontShowAgain(e.target.checked)}
-                className="w-4 h-4 rounded border-2 border-[#a1a1aa] bg-transparent checked:bg-lime-400 checked:border-lime-400 focus:ring-2 focus:ring-lime-400 focus:ring-offset-2 focus:ring-offset-[#18181b] cursor-pointer"
+                className="w-4 h-4 rounded border-2 border-muted-2 bg-transparent checked:bg-accent checked:border-accent focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-black cursor-pointer"
               />
               <label
                 htmlFor="dont-show-again"
-                className="text-sm text-[#a1a1aa] cursor-pointer select-none"
+                className="text-sm text-muted-2 cursor-pointer select-none"
               >
                 Don&apos;t show this again
               </label>
@@ -122,7 +122,7 @@ export const FeatureIntroModal = ({
 
             <button
               onClick={handleClose}
-              className="w-full py-4 bg-lime-400 hover:bg-lime-500 text-black font-bold text-lg rounded-xl transition-colors duration-200"
+              className="w-full py-4 bg-accent hover:bg-accent text-black font-bold text-lg rounded-xl transition-colors duration-200"
             >
               Got it!
             </button>

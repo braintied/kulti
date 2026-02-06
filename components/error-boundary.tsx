@@ -72,11 +72,11 @@ export class ErrorBoundary extends Component<Props, State> {
       }
 
       return (
-        <div className="flex min-h-screen items-center justify-center bg-[#0a0a0a] p-4">
+        <div className="flex min-h-screen items-center justify-center bg-black p-4">
           <div className="text-center max-w-md space-y-6">
             <div className="space-y-2">
               <h1 className="text-2xl font-bold text-white">Something went wrong</h1>
-              <p className="text-gray-400">
+              <p className="text-muted-3">
                 We encountered an unexpected error. Don't worry, you can try again.
               </p>
             </div>
@@ -97,14 +97,14 @@ export class ErrorBoundary extends Component<Props, State> {
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <button
                 onClick={this.handleReset}
-                className="px-6 py-3 bg-lime-400 text-black rounded-lg font-semibold hover:bg-lime-500 transition-colors"
+                className="px-6 py-3 bg-accent text-black rounded-lg font-semibold hover:bg-accent transition-colors"
                 aria-label="Try again"
               >
                 Try Again
               </button>
               <button
                 onClick={this.handleReload}
-                className="px-6 py-3 bg-gray-800 text-white rounded-lg font-semibold hover:bg-gray-700 transition-colors"
+                className="px-6 py-3 bg-surface-2 text-white rounded-lg font-semibold hover:bg-surface-3 transition-colors"
                 aria-label="Reload page"
               >
                 Reload Page
@@ -113,7 +113,7 @@ export class ErrorBoundary extends Component<Props, State> {
 
             <button
               onClick={this.handleReportIssue}
-              className="text-gray-500 hover:text-gray-400 text-sm underline transition-colors"
+              className="text-muted-3 hover:text-muted-3 text-sm underline transition-colors"
               aria-label="Report this issue"
             >
               Report Issue

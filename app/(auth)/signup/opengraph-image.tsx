@@ -82,7 +82,7 @@ export default async function Image({ searchParams }: { searchParams: Promise<{ 
                 display: 'flex',
               }}
             >
-              ✨
+
             </div>
           </div>
 

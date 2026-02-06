@@ -54,12 +54,12 @@ export function EditProfileModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="edit-profile-title">
-      <div className="relative w-full max-w-2xl mx-4 bg-[#1a1a1a] border border-[#27272a] rounded-2xl shadow-2xl">
+      <div className="relative w-full max-w-2xl mx-4 bg-surface-1 border border-border-default rounded-2xl shadow-2xl">
         {/* Header */}
-        <div className="border-b border-[#27272a] p-6">
+        <div className="border-b border-border-default p-6">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 p-2 hover:bg-[#2a2a2a] rounded-lg transition-colors"
+            className="absolute top-4 right-4 p-2 hover:bg-surface-2 rounded-lg transition-colors"
             aria-label="Close edit profile modal"
           >
             <X className="w-5 h-5" />
@@ -71,59 +71,59 @@ export function EditProfileModal({
         <div className="p-6 space-y-6">
           {/* Display Name */}
           <div>
-            <label className="block text-sm font-medium text-[#a1a1aa] mb-2">
+            <label className="block text-sm font-medium text-muted-2 mb-2">
               Display Name
             </label>
             <input
               type="text"
               value={displayName}
               onChange={(e) => setDisplayName(e.target.value)}
-              className="w-full px-4 py-3 bg-[#2a2a2a] border border-[#27272a] rounded-lg text-white focus:border-lime-400 focus:outline-none transition-colors"
+              className="w-full px-4 py-3 bg-surface-2 border border-border-default rounded-lg text-white focus:border-accent focus:outline-none transition-colors"
               placeholder="Your display name"
               maxLength={50}
             />
-            <p className="text-xs text-[#71717a] mt-1">
+            <p className="text-xs text-muted-3 mt-1">
               {displayName.length}/50 characters
             </p>
           </div>
 
           {/* Bio */}
           <div>
-            <label className="block text-sm font-medium text-[#a1a1aa] mb-2">
+            <label className="block text-sm font-medium text-muted-2 mb-2">
               Bio
             </label>
             <textarea
               value={bio}
               onChange={(e) => setBio(e.target.value)}
-              className="w-full px-4 py-3 bg-[#2a2a2a] border border-[#27272a] rounded-lg text-white focus:border-lime-400 focus:outline-none transition-colors resize-none"
+              className="w-full px-4 py-3 bg-surface-2 border border-border-default rounded-lg text-white focus:border-accent focus:outline-none transition-colors resize-none"
               placeholder="Tell us about yourself..."
               rows={4}
               maxLength={200}
             />
-            <p className="text-xs text-[#71717a] mt-1">
+            <p className="text-xs text-muted-3 mt-1">
               {bio.length}/200 characters
             </p>
           </div>
 
           {/* Username (Read-only) */}
           <div>
-            <label className="block text-sm font-medium text-[#a1a1aa] mb-2">
+            <label className="block text-sm font-medium text-muted-2 mb-2">
               Username
             </label>
-            <div className="px-4 py-3 bg-[#2a2a2a]/50 border border-[#27272a] rounded-lg text-[#71717a]">
+            <div className="px-4 py-3 bg-surface-2/50 border border-border-default rounded-lg text-muted-3">
               @{profile.username}
             </div>
-            <p className="text-xs text-[#71717a] mt-1">
+            <p className="text-xs text-muted-3 mt-1">
               Username cannot be changed
             </p>
           </div>
         </div>
 
         {/* Actions */}
-        <div className="border-t border-[#27272a] p-6 flex gap-3">
+        <div className="border-t border-border-default p-6 flex gap-3">
           <button
             onClick={onClose}
-            className="flex-1 px-6 py-3 bg-[#2a2a2a] hover:bg-[#333333] text-white font-bold rounded-lg transition-colors"
+            className="flex-1 px-6 py-3 bg-surface-2 hover:bg-surface-3 text-white font-bold rounded-lg transition-colors"
           >
             Cancel
           </button>
@@ -132,8 +132,8 @@ export function EditProfileModal({
             disabled={loading || !displayName.trim()}
             className={`flex-1 px-6 py-3 font-bold rounded-lg transition-colors flex items-center justify-center gap-2 ${
               !loading && displayName.trim()
-                ? "bg-lime-400 hover:bg-lime-500 text-black"
-                : "bg-[#2a2a2a] text-[#71717a] cursor-not-allowed"
+                ? "bg-accent hover:bg-accent text-black"
+                : "bg-surface-2 text-muted-3 cursor-not-allowed"
             }`}
           >
             {loading ? (

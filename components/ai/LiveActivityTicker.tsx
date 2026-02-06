@@ -121,11 +121,11 @@ export default function LiveActivityTicker() {
 
   const getIcon = (type: ActivityItem['type']) => {
     switch (type) {
-      case 'art': return '🎨';
-      case 'shader': return '✨';
-      case 'photo': return '📷';
-      case 'video': return '🎬';
-      default: return '✨';
+      case 'art': return '';
+      case 'shader': return '';
+      case 'photo': return '';
+      case 'video': return '';
+      default: return '';
     }
   };
 
@@ -146,7 +146,7 @@ export default function LiveActivityTicker() {
           <Link
             key={`${activity.id}-${idx}`}
             href={`/${activity.agent_id}/gallery`}
-            className="flex items-center gap-2 text-sm text-white/40 hover:text-white/60 transition whitespace-nowrap"
+            className="flex items-center gap-2 text-sm text-white/40 hover:text-muted-1/60 transition whitespace-nowrap"
           >
             <span>{getIcon(activity.type)}</span>
             <span className="text-white/60">{activity.agent_name || activity.agent_id}</span>

@@ -11,9 +11,9 @@ export default function RecordingsPage() {
       <div className="flex flex-col gap-4 sm:gap-6">
         <div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-mono">
-            <span className="text-lime-400 mr-4">&gt;</span>My Recordings
+            <span className="text-accent mr-4">&gt;</span>My Recordings
           </h1>
-          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-[#a1a1aa] mt-2 sm:mt-4">
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-2 mt-2 sm:mt-4">
             View, manage, and watch your session recordings
           </p>
         </div>

@@ -121,7 +121,7 @@ export function QualitySettingsModal({ isOpen, onClose, onApply }: QualitySettin
     }
 
     toast.success("Quality settings saved", {
-      icon: "⚙️",
+      icon: "",
       duration: 2000,
     })
 
@@ -149,13 +149,13 @@ export function QualitySettingsModal({ isOpen, onClose, onApply }: QualitySettin
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="bg-[#1a1a1a] border-[#27272a] text-white max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="bg-surface-1 border-border-default text-white max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold flex items-center gap-2">
             <Settings className="w-6 h-6" />
             Video Quality Settings
           </DialogTitle>
-          <DialogDescription className="text-[#a1a1aa]">
+          <DialogDescription className="text-muted-2">
             Customize video quality to match your connection speed
           </DialogDescription>
         </DialogHeader>
@@ -177,58 +177,58 @@ export function QualitySettingsModal({ isOpen, onClose, onApply }: QualitySettin
               onClick={() => applyPreset("low")}
               className={`p-4 rounded-lg border-2 transition-all ${
                 selectedPreset === "low"
-                  ? "border-lime-400 bg-lime-400/10"
-                  : "border-[#27272a] hover:border-[#3a3a3a] bg-[#0a0a0a]"
+                  ? "border-accent bg-accent/10"
+                  : "border-border-default hover:border-border-default bg-black"
               }`}
             >
               <h4 className="font-semibold mb-1">Low Quality</h4>
-              <p className="text-xs text-[#a1a1aa]">480p, 15fps - Best for slow connections</p>
+              <p className="text-xs text-muted-2">480p, 15fps - Best for slow connections</p>
             </button>
             <button
               onClick={() => applyPreset("medium")}
               className={`p-4 rounded-lg border-2 transition-all ${
                 selectedPreset === "medium"
-                  ? "border-lime-400 bg-lime-400/10"
-                  : "border-[#27272a] hover:border-[#3a3a3a] bg-[#0a0a0a]"
+                  ? "border-accent bg-accent/10"
+                  : "border-border-default hover:border-border-default bg-black"
               }`}
             >
               <h4 className="font-semibold mb-1">Medium Quality</h4>
-              <p className="text-xs text-[#a1a1aa]">720p, 24fps - Balanced</p>
+              <p className="text-xs text-muted-2">720p, 24fps - Balanced</p>
             </button>
             <button
               onClick={() => applyPreset("high")}
               className={`p-4 rounded-lg border-2 transition-all ${
                 selectedPreset === "high"
-                  ? "border-lime-400 bg-lime-400/10"
-                  : "border-[#27272a] hover:border-[#3a3a3a] bg-[#0a0a0a]"
+                  ? "border-accent bg-accent/10"
+                  : "border-border-default hover:border-border-default bg-black"
               }`}
             >
               <h4 className="font-semibold mb-1">High Quality</h4>
-              <p className="text-xs text-[#a1a1aa]">1080p, 30fps - Best quality</p>
+              <p className="text-xs text-muted-2">1080p, 30fps - Best quality</p>
             </button>
             <button
               onClick={() => applyPreset("auto")}
               className={`p-4 rounded-lg border-2 transition-all ${
                 selectedPreset === "auto"
-                  ? "border-lime-400 bg-lime-400/10"
-                  : "border-[#27272a] hover:border-[#3a3a3a] bg-[#0a0a0a]"
+                  ? "border-accent bg-accent/10"
+                  : "border-border-default hover:border-border-default bg-black"
               }`}
             >
               <h4 className="font-semibold mb-1">Auto (Recommended)</h4>
-              <p className="text-xs text-[#a1a1aa]">Adapts to your connection</p>
+              <p className="text-xs text-muted-2">Adapts to your connection</p>
             </button>
           </div>
         </div>
 
         {/* Advanced Settings */}
-        <div className="space-y-6 pt-4 border-t border-[#27272a]">
+        <div className="space-y-6 pt-4 border-t border-border-default">
           <h3 className="font-semibold text-lg">Advanced Settings</h3>
 
           {/* Max Bitrate */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <Label className="text-sm font-medium">Maximum Bitrate</Label>
-              <span className="text-sm text-lime-400 font-mono">{settings.maxBitrate} kbps</span>
+              <span className="text-sm text-accent font-mono">{settings.maxBitrate} kbps</span>
             </div>
             <Slider
               value={[settings.maxBitrate]}
@@ -241,7 +241,7 @@ export function QualitySettingsModal({ isOpen, onClose, onApply }: QualitySettin
               step={64}
               className="w-full"
             />
-            <p className="text-xs text-[#a1a1aa]">
+            <p className="text-xs text-muted-2">
               Higher bitrate = better quality but uses more bandwidth
             </p>
           </div>
@@ -259,8 +259,8 @@ export function QualitySettingsModal({ isOpen, onClose, onApply }: QualitySettin
                   }}
                   className={`py-2 px-4 rounded-lg border transition-all ${
                     settings.resolution === res
-                      ? "border-lime-400 bg-lime-400/10 text-lime-400"
-                      : "border-[#27272a] hover:border-[#3a3a3a] text-[#a1a1aa]"
+                      ? "border-accent bg-accent/10 text-accent"
+                      : "border-border-default hover:border-border-default text-muted-2"
                   }`}
                 >
                   {res}
@@ -282,8 +282,8 @@ export function QualitySettingsModal({ isOpen, onClose, onApply }: QualitySettin
                   }}
                   className={`py-2 px-4 rounded-lg border transition-all ${
                     settings.frameRate === fps
-                      ? "border-lime-400 bg-lime-400/10 text-lime-400"
-                      : "border-[#27272a] hover:border-[#3a3a3a] text-[#a1a1aa]"
+                      ? "border-accent bg-accent/10 text-accent"
+                      : "border-border-default hover:border-border-default text-muted-2"
                   }`}
                 >
                   {fps} fps
@@ -305,24 +305,24 @@ export function QualitySettingsModal({ isOpen, onClose, onApply }: QualitySettin
                   }}
                   className={`py-2 px-4 rounded-lg border transition-all capitalize ${
                     settings.preferredLayer === layer
-                      ? "border-lime-400 bg-lime-400/10 text-lime-400"
-                      : "border-[#27272a] hover:border-[#3a3a3a] text-[#a1a1aa]"
+                      ? "border-accent bg-accent/10 text-accent"
+                      : "border-border-default hover:border-border-default text-muted-2"
                   }`}
                 >
                   {layer}
                 </button>
               ))}
             </div>
-            <p className="text-xs text-[#a1a1aa]">
+            <p className="text-xs text-muted-2">
               Which quality layer to prioritize when available
             </p>
           </div>
 
           {/* Adaptive Quality Toggle */}
-          <div className="flex items-center justify-between p-4 bg-[#0a0a0a] rounded-lg border border-[#27272a]">
+          <div className="flex items-center justify-between p-4 bg-black rounded-lg border border-border-default">
             <div>
               <Label className="text-sm font-medium">Adaptive Quality</Label>
-              <p className="text-xs text-[#a1a1aa] mt-1">
+              <p className="text-xs text-muted-2 mt-1">
                 Automatically adjust quality based on connection
               </p>
             </div>
@@ -332,7 +332,7 @@ export function QualitySettingsModal({ isOpen, onClose, onApply }: QualitySettin
                 setSelectedPreset(null)
               }}
               className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                settings.enableAdaptive ? "bg-lime-400" : "bg-[#27272a]"
+                settings.enableAdaptive ? "bg-accent" : "bg-surface-2"
               }`}
             >
               <span
@@ -356,7 +356,7 @@ export function QualitySettingsModal({ isOpen, onClose, onApply }: QualitySettin
         </div>
 
         {/* Action Buttons */}
-        <div className="flex gap-3 justify-end pt-4 border-t border-[#27272a]">
+        <div className="flex gap-3 justify-end pt-4 border-t border-border-default">
           <Button
             variant="ghost"
             onClick={() => {
@@ -368,7 +368,7 @@ export function QualitySettingsModal({ isOpen, onClose, onApply }: QualitySettin
           </Button>
           <Button
             onClick={handleSave}
-            className="bg-lime-400 hover:bg-lime-500 text-black gap-2"
+            className="bg-accent hover:bg-accent text-black gap-2"
           >
             <Save className="w-4 h-4" />
             Save Settings

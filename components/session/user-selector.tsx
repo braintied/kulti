@@ -83,7 +83,7 @@ export function UserSelector({
   if (loading) {
     return (
       <div className="flex items-center justify-center py-8">
-        <Loader2 className="w-6 h-6 animate-spin text-[#71717a]" />
+        <Loader2 className="w-6 h-6 animate-spin text-muted-3" />
       </div>
     )
   }
@@ -98,12 +98,12 @@ export function UserSelector({
 
   if (participants.length === 0) {
     return (
-      <div className="p-4 bg-[#2a2a2a] rounded-xl text-center">
-        <Users className="w-8 h-8 text-[#71717a] mx-auto mb-2" />
-        <p className="text-sm text-[#a1a1aa]">
+      <div className="p-4 bg-surface-2 rounded-xl text-center">
+        <Users className="w-8 h-8 text-muted-3 mx-auto mb-2" />
+        <p className="text-sm text-muted-2">
           No other participants in this session yet
         </p>
-        <p className="text-xs text-[#71717a] mt-1">
+        <p className="text-xs text-muted-3 mt-1">
           Users will appear here as they join
         </p>
       </div>
@@ -115,10 +115,10 @@ export function UserSelector({
   return (
     <div className="space-y-3">
       {/* Select All / Clear All */}
-      <div className="flex items-center justify-between pb-2 border-b border-[#27272a]">
+      <div className="flex items-center justify-between pb-2 border-b border-border-default">
         <div className="flex items-center gap-2">
-          <Users className="w-4 h-4 text-[#a1a1aa]" />
-          <span className="text-sm text-[#a1a1aa]">
+          <Users className="w-4 h-4 text-muted-2" />
+          <span className="text-sm text-muted-2">
             {selectedUsers.length} of {participants.length} selected
           </span>
         </div>
@@ -142,7 +142,7 @@ export function UserSelector({
               className={`w-full p-3 rounded-lg border-2 transition-all text-left ${
                 isSelected
                   ? "border-purple-500 bg-purple-500/10"
-                  : "border-[#27272a] bg-[#2a2a2a] hover:border-[#333333]"
+                  : "border-border-default bg-surface-2 hover:border-border-default"
               }`}
             >
               <div className="flex items-center gap-3">
@@ -173,14 +173,14 @@ export function UserSelector({
                     <span
                       className={`px-2 py-0.5 text-xs font-bold rounded ${
                         participant.role === "presenter"
-                          ? "bg-lime-400/20 text-lime-400"
-                          : "bg-[#333333] text-[#71717a]"
+                          ? "bg-accent/20 text-accent"
+                          : "bg-surface-3 text-muted-3"
                       }`}
                     >
                       {participant.role.toUpperCase()}
                     </span>
                   </div>
-                  <p className="text-xs text-[#71717a] truncate">
+                  <p className="text-xs text-muted-3 truncate">
                     @{participant.username}
                   </p>
                 </div>
@@ -191,7 +191,7 @@ export function UserSelector({
                     className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-colors ${
                       isSelected
                         ? "bg-purple-500 border-purple-500"
-                        : "border-[#333333] bg-[#1a1a1a]"
+                        : "border-border-default bg-surface-1"
                     }`}
                   >
                     {isSelected && <Check className="w-4 h-4 text-white" />}
@@ -204,8 +204,8 @@ export function UserSelector({
       </div>
 
       {/* Info Note */}
-      <div className="p-3 bg-[#1a1a1a] rounded-lg border border-[#27272a]">
-        <p className="text-xs text-[#71717a]">
+      <div className="p-3 bg-surface-1 rounded-lg border border-border-default">
+        <p className="text-xs text-muted-3">
           Note: The host always has AI access and viewers cannot chat with AI
           regardless of selection.
         </p>

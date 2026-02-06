@@ -119,8 +119,8 @@ export default function AccountSettingsPage() {
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[50vh] gap-4">
-        <Loader2 className="w-12 h-12 animate-spin text-lime-400" />
-        <p className="text-[#a1a1aa]">Loading settings...</p>
+        <Loader2 className="w-12 h-12 animate-spin text-accent" />
+        <p className="text-muted-2">Loading settings...</p>
       </div>
     )
   }
@@ -154,47 +154,47 @@ export default function AccountSettingsPage() {
           description="Manage your public profile information"
         >
           <div>
-            <label className="block text-sm font-medium text-[#a1a1aa] mb-2">
+            <label className="block text-sm font-medium text-muted-2 mb-2">
               Display Name
             </label>
             <input
               type="text"
               value={displayName}
               onChange={(e) => setDisplayName(e.target.value)}
-              className="w-full px-4 py-3 bg-[#2a2a2a] border border-[#27272a] rounded-lg text-white focus:border-lime-400 focus:outline-none transition-colors"
+              className="w-full px-4 py-3 bg-surface-2 border border-border-default rounded-lg text-white focus:border-accent focus:outline-none transition-colors"
               placeholder="Your display name"
               maxLength={50}
             />
-            <p className="text-xs text-[#71717a] mt-1">
+            <p className="text-xs text-muted-3 mt-1">
               {displayName.length}/50 characters
             </p>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-[#a1a1aa] mb-2">
+            <label className="block text-sm font-medium text-muted-2 mb-2">
               Username
             </label>
-            <div className="px-4 py-3 bg-[#2a2a2a]/50 border border-[#27272a] rounded-lg text-[#71717a]">
+            <div className="px-4 py-3 bg-surface-2/50 border border-border-default rounded-lg text-muted-3">
               @{profile?.username}
             </div>
-            <p className="text-xs text-[#71717a] mt-1">
+            <p className="text-xs text-muted-3 mt-1">
               Username cannot be changed
             </p>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-[#a1a1aa] mb-2">
+            <label className="block text-sm font-medium text-muted-2 mb-2">
               Bio
             </label>
             <textarea
               value={bio}
               onChange={(e) => setBio(e.target.value)}
-              className="w-full px-4 py-3 bg-[#2a2a2a] border border-[#27272a] rounded-lg text-white focus:border-lime-400 focus:outline-none transition-colors resize-none"
+              className="w-full px-4 py-3 bg-surface-2 border border-border-default rounded-lg text-white focus:border-accent focus:outline-none transition-colors resize-none"
               placeholder="Tell us about yourself..."
               rows={4}
               maxLength={200}
             />
-            <p className="text-xs text-[#71717a] mt-1">
+            <p className="text-xs text-muted-3 mt-1">
               {bio.length}/200 characters
             </p>
           </div>
@@ -204,8 +204,8 @@ export default function AccountSettingsPage() {
             disabled={saving || !displayName.trim()}
             className={`w-full px-6 py-3 font-bold rounded-lg transition-colors flex items-center justify-center gap-2 ${
               !saving && displayName.trim()
-                ? "bg-lime-400 hover:bg-lime-500 text-black"
-                : "bg-[#2a2a2a] text-[#71717a] cursor-not-allowed"
+                ? "bg-accent hover:bg-accent text-black"
+                : "bg-surface-2 text-muted-3 cursor-not-allowed"
             }`}
           >
             {saving ? (
@@ -228,10 +228,10 @@ export default function AccountSettingsPage() {
           description="Manage your login credentials"
         >
           <div>
-            <label className="block text-sm font-medium text-[#a1a1aa] mb-2">
+            <label className="block text-sm font-medium text-muted-2 mb-2">
               Email Address
             </label>
-            <div className="px-4 py-3 bg-[#2a2a2a]/50 border border-[#27272a] rounded-lg text-white">
+            <div className="px-4 py-3 bg-surface-2/50 border border-border-default rounded-lg text-white">
               {email}
             </div>
           </div>
@@ -239,14 +239,14 @@ export default function AccountSettingsPage() {
           <div className="flex flex-col sm:flex-row gap-3">
             <button
               onClick={() => setShowEmailModal(true)}
-              className="flex-1 px-6 py-3 bg-[#2a2a2a] hover:bg-[#333333] text-white font-bold rounded-lg transition-colors flex items-center justify-center gap-2"
+              className="flex-1 px-6 py-3 bg-surface-2 hover:bg-surface-3 text-white font-bold rounded-lg transition-colors flex items-center justify-center gap-2"
             >
               <Mail className="w-5 h-5" />
               Change Email
             </button>
             <button
               onClick={() => setShowPasswordModal(true)}
-              className="flex-1 px-6 py-3 bg-[#2a2a2a] hover:bg-[#333333] text-white font-bold rounded-lg transition-colors flex items-center justify-center gap-2"
+              className="flex-1 px-6 py-3 bg-surface-2 hover:bg-surface-3 text-white font-bold rounded-lg transition-colors flex items-center justify-center gap-2"
             >
               <Lock className="w-5 h-5" />
               Change Password
@@ -262,7 +262,7 @@ export default function AccountSettingsPage() {
           <button
             onClick={handleExportData}
             disabled={exportingData}
-            className="w-full px-6 py-3 bg-[#2a2a2a] hover:bg-[#333333] text-white font-bold rounded-lg transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full px-6 py-3 bg-surface-2 hover:bg-surface-3 text-white font-bold rounded-lg transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {exportingData ? (
               <>
@@ -277,10 +277,10 @@ export default function AccountSettingsPage() {
             )}
           </button>
 
-          <div className="pt-4 border-t border-[#27272a]">
+          <div className="pt-4 border-t border-border-default">
             <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4 mb-3">
               <h4 className="font-bold text-red-400 mb-1">Danger Zone</h4>
-              <p className="text-sm text-[#a1a1aa]">
+              <p className="text-sm text-muted-2">
                 Permanently delete your account and all associated data. This
                 action cannot be undone.
               </p>

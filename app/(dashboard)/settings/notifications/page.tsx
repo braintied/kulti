@@ -85,7 +85,7 @@ export default function NotificationSettingsPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[50vh]">
-        <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-lime-400"></div>
+        <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-accent"></div>
       </div>
     )
   }
@@ -143,11 +143,11 @@ export default function NotificationSettingsPage() {
           {notificationOptions.map((option) => (
             <label
               key={option.key}
-              className="flex items-center justify-between p-4 bg-[#2a2a2a] border border-[#27272a] rounded-lg cursor-pointer hover:border-lime-400/50 transition-colors"
+              className="flex items-center justify-between p-4 bg-surface-2 border border-border-default rounded-lg cursor-pointer hover:border-accent/50 transition-colors"
             >
               <div>
                 <div className="font-bold mb-1">{option.title}</div>
-                <div className="text-sm text-[#a1a1aa]">
+                <div className="text-sm text-muted-2">
                   {option.description}
                 </div>
               </div>
@@ -157,7 +157,7 @@ export default function NotificationSettingsPage() {
                 aria-checked={preferences[option.key]}
                 onClick={() => handleToggle(option.key)}
                 className={`relative w-14 h-8 rounded-full transition-colors ${
-                  preferences[option.key] ? "bg-lime-400" : "bg-[#27272a]"
+                  preferences[option.key] ? "bg-accent" : "bg-surface-2"
                 }`}
               >
                 <span
@@ -177,8 +177,8 @@ export default function NotificationSettingsPage() {
         disabled={saving}
         className={`w-full px-6 py-3 font-bold rounded-lg transition-colors flex items-center justify-center gap-2 ${
           !saving
-            ? "bg-lime-400 hover:bg-lime-500 text-black"
-            : "bg-[#2a2a2a] text-[#71717a] cursor-not-allowed"
+            ? "bg-accent hover:bg-accent text-black"
+            : "bg-surface-2 text-muted-3 cursor-not-allowed"
         }`}
       >
         {saving ? (

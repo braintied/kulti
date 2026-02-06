@@ -44,14 +44,14 @@ export default async function BrowsePage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white">
+    <div className="min-h-screen bg-black text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
         <div className="mb-12">
           <h1 className="font-mono text-5xl md:text-6xl font-bold mb-4">
-            <span className="text-lime-400 mr-4">&gt;</span>Browse Sessions
+            <span className="text-accent mr-4">&gt;</span>Browse Sessions
           </h1>
-          <p className="text-2xl text-[#a1a1aa]">
+          <p className="text-2xl text-muted-2">
             Discover live coding sessions and join the community
           </p>
         </div>

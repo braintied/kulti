@@ -101,13 +101,13 @@ export function TopicCreationModal({
 
   return (
     <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4" role="dialog" aria-modal="true" aria-labelledby="topic-creation-title">
-      <div className="bg-[#0a0a0a] border border-[#27272a] rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+      <div className="bg-black border border-border-default rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
           {/* Header */}
           <div className="flex items-center justify-between">
             <div>
               <h2 id="topic-creation-title" className="text-2xl font-bold text-white">Propose a Topic</h2>
-              <p className="text-sm text-[#a1a1aa] mt-1">
+              <p className="text-sm text-muted-2 mt-1">
                 Suggest a topic for future streams and discussions
               </p>
             </div>
@@ -115,7 +115,7 @@ export function TopicCreationModal({
               type="button"
               onClick={handleClose}
               disabled={isSubmitting}
-              className="text-[#71717a] hover:text-white transition-colors disabled:opacity-50"
+              className="text-muted-3 hover:text-muted-1 transition-colors disabled:opacity-50"
               aria-label="Close modal"
             >
               <X className="w-6 h-6" />
@@ -146,9 +146,9 @@ export function TopicCreationModal({
               maxLength={200}
               required
               disabled={isSubmitting}
-              className="w-full px-4 py-3 bg-[#1a1a1a] border border-[#27272a] rounded-lg text-white placeholder-[#71717a] focus:border-lime-400 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full px-4 py-3 bg-surface-1 border border-border-default rounded-lg text-white placeholder-muted-3 focus:border-accent focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
             />
-            <p className="text-xs text-[#71717a] mt-1">
+            <p className="text-xs text-muted-3 mt-1">
               {title.length}/200 characters (minimum 5)
             </p>
           </div>
@@ -169,9 +169,9 @@ export function TopicCreationModal({
               maxLength={2000}
               rows={4}
               disabled={isSubmitting}
-              className="w-full px-4 py-3 bg-[#1a1a1a] border border-[#27272a] rounded-lg text-white placeholder-[#71717a] focus:border-lime-400 focus:outline-none resize-none disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full px-4 py-3 bg-surface-1 border border-border-default rounded-lg text-white placeholder-muted-3 focus:border-accent focus:outline-none resize-none disabled:opacity-50 disabled:cursor-not-allowed"
             />
-            <p className="text-xs text-[#71717a] mt-1">
+            <p className="text-xs text-muted-3 mt-1">
               {description.length}/2000 characters
             </p>
           </div>
@@ -193,13 +193,13 @@ export function TopicCreationModal({
                 onKeyDown={handleKeyDown}
                 placeholder="Add tags..."
                 disabled={isSubmitting || tags.length >= 5}
-                className="flex-1 px-4 py-2 bg-[#1a1a1a] border border-[#27272a] rounded-lg text-white placeholder-[#71717a] focus:border-lime-400 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 px-4 py-2 bg-surface-1 border border-border-default rounded-lg text-white placeholder-muted-3 focus:border-accent focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
               />
               <button
                 type="button"
                 onClick={handleAddTag}
                 disabled={isSubmitting || !tagInput.trim() || tags.length >= 5}
-                className="px-4 py-2 bg-[#27272a] text-white rounded-lg hover:bg-[#3f3f46] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-4 py-2 bg-surface-2 text-white rounded-lg hover:bg-surface-3 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Add
               </button>
@@ -209,14 +209,14 @@ export function TopicCreationModal({
                 {tags.map((tag) => (
                   <span
                     key={tag}
-                    className="px-3 py-1 bg-lime-400/20 text-lime-400 rounded-lg text-sm flex items-center gap-2"
+                    className="px-3 py-1 bg-accent/20 text-accent rounded-lg text-sm flex items-center gap-2"
                   >
                     #{tag}
                     <button
                       type="button"
                       onClick={() => handleRemoveTag(tag)}
                       disabled={isSubmitting}
-                      className="hover:text-white transition-colors disabled:opacity-50"
+                      className="hover:text-muted-1 transition-colors disabled:opacity-50"
                       aria-label={`Remove ${tag} tag`}
                     >
                       ✕
@@ -233,14 +233,14 @@ export function TopicCreationModal({
               type="button"
               onClick={handleClose}
               disabled={isSubmitting}
-              className="flex-1 px-4 py-3 bg-[#1a1a1a] text-white rounded-lg font-medium hover:bg-[#27272a] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 px-4 py-3 bg-surface-1 text-white rounded-lg font-medium hover:bg-surface-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={!title.trim() || title.trim().length < 5 || isSubmitting}
-              className="flex-1 px-4 py-3 bg-lime-400 text-black rounded-lg font-medium hover:bg-lime-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 px-4 py-3 bg-accent text-black rounded-lg font-medium hover:bg-accent transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? "Creating..." : "Propose Topic"}
             </button>

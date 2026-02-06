@@ -137,12 +137,12 @@ export function OTPInput({
             onPaste={index === 0 ? handlePaste : undefined}
             onFocus={() => handleFocus(index)}
             disabled={disabled}
-            className={`w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 text-center text-lg md:text-2xl font-bold bg-[#1a1a1a] border-2 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-lime-400/50 ${
+            className={`w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 text-center text-lg md:text-2xl font-bold bg-surface-1 border-2 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent/50 ${
               error
                 ? 'border-red-500 focus:border-red-500 text-red-500'
                 : otp[index]
-                ? 'border-lime-400 text-lime-400'
-                : 'border-[#27272a] hover:border-lime-400/30 focus:border-lime-400 text-white'
+                ? 'border-accent text-accent'
+                : 'border-border-default hover:border-accent/30 focus:border-accent text-white'
             }`}
           />
         ))}

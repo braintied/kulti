@@ -105,7 +105,7 @@ export const VideoTile = memo(function VideoTile({ peer, isLocal, isScreenShare,
         <div
           key={i}
           className={`w-1 rounded-full transition-all duration-150 ${
-            isActive ? "bg-lime-400" : "bg-white/30"
+            isActive ? "bg-accent" : "bg-white/30"
           }`}
           style={{ height }}
         />
@@ -118,7 +118,7 @@ export const VideoTile = memo(function VideoTile({ peer, isLocal, isScreenShare,
   // Determine border style for dominant speaker
   const borderStyle = useMemo(() => {
     if (isDominantSpeaker && !isScreenShare) {
-      return "border-4 border-lime-400 shadow-lg shadow-lime-400/50"
+      return "border-4 border-accent shadow-lg shadow-accent/50"
     }
     return ""
   }, [isDominantSpeaker, isScreenShare])

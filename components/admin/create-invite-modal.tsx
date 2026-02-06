@@ -46,14 +46,14 @@ export function CreateInviteModal({ onClose, onCreate }: CreateInviteModalProps)
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" role="dialog" aria-modal="true" aria-labelledby="create-invite-title">
-      <div className="w-full max-w-md rounded-lg border border-gray-800 bg-gray-900 p-6">
+      <div className="w-full max-w-md rounded-lg border border-border-default bg-surface-1 p-6">
         <div className="mb-4 flex items-center justify-between">
           <h2 id="create-invite-title" className="text-xl font-semibold text-white">
             Create Invite Code
           </h2>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-white min-h-[44px] min-w-[44px] flex items-center justify-center"
+            className="text-muted-3 hover:text-muted-1 min-h-[44px] min-w-[44px] flex items-center justify-center"
             aria-label="Close create invite modal"
           >
             <X className="h-5 w-5" />
@@ -62,7 +62,7 @@ export function CreateInviteModal({ onClose, onCreate }: CreateInviteModalProps)
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-muted-2 mb-2">
               Max Uses
             </label>
             <input
@@ -70,31 +70,31 @@ export function CreateInviteModal({ onClose, onCreate }: CreateInviteModalProps)
               min="1"
               value={maxUses}
               onChange={(e) => setMaxUses(parseInt(e.target.value))}
-              className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-2 text-white focus:border-lime-400 focus:outline-none focus:ring-1 focus:ring-lime-400"
+              className="w-full rounded-lg border border-border-default bg-surface-2 px-4 py-2 text-white focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
               required
             />
-            <p className="mt-1 text-xs text-gray-500">
+            <p className="mt-1 text-xs text-muted-3">
               How many times this code can be used
             </p>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-muted-2 mb-2">
               Expires At (Optional)
             </label>
             <input
               type="datetime-local"
               value={expiresAt}
               onChange={(e) => setExpiresAt(e.target.value)}
-              className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-2 text-white focus:border-lime-400 focus:outline-none focus:ring-1 focus:ring-lime-400"
+              className="w-full rounded-lg border border-border-default bg-surface-2 px-4 py-2 text-white focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
             />
-            <p className="mt-1 text-xs text-gray-500">
+            <p className="mt-1 text-xs text-muted-3">
               Leave empty for no expiration
             </p>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-muted-2 mb-2">
               Note (Optional)
             </label>
             <input
@@ -102,7 +102,7 @@ export function CreateInviteModal({ onClose, onCreate }: CreateInviteModalProps)
               value={note}
               onChange={(e) => setNote(e.target.value)}
               placeholder="e.g., For beta testers"
-              className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-2 text-white placeholder-gray-500 focus:border-lime-400 focus:outline-none focus:ring-1 focus:ring-lime-400"
+              className="w-full rounded-lg border border-border-default bg-surface-2 px-4 py-2 text-white placeholder-muted-3 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
             />
           </div>
 
@@ -110,7 +110,7 @@ export function CreateInviteModal({ onClose, onCreate }: CreateInviteModalProps)
             <button
               type="button"
               onClick={onClose}
-              className="rounded-lg px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-800 min-h-[44px]"
+              className="rounded-lg px-4 py-2 text-sm font-medium text-muted-2 hover:bg-surface-2 min-h-[44px]"
             >
               Cancel
             </button>

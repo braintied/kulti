@@ -110,13 +110,13 @@ export default function StreamChat({ sessionId, agentName, agentId }: StreamChat
 
       {/* Pinned messages */}
       {pinnedMessages.length > 0 && (
-        <div className="px-4 py-2 bg-cyan-500/10 border-b border-cyan-500/20">
+        <div className="px-4 py-2 bg-accent/10 border-b border-accent/20">
           {pinnedMessages.map(m => (
             <div key={m.id} className="flex items-center gap-2 text-xs">
-              <svg className="w-3 h-3 text-cyan-400" fill="currentColor" viewBox="0 0 20 20">
+              <svg className="w-3 h-3 text-accent" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M10 2a1 1 0 011 1v1.323l3.954 1.582 1.599-.8a1 1 0 01.894 1.79l-1.233.616 1.738 5.42a1 1 0 01-.285 1.05A3.989 3.989 0 0115 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.715-5.349L11 6.477V16h2a1 1 0 110 2H7a1 1 0 110-2h2V6.477L6.237 7.582l1.715 5.349a1 1 0 01-.285 1.05A3.989 3.989 0 015 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.738-5.42-1.233-.617a1 1 0 01.894-1.788l1.599.799L9 4.323V3a1 1 0 011-1z" />
               </svg>
-              <span className="text-cyan-400 font-medium">{m.sender_name}:</span>
+              <span className="text-accent font-medium">{m.sender_name}:</span>
               <span className="text-white/70">{m.message}</span>
             </div>
           ))}
@@ -135,7 +135,7 @@ export default function StreamChat({ sessionId, agentName, agentId }: StreamChat
               key={msg.id} 
               className={`${
                 msg.sender_type === 'agent' 
-                  ? 'bg-cyan-500/10 border-l-2 border-cyan-500 pl-3' 
+                  ? 'bg-accent/10 border-l-2 border-accent pl-3' 
                   : msg.is_highlighted 
                     ? 'bg-amber-500/10 border-l-2 border-amber-500 pl-3'
                     : ''
@@ -143,11 +143,11 @@ export default function StreamChat({ sessionId, agentName, agentId }: StreamChat
             >
               <div className="flex items-baseline gap-2">
                 <span className={`text-sm font-medium ${
-                  msg.sender_type === 'agent' ? 'text-cyan-400' : 'text-white/60'
+                  msg.sender_type === 'agent' ? 'text-accent' : 'text-white/60'
                 }`}>
                   {msg.sender_name}
                   {msg.sender_type === 'agent' && (
-                    <span className="ml-1 text-[10px] text-cyan-400/60">AI</span>
+                    <span className="ml-1 text-[10px] text-accent/60">AI</span>
                   )}
                 </span>
                 <span className="text-xs text-white/20">
@@ -170,7 +170,7 @@ export default function StreamChat({ sessionId, agentName, agentId }: StreamChat
               placeholder="Enter your name to chat..."
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full px-4 py-2 bg-white/5 rounded-xl border border-white/10 text-white placeholder-white/30 text-sm focus:outline-none focus:border-cyan-500/50"
+              className="w-full px-4 py-2 bg-white/5 rounded-xl border border-white/10 text-white placeholder-white/30 text-sm focus:outline-none focus:border-accent/50"
             />
           </div>
         ) : (
@@ -180,12 +180,12 @@ export default function StreamChat({ sessionId, agentName, agentId }: StreamChat
               placeholder={`Message ${agentName}...`}
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
-              className="flex-1 px-4 py-2 bg-white/5 rounded-xl border border-white/10 text-white placeholder-white/30 text-sm focus:outline-none focus:border-cyan-500/50"
+              className="flex-1 px-4 py-2 bg-white/5 rounded-xl border border-white/10 text-white placeholder-white/30 text-sm focus:outline-none focus:border-accent/50"
             />
             <button
               type="submit"
               disabled={!newMessage.trim()}
-              className="px-4 py-2 bg-cyan-500/20 hover:bg-cyan-500/30 disabled:opacity-50 disabled:cursor-not-allowed rounded-xl text-cyan-400 text-sm transition"
+              className="px-4 py-2 bg-accent/20 hover:bg-accent/30 disabled:opacity-50 disabled:cursor-not-allowed rounded-xl text-accent text-sm transition"
             >
               Send
             </button>

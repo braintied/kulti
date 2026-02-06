@@ -101,8 +101,8 @@ const PresenterJoinPageContent = () => {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center p-4">
         <div className="text-center">
-          <Loader2 className="w-12 h-12 text-lime-400 animate-spin mx-auto mb-4" />
-          <p className="text-[#a1a1aa]">Validating invite link...</p>
+          <Loader2 className="w-12 h-12 text-accent animate-spin mx-auto mb-4" />
+          <p className="text-muted-2">Validating invite link...</p>
         </div>
       </div>
     )
@@ -111,15 +111,15 @@ const PresenterJoinPageContent = () => {
   if (error && !sessionInfo) {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center p-4">
-        <div className="max-w-md w-full bg-[#1a1a1a] border border-[#27272a] rounded-2xl p-8 text-center">
+        <div className="max-w-md w-full bg-surface-1 border border-border-default rounded-2xl p-8 text-center">
           <div className="w-16 h-16 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
             <AlertCircle className="w-8 h-8 text-red-500" />
           </div>
           <h1 className="font-mono text-2xl font-bold mb-2">Invalid Link</h1>
-          <p className="text-[#a1a1aa] mb-6">{error}</p>
+          <p className="text-muted-2 mb-6">{error}</p>
           <a
             href="/"
-            className="inline-block px-6 py-3 bg-lime-400 hover:bg-lime-500 text-black font-bold rounded-lg transition-colors"
+            className="inline-block px-6 py-3 bg-accent hover:bg-accent text-black font-bold rounded-lg transition-colors"
           >
             Go Home
           </a>
@@ -130,16 +130,16 @@ const PresenterJoinPageContent = () => {
 
   return (
     <div className="min-h-screen bg-black flex items-center justify-center p-4">
-      <div className="max-w-md w-full bg-[#1a1a1a] border border-[#27272a] rounded-2xl overflow-hidden">
+      <div className="max-w-md w-full bg-surface-1 border border-border-default rounded-2xl overflow-hidden">
         {/* Header */}
-        <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-b border-[#27272a] p-8 text-center">
+        <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-b border-border-default p-8 text-center">
           <div className="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
             <Video className="w-8 h-8 text-white" />
           </div>
           <h1 className="font-mono text-3xl font-bold mb-2">Join as Presenter</h1>
           {sessionInfo && (
-            <div className="mt-4 p-3 bg-[#2a2a2a] rounded-lg">
-              <p className="text-sm text-[#71717a] mb-1">You're joining</p>
+            <div className="mt-4 p-3 bg-surface-2 rounded-lg">
+              <p className="text-sm text-muted-3 mb-1">You're joining</p>
               <p className="font-bold text-lg">{sessionInfo.title}</p>
             </div>
           )}
@@ -154,7 +154,7 @@ const PresenterJoinPageContent = () => {
                 <Users className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" />
                 <div className="text-sm">
                   <p className="text-blue-400 font-medium mb-1">As a presenter you can:</p>
-                  <ul className="text-[#a1a1aa] space-y-1 text-xs">
+                  <ul className="text-muted-2 space-y-1 text-xs">
                     <li>• Share your screen with viewers</li>
                     <li>• Collaborate with the host</li>
                     <li>• No account required</li>
@@ -167,7 +167,7 @@ const PresenterJoinPageContent = () => {
             <div>
               <label
                 htmlFor="displayName"
-                className="block text-sm font-medium text-[#a1a1aa] mb-2"
+                className="block text-sm font-medium text-muted-2 mb-2"
               >
                 Enter your name
               </label>
@@ -180,9 +180,9 @@ const PresenterJoinPageContent = () => {
                 maxLength={50}
                 required
                 disabled={loading}
-                className="w-full px-4 py-3 bg-[#2a2a2a] border border-[#27272a] rounded-lg text-white placeholder:text-[#71717a] focus:border-blue-500 focus:outline-none disabled:opacity-50"
+                className="w-full px-4 py-3 bg-surface-2 border border-border-default rounded-lg text-white placeholder:text-muted-3 focus:border-blue-500 focus:outline-none disabled:opacity-50"
               />
-              <p className="text-xs text-[#71717a] mt-2">
+              <p className="text-xs text-muted-3 mt-2">
                 This is how you'll appear to others in the session
               </p>
             </div>

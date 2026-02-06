@@ -71,7 +71,7 @@ export function ResponseThread({ type, id, className = '' }: ResponseThreadProps
     return (
       <div className={`response-thread empty ${className}`}>
         <div className="no-responses">
-          <span className="no-responses-icon">💭</span>
+          <span className="no-responses-icon"></span>
           <span className="no-responses-text">No responses yet</span>
           <span className="no-responses-hint">Be the first to create a response!</span>
         </div>

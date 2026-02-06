@@ -210,7 +210,7 @@ export function SearchBar({ className = "" }: SearchBarProps) {
   const getTypeBadge = (type: string) => {
     const colors = {
       user: 'bg-blue-500/20 text-blue-400',
-      session: 'bg-lime-500/20 text-lime-400',
+      session: 'bg-accent/20 text-accent',
       topic: 'bg-purple-500/20 text-purple-400',
       room: 'bg-orange-500/20 text-orange-400'
     }
@@ -222,7 +222,7 @@ export function SearchBar({ className = "" }: SearchBarProps) {
   return (
     <div className={`relative ${className}`}>
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-[#a1a1aa]" />
+        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-2" />
         <input
           ref={inputRef}
           type="text"
@@ -231,7 +231,7 @@ export function SearchBar({ className = "" }: SearchBarProps) {
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => setShowDropdown(true)}
           onKeyDown={handleKeyDown}
-          className="w-full bg-[#1a1a1a] border border-[#27272a] rounded-lg pl-10 pr-4 py-2.5 text-white placeholder:text-[#a1a1aa] focus:outline-none focus:border-lime-400 transition-colors"
+          className="w-full bg-surface-1 border border-border-default rounded-lg pl-10 pr-4 py-2.5 text-white placeholder:text-muted-2 focus:outline-none focus:border-accent transition-colors"
         />
         {query && (
           <button
@@ -240,7 +240,7 @@ export function SearchBar({ className = "" }: SearchBarProps) {
               setSuggestions([])
               inputRef.current?.focus()
             }}
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#a1a1aa] hover:text-white transition-colors"
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-2 hover:text-muted-1 transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
@@ -250,16 +250,16 @@ export function SearchBar({ className = "" }: SearchBarProps) {
       {showSuggestions && (
         <div
           ref={dropdownRef}
-          className="absolute top-full left-0 right-0 mt-2 bg-[#1a1a1a] border border-[#27272a] rounded-lg shadow-2xl max-h-[400px] overflow-y-auto z-50"
+          className="absolute top-full left-0 right-0 mt-2 bg-surface-1 border border-border-default rounded-lg shadow-2xl max-h-[400px] overflow-y-auto z-50"
         >
           {/* Recent searches */}
           {query.length < 2 && recentSearches.length > 0 && (
             <div className="p-2">
               <div className="flex items-center justify-between px-3 py-2">
-                <span className="text-xs font-medium text-[#a1a1aa]">Recent Searches</span>
+                <span className="text-xs font-medium text-muted-2">Recent Searches</span>
                 <button
                   onClick={clearRecentSearches}
-                  className="text-xs text-[#a1a1aa] hover:text-white transition-colors"
+                  className="text-xs text-muted-2 hover:text-muted-1 transition-colors"
                 >
                   Clear
                 </button>
@@ -268,9 +268,9 @@ export function SearchBar({ className = "" }: SearchBarProps) {
                 <button
                   key={index}
                   onClick={() => handleRecentSearchClick(recent)}
-                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-[#27272a] transition-colors text-left"
+                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-surface-2 transition-colors text-left"
                 >
-                  <Clock className="w-4 h-4 text-[#a1a1aa]" />
+                  <Clock className="w-4 h-4 text-muted-2" />
                   <span className="text-sm">{recent}</span>
                 </button>
               ))}
@@ -280,8 +280,8 @@ export function SearchBar({ className = "" }: SearchBarProps) {
           {/* Loading state */}
           {loading && query.length >= 2 && (
             <div className="p-6 text-center">
-              <Loader2 className="w-6 h-6 animate-spin text-lime-400 mx-auto mb-2" />
-              <p className="text-sm text-[#a1a1aa]">Searching...</p>
+              <Loader2 className="w-6 h-6 animate-spin text-accent mx-auto mb-2" />
+              <p className="text-sm text-muted-2">Searching...</p>
             </div>
           )}
 
@@ -293,31 +293,31 @@ export function SearchBar({ className = "" }: SearchBarProps) {
                   key={`${suggestion.type}-${suggestion.id}`}
                   onClick={() => handleSuggestionClick(suggestion)}
                   className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors text-left ${
-                    index === selectedIndex ? 'bg-[#27272a]' : 'hover:bg-[#27272a]'
+                    index === selectedIndex ? 'bg-surface-2' : 'hover:bg-surface-2'
                   }`}
                 >
                   {suggestion.avatar ? (
-                    <div className="w-8 h-8 rounded-full bg-lime-400 flex items-center justify-center text-black font-bold flex-shrink-0">
+                    <div className="w-8 h-8 rounded-full bg-accent flex items-center justify-center text-black font-bold flex-shrink-0">
                       {suggestion.title[0].toUpperCase()}
                     </div>
                   ) : suggestion.icon ? (
-                    <div className="w-8 h-8 rounded-lg bg-[#27272a] flex items-center justify-center text-xl flex-shrink-0">
+                    <div className="w-8 h-8 rounded-lg bg-surface-2 flex items-center justify-center text-xl flex-shrink-0">
                       {suggestion.icon}
                     </div>
                   ) : (
-                    <div className="w-8 h-8 rounded-lg bg-[#27272a] flex items-center justify-center text-[#a1a1aa] flex-shrink-0">
+                    <div className="w-8 h-8 rounded-lg bg-surface-2 flex items-center justify-center text-muted-2 flex-shrink-0">
                       {getIcon(suggestion.type)}
                     </div>
                   )}
 
                   <div className="flex-1 min-w-0">
                     <div className="font-medium text-sm truncate">{suggestion.title}</div>
-                    <div className="text-xs text-[#a1a1aa] truncate">{suggestion.subtitle}</div>
+                    <div className="text-xs text-muted-2 truncate">{suggestion.subtitle}</div>
                   </div>
 
                   <div className="flex items-center gap-2 flex-shrink-0">
                     {suggestion.meta && (
-                      <span className="text-xs text-[#a1a1aa]">{suggestion.meta}</span>
+                      <span className="text-xs text-muted-2">{suggestion.meta}</span>
                     )}
                     <span className={`text-xs px-2 py-0.5 rounded ${getTypeBadge(suggestion.type)}`}>
                       {suggestion.type}
@@ -330,7 +330,7 @@ export function SearchBar({ className = "" }: SearchBarProps) {
               {suggestions.length > 0 && (
                 <button
                   onClick={() => handleSearch()}
-                  className="w-full mt-2 px-3 py-2.5 rounded-lg bg-[#27272a] hover:bg-[#2a2a2a] transition-colors text-center text-sm font-medium text-lime-400"
+                  className="w-full mt-2 px-3 py-2.5 rounded-lg bg-surface-2 hover:bg-surface-2 transition-colors text-center text-sm font-medium text-accent"
                 >
                   View all results for "{query}"
                 </button>
@@ -340,7 +340,7 @@ export function SearchBar({ className = "" }: SearchBarProps) {
 
           {/* No results */}
           {!loading && query.length >= 2 && suggestions.length === 0 && (
-            <div className="p-6 text-center text-[#a1a1aa]">
+            <div className="p-6 text-center text-muted-2">
               <p className="text-sm">No results found for "{query}"</p>
             </div>
           )}

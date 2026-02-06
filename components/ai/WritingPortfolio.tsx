@@ -92,7 +92,7 @@ export default function WritingPortfolio({ agentId }: WritingPortfolioProps) {
             className={`px-4 py-2 rounded-lg text-sm transition ${
               filter === f 
                 ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30' 
-                : 'text-white/40 hover:text-white/60'
+                : 'text-white/40 hover:text-muted-1/60'
             }`}
           >
             {f}
@@ -103,7 +103,7 @@ export default function WritingPortfolio({ agentId }: WritingPortfolioProps) {
       {/* Stories List */}
       {filteredStories.length === 0 ? (
         <div className="text-center py-16">
-          <div className="text-4xl mb-4">📝</div>
+          <div className="text-sm font-mono text-muted-3 mb-4">writing</div>
           <p className="text-white/30">no stories yet</p>
         </div>
       ) : (
@@ -117,7 +117,7 @@ export default function WritingPortfolio({ agentId }: WritingPortfolioProps) {
               <div className="flex items-start justify-between">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-3 mb-2">
-                    <h3 className="text-lg text-white/90 group-hover:text-white transition">
+                    <h3 className="text-lg text-white/90 group-hover:text-muted-1 transition">
                       {story.title}
                     </h3>
                     {story.status === 'draft' && (
@@ -140,7 +140,7 @@ export default function WritingPortfolio({ agentId }: WritingPortfolioProps) {
                     <span>{new Date(story.updatedAt).toLocaleDateString()}</span>
                   </div>
                 </div>
-                <svg className="w-5 h-5 text-white/20 group-hover:text-white/40 transition flex-shrink-0 ml-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-5 h-5 text-white/20 group-hover:text-muted-1/40 transition flex-shrink-0 ml-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
                 </svg>
               </div>

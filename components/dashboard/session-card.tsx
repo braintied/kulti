@@ -19,32 +19,32 @@ interface SessionCardProps {
 
 export function SessionCardSkeleton() {
   return (
-    <div className="relative border rounded-2xl p-8 bg-[#1a1a1a]/50 backdrop-blur-sm border-[#27272a] animate-pulse">
+    <div className="relative border rounded-2xl p-8 bg-surface-1/50 backdrop-blur-sm border-border-default animate-pulse">
       <div className="space-y-5">
         {/* Title skeleton */}
-        <div className="h-8 bg-[#27272a] rounded w-3/4"></div>
+        <div className="h-8 bg-surface-2 rounded w-3/4"></div>
 
         {/* Description skeleton */}
         <div className="space-y-2">
-          <div className="h-4 bg-[#27272a] rounded w-full"></div>
-          <div className="h-4 bg-[#27272a] rounded w-2/3"></div>
+          <div className="h-4 bg-surface-2 rounded w-full"></div>
+          <div className="h-4 bg-surface-2 rounded w-2/3"></div>
         </div>
 
         {/* Host Info skeleton */}
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-full bg-[#27272a]"></div>
-          <div className="h-4 bg-[#27272a] rounded w-24"></div>
+          <div className="w-8 h-8 rounded-full bg-surface-2"></div>
+          <div className="h-4 bg-surface-2 rounded w-24"></div>
         </div>
 
         {/* Meta Info skeleton */}
         <div className="flex items-center gap-5">
-          <div className="h-4 bg-[#27272a] rounded w-20"></div>
-          <div className="h-4 bg-[#27272a] rounded w-16"></div>
-          <div className="h-6 bg-[#27272a] rounded w-12"></div>
+          <div className="h-4 bg-surface-2 rounded w-20"></div>
+          <div className="h-4 bg-surface-2 rounded w-16"></div>
+          <div className="h-6 bg-surface-2 rounded w-12"></div>
         </div>
 
         {/* Action button skeleton */}
-        <div className="h-14 bg-[#27272a] rounded-xl w-full"></div>
+        <div className="h-14 bg-surface-2 rounded-xl w-full"></div>
       </div>
     </div>
   )
@@ -84,12 +84,12 @@ export function SessionCard({ session, currentUserId }: SessionCardProps) {
 
   return (
     <>
-      <div className={`relative group border rounded-2xl p-8 bg-[#1a1a1a]/50 backdrop-blur-sm hover:border-lime-400 hover:-translate-y-1 transition-all duration-300 animate-fade-in ${
-        isBoosted ? "border-lime-400/50" : "border-[#27272a]"
+      <div className={`relative group border rounded-2xl p-8 bg-surface-1/50 backdrop-blur-sm hover:border-accent hover:-translate-y-1 transition-all duration-300 animate-fade-in ${
+        isBoosted ? "border-accent/50" : "border-border-default"
       }`}>
         {/* Featured Badge */}
         {isBoosted && (
-          <div className="absolute top-4 right-4 flex items-center gap-1 px-3 py-1 bg-lime-400 text-black text-xs font-bold rounded-full">
+          <div className="absolute top-4 right-4 flex items-center gap-1 px-3 py-1 bg-accent text-black text-xs font-bold rounded-full">
             <Star className="w-3 h-3 fill-current" />
             FEATURED
           </div>
@@ -97,29 +97,29 @@ export function SessionCard({ session, currentUserId }: SessionCardProps) {
 
         <div className="space-y-5">
           {/* Title */}
-          <h3 className="text-2xl font-bold font-mono line-clamp-1 group-hover:text-lime-400 transition-colors pr-24">
+          <h3 className="text-2xl font-bold font-mono line-clamp-1 group-hover:text-accent transition-colors pr-24">
             {session.title}
           </h3>
 
           {/* Description */}
           {session.description && (
-            <p className="text-[#a1a1aa] text-base line-clamp-2">
+            <p className="text-muted-2 text-base line-clamp-2">
               {session.description}
             </p>
           )}
 
           {/* Host Info */}
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-lime-400 flex items-center justify-center text-black text-sm font-bold">
+            <div className="w-8 h-8 rounded-full bg-accent flex items-center justify-center text-black text-sm font-bold">
               {session.host.display_name[0].toUpperCase()}
             </div>
-            <span className="text-base text-[#a1a1aa]">
+            <span className="text-base text-muted-2">
               {session.host.display_name}
             </span>
           </div>
 
           {/* Meta Info */}
-          <div className="flex items-center gap-5 text-base text-[#71717a]">
+          <div className="flex items-center gap-5 text-base text-muted-3">
             <div className="flex items-center gap-2">
               <Users size={16} />
               <span>{participantCount} {participantCount === 1 ? 'viewer' : 'viewers'}</span>
@@ -131,7 +131,7 @@ export function SessionCard({ session, currentUserId }: SessionCardProps) {
               </div>
             )}
             {session.status === 'live' && (
-              <div className="px-3 py-1 bg-lime-400/10 text-lime-400 text-sm font-bold rounded-lg">
+              <div className="px-3 py-1 bg-accent/10 text-accent text-sm font-bold rounded-lg">
                 LIVE
               </div>
             )}
@@ -142,7 +142,7 @@ export function SessionCard({ session, currentUserId }: SessionCardProps) {
             {canBoost && (
               <button
                 onClick={() => setShowBoostModal(true)}
-                className="flex-1 flex items-center justify-center gap-2 px-6 py-4 border border-lime-400 text-lime-400 hover:bg-lime-400 hover:text-black font-bold text-lg rounded-xl transition-colors duration-300"
+                className="flex-1 flex items-center justify-center gap-2 px-6 py-4 border border-accent text-accent hover:bg-accent hover:text-black font-bold text-lg rounded-xl transition-colors duration-300"
               >
                 <TrendingUp size={20} />
                 Boost
@@ -150,7 +150,7 @@ export function SessionCard({ session, currentUserId }: SessionCardProps) {
             )}
             <Link
               href={`/s/${session.room_code}`}
-              className={`flex items-center justify-center bg-lime-400 hover:bg-lime-500 text-black font-bold text-lg px-8 py-4 rounded-xl transition-colors duration-300 text-center ${
+              className={`flex items-center justify-center bg-accent hover:bg-accent text-black font-bold text-lg px-8 py-4 rounded-xl transition-colors duration-300 text-center ${
                 canBoost ? 'flex-1' : 'w-full'
               }`}
             >

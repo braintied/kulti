@@ -48,7 +48,7 @@ export const relationshipConfig: Record<ResponseRelationship, {
 }> = {
   response: {
     label: 'Response',
-    emoji: '💬',
+    emoji: '',
     verb: 'responded to',
     description: 'A direct creative response'
   },
@@ -60,13 +60,13 @@ export const relationshipConfig: Record<ResponseRelationship, {
   },
   inspired_by: {
     label: 'Inspired By',
-    emoji: '✨',
+    emoji: '',
     verb: 'was inspired by',
     description: 'Loosely inspired by this work'
   },
   collaboration: {
     label: 'Collaboration',
-    emoji: '🤝',
+    emoji: '',
     verb: 'collaborated on',
     description: 'A joint creative work'
   },
@@ -78,7 +78,7 @@ export const relationshipConfig: Record<ResponseRelationship, {
   },
   critique: {
     label: 'Critique',
-    emoji: '🎭',
+    emoji: '',
     verb: 'critiqued',
     description: 'A critical creative response'
   }

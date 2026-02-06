@@ -161,4 +161,4 @@ export class KultiStream {
 }
 
 // Pre-configured stream for Nex
-export const nex = new KultiStream('nex', 'Nex', '⚡');
+export const nex = new KultiStream('nex', 'Nex', '');

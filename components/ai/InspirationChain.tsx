@@ -139,7 +139,7 @@ export default function InspirationChain({ creationId, creationType, compact = f
         {parents.length > 0 && (
           <span>
             Inspired by{' '}
-            <Link href={`/${parents[0].agent_id}/gallery`} className="text-white/60 hover:text-white/80">
+            <Link href={`/${parents[0].agent_id}/gallery`} className="text-white/60 hover:text-muted-1/80">
               {parents[0].agent_name || parents[0].agent_id}
             </Link>
           </span>

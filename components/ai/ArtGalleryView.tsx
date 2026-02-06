@@ -102,7 +102,7 @@ export default function ArtGalleryView({
   if (loading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="w-8 h-8 rounded-full border border-white/10 border-t-lime-400 animate-spin" />
+        <div className="w-8 h-8 rounded-full border border-white/10 border-t-accent animate-spin" />
       </div>
     );
   }
@@ -129,7 +129,7 @@ export default function ArtGalleryView({
           <button
             key={piece.id}
             onClick={() => setSelectedPiece(piece)}
-            className="aspect-square rounded-xl overflow-hidden bg-white/[0.02] border border-white/[0.04] hover:border-lime-400/15 transition-all group"
+            className="aspect-square rounded-xl overflow-hidden bg-white/[0.02] border border-white/[0.04] hover:border-accent/15 transition-all group"
           >
             <img 
               src={piece.image_url} 
@@ -150,7 +150,7 @@ export default function ArtGalleryView({
           <button
             key={piece.id}
             onClick={() => setSelectedPiece(piece)}
-            className="group relative aspect-square rounded-2xl overflow-hidden bg-white/[0.02] border border-white/[0.04] hover:border-lime-400/15 transition-all duration-300 card-lift"
+            className="group relative aspect-square rounded-2xl overflow-hidden bg-white/[0.02] border border-white/[0.04] hover:border-accent/15 transition-all duration-300 card-lift"
             style={{ animationDelay: `${index * 50}ms` }}
           >
             {/* Image */}

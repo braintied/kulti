@@ -90,7 +90,7 @@ export function StatsPanel() {
         variant="secondary"
         size="sm"
         onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full bg-[#1a1a1a]/95 backdrop-blur border border-[#27272a] hover:border-lime-400/50 transition-all"
+        className="w-full bg-surface-1/95 backdrop-blur border border-border-default hover:border-accent/50 transition-all"
       >
         <Activity className="w-4 h-4 mr-2" />
         <span className="flex-1 text-left font-mono text-sm">Stats for Nerds</span>
@@ -103,35 +103,35 @@ export function StatsPanel() {
 
       {/* Stats Panel */}
       {isExpanded && (
-        <div className="mt-2 bg-[#1a1a1a]/95 backdrop-blur border border-[#27272a] rounded-lg p-4 space-y-4 text-xs font-mono animate-fade-in">
+        <div className="mt-2 bg-surface-1/95 backdrop-blur border border-border-default rounded-lg p-4 space-y-4 text-xs font-mono animate-fade-in">
           {/* Video Stats */}
           {videoStats && (
             <div className="space-y-2">
-              <div className="text-lime-400 font-bold uppercase tracking-wider mb-2">
+              <div className="text-accent font-bold uppercase tracking-wider mb-2">
                 Video
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <div className="text-[#71717a]">Bitrate</div>
+                  <div className="text-muted-3">Bitrate</div>
                   <div className="text-white font-semibold">
                     {formatBitrate(videoStats.bitrate)}
                   </div>
                 </div>
                 <div>
-                  <div className="text-[#71717a]">Frame Rate</div>
+                  <div className="text-muted-3">Frame Rate</div>
                   <div className="text-white font-semibold">
                     {videoStats.framesPerSecond?.toFixed(0) || 0} fps
                   </div>
                 </div>
                 <div>
-                  <div className="text-[#71717a]">Resolution</div>
+                  <div className="text-muted-3">Resolution</div>
                   <div className="text-white font-semibold">
                     {videoStats.resolution?.width || 0}x
                     {videoStats.resolution?.height || 0}
                   </div>
                 </div>
                 <div>
-                  <div className="text-[#71717a]">Packet Loss</div>
+                  <div className="text-muted-3">Packet Loss</div>
                   <div
                     className={`font-semibold ${
                       (videoStats.packetsLost || 0) > 5
@@ -143,7 +143,7 @@ export function StatsPanel() {
                   </div>
                 </div>
                 <div>
-                  <div className="text-[#71717a]">Jitter</div>
+                  <div className="text-muted-3">Jitter</div>
                   <div
                     className={`font-semibold ${
                       (videoStats.jitter || 0) > 50
@@ -155,7 +155,7 @@ export function StatsPanel() {
                   </div>
                 </div>
                 <div>
-                  <div className="text-[#71717a]">RTT</div>
+                  <div className="text-muted-3">RTT</div>
                   <div
                     className={`font-semibold ${
                       (videoStats.roundTripTime || 0) > 200
@@ -174,19 +174,19 @@ export function StatsPanel() {
 
           {/* Audio Stats */}
           {audioStats && (
-            <div className="space-y-2 pt-4 border-t border-[#27272a]">
+            <div className="space-y-2 pt-4 border-t border-border-default">
               <div className="text-purple-400 font-bold uppercase tracking-wider mb-2">
                 Audio
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <div className="text-[#71717a]">Bitrate</div>
+                  <div className="text-muted-3">Bitrate</div>
                   <div className="text-white font-semibold">
                     {formatBitrate(audioStats.bitrate)}
                   </div>
                 </div>
                 <div>
-                  <div className="text-[#71717a]">Packet Loss</div>
+                  <div className="text-muted-3">Packet Loss</div>
                   <div
                     className={`font-semibold ${
                       (audioStats.packetsLost || 0) > 5
@@ -198,7 +198,7 @@ export function StatsPanel() {
                   </div>
                 </div>
                 <div>
-                  <div className="text-[#71717a]">Jitter</div>
+                  <div className="text-muted-3">Jitter</div>
                   <div
                     className={`font-semibold ${
                       (audioStats.jitter || 0) > 50
@@ -210,7 +210,7 @@ export function StatsPanel() {
                   </div>
                 </div>
                 <div>
-                  <div className="text-[#71717a]">RTT</div>
+                  <div className="text-muted-3">RTT</div>
                   <div
                     className={`font-semibold ${
                       (audioStats.roundTripTime || 0) > 200
@@ -229,13 +229,13 @@ export function StatsPanel() {
 
           {/* Connection Stats */}
           {localPeerStats && (
-            <div className="space-y-2 pt-4 border-t border-[#27272a]">
+            <div className="space-y-2 pt-4 border-t border-border-default">
               <div className="text-blue-400 font-bold uppercase tracking-wider mb-2">
                 Connection
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <div className="text-[#71717a]">Total Bitrate</div>
+                  <div className="text-muted-3">Total Bitrate</div>
                   <div className="text-white font-semibold">
                     {formatBitrate(
                       (videoStats?.bitrate || 0) + (audioStats?.bitrate || 0)
@@ -243,7 +243,7 @@ export function StatsPanel() {
                   </div>
                 </div>
                 <div>
-                  <div className="text-[#71717a]">Available Bandwidth</div>
+                  <div className="text-muted-3">Available Bandwidth</div>
                   <div className="text-white font-semibold">
                     {formatBitrate(localPeerStats.availableBandwidth)}
                   </div>
@@ -254,7 +254,7 @@ export function StatsPanel() {
 
           {/* No Stats Message */}
           {!videoStats && !audioStats && (
-            <div className="text-center text-[#71717a] py-4">
+            <div className="text-center text-muted-3 py-4">
               No active tracks to display stats
             </div>
           )}

@@ -94,12 +94,12 @@ export function AISettingsModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="ai-settings-title">
-      <div className="relative w-full max-w-md mx-4 bg-[#1a1a1a] border border-[#27272a] rounded-2xl shadow-2xl overflow-hidden">
+      <div className="relative w-full max-w-md mx-4 bg-surface-1 border border-border-default rounded-2xl shadow-2xl overflow-hidden">
         {/* Header */}
-        <div className="relative bg-gradient-to-r from-purple-500/10 to-blue-500/10 border-b border-[#27272a] p-6">
+        <div className="relative bg-gradient-to-r from-purple-500/10 to-blue-500/10 border-b border-border-default p-6">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 p-2 hover:bg-[#2a2a2a] rounded-lg transition-colors"
+            className="absolute top-4 right-4 p-2 hover:bg-surface-2 rounded-lg transition-colors"
             aria-label="Close AI settings modal"
           >
             <X className="w-5 h-5" />
@@ -110,7 +110,7 @@ export function AISettingsModal({
             </div>
             <div>
               <h2 id="ai-settings-title" className="font-mono text-2xl font-bold">AI Module Settings</h2>
-              <p className="text-sm text-[#a1a1aa]">Control who can chat with Claude</p>
+              <p className="text-sm text-muted-2">Control who can chat with Claude</p>
             </div>
           </div>
         </div>
@@ -118,7 +118,7 @@ export function AISettingsModal({
         {/* Content */}
         <div className="p-6 space-y-4">
           <div>
-            <h3 className="text-sm font-medium text-[#a1a1aa] mb-3">
+            <h3 className="text-sm font-medium text-muted-2 mb-3">
               Who can chat with AI?
             </h3>
 
@@ -130,17 +130,17 @@ export function AISettingsModal({
                   className={`w-full p-4 rounded-xl border-2 transition-all text-left ${
                     accessMode === value
                       ? "border-purple-500 bg-purple-500/10"
-                      : "border-[#27272a] bg-[#2a2a2a] hover:border-[#333333]"
+                      : "border-border-default bg-surface-2 hover:border-border-default"
                   }`}
                 >
                   <div className="flex items-start gap-3">
                     <div className={`p-2 rounded-lg ${
                       accessMode === value
                         ? "bg-purple-500"
-                        : "bg-[#1a1a1a]"
+                        : "bg-surface-1"
                     }`}>
                       <Icon className={`w-5 h-5 ${
-                        accessMode === value ? "text-white" : "text-[#71717a]"
+                        accessMode === value ? "text-white" : "text-muted-3"
                       }`} />
                     </div>
                     <div className="flex-1">
@@ -149,12 +149,12 @@ export function AISettingsModal({
                           {getAccessModeLabel(value)}
                         </span>
                         {recommended && (
-                          <span className="px-2 py-0.5 bg-lime-400/20 text-lime-400 text-xs font-bold rounded">
+                          <span className="px-2 py-0.5 bg-accent/20 text-accent text-xs font-bold rounded">
                             RECOMMENDED
                           </span>
                         )}
                       </div>
-                      <p className="text-sm text-[#71717a]">
+                      <p className="text-sm text-muted-3">
                         {getAccessModeDescription(value)}
                       </p>
                     </div>
@@ -178,7 +178,7 @@ export function AISettingsModal({
                 <h4 className="text-sm font-medium text-white mb-2">
                   Select who can chat with AI
                 </h4>
-                <p className="text-xs text-[#71717a] mb-3">
+                <p className="text-xs text-muted-3 mb-3">
                   Choose specific users to grant AI chat access. The host always has access.
                 </p>
               </div>
@@ -203,7 +203,7 @@ export function AISettingsModal({
             <button
               onClick={onClose}
               disabled={saving}
-              className="flex-1 px-6 py-3 bg-[#2a2a2a] hover:bg-[#333333] text-white font-bold rounded-lg transition-colors disabled:opacity-50"
+              className="flex-1 px-6 py-3 bg-surface-2 hover:bg-surface-3 text-white font-bold rounded-lg transition-colors disabled:opacity-50"
             >
               Cancel
             </button>

@@ -53,13 +53,13 @@ export function RecordingFiltersComponent({
       {/* Search and Filter Toggle */}
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#a1a1aa]" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-2" />
           <Input
             type="text"
             placeholder="Search recordings by session title..."
             value={filters.search}
             onChange={(e) => handleFilterChange("search", e.target.value)}
-            className="pl-10 h-12 bg-[#1a1a1a] border-[#27272a] text-white placeholder:text-[#71717a] focus:border-lime-400 focus:ring-lime-400"
+            className="pl-10 h-12 bg-surface-1 border-border-default text-white placeholder:text-muted-3 focus:border-accent focus:ring-accent"
             aria-label="Search recordings"
           />
         </div>
@@ -74,7 +74,7 @@ export function RecordingFiltersComponent({
           <Filter className="w-5 h-5 mr-2" />
           Filters
           {hasActiveFilters && (
-            <span className="ml-2 flex items-center justify-center w-5 h-5 bg-lime-500 text-black rounded-full text-xs font-bold">
+            <span className="ml-2 flex items-center justify-center w-5 h-5 bg-accent text-black rounded-full text-xs font-bold">
               !
             </span>
           )}
@@ -83,7 +83,7 @@ export function RecordingFiltersComponent({
 
       {/* Expanded Filters */}
       {showFilters && (
-        <div className="p-6 bg-[#1a1a1a] border border-[#27272a] rounded-xl space-y-6 animate-fade-in">
+        <div className="p-6 bg-surface-1 border border-border-default rounded-xl space-y-6 animate-fade-in">
           {/* Status Filter */}
           <div>
             <label className="block text-sm font-semibold mb-3 text-white">
@@ -102,8 +102,8 @@ export function RecordingFiltersComponent({
                   onClick={() => handleFilterChange("status", value)}
                   className={`flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-medium transition-all ${
                     filters.status === value
-                      ? "bg-lime-400 text-black"
-                      : "bg-[#27272a] text-[#a1a1aa] hover:bg-[#3a3a3a] hover:text-white"
+                      ? "bg-accent text-black"
+                      : "bg-surface-2 text-muted-2 hover:bg-surface-3 hover:text-muted-1"
                   }`}
                   aria-label={`Filter by ${label} status`}
                   aria-pressed={filters.status === value}
@@ -133,8 +133,8 @@ export function RecordingFiltersComponent({
                   onClick={() => handleFilterChange("dateRange", value)}
                   className={`px-4 py-3 rounded-lg font-medium transition-all text-sm ${
                     filters.dateRange === value
-                      ? "bg-lime-400 text-black"
-                      : "bg-[#27272a] text-[#a1a1aa] hover:bg-[#3a3a3a] hover:text-white"
+                      ? "bg-accent text-black"
+                      : "bg-surface-2 text-muted-2 hover:bg-surface-3 hover:text-muted-1"
                   }`}
                   aria-label={`Filter by ${label}`}
                   aria-pressed={filters.dateRange === value}
@@ -162,8 +162,8 @@ export function RecordingFiltersComponent({
                   onClick={() => handleFilterChange("sortBy", value)}
                   className={`px-4 py-3 rounded-lg font-medium transition-all text-sm ${
                     filters.sortBy === value
-                      ? "bg-lime-400 text-black"
-                      : "bg-[#27272a] text-[#a1a1aa] hover:bg-[#3a3a3a] hover:text-white"
+                      ? "bg-accent text-black"
+                      : "bg-surface-2 text-muted-2 hover:bg-surface-3 hover:text-muted-1"
                   }`}
                   aria-label={`Sort by ${label}`}
                   aria-pressed={filters.sortBy === value}
@@ -176,11 +176,11 @@ export function RecordingFiltersComponent({
 
           {/* Clear Filters */}
           {hasActiveFilters && (
-            <div className="flex justify-end pt-4 border-t border-[#27272a]">
+            <div className="flex justify-end pt-4 border-t border-border-default">
               <Button
                 onClick={clearFilters}
                 variant="ghost"
-                className="text-lime-400 hover:text-lime-300"
+                className="text-accent hover:text-accent/80"
                 aria-label="Clear all filters"
               >
                 <X className="w-4 h-4 mr-2" />
@@ -192,7 +192,7 @@ export function RecordingFiltersComponent({
       )}
 
       {/* Results Count */}
-      <div className="text-sm text-[#a1a1aa]">
+      <div className="text-sm text-muted-2">
         Showing {recordingCount} {recordingCount === 1 ? "recording" : "recordings"}
         {hasActiveFilters && " (filtered)"}
       </div>

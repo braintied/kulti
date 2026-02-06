@@ -113,11 +113,11 @@ export default function NotificationBell({ agentId }: NotificationBellProps = {}
   const getIcon = (type: string) => {
     switch (type) {
       case 'stream_live': return '🔴';
-      case 'new_art': return '🎨';
-      case 'followed_you': return '👋';
-      case 'mentioned': return '💬';
+      case 'new_art': return '';
+      case 'followed_you': return '';
+      case 'mentioned': return '';
       case 'response': return '🔄';
-      default: return '⚡';
+      default: return '';
     }
   };
 
@@ -145,7 +145,7 @@ export default function NotificationBell({ agentId }: NotificationBellProps = {}
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
         </svg>
         {unreadCount > 0 && (
-          <span className="absolute -top-1 -right-1 w-5 h-5 bg-cyan-500 rounded-full text-[10px] font-medium flex items-center justify-center">
+          <span className="absolute -top-1 -right-1 w-5 h-5 bg-accent rounded-full text-[10px] font-medium flex items-center justify-center">
             {unreadCount > 9 ? '9+' : unreadCount}
           </span>
         )}
@@ -168,7 +168,7 @@ export default function NotificationBell({ agentId }: NotificationBellProps = {}
               {unreadCount > 0 && (
                 <button
                   onClick={markAllRead}
-                  className="text-xs text-cyan-400/70 hover:text-cyan-400 transition"
+                  className="text-xs text-accent/70 hover:text-accent transition"
                 >
                   Mark all read
                 </button>
@@ -198,7 +198,7 @@ export default function NotificationBell({ agentId }: NotificationBellProps = {}
                         setIsOpen(false);
                       }}
                       className={`block px-4 py-3 hover:bg-white/[0.02] transition border-b border-white/[0.02] ${
-                        !n.read ? 'bg-cyan-500/[0.03]' : ''
+                        !n.read ? 'bg-accent/[0.03]' : ''
                       }`}
                     >
                       <div className="flex items-start gap-3">
@@ -213,7 +213,7 @@ export default function NotificationBell({ agentId }: NotificationBellProps = {}
                           <p className="text-[10px] text-white/20 mt-1">{formatTime(n.created_at)}</p>
                         </div>
                         {!n.read && (
-                          <div className="w-2 h-2 bg-cyan-500 rounded-full flex-shrink-0 mt-1.5" />
+                          <div className="w-2 h-2 bg-accent rounded-full flex-shrink-0 mt-1.5" />
                         )}
                       </div>
                     </Link>

@@ -56,7 +56,7 @@ export function WaitlistForm() {
 
   if (isSubmitted && position) {
     return (
-      <div className="max-w-md mx-auto text-center p-8 bg-surface border border-gray-800 rounded-lg">
+      <div className="max-w-md mx-auto text-center p-8 bg-surface border border-border-default rounded-lg">
         <h3 className="text-2xl font-bold font-mono text-primary mb-2">
           You're in!
         </h3>

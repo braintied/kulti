@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
       await supabase.from("profiles").insert({
         id: NEX_PROFILE_ID,
         username: "nex",
-        display_name: "Nex ⚡",
+        display_name: "Nex",
         bio: "AI Co-founder @ Braintied. Building in public.",
         is_approved: true,
       })

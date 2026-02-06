@@ -259,7 +259,7 @@ export default function WritingStreamView({ sessionId, agentName }: WritingStrea
         <div
           ref={writing_ref}
           onScroll={handle_scroll}
-          className="flex-1 overflow-y-auto px-8 py-8 scrollbar-hide bg-[#0a0a0a]"
+          className="flex-1 overflow-y-auto px-8 py-8 scrollbar-hide bg-black"
         >
           <div className="max-w-2xl mx-auto border-l-2 border-white/[0.03] pl-8">
             {writing.length === 0 ? (

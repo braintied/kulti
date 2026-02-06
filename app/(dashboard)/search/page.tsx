@@ -118,18 +118,18 @@ function SearchResultsContent() {
           <Link
             href={result.link}
             key={`${result.type}-${result.id}`}
-            className="block bg-[#1a1a1a] border border-[#27272a] rounded-lg p-4 hover:border-lime-400 transition-colors"
+            className="block bg-surface-1 border border-border-default rounded-lg p-4 hover:border-accent transition-colors"
           >
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-lime-400 flex items-center justify-center text-black font-bold text-lg flex-shrink-0">
+              <div className="w-12 h-12 rounded-full bg-accent flex items-center justify-center text-black font-bold text-lg flex-shrink-0">
                 {result.title[0].toUpperCase()}
               </div>
               <div className="flex-1 min-w-0">
                 <h3 className="font-medium truncate">{result.title}</h3>
-                <p className="text-sm text-[#a1a1aa] truncate">{result.subtitle}</p>
+                <p className="text-sm text-muted-2 truncate">{result.subtitle}</p>
               </div>
               {result.meta && (
-                <span className="px-3 py-1 rounded-lg bg-lime-400/20 text-lime-400 text-xs font-medium">
+                <span className="px-3 py-1 rounded-lg bg-accent/20 text-accent text-xs font-medium">
                   {result.meta}
                 </span>
               )}
@@ -142,11 +142,11 @@ function SearchResultsContent() {
           <Link
             href={result.link}
             key={`${result.type}-${result.id}`}
-            className="block bg-[#1a1a1a] border border-[#27272a] rounded-lg p-4 hover:border-lime-400 transition-colors"
+            className="block bg-surface-1 border border-border-default rounded-lg p-4 hover:border-accent transition-colors"
           >
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-lg bg-[#27272a] flex items-center justify-center flex-shrink-0">
-                <Video className="w-6 h-6 text-lime-400" />
+              <div className="w-12 h-12 rounded-lg bg-surface-2 flex items-center justify-center flex-shrink-0">
+                <Video className="w-6 h-6 text-accent" />
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-start justify-between gap-2">
@@ -155,13 +155,13 @@ function SearchResultsContent() {
                     <span className={`px-3 py-1 rounded-lg text-xs font-medium flex-shrink-0 ${
                       result.meta === 'Live'
                         ? 'bg-red-500/20 text-red-400 animate-pulse'
-                        : 'bg-[#27272a] text-[#a1a1aa]'
+                        : 'bg-surface-2 text-muted-2'
                     }`}>
                       {result.meta}
                     </span>
                   )}
                 </div>
-                <p className="text-sm text-[#a1a1aa] mt-1">{result.subtitle}</p>
+                <p className="text-sm text-muted-2 mt-1">{result.subtitle}</p>
               </div>
             </div>
           </Link>
@@ -172,24 +172,24 @@ function SearchResultsContent() {
           <Link
             href={result.link}
             key={`${result.type}-${result.id}`}
-            className="block bg-[#1a1a1a] border border-[#27272a] rounded-lg p-4 hover:border-lime-400 transition-colors"
+            className="block bg-surface-1 border border-border-default rounded-lg p-4 hover:border-accent transition-colors"
           >
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-lg bg-[#27272a] flex items-center justify-center flex-shrink-0">
+              <div className="w-12 h-12 rounded-lg bg-surface-2 flex items-center justify-center flex-shrink-0">
                 <MessageSquare className="w-6 h-6 text-purple-400" />
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-start justify-between gap-2">
                   <h3 className="font-medium">{result.title}</h3>
                   {result.meta && (
-                    <span className="px-3 py-1 rounded-lg bg-[#27272a] text-[#a1a1aa] text-xs font-medium flex-shrink-0 capitalize">
+                    <span className="px-3 py-1 rounded-lg bg-surface-2 text-muted-2 text-xs font-medium flex-shrink-0 capitalize">
                       {result.meta}
                     </span>
                   )}
                 </div>
                 <div className="flex items-center gap-2 mt-2">
                   <ArrowUpCircle className="w-4 h-4 text-purple-400" />
-                  <p className="text-sm text-[#a1a1aa]">{result.subtitle}</p>
+                  <p className="text-sm text-muted-2">{result.subtitle}</p>
                 </div>
               </div>
             </div>
@@ -201,11 +201,11 @@ function SearchResultsContent() {
           <Link
             href={result.link}
             key={`${result.type}-${result.id}`}
-            className="block bg-[#1a1a1a] border border-[#27272a] rounded-lg p-4 hover:border-lime-400 transition-colors"
+            className="block bg-surface-1 border border-border-default rounded-lg p-4 hover:border-accent transition-colors"
           >
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-lg bg-[#27272a] flex items-center justify-center text-2xl flex-shrink-0">
-                {result.icon || '💬'}
+              <div className="w-12 h-12 rounded-lg bg-surface-2 flex items-center justify-center text-2xl flex-shrink-0">
+                {result.icon || ''}
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-start justify-between gap-2">
@@ -218,7 +218,7 @@ function SearchResultsContent() {
                 </div>
                 <div className="flex items-center gap-2 mt-2">
                   <Users className="w-4 h-4 text-orange-400" />
-                  <p className="text-sm text-[#a1a1aa]">{result.subtitle}</p>
+                  <p className="text-sm text-muted-2">{result.subtitle}</p>
                 </div>
               </div>
             </div>
@@ -232,12 +232,12 @@ function SearchResultsContent() {
 
   if (!query || query.length < 2) {
     return (
-      <div className="min-h-screen bg-[#0a0a0a] text-white pt-24">
+      <div className="min-h-screen bg-black text-white pt-24">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center justify-center py-20 text-center">
-            <Search className="w-16 h-16 text-[#a1a1aa] mb-4" />
+            <Search className="w-16 h-16 text-muted-2 mb-4" />
             <h2 className="text-2xl font-bold mb-2">Start searching</h2>
-            <p className="text-[#a1a1aa]">Enter at least 2 characters to search</p>
+            <p className="text-muted-2">Enter at least 2 characters to search</p>
           </div>
         </div>
       </div>
@@ -245,7 +245,7 @@ function SearchResultsContent() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white pt-24">
+    <div className="min-h-screen bg-black text-white pt-24">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
@@ -253,7 +253,7 @@ function SearchResultsContent() {
             Search Results for "{query}"
           </h1>
           {!loading && results && (
-            <p className="text-[#a1a1aa]">
+            <p className="text-muted-2">
               {results.totalCount} {results.totalCount === 1 ? 'result' : 'results'} found
             </p>
           )}
@@ -267,8 +267,8 @@ function SearchResultsContent() {
               onClick={() => setActiveFilter(filter.value)}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-sm whitespace-nowrap transition-colors ${
                 activeFilter === filter.value
-                  ? 'bg-lime-400 text-black'
-                  : 'bg-[#1a1a1a] border border-[#27272a] text-[#a1a1aa] hover:border-lime-400'
+                  ? 'bg-accent text-black'
+                  : 'bg-surface-1 border border-border-default text-muted-2 hover:border-accent'
               }`}
             >
               {filter.icon}
@@ -277,7 +277,7 @@ function SearchResultsContent() {
                 <span className={`px-2 py-0.5 rounded text-xs ${
                   activeFilter === filter.value
                     ? 'bg-black/20'
-                    : 'bg-[#27272a]'
+                    : 'bg-surface-2'
                 }`}>
                   {getFilterCount(filter.value)}
                 </span>
@@ -289,7 +289,7 @@ function SearchResultsContent() {
         {/* Loading State */}
         {loading && (
           <div className="flex items-center justify-center py-20">
-            <div className="w-8 h-8 border-4 border-lime-400 border-t-transparent rounded-full animate-spin" />
+            <div className="w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin" />
           </div>
         )}
 
@@ -300,9 +300,9 @@ function SearchResultsContent() {
               getFilteredResults().map(result => renderResultCard(result))
             ) : (
               <div className="flex flex-col items-center justify-center py-20 text-center">
-                <Search className="w-16 h-16 text-[#a1a1aa] mb-4" />
+                <Search className="w-16 h-16 text-muted-2 mb-4" />
                 <h2 className="text-2xl font-bold mb-2">No results found</h2>
-                <p className="text-[#a1a1aa]">
+                <p className="text-muted-2">
                   Try adjusting your search or filters
                 </p>
               </div>
@@ -317,9 +317,9 @@ function SearchResultsContent() {
 export default function SearchPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-[#0a0a0a] text-white pt-24">
+      <div className="min-h-screen bg-black text-white pt-24">
         <div className="flex items-center justify-center py-20">
-          <div className="w-8 h-8 border-4 border-lime-400 border-t-transparent rounded-full animate-spin" />
+          <div className="w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin" />
         </div>
       </div>
     }>
